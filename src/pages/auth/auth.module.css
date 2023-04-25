@@ -1,0 +1,147 @@
+.auth_layout_page {
+  background-color: #212121;
+  height: 100vh;
+  position: relative;
+  font-family: "Proxima Nova";
+}
+
+.auth_layout {
+  width: 460px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 32px;
+}
+.auth_layout p {
+  font-size: 16px;
+  font-family: "Proxima Nova";
+  color: #fff;
+}
+.auth_layout h2 {
+  font-size: 31px;
+  font-family: "Proxima Nova";
+  color: #fff;
+  font-weight: 700;
+}
+.auth_layout h1 {
+  margin-top: 0;
+  font-size: 40px;
+  font-family: "Proxima Nova";
+  color: #fff;
+
+  padding-top: 8px;
+}
+.spanText {
+  margin-top: 20px;
+  color: #fff;
+  font-family: "Proxima Nova";
+  font-size: 16px;
+
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.socialIcon {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}
+.socialIcon h3 {
+  font-family: "Inter";
+  font-size: 20px;
+  margin: 0 18px;
+  font-weight: 700;
+  font-family: "Proxima Nova";
+}
+.socialIcon span {
+  position: relative;
+  right: 4px;
+  bottom: 2px;
+  font-family: "Proxima Nova";
+}
+.checkIocn {
+  position: relative;
+}
+.checkIocn svg {
+  position: absolute;
+  right: 18px;
+  top: 18%;
+}
+
+.auth_layout h1 {
+  margin-top: 0;
+  font-size: 40px;
+  font-family: "Proxima Nova";
+  font-weight: 600;
+  color: #fff;
+  padding-top: 8px;
+}
+
+.auth_layout input {
+  width: 450px;
+  height: 56px;
+  border: 1px solid #a9adb9;
+  border-radius: 4px;
+  color: #000;
+  font-family: "Proxima Nova";
+  font-weight: bold;
+}
+.auth_layout input::placeholder {
+  color: #000 !important;
+  opacity: 1;
+  /* Firefox */
+}
+
+.spanText {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 16px;
+  font-family: "Proxima Nova";
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.signupBtn button {
+  width: 450px;
+  height: 56px;
+  background-color: #cb2c2c;
+  border-radius: 4px;
+  border: 0;
+  font-family: "Proxima Nova";
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+}
+.signupBtn {
+  margin-top: 18px;
+  font-family: "Proxima Nova";
+  margin-bottom: 22px;
+}
+
+.magicalBox {
+  display: flex;
+  align-items: center;
+  background: #000000;
+  border-radius: 13px;
+  color: #fff;
+  font-family: "Proxima Nova";
+  text-align: left;
+  padding: 0px;
+  height: 90px;
+}
+.magicalBox p {
+  font-size: 15px;
+  margin-left: 39px;
+  margin-top: 0;
+  font-family: "Proxima Nova";
+  font-weight: 400;
+  margin-bottom: 0;
+  font-family: "Inter", sans-serif;
+  margin-right: 10px;
+}
+.magicalBox span a {
+  color: #ff3030;
+  font-weight: 700;
+}
+.magicalBox span svg {
+  position: relative;
+  left: 15px;
+  top: 3px;
+}
