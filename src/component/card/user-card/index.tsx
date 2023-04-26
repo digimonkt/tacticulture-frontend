@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./userCard.module.css";
 import { FilledButton } from "@/component/buttons";
 import { SVG } from "@/assets/svg";

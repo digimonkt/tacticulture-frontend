@@ -5,7 +5,7 @@ import React from "react";
 import styles from "./profile.module.css";
 import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";
-import { InstructorSteps } from "./components";
+import { ApprenticeSteps, InstructorSteps } from "./components";
 
 interface IRouter {
   role: USER_ROLES;
@@ -28,6 +28,16 @@ function Role() {
           return <InstructorSteps.Step4 />;
         case "5":
           return <InstructorSteps.Step5 />;
+        default:
+          router.push({
+            pathname: router.pathname,
+            query: { ...router.query, step: 1 },
+          });
+      }
+    } else if (role === USER_ROLES.apprentice) {
+      switch (step) {
+        case "1":
+          return <ApprenticeSteps.ApprenticeStep1 />;
         default:
           router.push({
             pathname: router.pathname,
@@ -57,7 +67,7 @@ function Role() {
         </div>
         <div className="profileSection pt-4 pb-4">
           <div>{getComponents()}</div>
-          {Number(step) == 5 ? (
+          {Number(step) === 5 ? (
             ""
           ) : (
             <div className="d-flex justify-content-between align-items-center mt-4 ms-4 me-4 position-relative">
