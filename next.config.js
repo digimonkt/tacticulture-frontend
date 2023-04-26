@@ -15,6 +15,30 @@ const nextConfig = {
         source: "/login",
         destination: "/auth/login",
       },
+      {
+        source: "/login/manual",
+        destination: "/auth/login/manual",
+      },
+      {
+        source: "/reset-password",
+        destination: "/auth/reset-password",
+      },
+      {
+        source: "/reset-password/verify-email",
+        destination: "/auth/reset-password/verify-email",
+      },
+      {
+        source: "/confirm-email",
+        destination: "/auth/confirm-email",
+      },
+      {
+        source: "/create-account",
+        destination: "/auth/create-account",
+      },
+      {
+        source: "/verify-email",
+        destination: "/auth/verify-email",
+      },
     ];
   },
 };

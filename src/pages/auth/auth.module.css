@@ -1,10 +1,14 @@
 .auth_layout_page {
   background-color: #212121;
-  height: 100vh;
+  height: 100%;
   position: relative;
   font-family: "Proxima Nova";
+  min-height: 100vh;
 }
-
+.auth_layout a {
+  text-decoration: none;
+  color: #fff;
+}
 .auth_layout {
   width: 460px;
   margin: 0 auto;
@@ -44,6 +48,9 @@
   justify-content: center;
   color: #fff;
 }
+.socialIcon svg {
+  width: 24px;
+}
 .socialIcon h3 {
   font-family: "Inter";
   font-size: 20px;
@@ -63,7 +70,8 @@
 .checkIocn svg {
   position: absolute;
   right: 18px;
-  top: 18%;
+  top: 22%;
+  width: 30px;
 }
 
 .auth_layout h1 {
@@ -139,9 +147,11 @@
 .magicalBox span a {
   color: #ff3030;
   font-weight: 700;
+  text-decoration: none;
 }
 .magicalBox span svg {
   position: relative;
-  left: 15px;
+  left: 19px;
   top: 3px;
+  width: 40px;
 }

@@ -3,11 +3,12 @@
   margin: 0;
   padding: 0;
 }
-/* .tabs .ant-tabs.ant-tabs-top.css-dev-only-do-not-override-1km3mtt {
-  max-width: 810px !important;
-  margin: 0 auto !important;
-  padding-top: 64px !important;
-} */
+#react-select-3-listbox {
+  position: absolute !important;
+  background-color: #000 !important;
+  height: 100px !important;
+  overflow: hidden !important;
+}
 
 @font-face {
   font-family: "proxima-nova";
@@ -64,7 +65,9 @@
   font-weight: 800;
   font-stretch: normal;
 }
-
+.DropdownSelects .ant-select {
+  width: 105px !important;
+}
 @font-face {
   font-family: "proxima-nova";
   src: url("https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3")
@@ -106,7 +109,11 @@
   font-weight: 400;
   font-stretch: normal;
 }
-
+:where(.css-dev-only-do-not-override-zjzpde).ant-checkbox-checked
+  .ant-checkbox-inner {
+  background-color: #cb2c2c !important;
+  border-color: #cb2c2c !important;
+}
 @font-face {
   font-family: "proxima-nova";
   src: url("https://use.typekit.net/af/5c70f2/00000000000000003b9b3063/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3")
@@ -204,6 +211,9 @@ h6 {
   position: relative;
   right: 8px;
   bottom: 1px;
+}
+.btn.btn-grey span {
+  margin-right: 0 !important;
 }
 .textAreaQuill h4 {
   display: none !important;
@@ -305,8 +315,10 @@ nav.navbar.navbar-expand-lg.navbar-light br {
 .btn.selected {
   width: 127px;
   height: 37px;
+  margin: 0 auto;
+  align-items: end;
   font-family: "Proxima Nova";
-  background: #cb2c2c;
+  background: #cb2c2c !important;
   border-radius: 3px;
   color: #fff;
   font-weight: 700;
@@ -408,6 +420,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   font-size: 20px !important;
   padding-top: 1px;
   font-weight: 700;
+  margin-top: 30px;
 }
 .btn.btn-outline-grey {
   border: 1px solid #fff !important;
