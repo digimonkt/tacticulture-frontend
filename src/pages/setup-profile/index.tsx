@@ -2,11 +2,11 @@ import ProfileHeaderComponent from "@/component/header/profile-header";
 import React, { useState } from "react";
 import styles from "./profile.module.css";
 import { SVG } from "@/assets/svg";
-import Link from "next/link";
+// import Link from "next/link";
 import { FilledButton } from "@/component/buttons";
 import UserCardComponent from "@/component/card/user-card";
 import { useRouter } from "next/router";
-import { SETUP_PROFILE_PAGE } from "../setup-profile/enum";
+// import { SETUP_PROFILE_PAGE } from "../setup-profile/enum";
 import { USER_ROLES } from "@/utils/enum";
 
 function ProfileSetup() {
