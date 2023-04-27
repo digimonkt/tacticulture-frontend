@@ -1,0 +1,53 @@
+.profileBox {
+  width: 364px;
+  height: 154px;
+  border-radius: 3px;
+  border: 1px solid #dddddd;
+  padding: 20px;
+  position: relative;
+}
+.profileBox input {
+  position: absolute;
+  top: 55%;
+  opacity: 0;
+  font-family: "Proxima Nova";
+  height: 38px;
+}
+.profile_img {
+  text-align: right;
+}
+.profile_img {
+  width: 78px;
+  height: 78px;
+  margin-left: auto;
+  position: relative;
+  bottom: 8px;
+  background-size: cover;
+  border-radius: 100%;
+}
+.profileBox h6 {
+  position: relative;
+  font-family: "Proxima Nova" !important;
+  top: 21px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.profileBox h6 svg {
+  position: relative;
+  bottom: 2px;
+  margin-right: 2px;
+}
+.profileBox button {
+  width: 167px;
+  letter-spacing: 1px;
+  height: 38px;
+  box-shadow: 0px 1px 4px 0px #00000033;
+  font-family: "Proxima Nova";
+  background: transparent;
+  color: #fff;
+  font-size: 17px !important;
+  font-weight: 700;
+
+  position: absolute;
+  bottom: 20%;
+}

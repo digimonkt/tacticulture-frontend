@@ -29,7 +29,7 @@ function LoginComponent() {
           <p>
             We’ll email you a magic code for a password-free sign in. Or you can{" "}
             <span>
-              <Link href="/manual-login">sign in manually instead.</Link>
+              <Link href="/login/manual">sign in manually instead.</Link>
             </span>
           </p>
         </div>
