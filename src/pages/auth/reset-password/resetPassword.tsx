@@ -20,7 +20,7 @@ function ResetPasswordComponent() {
       <>
         <div>
           <p>Enter your new password for your account.</p>
-          <LabeledInput placeholder="Enter Your Email Address" />
+          <LabeledInput placeholder="Enter your email.." />
           <div className={`${styles.signupBtn}`}>
             <FilledButton onClick={handleNextStep}>
               Change my password
