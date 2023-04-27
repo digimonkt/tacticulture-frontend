@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Layout from "../layout";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
-import Link from "next/link";
+
 import styles from "../auth.module.css";
 import { FilledButton } from "@/component/buttons";
 
@@ -29,9 +29,7 @@ function VerifyEmailComponent() {
           </div>
 
           <div className={`${styles.signupBtn}`}>
-            <Link href="/user-step">
-              <FilledButton>Continue</FilledButton>
-            </Link>
+            <FilledButton>Continue</FilledButton>
           </div>
           <div className={`${styles.socialIcon}`}>
             <h3>

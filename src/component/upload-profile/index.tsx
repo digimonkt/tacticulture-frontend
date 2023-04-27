@@ -12,7 +12,7 @@ function UploadProfileComponent() {
   const [addImages, setAddImages] = useState<File>();
   const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      var reader = new FileReader();
+      const reader = new FileReader();
       setAddImages(e.target.files[0]);
 
       reader.onloadend = function () {
@@ -21,6 +21,7 @@ function UploadProfileComponent() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+  console.log(addImages);
   return (
     <>
       <div className="ps-4 pe-4 photosection">
