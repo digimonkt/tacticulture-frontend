@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "@svgr/webpack": "^7.0.0",
     "@types/node": "18.16.0",
     "@types/react": "18.0.38",
@@ -22,6 +23,7 @@
     "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",
     "react-quill": "^2.0.0",
+    "react-redux": "^8.0.5",
     "react-select": "^5.7.2",
     "react-timezone-select": "^2.1.0",
     "typescript": "5.0.4"
