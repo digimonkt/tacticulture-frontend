@@ -1,0 +1,12 @@
+.badgeCard {
+  padding: 14px 1px;
+  background: #fff;
+  text-align: start;
+  border-radius: 4px;
+  margin: 8px;
+}
+.badgeCard img {
+  width: 60px;
+  padding: 2px;
+  object-fit: contain;
+}

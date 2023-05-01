@@ -9,6 +9,9 @@
   height: 100px !important;
   overflow: hidden !important;
 }
+.ant-input-affix-wrapper.ant-input-textarea-affix-wrapper {
+  border: 0 !important;
+}
 
 @font-face {
   font-family: "proxima-nova";
@@ -709,6 +712,21 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
   padding: 7px 9px 5px !important;
   border-top: 1px solid #ccc;
 }
+.optionFile {
+  position: absolute;
+  right: 0;
+  top: 4px;
+}
+.manageCard {
+  margin: 16px 4px;
+}
+.manageCard .ant-card {
+  width: 100% !important;
+}
+.ant-card-body {
+  padding: 7px 9px 5px !important;
+  border-top: 1px solid #ccc;
+}
 .availablehour {
   background: #f3f3f3;
   padding: 14px;
@@ -979,6 +997,7 @@ span.ant-input-data-count {
   font-weight: bold;
   color: #fff !important;
   right: 15px !important;
+  bottom: 4px !important;
 }
 .publishImg {
   position: absolute !important;
@@ -1132,6 +1151,13 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .mainAccount .nav-link.active svg path {
   fill: #ff3030 !important;
 }
+.customcheck .ant-checkbox-checked .ant-checkbox-inner {
+  background: #ff3030 !important;
+}
+.customcheck .ant-checkbox-checked .ant-checkbox-inner:after {
+  position: relative !important;
+  left: 7px !important;
+}
 .mainAccount svg path {
   fill: #fff !important;
 }
@@ -1144,6 +1170,16 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   letter-spacing: 1px !important;
   border: 0;
 }
+button#dropdown-basic {
+  width: 61px !important;
+}
+button#dropdown-basic svg {
+  width: 20px !important;
+}
+.dropdown-menu.show {
+  width: 210px !important;
+  padding: 10px;
+}
 .nav-tabs {
   border-bottom: 0 !important;
   margin-bottom: 0 !important;
@@ -1155,7 +1191,38 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   font-size: 17px;
   font-weight: 700;
   letter-spacing: 1px;
-  border: 0;
+  border: 0 !important;
+}
+#uncontrolled-tab-example-tabpane-Notification .dropdown button svg path {
+  fill: #fff;
+}
+.CopyBtn {
+  color: #333 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  font-family: "proxima-nova";
+  letter-spacing: 1px;
+  width: auto !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  height: 43px;
+  position: relative;
+  top: 7px;
+}
+.ShareBtn {
+  margin-top: 0 !important;
+  outline: 1px solid #333 !important;
+  font-size: 13px !important;
+  color: #333 !important;
+  font-family: "proxima-nova" !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  height: 24px !important;
+  width: 69px !important;
+  border-radius: 4px;
+  padding: 11px !important;
+  position: relative;
+  top: 16px;
 }
 @keyframes App-logo-spin {
   from {

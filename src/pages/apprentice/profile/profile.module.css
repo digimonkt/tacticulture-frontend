@@ -39,3 +39,118 @@
   padding-left: 8px;
   margin-bottom: 0;
 }
+.community {
+  color: #fff;
+  border: 1px solid #dddddd;
+  padding: 14px 16px;
+  border-radius: 5px;
+  margin-top: 16px;
+}
+
+.community {
+  color: #fff;
+  border: 1px solid #dddddd;
+  padding: 14px 16px;
+  border-radius: 5px;
+  margin-top: 16px;
+}
+.comminitypage br {
+  display: none;
+}
+.community h3 {
+  font-size: 24px;
+  font-family: "Proxima Nova";
+  line-height: 36px;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+.community p {
+  font-size: 13px;
+  font-weight: 400;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  padding-top: 5px;
+}
+.mainSection {
+  border-bottom: 1px solid #474747;
+  padding-bottom: 6px;
+  margin-bottom: 20px;
+}
+.community h6 {
+  font-size: 18px;
+  font-family: "Proxima Nova";
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.detailsCommunity h6 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 1px;
+}
+.detailsCommunity p {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+}
+.eventDetails h6 {
+  color: #fff;
+  font-size: 21px;
+  font-weight: 800;
+  font-family: "Proxima Nova";
+  letter-spacing: 2px;
+}
+.eventForum {
+  position: relative;
+}
+.eventDetails p {
+  color: #fff;
+  letter-spacing: 2px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Proxima Nova";
+}
+.eventDetails {
+  position: relative;
+}
+.eventDetails textarea {
+  background-color: #292929 !important;
+  border: 1px solid #333 !important;
+  color: #fff;
+  border-radius: 5px;
+}
+.communityEvent {
+  background: #2e2e2e;
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 5px;
+  margin: 10px 7px 10px 21px;
+  position: relative;
+  top: 79px;
+}
+.communityEvent li {
+  list-style: none;
+}
+.publishSection {
+  width: 65%;
+  padding-left: 3%;
+}
+.notifiaction h3 {
+  font-size: 24px;
+  color: #fff;
+  font-family: "Proxima-nova";
+  font-weight: 700;
+}
+.notifiaction {
+  color: #fff;
+  height: 100vh;
+  margin-bottom: 20px;
+}
+.notificationCard {
+  display: flex;
+  align-items: center;
+}
+.notifiaction svg path {
+  fill: #fff !important;
+}

@@ -1,0 +1,44 @@
+.upcomingCard {
+  padding: 12px;
+  text-align: left;
+}
+.upcomingCard h5 {
+  color: #000000;
+  font-size: 21px;
+  font-family: "proxima-nova";
+  font-weight: 800;
+}
+.upcomingCard p {
+  font-size: 16px;
+  color: #000;
+  font-family: "proxima-nova";
+  font-weight: 600;
+  line-height: 18px;
+  margin-bottom: 0;
+  letter-spacing: 2px;
+  padding-right: 4px;
+}
+.upcomingCard h6 {
+  color: #5c5c5c;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0;
+  text-align: left;
+}
+.upcomingCard svg {
+  margin-right: 8px;
+  position: relative;
+  bottom: 2px;
+}
+.dropdownBox svg {
+  width: 17px;
+}
+.dropdownBox span {
+  color: #444444;
+  font-weight: 700;
+  margin-left: 5px;
+  padding-bottom: 4px;
+}
+.dropdownBox {
+  display: flex;
+}

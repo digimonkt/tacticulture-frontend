@@ -1,0 +1,236 @@
+.eventImg {
+  width: 556px;
+  height: 154px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  text-align: center;
+  margin-left: 19px;
+}
+.eventImg h6 {
+  font-size: 16px;
+  font-weight: 900;
+  font-family: "Proxima Nova" !important;
+  padding-top: 3%;
+  letter-spacing: 1px;
+}
+.eventImg {
+  position: relative;
+  margin-bottom: 18px;
+}
+.eventImg button {
+  box-shadow: 0px 1px 4px 0px #00000033;
+  width: 167px;
+  height: 37px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+  color: #fff;
+}
+.eventImg input {
+  opacity: 0;
+  position: absolute;
+  left: 88px;
+  bottom: 26px;
+}
+.preview {
+  height: 100px;
+  background-repeat: no-repeat;
+  margin-bottom: 6px;
+}
+.eventImg p {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Proxima Nova" !important;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  letter-spacing: 1px;
+}
+.achievementBadge p {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.filledbtn {
+  width: 251px;
+  height: 38px;
+  border: 0;
+  background: #cb2c2c;
+  color: #fff;
+  box-shadow: 0px 1px 4px 0px #00000033;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: "Proxima Nova";
+  border-radius: 4px;
+}
+.achievementBadge {
+  border: 1px solid #dddddd;
+  margin: 0 20px 20px;
+  border-radius: 3px;
+
+  padding-top: 28px;
+  padding-bottom: 28px;
+  margin-bottom: 22px;
+}
+.eventsummary {
+  display: flex;
+  width: 800px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  color: #fff;
+  align-items: center;
+  padding: 10px;
+}
+.eventDetails h3 {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+  padding: 13px 20px 0;
+}
+.eventDetails p {
+  padding-left: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Proxima Nova";
+}
+.nodata {
+  text-align: center;
+}
+.nodata p {
+  font-size: 16px;
+  font-weight: 800;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.nodata span {
+  color: #ff3030;
+}
+.manageSection {
+  display: flex;
+  align-items: center;
+  padding: 17px;
+}
+.manageSection h6 {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.manageSection button {
+  width: 138px;
+  background-color: transparent;
+  color: #fff;
+  border-radius: 3px;
+  border: 1px solid #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+  white-space: nowrap;
+}
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.row {
+  border-bottom: 1px solid #414141;
+}
+
+.row :nth-child(3) {
+  border: 0 !important;
+}
+.icons svg path {
+  fill: #fff !important;
+}
+.icons svg {
+  width: 24px;
+  height: 24px;
+}
+.eventDetails h6 {
+  color: #fff;
+  font-size: 21px;
+  font-weight: 800;
+  font-family: "Proxima Nova";
+  letter-spacing: 2px;
+}
+.eventForum {
+  position: relative;
+}
+.eventDetails p {
+  color: #fff;
+  letter-spacing: 2px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Proxima Nova";
+}
+.eventDetails {
+  position: relative;
+}
+.eventDetails textarea {
+  background-color: #292929 !important;
+  border: 1px solid #333 !important;
+  color: #fff;
+  border-radius: 5px;
+}
+.communityEvent {
+  background: #2e2e2e;
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 5px;
+  margin: 0px 7px 10px 21px;
+  position: relative;
+  /* top: 79px; */
+}
+.communityEvent li {
+  list-style: none;
+  text-align: -webkit-left;
+}
+.publishSection {
+  width: 65%;
+  padding-left: 3%;
+  text-align: start;
+}
+
+.mainSection {
+  border-bottom: 1px solid #474747;
+  padding-bottom: 6px;
+  margin-bottom: 20px;
+}
+.eventheader {
+  display: flex;
+  width: 800px;
+  justify-content: space-between;
+  color: #fff;
+  margin-top: 24px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.eventheader h3 {
+  font-size: 37px;
+  font-weight: 800;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.eventheader span {
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+}
+.eventheader button {
+  box-shadow: 0px 1px 4px 0px #00000033;
+  border: 1px solid #fff;
+  background-color: transparent;
+  font-size: 12px;
+  color: #fff;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  border-radius: 3px;
+  margin-left: 10px;
+}
