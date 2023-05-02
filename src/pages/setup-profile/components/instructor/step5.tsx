@@ -4,7 +4,7 @@ import styles from "../../profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";
-import SelectDropdown from "@/component/select-dropdown";
+// import SelectDropdown from "@/component/select-dropdown";
 
 function Step5() {
   return (
@@ -44,7 +44,7 @@ function Step5() {
         <Col md={4}>
           <div className={`${styles.labeled}`}>
             <label>State*</label>
-            <SelectDropdown />
+            {/* <SelectDropdown /> */}
           </div>
         </Col>
         <Col md={8}>

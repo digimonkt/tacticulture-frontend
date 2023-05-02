@@ -95,7 +95,7 @@ function EventForumComponent({ heading, text }: IEventForum) {
           >
             {heading ? <h6 className="mb-0">{heading}</h6> : ""}
             {text ? <p className="ps-0">{text}</p> : ""}
-            <TextInput />
+            <TextInput row={5} />
             <div className="position-relative">
               <div
                 className="replyevent"

@@ -8,10 +8,16 @@ const onChange = (
 ) => {
   console.log("Change:", e.target.value);
 };
-function TextAreaComponents() {
+interface ITextAreaComponents {
+  row: number;
+  text?: string;
+}
+
+function TextAreaComponents({ row, text }: ITextAreaComponents) {
   return (
     <div>
-      <TextArea showCount maxLength={100} onChange={onChange} rows={5} />
+      {text && <label>{text}</label>}
+      <TextArea showCount maxLength={100} onChange={onChange} rows={row} />
     </div>
   );
 }

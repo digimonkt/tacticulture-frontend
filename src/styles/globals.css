@@ -425,10 +425,42 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   font-weight: 700;
   margin-top: 30px;
 }
+.profileSections .ant-input-data-count {
+  color: #333 !important;
+}
 .btn.btn-outline-grey {
-  border: 1px solid #fff !important;
+  border: 1px solid #fff;
   color: #fff;
   font-size: 20px;
+}
+.openbtn {
+  width: auto !important;
+  height: 37px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  padding: 0 10px;
+  border-radius: 3px !important;
+}
+.schedule .btn.selected {
+  background: #fff !important;
+  color: #cb2c2c;
+  width: 83px !important;
+  margin-bottom: 10px;
+  justify-content: center !important;
+}
+textarea {
+  border-radius: 3px !important;
+}
+.textArea_section div {
+  padding-left: 18px !important;
+}
+.textArea_section div h4 {
+  display: none !important;
+}
+.textArea_section .quill {
+  padding-left: 0px !important;
+  margin-top: 0 !important;
 }
 :where(.css-dev-only-do-not-override-1km3mtt).ant-btn-default:not(
     :disabled

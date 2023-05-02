@@ -254,6 +254,7 @@ function ApprenticeLayout() {
                     </h3>
                     <Row className="ms-4 ps-1">
                       <ForumCardComponent
+                        Description="View Detail"
                         Heading="Event Title Name Goes Here"
                         Content="[MM.DD.YYYY] + Open Availability"
                       />
