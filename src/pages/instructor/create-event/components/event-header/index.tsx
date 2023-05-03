@@ -4,7 +4,7 @@ import styles from "../../course.module.css";
 import { useRouter } from "next/router";
 
 interface IEventHeaderComponent {
-  heading: string;
+  heading?: string;
 }
 
 function EventHeaderComponent({ heading }: IEventHeaderComponent) {

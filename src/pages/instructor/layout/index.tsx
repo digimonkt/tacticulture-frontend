@@ -1,14 +1,20 @@
 import { SVG } from "@/assets/svg";
 import ApprenticeHeaderComponent from "@/component/header/apprentice-header";
 import { Row } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./layout.module.css";
+import Link from "next/link";
 
 interface IChildren {
   children: React.ReactNode;
 }
 
 function InstructorLayout({ children }: IChildren) {
+  const [activeLink, setActiveLink] = useState("");
+
+  const handleLinkClick = (link: string) => {
+    setActiveLink(link);
+  };
   console.log({ children });
   return (
     <div>
@@ -17,13 +23,24 @@ function InstructorLayout({ children }: IChildren) {
         <div className={`${styles.workspaceSidebar}`}>
           <div>
             <ul className="p-0">
-              <li>
-                <SVG.Home /> Instructor Home
-              </li>
-
-              <li>
-                <SVG.Managevent /> Manage Events
-              </li>
+              <Link href="/instructor/home">
+                <li
+                  className={activeLink === "/" ? "active" : ""}
+                  onClick={() => handleLinkClick("/")}
+                >
+                  <SVG.Home /> Instructor Home
+                </li>
+              </Link>
+              <Link href="/instructor/manage-event">
+                <li
+                  className={
+                    activeLink === "/instructor/manage-event" ? "active" : ""
+                  }
+                  onClick={() => handleLinkClick("/instructor/manage-event")}
+                >
+                  <SVG.Managevent /> Manage Events
+                </li>
+              </Link>
 
               <li>
                 <SVG.Clock /> Availability

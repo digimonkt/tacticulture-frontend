@@ -647,6 +647,7 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
 }
 .linkedpage span.ant-switch-inner {
   border: 1px solid #cb2c2c !important;
+  background: #cb2c2c !important;
 }
 .linkedpage .ant-switch-handle:before {
   background: #212121 !important;
@@ -1241,6 +1242,10 @@ button#dropdown-basic svg {
   position: relative;
   top: 7px;
 }
+.color {
+  color: #cb2c2c;
+  font-weight: 600;
+}
 .ShareBtn {
   margin-top: 0 !important;
   outline: 1px solid #333 !important;
@@ -1255,6 +1260,39 @@ button#dropdown-basic svg {
   padding: 11px !important;
   position: relative;
   top: 16px;
+}
+.scheduleSection {
+  padding: 0 !important;
+}
+.scheduleSection .ant-row {
+  padding: 0 !important;
+  margin-bottom: 30px !important;
+}
+.scheduleSection div {
+  padding: 0 !important;
+  text-align: left !important;
+}
+.publishSummary .position-relative button span {
+  color: #fff !important;
+}
+.footer div {
+  margin-bottom: 0 !important;
+}
+.footer {
+  border-top: 1px solid #333 !important;
+}
+.scheduleSection .ant-col.ant-col-md-12 span {
+  margin: 0 10px !important;
+}
+.scheduleSection .ant-col.ant-col-md-4 {
+  position: relative;
+  top: 13px;
+}
+.scheduleSection .ant-col.ant-col-md-3 p {
+  padding-left: 16px !important;
+}
+.scheduleSection p {
+  text-align: left !important;
 }
 @keyframes App-logo-spin {
   from {

@@ -4,11 +4,13 @@ import React, { useState } from "react";
 import styles from "../../course.module.css";
 import ScheduleDateComponent from "../schedule-date";
 import OpenAvailabilityComponent from "./components/open-avalability";
+import EventHeaderComponent from "../event-header";
 
 function EventScheduleComponent() {
   const [show, setShow] = useState(false);
   return (
     <div className="schedule">
+      <EventHeaderComponent heading="Event Details" />
       <div className={`${styles.headerComponent}`}>
         <Row>
           <Col md={8}>

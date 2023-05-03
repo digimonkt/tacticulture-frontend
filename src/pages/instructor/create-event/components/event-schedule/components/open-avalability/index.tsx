@@ -99,24 +99,26 @@ function OpenAvailabilityComponent() {
           </div>
         </div>
         <hr />
-        {isComponent && (
-          <>
-            {" "}
-            {availability.map((available, idx) => {
-              return (
-                <ScheduleEventComponent
-                  key={idx}
-                  {...available}
-                  handleAddSchedule={handleAddSchedule(idx)}
-                  handleChangeChecked={handleChangeChecked(idx)}
-                  handleUpdateStart={handleUpdateStart(idx)}
-                  handleUpdateEnd={handleUpdateEnd(idx)}
-                  handleRemoveSchedule={handleRemoveSchedule(idx)}
-                />
-              );
-            })}
-          </>
-        )}
+        <div className="scheduleSection">
+          {isComponent && (
+            <>
+              {" "}
+              {availability.map((available, idx) => {
+                return (
+                  <ScheduleEventComponent
+                    key={idx}
+                    {...available}
+                    handleAddSchedule={handleAddSchedule(idx)}
+                    handleChangeChecked={handleChangeChecked(idx)}
+                    handleUpdateStart={handleUpdateStart(idx)}
+                    handleUpdateEnd={handleUpdateEnd(idx)}
+                    handleRemoveSchedule={handleRemoveSchedule(idx)}
+                  />
+                );
+              })}
+            </>
+          )}
+        </div>
       </div>
     </>
   );

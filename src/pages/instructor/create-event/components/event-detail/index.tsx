@@ -4,10 +4,12 @@ import TextareaComponent from "@/component/textarea";
 import { Checkbox } from "antd";
 import React from "react";
 import styles from "../../course.module.css";
+import EventHeaderComponent from "../event-header";
 
 function EventDetailComponent() {
   return (
     <div>
+      <EventHeaderComponent heading="Event Details" />
       <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
         <TextInput row={3} text="Event Name*" />
       </div>

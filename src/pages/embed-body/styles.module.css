@@ -1,0 +1,272 @@
+.body {
+  background-color: #333;
+  height: 100%;
+  min-height: 100vh;
+}
+.content {
+  width: 810px;
+  max-width: 810px;
+  margin: 0 auto;
+}
+.eventTitle {
+  position: absolute;
+  bottom: 8%;
+  left: 0%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 18px;
+}
+.embedBody img {
+  width: 100%;
+}
+.eventTitle h6 {
+  font-size: 28px;
+  font-weight: 800;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.eventTitle svg path {
+  fill: #ff3030;
+}
+.eventTitle p {
+  font-size: 14px;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.eventTitle p span {
+  color: #ff3030;
+}
+.eventTitle button svg path {
+  fill: transparent !important;
+}
+.eventTitle button {
+  background: transparent !important;
+  color: #fff;
+  border: 1px solid #fff;
+  display: flex;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  height: 23px;
+  padding: 2px;
+  width: 131px;
+
+  position: relative;
+  top: 6px;
+}
+.embedtitle {
+  display: flex;
+  align-items: center;
+}
+
+.embedtitle span {
+  font-size: 10px;
+  color: #7a7a7a;
+  font-weight: 800;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+}
+.embedtitle h6 {
+  font-size: 18px;
+  color: #5c5c5c;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+}
+.embedtitle h6 svg {
+  width: 14px;
+  position: relative;
+  bottom: 1px;
+}
+.embedtitle button span {
+  font-size: 12px;
+  background: rgb(255, 255, 255);
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+  letter-spacing: 1px;
+}
+.locationbox {
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  padding: 14px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+.locationbox button {
+  background-color: #333333 !important;
+  border: 0;
+  box-shadow: 0px 1px 4px 0px #00000033;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  color: #fff !important;
+  border-radius: 4px;
+  padding: 3px 6px;
+}
+.locationbox button span {
+  color: #fff !important;
+}
+.locationbox h3 {
+  color: #5c5c5c;
+  font-size: 16px;
+  font-weight: 800;
+  padding-top: 10px;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+}
+.locationbox h6 {
+  font-size: 14px;
+  color: #5c5c5c;
+  font-weight: 800;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.locationbox span {
+  font-size: 14px;
+  color: #5c5c5c;
+  font-weight: 500;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  line-height: 19px;
+}
+.locationbox h4 {
+  color: #5c5c5c;
+  font-size: 12px;
+  font-weight: 800;
+  padding-top: 10px;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+}
+.locationbox span {
+  font-size: 12px;
+}
+.locationbox h5 {
+  color: #5c5c5c;
+  font-size: 16px;
+  font-weight: 800;
+  padding-top: 10px;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+}
+.coursecategory h5 {
+  font-size: 18px;
+  color: #5c5c5c;
+  font-weight: 700;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+}
+.coursecategory button {
+  background: transparent !important;
+  border: 1px solid #333;
+  margin-right: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Proxima Nova";
+  border-radius: 3px;
+  padding: 3px 10px;
+  height: 26px;
+}
+.question button svg {
+  position: relative;
+  bottom: 1px;
+  right: 5px;
+}
+.rightbody ul li {
+  padding-left: 10px;
+  margin-left: 19px;
+  font-size: 15px;
+  margin-bottom: 10px;
+  font-family: "Proxima Nova";
+}
+/* .eventTitle {
+  position: absolute;
+  top: 22%;
+  left: 0%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 18px;
+} */
+.embedBody img {
+  width: 100%;
+}
+.eventTitle h6 {
+  font-size: 28px;
+  font-weight: 800;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.eventTitle svg path {
+  fill: #ff3030;
+}
+.eventTitle p {
+  font-size: 14px;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.eventTitle p span {
+  color: #ff3030;
+}
+.eventTitle button {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  display: flex;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  height: 23px;
+  padding: 2px;
+  width: 131px;
+
+  position: relative;
+  top: 6px;
+}
+.eventTitle button svg path {
+  fill: transparent !important;
+}
+.eventTitle button svg {
+  margin-right: 4px;
+}
+.rightbody {
+  padding: 18px 2px 18px 18px;
+  border-left: 1px solid #dddddd;
+  margin-left: 20px;
+}
+.rightbody h6 {
+  color: #5c5c5c;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  padding-top: 15px;
+}
+.rightbody p {
+  font-size: 15px;
+  font-family: "Proxima Nova";
+  font-weight: 500;
+  color: #333333;
+}
+.question button {
+  border: 1px solid #666;
+  background: transparent;
+  display: flex;
+  border-radius: 3px;
+  padding: 4px 12px 7px;
+  color: #333;
+  font-weight: 700;
+  margin-top: 10px;
+}

@@ -6,6 +6,8 @@ import EventHeaderComponent from "./components/event-header";
 import EventDetailComponent from "./components/event-detail";
 import { useRouter } from "next/router";
 import EventScheduleComponent from "./components/event-schedule";
+import CustomizeEventComponent from "./components/customize-event";
+// import EventSummaryComponent from "./event-summary";
 
 function CreateEvent() {
   // router
@@ -20,11 +22,11 @@ function CreateEvent() {
       case "2":
         return <EventScheduleComponent />;
       case "3":
-        return "step three";
-      case "4":
-        return "step four";
-      case "5":
-        return "step five";
+        return <CustomizeEventComponent />;
+      // case "4":
+      //   return <EventSummaryComponent />;
+      // case "5":
+      //   return "step five";
       default:
         typeof window !== "undefined" &&
           router.push({
@@ -39,15 +41,17 @@ function CreateEvent() {
         <div className="headerMain">
           <div className={`${styles.accountSetup}`}>
             <span>
-              {" "}
               <SVG.Leftarrow className="me-2" width="20px" />
               GO BACK
             </span>
             <h1 className="mt-2">Configure Your Event</h1>
           </div>
           <div className="profileSections">
-            <EventHeaderComponent heading="Event Details" />
+            {/* <EventHeaderComponent heading="Event Details" /> */}
             <div>{getComponents()}</div>
+            <div className="footer">
+              <EventHeaderComponent />
+            </div>
           </div>
         </div>
       </InstructorLayout>
