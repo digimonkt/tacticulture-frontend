@@ -7,6 +7,8 @@ import ProfileSettingComponent from "./components/profile-info";
 import { Nav, Tab } from "react-bootstrap";
 import EmailChangeComponent from "./components/change-email";
 import AccountLinkedComponent from "./components/account-linked";
+import EmailPreferenceComponent from "./components/email-preference";
+import BillingComponent from "./components/billing";
 
 function AccountSetting() {
   return (
@@ -106,10 +108,10 @@ function AccountSetting() {
                     <h1>no data</h1>
                   </Tab.Pane>
                   <Tab.Pane eventKey="five">
-                    {/* <PreferencesEmailComponent /> */}
+                    <EmailPreferenceComponent />
                   </Tab.Pane>
                   <Tab.Pane eventKey="six">
-                    {/* <BillingComponent /> */}
+                    <BillingComponent />
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

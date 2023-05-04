@@ -4,6 +4,19 @@
   min-height: 100vh;
   background: #212121;
 }
+.saveChange {
+  width: 150px;
+  height: 37px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  font-family: "proxima-nova";
+  letter-spacing: 1px;
+  padding: 0;
+  border-radius: 3px;
+  margin-top: 5%;
+  margin-right: 4%;
+}
 .heading {
   font-size: 24px;
   color: #fff;
@@ -139,19 +152,54 @@
   border-radius: 8px;
   padding: 16px;
 }
+.planBtn span {
+  color: rgb(203, 44, 44) !important;
+}
+.planDownGrade {
+  text-align: center;
+}
+/* .planDownGrade button span {
+  color: #fff !important;
+} */
+.planDownGrade .currentplanbtn span {
+  color: #cb2c2c !important;
+}
+.upgradebtn span {
+  color: #fff !important;
+}
+.planDownGrade button {
+  margin: 0 auto !important;
+}
 .emailPreference h6 {
   font-size: 17px;
   color: #fff;
-  font-family: "Proxima Nova" !important;
+  font-family: "proxima-nova" !important;
   letter-spacing: 1px;
+}
+.annually span {
+  color: #fff !important;
+}
+.annually {
+  padding-top: 4px !important;
+}
+.orderbtn {
+  margin-top: 0 !important;
+}
+.eventbtn span {
+  color: #fff !important;
+}
+.orderbtn span {
+  color: #fff !important;
 }
 .emailPreference li {
   list-style: none;
   color: #fff;
   font-size: 14px;
+  display: flex;
   font-weight: 500;
-  font-family: "Proxima Nova";
+  font-family: "proxima Nova";
 }
+
 .snooze {
   background-color: #212121;
   border: 1px solid #333333;
@@ -263,7 +311,11 @@
 .currentplanbtn svg path {
   fill: #ff3030 !important;
 }
+.currentplanbtn span {
+  color: #cb2c2c !important;
+}
 .currentplanbtn {
+  background: #fff !important;
   width: 160px;
   height: 38px;
   color: #cb2c2c;
