@@ -1,0 +1,55 @@
+.decriptionText {
+  margin: 0;
+  color: #cb2c2c;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova" !important;
+}
+.cardDetails p {
+  color: #000;
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: 800;
+  font-family: "Proxima Nova" !important;
+  letter-spacing: 1px;
+}
+.cardDetail p {
+  color: #000;
+  margin-bottom: 0;
+  font-family: "Proxima Nova" !important;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.cardDetail span {
+  color: #000;
+  font-size: 11px;
+  font-family: "Proxima Nova" !important;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.cardDetails span {
+  color: #fff;
+  font-size: 11px;
+  font-family: "Proxima Nova" !important;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.cardDetail {
+  position: absolute;
+  bottom: 42px;
+}
+
+.cardDetails {
+  position: absolute;
+  bottom: 36px;
+}
+.CardListDropdown {
+  position: absolute;
+  top: 9px;
+  right: 4px;
+}
+.CardListDropdown svg path {
+  fill: #fff !important;
+}

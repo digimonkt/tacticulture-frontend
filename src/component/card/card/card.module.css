@@ -1,0 +1,36 @@
+.mainCard {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.mainCard h3 {
+  font-size: 24px;
+  font-family: "Proxima Nova";
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  padding-left: 8px;
+}
+.events {
+  text-align: center;
+  padding-top: 14px;
+  padding-bottom: 11px;
+}
+.events h4 {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.mainCard h6 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 1px;
+  text-align: center;
+  padding-top: 12px;
+  font-family: "proxima-nova" !important;
+}

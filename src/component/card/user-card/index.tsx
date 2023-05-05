@@ -7,7 +7,7 @@ import { ButtonProps } from "antd";
 interface IUserCardComponent extends ButtonProps {
   heading: string;
   content: string;
-  selected: boolean;
+  selected?: boolean;
 }
 
 function UserCardComponent({

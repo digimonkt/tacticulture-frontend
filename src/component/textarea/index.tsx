@@ -1,15 +1,18 @@
-// import React, { useState } from "react";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+import styles from "./textArea.module.css";
 
-// function TextareaComponent() {
-//   const [value, setValue] = useState("");
-//   return (
-//     <div>
-//       <h4>Bio</h4>
-//       <ReactQuill theme="snow" value={value} onChange={setValue} />
-//     </div>
-//   );
-// }
+const QuillNoSSRWrapper = dynamic(() => import("react-quill"), { ssr: false });
 
-// export default TextareaComponent;
+function TextareaComponent() {
+  const [value, setValue] = useState("");
+  return (
+    <div className={`${styles.BioComponent}`}>
+      <h4>Your Bio</h4>
+      <QuillNoSSRWrapper theme="snow" value={value} onChange={setValue} />
+    </div>
+  );
+}
+
+export default TextareaComponent;

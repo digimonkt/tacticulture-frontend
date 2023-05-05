@@ -1,0 +1,5 @@
+.rightSection {
+  display: flex;
+  justify-content: end;
+  margin-top: 7px;
+}

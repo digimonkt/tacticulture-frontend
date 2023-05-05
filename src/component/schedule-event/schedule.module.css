@@ -1,0 +1,20 @@
+.box {
+  display: block;
+  display: block;
+  color: #bbbbbb;
+  font-size: 15px;
+  margin: 0;
+  font-weight: 500;
+  font-family: "proxima-nova";
+  letter-spacing: 1px;
+}
+.box input {
+  width: 141px !important;
+  height: 55px !important;
+  border-radius: 3px !important;
+}
+.box span {
+  color: #fff;
+  font-size: 32px;
+  margin: 0 14px;
+}

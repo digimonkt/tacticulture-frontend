@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "../../profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
+import TextareaComponent from "@/component/textarea";
 // import TimeZoneComponent from "@/component/timezone";
 // import TextareaComponent from "@/component/textarea";
 
@@ -81,9 +82,9 @@ function Step1() {
       {/* <div className={`${styles.timeZone}`}>
         <TimeZoneComponent />
       </div> */}
-      {/* <div className={`${styles.textArea}`}>
+      <div className={`${styles.textArea}`}>
         <TextareaComponent />
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -1,0 +1,26 @@
+.notificationCard {
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+.notificationCard img {
+  height: 50px;
+}
+.notification h3 {
+  font-size: 24px;
+  color: #fff;
+  font-family: "Proxima-nova";
+  font-weight: 700;
+}
+.dropdownBox svg {
+  width: 17px;
+}
+.dropdownBox span {
+  color: #444444;
+  font-weight: 700;
+  margin-left: 5px;
+  padding-bottom: 4px;
+}
+.dropdownBox {
+  display: flex;
+}

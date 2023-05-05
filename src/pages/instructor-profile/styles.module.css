@@ -1,0 +1,159 @@
+.bodySection {
+  height: 100%;
+  background: #454545;
+  min-height: 100%;
+}
+.content {
+  max-width: 820px;
+  margin: 0 auto;
+  width: 820px;
+}
+.content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #5c5c5c;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  margin: 0;
+}
+.content h3 svg {
+  width: 20px;
+  height: 26px;
+  position: relative;
+  bottom: 3px;
+}
+.content span {
+  font-size: 12px;
+  color: #7a7a7a;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-family: "Proxima Nova";
+}
+.following {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.following span {
+  color: #000;
+  font-size: 14px;
+  font-family: "Proxima Nova";
+}
+.following p {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Proxima Nova";
+  margin: 0;
+  margin-right: 4px;
+
+  margin-top: 4px;
+}
+.embeded {
+  margin-top: 12px;
+}
+.embeded p {
+  font-size: 13px;
+  color: #333333;
+  font-weight: 400;
+  font-family: "Proxima Nova";
+  text-align: justify;
+  margin: 14px 20px;
+}
+.IconsSocial svg path {
+  fill: #666666 !important;
+}
+.IconsSocial {
+  padding-top: 18px;
+}
+.IconsSocial p {
+  margin: 0;
+  color: #666666;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-top: 12px;
+  font-family: "Proxima Nova";
+}
+.IconsSocial p svg {
+  width: 20px !important;
+  margin: 0 !important;
+}
+.IconsSocial svg {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.embeded span {
+  font-weight: 700;
+}
+.profileCard {
+  display: flex;
+  background-color: #fff;
+  border-radius: 8px;
+  align-items: center;
+  padding: 12px;
+  margin: 0 11px;
+}
+.profileCard img {
+  margin-right: 2%;
+}
+.profileCard h3 {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+  color: #333333;
+  align-items: center;
+}
+.profileCard h3 svg {
+  position: relative;
+  bottom: 2px;
+}
+.reviewbody {
+  background-color: #333333;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 12px;
+  margin: 0 11px;
+}
+.reviewbody p {
+  font-size: 14px;
+  font-family: "Proxima Nova";
+  font-style: italic;
+}
+.reviewbody h6 {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Proxima Nova";
+  letter-spacing: 1px;
+  padding-top: 6px;
+}
+.reviewbody span svg {
+  margin-right: 5px;
+  margin-top: 0;
+  position: relative;
+  bottom: 3px;
+  width: 20px;
+}
+.reviewbody span {
+  font-size: 14px;
+  color: #fff;
+}
+.reviewbody img {
+  margin-right: 14px;
+}
+.eventReview {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.upcomingEvents {
+  width: 380px !important;
+  padding-top: 4px !important;
+}
+.upcomingEvents span {
+  font-size: 16px !important;
+  color: #fff !important;
+}

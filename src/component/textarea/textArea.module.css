@@ -1,0 +1,8 @@
+.BioComponent {
+  padding-top: 0px;
+  padding-left: 31px;
+  font-family: "Proxima Nova";
+}
+.BioComponent h4 {
+  left: 0 !important;
+}

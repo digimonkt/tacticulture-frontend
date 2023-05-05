@@ -1,0 +1,21 @@
+.followingDetail {
+  color: #fff;
+}
+.followingDetail h6 {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "Proxima Nova";
+}
+
+.InputField {
+  background-color: #292929;
+  height: 48px;
+  border-radius: 4px;
+  border: 0;
+  color: #fff;
+}
+.InputField::placeholder {
+  color: #fff !important;
+  font-family: "Proxima Nova";
+  opacity: 1; /* Firefox */
+}
