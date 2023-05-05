@@ -5,7 +5,7 @@ import { USER_ROLES } from "@/utils/enum";
 
 // Define a type for the slice state
 interface userRoleI {
-  userRole: USER_ROLES | null | string
+  userRole: USER_ROLES | null
 }
 
 // Define the initial state using that type
@@ -17,7 +17,7 @@ export const userRoleSlice = createSlice({
   name: "userRole",
   initialState,
   reducers: {
-    setUserRole: (state, action: PayloadAction<string>) => {
+    setUserRole: (state, action: PayloadAction<USER_ROLES>) => {
       state.userRole = action.payload;
     },
   },
