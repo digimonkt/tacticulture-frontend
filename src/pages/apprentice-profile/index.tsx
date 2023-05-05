@@ -134,8 +134,8 @@ function ApprenticeProfileLayout() {
                 </div>
               </div>
             </Col>
-            <Col md={12} className="pt-5 activityList">
-              <OptionsInput title="Latest Activity">
+            <Col md={12} className="pt-5 activityList ps-1">
+              <OptionsInput title="Latest Activity ">
                 <Dropdown.Item href="#/action-1">
                   Latest Activity{" "}
                 </Dropdown.Item>

@@ -11,7 +11,7 @@ function ManualLoginComponent() {
     <Layout title="Sign In">
       <>
         <div>
-          <LabeledInput placeholder="Kris@Kristopherray.com" className="mb-3" />
+          <LabeledInput placeholder="Enter your email.." className="mb-3" />
           <LabeledInput placeholder="Password" className="" />
           <div className={`${styles.signupBtn}`}>
             <FilledButton>Sign in with Email</FilledButton>

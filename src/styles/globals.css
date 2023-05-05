@@ -319,7 +319,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   width: 127px;
   height: 37px;
   margin: 0 auto;
-  align-items: end;
+  align-items: flex-end;
   font-family: "Proxima Nova";
   background: #cb2c2c !important;
   border-radius: 3px;
@@ -1216,6 +1216,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   font-weight: 700 !important;
   letter-spacing: 1px !important;
   border: 0 !important;
+}
+.apprenticepage .activityList .dropdown {
+  padding-left: 11px !important;
 }
 button#dropdown-basic {
   width: 61px;

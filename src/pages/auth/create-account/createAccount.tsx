@@ -12,7 +12,7 @@ function CreateAccountComponent() {
       <div>
         <p>We suggest using your an email address you easy access to</p>
 
-        <LabeledInput placeholder="Kris@Kristopherray.com" className="" />
+        <LabeledInput placeholder="Enter your email.." className="" />
 
         <div className={`${styles.signupBtn}`}>
           <Link href="/verify-email">
