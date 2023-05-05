@@ -1,30 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../store/store' 
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "../store/store";
+import { USER_ROLES } from "@/utils/enum";
 
 // Define a type for the slice state
 interface userRoleI {
-  userRole: string
+  userRole: USER_ROLES | null | string
 }
 
 // Define the initial state using that type
 const initialState: userRoleI = {
-  userRole: '',
-}
+  userRole: null,
+};
 
 export const userRoleSlice = createSlice({
-  name: 'userRole',
+  name: "userRole",
   initialState,
   reducers: {
     setUserRole: (state, action: PayloadAction<string>) => {
-      state.userRole = action.payload
+      state.userRole = action.payload;
     },
   },
-})
+});
 
-export const { setUserRole } = userRoleSlice.actions
+export const { setUserRole } = userRoleSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const userRole = (state: RootState) => state.UserRoleReducer.userRole
+export const userRole = (state: RootState) => state.UserRoleReducer.userRole;
 
-export default userRoleSlice.reducer
+export default userRoleSlice.reducer;
