@@ -1215,7 +1215,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   font-size: 17px !important;
   font-weight: 700 !important;
   letter-spacing: 1px !important;
-  border: 0;
+  border: 0 !important;
 }
 button#dropdown-basic {
   width: 61px;
