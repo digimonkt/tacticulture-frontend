@@ -316,7 +316,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   width: 127px;
   height: 37px;
   margin: 0 auto;
-  align-items: end;
+  align-items: flex-end;
   font-family: "Proxima Nova";
   background: #cb2c2c !important;
   border-radius: 3px;

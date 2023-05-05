@@ -16,7 +16,7 @@ function LoginComponent() {
         <div className={`${styles.spanText}`}>
           <span>OR</span>
         </div>
-        <LabeledInput placeholder="Kris@Kristopherray.com" />
+        <LabeledInput placeholder="Enter your email.." />
         <div className={`${styles.signupBtn}`}>
           <Link href="/user-step">
             <FilledButton>Sign in with Email</FilledButton>

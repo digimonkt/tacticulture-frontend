@@ -8,8 +8,13 @@ import UserCardComponent from "@/component/card/user-card";
 import { useRouter } from "next/router";
 // import { SETUP_PROFILE_PAGE } from "../setup-profile/enum";
 import { USER_ROLES } from "@/utils/enum";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { setUserRole } from "@/redux/reducers/userRole";
 
 function ProfileSetup() {
+  // redux dispatch
+  const dispatch = useAppDispatch();
+
   const router = useRouter();
   const [role, setRole] = useState<USER_ROLES | "">("");
   const handleNextStep = () => {
@@ -43,13 +48,19 @@ function ProfileSetup() {
             heading="Apprentice"
             content=" Discover and attend new events, track your training and progress by
         collecting badges, and connect with new instructors and friends."
-            onClick={() => setRole(USER_ROLES.apprentice)}
+            onClick={() => {
+              setRole(USER_ROLES.apprentice);
+              dispatch(setUserRole(USER_ROLES.apprentice));
+            }}
             selected={role === USER_ROLES.apprentice}
           />
           <UserCardComponent
             heading="Instructor"
             content=" Create and manage events, accept payments from attendees, manage event roster and questions, and build your training network."
-            onClick={() => setRole(USER_ROLES.instructor)}
+            onClick={() => {
+              setRole(USER_ROLES.instructor);
+              dispatch(setUserRole(USER_ROLES.instructor));
+            }}
             selected={role === USER_ROLES.instructor}
           />
         </div>
