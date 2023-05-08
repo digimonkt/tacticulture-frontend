@@ -5,14 +5,36 @@ import styles from "../../auth.module.css";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import Link from "next/link";
 import { SVG } from "@/assets/svg";
+import { useFormik } from "formik";
+import { manualLoginValidationSchema } from "../validation";
 
 function ManualLoginComponent() {
+  // formik
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: manualLoginValidationSchema,
+    onSubmit: (data) => {
+      console.log(data);
+    },
+  });
+
   return (
     <Layout title="Sign In">
       <>
         <div>
-          <LabeledInput placeholder="Enter your email.." className="mb-3" />
-          <LabeledInput placeholder="Password" className="" />
+          <LabeledInput
+            placeholder="Enter your email.."
+            className="mb-3"
+            {...formik.getFieldProps("email")}
+          />
+          <LabeledInput
+            placeholder="Password"
+            className=""
+            {...formik.getFieldProps("password")}
+          />
           <div className={`${styles.signupBtn}`}>
             <FilledButton>Sign in with Email</FilledButton>
           </div>

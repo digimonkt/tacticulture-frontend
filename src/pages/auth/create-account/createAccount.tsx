@@ -5,14 +5,31 @@ import { LabeledInput } from "@/component/input";
 import Link from "next/link";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { SVG } from "@/assets/svg";
+import { useFormik } from "formik";
+import { registerValidationSchema } from "./validation";
 
 function CreateAccountComponent() {
+  // formik
+  const formik = useFormik({
+    initialValues: {
+      userEmail: "",
+    },
+    validationSchema: registerValidationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <Layout title="First, enter your email">
       <div>
         <p>We suggest using your an email address you easy access to</p>
 
-        <LabeledInput placeholder="Enter your email.." className="" />
+        <LabeledInput
+          placeholder="Enter your email.."
+          className=""
+          {...formik.getFieldProps("userEmail")}
+        />
 
         <div className={`${styles.signupBtn}`}>
           <Link href="/verify-email">

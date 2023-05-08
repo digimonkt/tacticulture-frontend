@@ -5,7 +5,21 @@ import styles from "../auth.module.css";
 import Link from "next/link";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { LabeledInput } from "@/component/input";
+import { useFormik } from "formik";
+import { magicLinkLoginValidationSchema } from "./validation";
+
 function LoginComponent() {
+  // formik
+  const formik = useFormik({
+    initialValues: {
+      userEmail: "",
+    },
+    validationSchema: magicLinkLoginValidationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <Layout title="Sign In">
       <>
@@ -16,7 +30,10 @@ function LoginComponent() {
         <div className={`${styles.spanText}`}>
           <span>OR</span>
         </div>
-        <LabeledInput placeholder="Enter your email.." />
+        <LabeledInput
+          placeholder="Enter your email.."
+          {...formik.getFieldProps("userEmail")}
+        />
         <div className={`${styles.signupBtn}`}>
           <Link href="/user-step">
             <FilledButton>Sign in with Email</FilledButton>
