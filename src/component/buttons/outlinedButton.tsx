@@ -8,7 +8,6 @@ function OutlinedButtonComponent({
   icon,
   ...rest
 }: IButton) {
-  console.log({ icon });
   return (
     <Button
       className={`btn btn-outline-grey ${className}`}
