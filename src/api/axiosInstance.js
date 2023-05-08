@@ -3,7 +3,7 @@ import { parse, stringify } from "qs";
 import { tokens } from "@/utils/jwtTokenStorage";
 
 const axiosInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -54,7 +54,6 @@ export const request = async (config) => {
     };
   } catch (error) {
     if (error) {
-      console.log(error);
       if (error.response) {
         if (error.response && error.response.data) {
           let errorMessage = error.response.data;

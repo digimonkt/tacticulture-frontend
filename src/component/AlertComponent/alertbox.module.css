@@ -1,0 +1,26 @@
+.alertBoxContainer {
+  position: fixed;
+  top: 10px;
+  right: 8px;
+  animation: alertBoxAnimation;
+  animation-duration: 0.7s;
+  animation-timing-function: ease-in;
+}
+
+/* .ant-alert.ant-alert-success.ant-alert-with-description.ant-alert-no-icon.css-dev-only-do-not-override-1e3x2xa{
+  background-color: #cb2c2c;
+
+  border: 1px solid #cb2c2c;
+} */
+.ant-alert-description {
+  color: #fff;
+}
+
+@keyframes alertBoxAnimation {
+  from {
+    right: -500px;
+  }
+  to {
+    right: 8px;
+  }
+}

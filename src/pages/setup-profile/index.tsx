@@ -1,25 +1,110 @@
+import React, { useEffect, useState } from "react";
 import ProfileHeaderComponent from "@/component/header/profile-header";
-import React, { useState } from "react";
 import styles from "./profile.module.css";
 import { SVG } from "@/assets/svg";
-// import Link from "next/link";
 import { FilledButton } from "@/component/buttons";
 import UserCardComponent from "@/component/card/user-card";
 import { useRouter } from "next/router";
-// import { SETUP_PROFILE_PAGE } from "../setup-profile/enum";
 import { USER_ROLES } from "@/utils/enum";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { setUserRole } from "@/redux/reducers/userRole";
+import { updateUser, userTypesList } from "@/api/auth";
+import {
+  resetAlertMessage,
+  setAlertMessage,
+} from "@/redux/reducers/modalsToggle";
+import { setPreLoader } from "@/redux/reducers/preLoader";
+
+interface IUserType {
+  id: string;
+  user_type: string;
+  content: string;
+  slug_name: USER_ROLES;
+}
+
+interface IRouter {
+  userEmail: string;
+}
 
 function ProfileSetup() {
   // redux dispatch
   const dispatch = useAppDispatch();
 
+  // router
   const router = useRouter();
+  const { userEmail } = router.query as unknown as IRouter;
+
+  // state management
   const [role, setRole] = useState<USER_ROLES | "">("");
-  const handleNextStep = () => {
-    router.push("/setup-profile/[role]", `/setup-profile/${role}`);
+  const [roleId, setRoleId] = useState<string | "">("");
+  const [userTypeList, setUserTypeList] = useState([]);
+
+  // fetch owner workspace list
+  const fetchUserTypeList = async () => {
+    const response = await userTypesList();
+
+    if (response.remote === "success") {
+      setUserTypeList(response.data.results);
+    }
   };
+
+  // reset AlertMessage
+  const handleResetAlert = () => {
+    setTimeout(() => {
+      dispatch(resetAlertMessage());
+    }, 2000);
+  };
+
+  // handle submit
+  const handleSubmit = async () => {
+    if (role === "") {
+      dispatch(
+        setAlertMessage({
+          error: true,
+          message: "Select account type!",
+          show: true,
+        })
+      );
+      handleResetAlert();
+      return;
+    } else {
+      dispatch(setPreLoader(true));
+      const payload = {
+        userTypeId: roleId,
+        userTypeName: role,
+      };
+      const response = await updateUser(payload);
+      if (response.remote === "success") {
+        if (role === "apprentice") {
+          router.push({
+            pathname: `/setup-profile/${role}`,
+            query: { ...router.query, userEmail },
+          });
+        } else {
+          router.push({
+            pathname: `/setup-profile/${role}`,
+            query: { ...router.query, userEmail },
+          });
+        }
+      } else {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: response?.error?.errors,
+            show: true,
+          })
+        );
+        handleResetAlert();
+        dispatch(setPreLoader(false));
+      }
+    }
+    dispatch(setPreLoader(false));
+  };
+
+  // ----
+  useEffect(() => {
+    fetchUserTypeList();
+  }, []);
   return (
     <div className={`${styles.profileBody}`}>
       <ProfileHeaderComponent />
@@ -44,28 +129,22 @@ function ProfileSetup() {
           Select your <b>Default Account Type</b> <SVG.InfoIcon width="24" />
         </h6>
         <div className="d-flex align-items-center justify-content-between">
-          <UserCardComponent
-            heading="Apprentice"
-            content=" Discover and attend new events, track your training and progress by
-        collecting badges, and connect with new instructors and friends."
-            onClick={() => {
-              setRole(USER_ROLES.apprentice);
-              dispatch(setUserRole(USER_ROLES.apprentice));
-            }}
-            selected={role === USER_ROLES.apprentice}
-          />
-          <UserCardComponent
-            heading="Instructor"
-            content=" Create and manage events, accept payments from attendees, manage event roster and questions, and build your training network."
-            onClick={() => {
-              setRole(USER_ROLES.instructor);
-              dispatch(setUserRole(USER_ROLES.instructor));
-            }}
-            selected={role === USER_ROLES.instructor}
-          />
+          {userTypeList.map((userType: IUserType) => (
+            <UserCardComponent
+              key={userType?.id}
+              heading={userType?.user_type}
+              content={userType?.content}
+              onClick={() => {
+                setRole(userType.slug_name);
+                setRoleId(userType?.id);
+                dispatch(setUserRole(userType.slug_name));
+              }}
+              selected={role === userType.slug_name}
+            />
+          ))}
         </div>
 
-        <FilledButton className="btn configure" onClick={handleNextStep}>
+        <FilledButton className="btn configure" onClick={handleSubmit}>
           Configure My Profile →
         </FilledButton>
       </div>

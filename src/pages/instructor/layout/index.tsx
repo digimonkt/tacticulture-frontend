@@ -15,7 +15,6 @@ function InstructorLayout({ children }: IChildren) {
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
   };
-  console.log({ children });
   return (
     <div>
       <ApprenticeHeaderComponent />

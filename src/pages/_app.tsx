@@ -6,9 +6,12 @@ import { store } from "@/redux/store/store";
 import { Provider } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import GlobalCompRender from "@/component/globalCompRender";
 
 export default function App({ Component, pageProps }: AppProps) {
+  // router
   const router = useRouter();
+
   useEffect(() => {
     if (router.pathname === "/") {
       router.push("/login");
@@ -22,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main>
         <Provider store={store}>
           <Component {...pageProps} />
+          <GlobalCompRender />
         </Provider>
       </main>
     </>
