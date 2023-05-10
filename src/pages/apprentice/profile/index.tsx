@@ -11,10 +11,8 @@ import BadgeCardComponent from "@/component/card/badge-card";
 import { Col, Row } from "antd";
 import Image from "next/image";
 import { IMAGES } from "@/assets/images";
-// import CommunityFollowComponent from "../components/community-info/community-follow";
 import ForumCardComponent from "../components/forum-card";
 import ApprenticeCommuntity from "../components/apprentice-community";
-import NotificationComponent from "../components/notification";
 import EventForumComponent from "../components/event-forum";
 
 function ApprenticeLayout() {
@@ -69,32 +67,8 @@ function ApprenticeLayout() {
          (85 max)"
                   address="12345 Address Ave, Georgetown, TX 78628"
                 />
-                {/* <h4>No Upcoming Events</h4>
-                <FilledButton className={`${styles.Eventsbtn}`}>
-                  Browse Events
-                </FilledButton>
-                <div className="text-center">
-                  <p
-                    className="pt-3 mb-0"
-                    style={{
-                      fontSize: "16px",
-                      fontWeight: "700",
-                      color: "#FF3030",
-                      fontFamily: "Proxima Nova",
-                      letterSpacing: "1px",
-                    }}
-                  >
-                    See past events
-                  </p>
-                </div> */}
               </CardComponent>
-              <CardComponent
-                title="Achievement Badges"
-                // subTitle="Ready to start earning badges? Get rewarded for completing events and completing your goals, collect event-exclusive badges and showcase them on your profile."
-              >
-                {/* <FilledButton className={`${styles.Eventsbtn}`}>
-                  Schedule Your First Event
-                </FilledButton> */}
+              <CardComponent title="Achievement Badges">
                 <Row>
                   <Col md={12}>
                     <BadgeCardComponent>

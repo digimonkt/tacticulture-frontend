@@ -1,23 +1,21 @@
 import React from "react";
 import styles from "../../profile.module.css";
 import { FilledButton } from "@/component/buttons";
-import { useRouter } from "next/router";
 
 interface StepperI {
   steps: number;
   at: number;
+  handleSubmit: () => void;
 }
 
-function StepperComponent({ steps, at }: StepperI) {
-  const router = useRouter();
-
+function StepperComponent({ steps, at, handleSubmit }: StepperI) {
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mt-4 ms-4 me-4 position-relative">
         <div className={`${styles.dots}`}>
-          {[...Array(steps)].map((item: number) => (
+          {[...Array(steps)].map((item: number, index: number) => (
             <div
-              key={item}
+              key={index}
               style={{
                 height: "10px",
                 width: "20px",
@@ -48,10 +46,7 @@ function StepperComponent({ steps, at }: StepperI) {
             height: "38px",
           }}
           onClick={() => {
-            router.push({
-              pathname: router.pathname,
-              query: { ...router.query, step: at + 1 },
-            });
+            handleSubmit();
           }}
         >
           Continue

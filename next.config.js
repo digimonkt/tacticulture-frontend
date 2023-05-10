@@ -9,6 +9,7 @@ const nextConfig = {
     return config;
   },
   reactStrictMode: true,
+  transpilePackages: ["react-timezone-select"],
   async rewrites() {
     return [
       {

@@ -1,17 +1,28 @@
 import { Col, Row } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import styles from "../../profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
 import TextareaComponent from "@/component/textarea";
-// import TimeZoneComponent from "@/component/timezone";
-// import TextareaComponent from "@/component/textarea";
+import { useFormik } from "formik";
+import { instructorStepOneValidationSchema } from "./validation";
+import TimeZoneComponent from "@/component/timezone";
 
 function Step1() {
-  const [name, setName] = useState("");
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
+  // formik
+  const formik = useFormik({
+    initialValues: {
+      customUrl: "",
+      bio: "",
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    },
+    validationSchema: instructorStepOneValidationSchema,
+    onSubmit: (values) => {
+      console.log("hi there", values);
+      // handleUpdateProfile(values);
+    },
+  });
+
   return (
     <div>
       <h5
@@ -43,8 +54,8 @@ function Step1() {
         <Col md={16} className="pe-4">
           <div className={`${styles.Instruction}`}>
             <div className="position-relative Instructor">
-              <LabeledInput onChange={onChange} />
-              {name ? (
+              <LabeledInput {...formik.getFieldProps("customUrl")} />
+              {/* {name ? (
                 <>
                   <SVG.ExclamanationIcon
                     style={{
@@ -58,7 +69,7 @@ function Step1() {
                 </>
               ) : (
                 ""
-              )}
+              )} */}
             </div>
             <ul className="p-0">
               <li>
@@ -79,11 +90,18 @@ function Step1() {
           </div>
         </Col>
       </Row>
-      {/* <div className={`${styles.timeZone}`}>
-        <TimeZoneComponent />
-      </div> */}
+      <div className={`${styles.timeZone}`}>
+        <TimeZoneComponent
+          timeZoneValue={formik.values.timezone}
+          handleTimeZoneValue={(vl) => formik.setFieldValue("timezone", vl)}
+        />
+      </div>
       <div className={`${styles.textArea}`}>
-        <TextareaComponent />
+        <TextareaComponent
+          bioValue={formik.values.bio}
+          handleChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
+          formikProps={formik.getFieldProps("bio")}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
+import React, { Ref, forwardRef, useImperativeHandle, useEffect } from "react";
 import UploadProfileComponent from "@/component/upload-profile";
-import React from "react";
 import styles from "../../profile.module.css";
 import { Checkbox, Col, Row } from "antd";
 import { FormLabel } from "react-bootstrap";
@@ -14,12 +14,21 @@ import {
 } from "@/redux/reducers/modalsToggle";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import { updateUser } from "@/api/auth";
+import { ErrorMessage } from "@/component/caption";
 
 interface IRouter {
   userEmail: string;
 }
 
-function ApprenticeStep1() {
+export interface IRef {
+  handleSubmitApprenticeStepOne: () => void;
+}
+
+// eslint-disable-next-line react/display-name
+const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
+  props,
+  ref: Ref<IRef>
+) {
   // router
   const router = useRouter();
 
@@ -35,10 +44,12 @@ function ApprenticeStep1() {
       lastName: "",
       password: "",
       isPublicProfile: false,
+      email: "",
     },
     validationSchema: apprenticeStepOneValidationSchema,
     onSubmit: (values) => {
-      handleSubmit(values);
+      console.log("hi there", values);
+      handleUpdateProfile(values);
     },
   });
 
@@ -49,17 +60,21 @@ function ApprenticeStep1() {
     }, 2000);
   };
   // handle submit
-  const handleSubmit = async (values: {
+  const handleUpdateProfile = async (values: {
     firstName: string;
     lastName: string;
     password: string;
     isPublicProfile: boolean;
+    email: string;
   }) => {
     dispatch(setPreLoader(true));
     const response = await updateUser(values);
 
     if (response.remote === "success") {
-      /* empty */
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, step: 2 },
+      });
     } else {
       if (response?.error?.status === 500) {
         dispatch(
@@ -90,6 +105,18 @@ function ApprenticeStep1() {
     dispatch(setPreLoader(false));
   };
 
+  useImperativeHandle(ref, () => ({
+    handleSubmitApprenticeStepOne: formik.handleSubmit,
+  }));
+
+  // ---
+  useEffect(() => {
+    if (userEmail) {
+      formik.setFieldValue("email", userEmail);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userEmail]);
+
   return (
     <div style={{ borderBottom: "1px solid #555", paddingBottom: "24px" }}>
       <UploadProfileComponent />
@@ -118,6 +145,9 @@ function ApprenticeStep1() {
                 First Name<span>*</span>
               </FormLabel>
               <LabeledInput {...formik.getFieldProps("firstName")} />
+              {formik.touched.firstName && formik.errors.firstName ? (
+                <ErrorMessage>{formik.errors.firstName}</ErrorMessage>
+              ) : null}
             </div>
           </Col>
           <Col md={12}>
@@ -126,6 +156,9 @@ function ApprenticeStep1() {
                 Last Name<span>*</span>
               </FormLabel>
               <LabeledInput {...formik.getFieldProps("lastName")} />
+              {formik.touched.lastName && formik.errors.lastName ? (
+                <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
+              ) : null}
             </div>
           </Col>
           <Col md={12}>
@@ -135,21 +168,27 @@ function ApprenticeStep1() {
               </FormLabel>
               <LabeledInput
                 disabled
-                value={userEmail}
+                {...formik.getFieldProps("email")}
                 style={{ background: "#fff", color: "#000" }}
               />
+              {formik.touched.email && formik.errors.email ? (
+                <ErrorMessage>{formik.errors.email}</ErrorMessage>
+              ) : null}
             </div>
           </Col>
           <Col md={12}>
             <div className="mb-3">
               <FormLabel>Password</FormLabel>
               <LabeledInput {...formik.getFieldProps("password")} />
+              {formik.touched.password && formik.errors.password ? (
+                <ErrorMessage>{formik.errors.password}</ErrorMessage>
+              ) : null}
             </div>
           </Col>
         </Row>
       </div>
     </div>
   );
-}
+});
 
 export default ApprenticeStep1;
