@@ -37,7 +37,7 @@ function ProfileSetup() {
   // state management
   const [role, setRole] = useState<USER_ROLES | "">("");
   const [roleId, setRoleId] = useState<string | "">("");
-  const [userTypeList, setUserTypeList] = useState([]);
+  const [userTypeList, setUserTypeList] = useState<IUserType[]>([]);
 
   // fetch owner workspace list
   const fetchUserTypeList = async () => {
@@ -129,7 +129,7 @@ function ProfileSetup() {
           Select your <b>Default Account Type</b> <SVG.InfoIcon width="24" />
         </h6>
         <div className="d-flex align-items-center justify-content-between">
-          {userTypeList.map((userType: IUserType) => (
+          {userTypeList.map((userType) => (
             <UserCardComponent
               key={userType?.id}
               heading={userType?.user_type}

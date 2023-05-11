@@ -10,10 +10,7 @@ export interface IEventCategories {
 }
 
 interface IEventInterest {
-  eventInterestValues: {
-    id: string;
-    event_categories: string;
-  }[];
+  eventInterestValues: IEventCategories[];
   handleSetInterest: (arg: IEventCategories) => void;
   handleRemoveInterest: (arg: IEventCategories) => void;
   formikProps: FieldInputProps<string>;

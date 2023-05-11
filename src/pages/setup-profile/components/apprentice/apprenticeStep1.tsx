@@ -24,7 +24,6 @@ export interface IRef {
   handleSubmitApprenticeStepOne: () => void;
 }
 
-// eslint-disable-next-line react/display-name
 const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
   props,
   ref: Ref<IRef>
@@ -111,11 +110,10 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
 
   // ---
   useEffect(() => {
-    if (userEmail) {
+    if (userEmail && formik.values.email !== userEmail) {
       formik.setFieldValue("email", userEmail);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userEmail]);
+  }, [formik, userEmail]);
 
   return (
     <div style={{ borderBottom: "1px solid #555", paddingBottom: "24px" }}>
