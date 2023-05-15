@@ -1,8 +1,9 @@
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../profile.module.css";
 import { SVG } from "@/assets/svg";
+import { subscriptionPlansList } from "@/api/auth";
 
 export default function Step4() {
   const Plan = [
@@ -105,6 +106,20 @@ export default function Step4() {
       ),
     },
   ];
+  const [plansList, setPlansList] = useState([]);
+
+  // fetch Plans  list
+  const fetchPlansList = async () => {
+    const response = await subscriptionPlansList();
+
+    if (response.remote === "success") {
+      setPlansList(response.data.results);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlansList();
+  }, []);
   return (
     <div>
       <Row className="pe-4 ps-4">

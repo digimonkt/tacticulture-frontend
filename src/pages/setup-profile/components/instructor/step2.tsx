@@ -1,75 +1,145 @@
 import { SVG } from "@/assets/svg";
 import { Checkbox, Col, Row } from "antd";
-import React from "react";
+import React, { Ref, forwardRef, useImperativeHandle } from "react";
 import styles from "../../profile.module.css";
 import { LabeledInput } from "@/component/input";
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
+import { setPreLoader } from "@/redux/reducers/preLoader";
+import { updateUser } from "@/api/user";
+import { instructorStepTwoValidationSchema } from "./validation";
+import {
+  resetAlertMessage,
+  setAlertMessage,
+} from "@/redux/reducers/modalsToggle";
+import { useRouter } from "next/router";
 
-function Step2() {
-  const Item = [
+export interface InstructorStepTwoRef {
+  handleSubmitStepTwoDetail: () => void;
+}
+
+type FormikInitialStateType = {
+  available_from: string | null;
+  available_to: string | null;
+  off_weekdays: string[];
+};
+// function Step2() {
+const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
+  const Weekdays = [
     {
       id: "1",
-      check: (
-        <>
-          <Checkbox />
-        </>
-      ),
+      slug: "sunday",
       name: "Sunday",
     },
     {
       id: "2",
-      check: (
-        <>
-          <Checkbox />
-        </>
-      ),
+      slug: "monday",
       name: "Monday",
     },
     {
       id: "3",
-      check: (
-        <>
-          <Checkbox />
-        </>
-      ),
+      slug: "tuesday",
       name: "Tuesday",
     },
     {
       id: "4",
-      check: (
-        <>
-          <Checkbox />
-        </>
-      ),
+      slug: "wednesday",
       name: "Wednesday",
     },
     {
       id: "5",
-      check: (
-        <>
-          <Checkbox />
-        </>
-      ),
+      slug: "thursday",
       name: "Thursday",
     },
     {
       id: "6",
-      check: (
-        <>
-          <Checkbox />
-        </>
-      ),
+      slug: "friday",
       name: "Friday",
     },
     {
       id: "7",
-      check: (
-        <>
-          <Checkbox />
-        </>
-      ),
+      slug: "saturday",
       name: "Saturday",
     },
   ];
+
+  // redux dispatch
+  const dispatch = useDispatch();
+  // router
+  const router = useRouter();
+  // formik
+  const formik = useFormik<FormikInitialStateType>({
+    initialValues: {
+      available_from: null,
+      available_to: null,
+      off_weekdays: [],
+    },
+    validationSchema: instructorStepTwoValidationSchema,
+    onSubmit: (data) => {
+      handleSubmit(data);
+    },
+  });
+
+  // reset AlertMessage
+  const handleResetAlert = () => {
+    setTimeout(() => {
+      dispatch(resetAlertMessage());
+      // setEmailError("");
+    }, 2200);
+  };
+  // handle submit
+  const handleSubmit = async (values: {
+    available_from: string | null;
+    available_to: string | null;
+    off_weekdays: string[];
+  }) => {
+    dispatch(setPreLoader(true));
+
+    const response = await updateUser(values);
+    if (response.remote === "success") {
+      // props.handleSteps();
+      // navigate("/verify-email", { state: { userEmail: values.userEmail } });
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, step: 3 },
+      });
+    } else {
+      if (response.error.status === 500) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: response.error.errors,
+            show: true,
+          })
+        );
+        handleResetAlert();
+      } else if (response.error.status === 404) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: response.error.errors,
+            show: true,
+          })
+        );
+        handleResetAlert();
+      } else {
+        handleResetAlert();
+      }
+    }
+    dispatch(setPreLoader(false));
+  };
+
+  useImperativeHandle(ref, () => ({
+    handleSubmitStepTwoDetail: formik.handleSubmit,
+  }));
+  const setWeekdaysValues = (day: string) => {
+    formik.setValues({
+      ...formik.values,
+      off_weekdays: formik.values.off_weekdays.includes(day)
+        ? formik.values.off_weekdays.filter((weekday) => weekday !== day)
+        : [...formik.values.off_weekdays, day],
+    });
+  };
   return (
     <>
       <div
@@ -86,23 +156,36 @@ function Step2() {
         <Col md={12} className="ps-4 pe-2">
           <div className={`${styles.Hours}`}>
             <label>Available Hours</label>
-            <LabeledInput type="time" className="form-control " />
+            <LabeledInput
+              type="time"
+              className="form-control"
+              {...formik.getFieldProps("available_from")}
+            />
           </div>
         </Col>
         <Col md={12} className="pe-4 ps-2">
           <div className={`${styles.Hours}`}>
             <label className="mb-4"></label>
-            <LabeledInput type="time" className="form-control" />
+            <LabeledInput
+              type="time"
+              className="form-control"
+              {...formik.getFieldProps("available_to")}
+            />
           </div>
         </Col>
       </Row>
 
       <div className={`${styles.Weekend}`}>
         <>
-          {Item.map((Item) => (
-            <div className={`${styles.innerSection}`} key={Item.id}>
-              <span>{Item.check}</span>
-              <p className="mb-0">{Item.name}</p>
+          {Weekdays.map((item) => (
+            <div className={`${styles.innerSection}`} key={item.id}>
+              <span>
+                <Checkbox
+                  checked={formik.values.off_weekdays.includes(item.slug)}
+                  onClick={() => setWeekdaysValues(item.slug)}
+                />
+              </span>
+              <p className="mb-0">{item.name}</p>
             </div>
           ))}
         </>
@@ -115,6 +198,6 @@ function Step2() {
       </div>
     </>
   );
-}
+});
 
 export default Step2;

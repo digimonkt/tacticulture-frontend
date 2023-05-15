@@ -8,6 +8,8 @@ import { ApprenticeSteps, InstructorSteps } from "./components";
 import StepperComponent from "./components/steppers";
 import { IRef } from "./components/apprentice/apprenticeStep1";
 import { IStepTwoRef } from "./components/apprentice/apprenticeStep2";
+import { InstructorStepOneRef } from "./components/instructor/step1";
+import { InstructorStepTwoRef } from "./components/instructor/step2";
 
 interface IRouter {
   role: USER_ROLES;
@@ -22,17 +24,25 @@ function Role() {
   // refs
   const apprenticeStepOneRef = useRef<IRef>(null);
   const apprenticeStepTwoRef = useRef<IStepTwoRef>(null);
+  const instructorStepOneRef = useRef<InstructorStepOneRef>(null);
+  const instructorStepTwoRef = useRef<InstructorStepTwoRef>(null);
 
   // components to render
   const getComponents = () => {
     if (role === USER_ROLES.instructor) {
       switch (step) {
         case "1":
-          return <InstructorSteps.Step1 />;
+          return <InstructorSteps.Step1 ref={instructorStepOneRef} />;
         case "2":
-          return <InstructorSteps.Step2 />;
+          return <InstructorSteps.Step2 ref={instructorStepTwoRef} />;
         case "3":
-          return <InstructorSteps.Step3 />;
+          // return <InstructorSteps.Step3 />;
+          return (
+            <ApprenticeSteps.ApprenticeStep1
+              ref={apprenticeStepOneRef}
+              role={role}
+            />
+          );
         case "4":
           return <InstructorSteps.Step4 />;
         case "5":
@@ -46,7 +56,12 @@ function Role() {
     } else if (role === USER_ROLES.apprentice) {
       switch (step) {
         case "1":
-          return <ApprenticeSteps.ApprenticeStep1 ref={apprenticeStepOneRef} />;
+          return (
+            <ApprenticeSteps.ApprenticeStep1
+              ref={apprenticeStepOneRef}
+              role={role}
+            />
+          );
         case "2":
           return <ApprenticeSteps.ApprenticeStep2 ref={apprenticeStepTwoRef} />;
         default:
@@ -63,10 +78,13 @@ function Role() {
     if (role === USER_ROLES.instructor) {
       switch (step) {
         case "1":
+          instructorStepOneRef?.current?.handleSubmitAccountDetail();
           break;
         case "2":
+          instructorStepTwoRef?.current?.handleSubmitStepTwoDetail();
           break;
         case "3":
+          apprenticeStepOneRef?.current?.handleSubmitApprenticeStepOne();
           break;
         case "4":
           break;

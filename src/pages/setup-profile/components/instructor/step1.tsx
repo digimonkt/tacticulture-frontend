@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { Ref, forwardRef, useImperativeHandle } from "react";
 import styles from "../../profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
@@ -7,22 +7,99 @@ import TextareaComponent from "@/component/textarea";
 import { useFormik } from "formik";
 import { instructorStepOneValidationSchema } from "./validation";
 import TimeZoneComponent from "@/component/timezone";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { setPreLoader } from "@/redux/reducers/preLoader";
+import { updateUser } from "@/api/user";
+import {
+  resetAlertMessage,
+  setAlertMessage,
+} from "@/redux/reducers/modalsToggle";
+import { useRouter } from "next/router";
 
-function Step1() {
+interface IRouter {
+  userEmail: string;
+}
+
+export interface InstructorStepOneRef {
+  handleSubmitAccountDetail: () => void;
+}
+
+// function Step1() {
+
+const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
+  const dispatch = useAppDispatch();
+  // router
+  const router = useRouter();
+  // const { userEmail } = router.query as unknown as IRouter;
+
   // formik
   const formik = useFormik({
     initialValues: {
-      customUrl: "",
+      // customUrl: "",
       bio: "",
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     },
     validationSchema: instructorStepOneValidationSchema,
     onSubmit: (values) => {
-      console.log("hi there", values);
-      // handleUpdateProfile(values);
+      // console.log("hi there", values);
+      handleUpdateProfile(values);
     },
   });
 
+  // reset AlertMessage
+  const handleResetAlert = () => {
+    setTimeout(() => {
+      dispatch(resetAlertMessage());
+    }, 2000);
+  };
+  // handle submit
+  const handleUpdateProfile = async (values: {
+    bio: string;
+    timezone: string;
+  }) => {
+    dispatch(setPreLoader(true));
+    const response = await updateUser(values);
+
+    if (response.remote === "success") {
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, step: 2 },
+      });
+      // props.handleSteps();
+      // navigate("/verify-email", { state: { userEmail: values.userEmail } });
+    } else {
+      if (response.error.status === 500) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: response.error.errors,
+            show: true,
+          })
+        );
+        handleResetAlert();
+      } else if (response.error.status === 404) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: response.error.errors,
+            show: true,
+          })
+        );
+        handleResetAlert();
+      } else {
+        // setEmailError(response.error.errors?.email[0]);
+        handleResetAlert();
+      }
+    }
+    dispatch(setPreLoader(false));
+  };
+  //   console.log("formik value -- ", formik.values);
+
+  // ----
+
+  useImperativeHandle(ref, () => ({
+    handleSubmitAccountDetail: formik.handleSubmit,
+  }));
   return (
     <div>
       <h5
@@ -54,7 +131,7 @@ function Step1() {
         <Col md={16} className="pe-4">
           <div className={`${styles.Instruction}`}>
             <div className="position-relative Instructor">
-              <LabeledInput {...formik.getFieldProps("customUrl")} />
+              <LabeledInput />
               {/* {name ? (
                 <>
                   <SVG.ExclamanationIcon
@@ -105,6 +182,6 @@ function Step1() {
       </div>
     </div>
   );
-}
+});
 
 export default Step1;

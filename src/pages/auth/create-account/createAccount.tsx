@@ -48,8 +48,10 @@ function CreateAccountComponent() {
   // handle create account
   const handleCreateAccount = async (values: { userEmail: string }) => {
     dispatch(setPreLoader(true));
-    const response = await registerUser(values.userEmail);
-
+    const payload = {
+      email: values.userEmail,
+    };
+    const response = await registerUser(payload);
     if (response.remote === "success") {
       router.push({
         pathname: "/verify-email",
@@ -77,7 +79,7 @@ function CreateAccountComponent() {
         dispatch(setPreLoader(false));
         handleResetAlert();
       } else {
-        setEmailError(response?.error?.errors?.email[0]);
+        setEmailError(response.error.errors.email[0]);
         handleResetAlert();
         dispatch(setPreLoader(false));
       }

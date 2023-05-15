@@ -13,8 +13,9 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { setPreLoader } from "@/redux/reducers/preLoader";
-import { updateUser } from "@/api/auth";
 import { ErrorMessage } from "@/component/caption";
+import { updateUser } from "@/api/user";
+import { USER_ROLES } from "@/utils/enum";
 
 interface IRouter {
   userEmail: string;
@@ -24,12 +25,19 @@ export interface IRef {
   handleSubmitApprenticeStepOne: () => void;
 }
 
+export interface IProps {
+  role: USER_ROLES;
+}
+
 const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
-  props,
+  props: IProps,
   ref: Ref<IRef>
 ) {
   // router
   const router = useRouter();
+
+  // props
+  const { role } = props;
 
   const { userEmail } = router.query as unknown as IRouter;
 
@@ -39,15 +47,14 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
   // formik
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       password: "",
-      isPublicProfile: false,
+      is_public_profile: false,
       email: "",
     },
     validationSchema: apprenticeStepOneValidationSchema,
     onSubmit: (values) => {
-      console.log("hi there", values);
       handleUpdateProfile(values);
     },
   });
@@ -60,19 +67,18 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
   };
   // handle submit
   const handleUpdateProfile = async (values: {
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     password: string;
-    isPublicProfile: boolean;
+    is_public_profile: boolean;
     email: string;
   }) => {
     dispatch(setPreLoader(true));
     const response = await updateUser(values);
-
     if (response.remote === "success") {
       router.push({
         pathname: router.pathname,
-        query: { ...router.query, step: 2 },
+        query: { ...router.query, step: role === "apprentice" ? 2 : 4 },
       });
     } else {
       if (response?.error?.status === 500) {
@@ -122,9 +128,9 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
         <h5 className={`${styles.accounthead}`}>Your Account Information</h5>
         <div className="d-flex align-items-center ">
           <Checkbox
-            checked={formik.values.isPublicProfile}
+            checked={formik.values.is_public_profile}
             onChange={(e) => {
-              formik.setFieldValue("isPublicProfile", e.target.checked);
+              formik.setFieldValue("is_public_profile", e.target.checked);
             }}
             className="me-2"
           />
@@ -142,9 +148,9 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
               <FormLabel>
                 First Name<span>*</span>
               </FormLabel>
-              <LabeledInput {...formik.getFieldProps("firstName")} />
-              {formik.touched.firstName && formik.errors.firstName ? (
-                <ErrorMessage>{formik.errors.firstName}</ErrorMessage>
+              <LabeledInput {...formik.getFieldProps("first_name")} />
+              {formik.touched.first_name && formik.errors.first_name ? (
+                <ErrorMessage>{formik.errors.first_name}</ErrorMessage>
               ) : null}
             </div>
           </Col>
@@ -153,9 +159,9 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
               <FormLabel>
                 Last Name<span>*</span>
               </FormLabel>
-              <LabeledInput {...formik.getFieldProps("lastName")} />
-              {formik.touched.lastName && formik.errors.lastName ? (
-                <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
+              <LabeledInput {...formik.getFieldProps("last_name")} />
+              {formik.touched.last_name && formik.errors.last_name ? (
+                <ErrorMessage>{formik.errors.last_name}</ErrorMessage>
               ) : null}
             </div>
           </Col>
@@ -177,7 +183,10 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
           <Col md={12}>
             <div className="mb-3">
               <FormLabel>Password</FormLabel>
-              <LabeledInput {...formik.getFieldProps("password")} />
+              <LabeledInput
+                type="password"
+                {...formik.getFieldProps("password")}
+              />
               {formik.touched.password && formik.errors.password ? (
                 <ErrorMessage>{formik.errors.password}</ErrorMessage>
               ) : null}

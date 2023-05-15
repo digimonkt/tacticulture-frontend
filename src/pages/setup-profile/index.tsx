@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProfileHeaderComponent from "@/component/header/profile-header";
 import styles from "./profile.module.css";
 import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";
 import UserCardComponent from "@/component/card/user-card";
 import { useRouter } from "next/router";
-import { USER_ROLES } from "@/utils/enum";
+import { USER_ROLES, userTypeList } from "@/utils/enum";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { setUserRole } from "@/redux/reducers/userRole";
-import { updateUser, userTypesList } from "@/api/auth";
+import { updateUser } from "@/api/user";
 import {
   resetAlertMessage,
   setAlertMessage,
@@ -17,7 +17,7 @@ import { setPreLoader } from "@/redux/reducers/preLoader";
 
 interface IUserType {
   id: string;
-  user_type: string;
+  user_roles: string;
   content: string;
   slug_name: USER_ROLES;
 }
@@ -37,16 +37,16 @@ function ProfileSetup() {
   // state management
   const [role, setRole] = useState<USER_ROLES | "">("");
   const [roleId, setRoleId] = useState<string | "">("");
-  const [userTypeList, setUserTypeList] = useState<IUserType[]>([]);
+  // const [userTypeList, setUserTypeList] = useState<IUserType[]>([]);
 
   // fetch owner workspace list
-  const fetchUserTypeList = async () => {
-    const response = await userTypesList();
+  // const fetchUserTypeList = async () => {
+  //   const response = await userTypesList();
 
-    if (response.remote === "success") {
-      setUserTypeList(response.data.results);
-    }
-  };
+  //   if (response.remote === "success") {
+  //     setUserTypeList(response.data.results);
+  //   }
+  // };
 
   // reset AlertMessage
   const handleResetAlert = () => {
@@ -70,8 +70,8 @@ function ProfileSetup() {
     } else {
       dispatch(setPreLoader(true));
       const payload = {
-        userTypeId: roleId,
-        userTypeName: role,
+        user_roles: role,
+        default_profile: role,
       };
       const response = await updateUser(payload);
       if (response.remote === "success") {
@@ -102,9 +102,9 @@ function ProfileSetup() {
   };
 
   // ----
-  useEffect(() => {
-    fetchUserTypeList();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserTypeList();
+  // }, []);
   return (
     <div className={`${styles.profileBody}`}>
       <ProfileHeaderComponent />
@@ -132,14 +132,14 @@ function ProfileSetup() {
           {userTypeList.map((userType) => (
             <UserCardComponent
               key={userType?.id}
-              heading={userType?.user_type}
+              heading={userType?.user_roles}
               content={userType?.content}
               onClick={() => {
-                setRole(userType.slug_name);
+                setRole(userType.user_roles);
                 setRoleId(userType?.id);
-                dispatch(setUserRole(userType.slug_name));
+                dispatch(setUserRole(userType.user_roles));
               }}
-              selected={role === userType.slug_name}
+              selected={role === userType.user_roles}
             />
           ))}
         </div>
