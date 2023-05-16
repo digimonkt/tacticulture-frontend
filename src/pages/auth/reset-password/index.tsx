@@ -13,13 +13,13 @@ interface ISearchQuery {
 function PasswordReset() {
   const router = useRouter();
   const { at } = router.query as unknown as ISearchQuery;
+
   const getComponent = () => {
     switch (at) {
       case RESET_PASSWORD_PAGE.verifyEmail:
         return <VerifyEmailComponent />;
       case RESET_PASSWORD_PAGE.updatePassword:
         return <UpdatePasswordComponent />;
-
       default:
         return <ResetPasswordComponent />;
     }

@@ -17,6 +17,10 @@ const nextConfig = {
         destination: "/auth/login",
       },
       {
+        source: "/verify-token",
+        destination: "/auth/verify-token",
+      },
+      {
         source: "/login/manual",
         destination: "/auth/login/manual",
       },

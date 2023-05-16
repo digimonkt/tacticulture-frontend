@@ -10,6 +10,7 @@ import { IRef } from "./components/apprentice/apprenticeStep1";
 import { IStepTwoRef } from "./components/apprentice/apprenticeStep2";
 import { InstructorStepOneRef } from "./components/instructor/step1";
 import { InstructorStepTwoRef } from "./components/instructor/step2";
+import { InstructorStepFourRef } from "./components/instructor/step4";
 
 interface IRouter {
   role: USER_ROLES;
@@ -26,6 +27,7 @@ function Role() {
   const apprenticeStepTwoRef = useRef<IStepTwoRef>(null);
   const instructorStepOneRef = useRef<InstructorStepOneRef>(null);
   const instructorStepTwoRef = useRef<InstructorStepTwoRef>(null);
+  const instructorStepFourRef = useRef<InstructorStepFourRef>(null);
 
   // components to render
   const getComponents = () => {
@@ -44,7 +46,7 @@ function Role() {
             />
           );
         case "4":
-          return <InstructorSteps.Step4 />;
+          return <InstructorSteps.Step4 ref={instructorStepFourRef} />;
         case "5":
           return <InstructorSteps.Step5 />;
         default:
@@ -87,6 +89,8 @@ function Role() {
           apprenticeStepOneRef?.current?.handleSubmitApprenticeStepOne();
           break;
         case "4":
+          instructorStepFourRef?.current?.handleSubmitPlanForm();
+
           break;
         case "5":
           break;
