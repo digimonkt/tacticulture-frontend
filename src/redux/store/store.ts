@@ -2,14 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import UserRoleReducer from "../reducers/userRole";
 import PreLoaderReducer from "../reducers/preLoader";
 import ModalsToogleReducer from "../reducers/modalsToggle";
-import profileSetupCheckReducer from "../reducers/profileSetupCheck";
+import userReducer from "../reducers/user";
 
 export const store = configureStore({
   reducer: {
     UserRoleReducer,
     PreLoaderReducer,
     ModalsToogleReducer,
-    profileSetupCheckReducer,
+    userReducer,
   },
 });
 

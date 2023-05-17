@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React, { Ref, forwardRef, useImperativeHandle } from "react";
+import React, { Ref, forwardRef, useImperativeHandle, useState } from "react";
 import styles from "../../profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
@@ -31,6 +31,9 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   // router
   const router = useRouter();
   // const { userEmail } = router.query as unknown as IRouter;
+
+  // state management
+  const [customUrlError, setCustomUrlError] = useState<boolean | null>(null);
 
   // formik
   const formik = useFormik({
@@ -70,6 +73,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
     const response = await updateUser(payload);
 
     if (response.remote === "success") {
+      setCustomUrlError(false);
       isNavigable &&
         router.push({
           pathname: router.pathname,
@@ -95,7 +99,9 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
         );
         handleResetAlert();
       } else {
-        // setEmailError(response.error.errors?.email[0]);
+        response.error.status === 400 &&
+          response.error.errors?.username?.length &&
+          setCustomUrlError(true);
         handleResetAlert();
       }
     }
@@ -141,9 +147,12 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
             <div className="position-relative Instructor">
               <LabeledInput
                 value={formik.values.customUrl}
-                onChange={(e) =>
-                  formik.setFieldValue("customUrl", e.target.value)
-                }
+                onChange={(e) => {
+                  if (customUrlError === true || customUrlError === false) {
+                    setCustomUrlError(null);
+                  }
+                  formik.setFieldValue("customUrl", e.target.value);
+                }}
                 onBlur={() => {
                   handleUpdateProfile(
                     { customUrl: formik.values.customUrl },
@@ -151,7 +160,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
                   );
                 }}
               />
-              {/* {name ? (
+              {formik.values.customUrl !== "" && customUrlError && (
                 <>
                   <SVG.ExclamanationIcon
                     style={{
@@ -163,25 +172,26 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
                     }}
                   />
                 </>
-              ) : (
-                ""
-              )} */}
+              )}
             </div>
             <ul className="p-0">
-              <li>
-                <SVG.ExclamanationIcon
-                  className={`${styles.firstLine}`}
-                  width="15px"
-                />
-                That has already been reserved, please modify further
-              </li>
-              <li>
-                <SVG.Fillcheck
-                  className={`${styles.secondLine}`}
-                  width="15px"
-                />
-                That URL is available
-              </li>
+              {formik.values.customUrl !== "" && customUrlError ? (
+                <li>
+                  <SVG.ExclamanationIcon
+                    className={`${styles.firstLine}`}
+                    width="15px"
+                  />
+                  That has already been reserved, please modify further
+                </li>
+              ) : formik.values.customUrl !== "" && customUrlError === false ? (
+                <li>
+                  <SVG.Fillcheck
+                    className={`${styles.secondLine}`}
+                    width="15px"
+                  />
+                  That URL is available
+                </li>
+              ) : null}
             </ul>
           </div>
         </Col>

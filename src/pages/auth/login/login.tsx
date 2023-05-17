@@ -1,6 +1,6 @@
 import { SVG } from "@/assets/svg";
 import Layout from "@/pages/auth/layout";
-import React, { useState } from "react";
+import React from "react";
 import styles from "../auth.module.css";
 import Link from "next/link";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
@@ -25,7 +25,7 @@ function LoginComponent() {
   // router
   const router = useRouter();
   // state management
-  const [emailError, setEmailError] = useState("");
+  // const [emailError, setEmailError] = useState("");
 
   // formik
   const formik = useFormik({
@@ -42,13 +42,10 @@ function LoginComponent() {
   const handleResetAlert = () => {
     setTimeout(() => {
       dispatch(resetAlertMessage());
-      setEmailError("");
+      // setEmailError("");
     }, 2200);
   };
-  setTimeout(() => {
-    dispatch(resetAlertMessage());
-    setEmailError("");
-  }, 2200);
+
   // handle submit
   const handleSubmit = async (values: { email: string }) => {
     dispatch(setPreLoader(true));
@@ -56,10 +53,7 @@ function LoginComponent() {
       email: values.email,
     };
     const response = await loginUser(payload);
-    console.log(response);
     if (response.remote === "success") {
-      // alert("success");
-      // navigate("/reset-link", { state: { email: values.userEmail } });
       router.push({
         pathname: "/reset-password",
         query: {
@@ -89,12 +83,13 @@ function LoginComponent() {
         );
         handleResetAlert();
       } else {
-        setEmailError(response.error.errors?.email[0]);
+        // setEmailError(response.error.errors?.email[0]);
         handleResetAlert();
       }
     }
     dispatch(setPreLoader(false));
   };
+
   return (
     <Layout title="Sign In">
       <>
@@ -119,11 +114,9 @@ function LoginComponent() {
             <ErrorMessage>{formik.errors.email}</ErrorMessage>
           ) : null}
           <div className={`${styles.signupBtn}`}>
-            {/* <Link href="/user-step"> */}
             <FilledButton onClick={() => formik.handleSubmit()}>
               Sign in with Email
             </FilledButton>
-            {/* </Link>  */}
           </div>
         </form>
         <div className={`${styles.magicalBox}`}>

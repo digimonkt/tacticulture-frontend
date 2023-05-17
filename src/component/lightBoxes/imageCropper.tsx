@@ -46,8 +46,6 @@ const ImageCropperComponent = ({
         fileExtension
       );
 
-      console.log("croppedImage --- ", croppedImage);
-
       setCroppedImage(croppedImage);
       setTimeout(() => {
         dispatch(handleImageCropperToggle(false));
@@ -80,7 +78,7 @@ const ImageCropperComponent = ({
           zoom={zoom}
           aspect={
             imageType === IMAGE_VARIENTS.profile
-              ? 2 / 2
+              ? 1 / 1
               : imageType === IMAGE_VARIENTS.event
               ? 300 / 157
               : 1 / 1
