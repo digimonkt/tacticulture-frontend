@@ -1,5 +1,7 @@
-import { SubscriptionPlan } from "@/redux/reducers/subscriptionPlan";
-import { SubscriptionPlanResponse } from "../types/subscriptionPlan";
+import {
+  SubscriptionPlanResponse,
+  SubscriptionPlan,
+} from "../types/subscriptionPlan";
 
 export const transformGetSubscriptionPlanListAPIResponse = (
   data: SubscriptionPlanResponse

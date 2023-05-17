@@ -18,6 +18,25 @@ export type SubscriptionPlanResponse = {
   other_description: string;
   choices: Choices[];
 };
+
+type ChoicesTransfrom = {
+  id: number;
+  choices: string;
+  otherInformation: string;
+  status: boolean;
+};
+
+export type SubscriptionPlan = {
+  id: number;
+  monthlyOrAnnualPlan: SUBSCRIPTION_PLAN_TYPE;
+  planName: string;
+  planType: string;
+  amount: number;
+  planDuration: string;
+  otherDescription: string;
+  choices: ChoicesTransfrom[];
+};
+
 export type GetSubscriptionPlanResponse = GetListWithPagination<
   SubscriptionPlanResponse[]
 >;

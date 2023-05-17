@@ -9,9 +9,8 @@ import React, {
 } from "react";
 import styles from "../../profile.module.css";
 import { SVG } from "@/assets/svg";
-
 import { subscriptionPlansList } from "@/api/subscriptionPlan";
-import { SubscriptionPlan } from "@/redux/reducers/subscriptionPlan";
+import { SubscriptionPlan } from "@/api/types/subscriptionPlan";
 import { updateUser } from "@/api/user";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/redux/hooks/hooks";
@@ -207,6 +206,7 @@ const Step4 = forwardRef(function Step4(
   useEffect(() => {
     fetchPlansList();
   }, []);
+
   return (
     <div>
       <Row className="pe-4 ps-4">

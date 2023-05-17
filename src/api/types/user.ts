@@ -14,4 +14,5 @@ export type UpdateUserType = {
   off_weekdays?: string[];
   events?: number[];
   is_profile_complete?: boolean;
+  username?: string;
 };

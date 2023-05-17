@@ -38,7 +38,6 @@ function Role() {
         case "2":
           return <InstructorSteps.Step2 ref={instructorStepTwoRef} />;
         case "3":
-          // return <InstructorSteps.Step3 />;
           return (
             <ApprenticeSteps.ApprenticeStep1
               ref={apprenticeStepOneRef}

@@ -19,7 +19,7 @@ function StepperComponent({ steps, at, handleSubmit }: StepperI) {
               style={{
                 height: "10px",
                 width: "20px",
-                border: `5px solid ${at <= 1 ? "#BFBFBF" : "#CB2C2C"}`,
+                border: `5px solid ${at === index + 1 ? "#CB2C2C" : "#BFBFBF"}`,
               }}
             />
           ))}

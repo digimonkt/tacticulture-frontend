@@ -132,7 +132,7 @@ function ProfileSetup() {
 
         <FilledButton
           disabled={preLoaderData}
-          style={{ background: role === "" ? "#363636" : "##CB2C2C" }}
+          style={{ background: role === "" ? "#363636" : "#CB2C2C" }}
           className="btn configure"
           onClick={handleSubmit}
         >

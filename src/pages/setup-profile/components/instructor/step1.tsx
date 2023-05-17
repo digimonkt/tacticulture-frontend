@@ -16,9 +16,9 @@ import {
 } from "@/redux/reducers/modalsToggle";
 import { useRouter } from "next/router";
 
-interface IRouter {
-  userEmail: string;
-}
+// interface IRouter {
+//   userEmail: string;
+// }
 
 export interface InstructorStepOneRef {
   handleSubmitAccountDetail: () => void;
@@ -35,14 +35,13 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   // formik
   const formik = useFormik({
     initialValues: {
-      // customUrl: "",
+      customUrl: "",
       bio: "",
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     },
     validationSchema: instructorStepOneValidationSchema,
     onSubmit: (values) => {
-      // console.log("hi there", values);
-      handleUpdateProfile(values);
+      handleUpdateProfile(values, true);
     },
   });
 
@@ -52,21 +51,30 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
       dispatch(resetAlertMessage());
     }, 2000);
   };
+
   // handle submit
-  const handleUpdateProfile = async (values: {
-    bio: string;
-    timezone: string;
-  }) => {
+  const handleUpdateProfile = async (
+    values: {
+      bio?: string;
+      timezone?: string;
+      customUrl?: string;
+    },
+    isNavigable: boolean
+  ) => {
     dispatch(setPreLoader(true));
-    const response = await updateUser(values);
+    const payload = {
+      username: values.customUrl,
+      bio: values.bio,
+      timezone: values.timezone,
+    };
+    const response = await updateUser(payload);
 
     if (response.remote === "success") {
-      router.push({
-        pathname: router.pathname,
-        query: { ...router.query, step: 2 },
-      });
-      // props.handleSteps();
-      // navigate("/verify-email", { state: { userEmail: values.userEmail } });
+      isNavigable &&
+        router.push({
+          pathname: router.pathname,
+          query: { ...router.query, step: 2 },
+        });
     } else {
       if (response.error.status === 500) {
         dispatch(
@@ -93,13 +101,13 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
     }
     dispatch(setPreLoader(false));
   };
-  //   console.log("formik value -- ", formik.values);
 
   // ----
 
   useImperativeHandle(ref, () => ({
     handleSubmitAccountDetail: formik.handleSubmit,
   }));
+
   return (
     <div>
       <h5
@@ -125,13 +133,24 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
           <div className={`${styles.lefthead}`}>
             <h5>tacticulture.com/</h5>
             <span>Username:</span>
-            <h6>@kris</h6>
+            <h6>@{formik.values.customUrl}</h6>
           </div>
         </Col>
         <Col md={16} className="pe-4">
           <div className={`${styles.Instruction}`}>
             <div className="position-relative Instructor">
-              <LabeledInput />
+              <LabeledInput
+                value={formik.values.customUrl}
+                onChange={(e) =>
+                  formik.setFieldValue("customUrl", e.target.value)
+                }
+                onBlur={() => {
+                  handleUpdateProfile(
+                    { customUrl: formik.values.customUrl },
+                    false
+                  );
+                }}
+              />
               {/* {name ? (
                 <>
                   <SVG.ExclamanationIcon

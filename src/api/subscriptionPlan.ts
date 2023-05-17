@@ -1,8 +1,10 @@
 import { transformGetSubscriptionPlanListAPIResponse } from "./transform/subscriptionPlan";
 import axiosInstance from "./axiosInstance";
 import { ErrorResult, GetListWithPagination, SuccessResult } from "./types";
-import { GetSubscriptionPlanResponse } from "./types/subscriptionPlan";
-import { SubscriptionPlan } from "@/redux/reducers/subscriptionPlan";
+import {
+  GetSubscriptionPlanResponse,
+  SubscriptionPlan,
+} from "./types/subscriptionPlan";
 
 // fetch Subscription Plans List
 export const subscriptionPlansList = async (): Promise<

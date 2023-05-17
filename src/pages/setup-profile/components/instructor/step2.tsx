@@ -97,8 +97,6 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
 
     const response = await updateUser(values);
     if (response.remote === "success") {
-      // props.handleSteps();
-      // navigate("/verify-email", { state: { userEmail: values.userEmail } });
       router.push({
         pathname: router.pathname,
         query: { ...router.query, step: 3 },
@@ -132,6 +130,7 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   useImperativeHandle(ref, () => ({
     handleSubmitStepTwoDetail: formik.handleSubmit,
   }));
+
   const setWeekdaysValues = (day: string) => {
     formik.setValues({
       ...formik.values,
