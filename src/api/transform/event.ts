@@ -1,5 +1,4 @@
-import { EventCategory } from "@/redux/reducers/event";
-import { EventCategoryResponse } from "../types/event";
+import { EventCategoryResponse, EventCategory } from "../types/event";
 
 export const transformGetEventCategoriesAPIResponse = (
   data: EventCategoryResponse

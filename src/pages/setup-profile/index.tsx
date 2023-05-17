@@ -6,21 +6,14 @@ import { FilledButton } from "@/component/buttons";
 import UserCardComponent from "@/component/card/user-card";
 import { useRouter } from "next/router";
 import { USER_ROLES, userTypeList } from "@/utils/enum";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { setUserRole } from "@/redux/reducers/userRole";
 import { updateUser } from "@/api/user";
 import {
   resetAlertMessage,
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
-import { setPreLoader } from "@/redux/reducers/preLoader";
-
-interface IUserType {
-  id: string;
-  user_roles: string;
-  content: string;
-  slug_name: USER_ROLES;
-}
+import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 
 interface IRouter {
   userEmail: string;
@@ -29,6 +22,7 @@ interface IRouter {
 function ProfileSetup() {
   // redux dispatch
   const dispatch = useAppDispatch();
+  const preLoaderData = useAppSelector(preLoader);
 
   // router
   const router = useRouter();
@@ -36,17 +30,6 @@ function ProfileSetup() {
 
   // state management
   const [role, setRole] = useState<USER_ROLES | "">("");
-  const [roleId, setRoleId] = useState<string | "">("");
-  // const [userTypeList, setUserTypeList] = useState<IUserType[]>([]);
-
-  // fetch owner workspace list
-  // const fetchUserTypeList = async () => {
-  //   const response = await userTypesList();
-
-  //   if (response.remote === "success") {
-  //     setUserTypeList(response.data.results);
-  //   }
-  // };
 
   // reset AlertMessage
   const handleResetAlert = () => {
@@ -101,14 +84,18 @@ function ProfileSetup() {
     dispatch(setPreLoader(false));
   };
 
-  // ----
-  // useEffect(() => {
-  //   fetchUserTypeList();
-  // }, []);
   return (
     <div className={`${styles.profileBody}`}>
       <ProfileHeaderComponent />
-      <div className={`${styles.mainSection}`}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+        className={`${styles.mainSection}`}
+      >
         <h1
           style={{
             fontSize: "37px",
@@ -136,7 +123,6 @@ function ProfileSetup() {
               content={userType?.content}
               onClick={() => {
                 setRole(userType.user_roles);
-                setRoleId(userType?.id);
                 dispatch(setUserRole(userType.user_roles));
               }}
               selected={role === userType.user_roles}
@@ -144,7 +130,12 @@ function ProfileSetup() {
           ))}
         </div>
 
-        <FilledButton className="btn configure" onClick={handleSubmit}>
+        <FilledButton
+          disabled={preLoaderData}
+          style={{ background: role === "" ? "#363636" : "##CB2C2C" }}
+          className="btn configure"
+          onClick={handleSubmit}
+        >
           Configure My Profile →
         </FilledButton>
       </div>

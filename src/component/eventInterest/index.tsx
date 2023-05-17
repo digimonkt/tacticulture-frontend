@@ -1,11 +1,12 @@
 import styles from "./eventInterest.module.css";
 import { MdCancel } from "react-icons/md";
 import React, { useState, useEffect } from "react";
-import { eventCategoriesList } from "@/api/auth";
+import { eventCategoriesList } from "@/api/event";
 import { FieldInputProps } from "formik";
+import { EventCategory } from "@/api/types/event";
 
 export interface IEventCategories {
-  id: string;
+  id: number;
   event_categories: string;
 }
 
@@ -23,9 +24,7 @@ function EventInterest({
   formikProps,
 }: IEventInterest) {
   // state management
-  const [eventCategories, setEventCategories] = useState<IEventCategories[]>(
-    []
-  );
+  const [eventCategories, setEventCategories] = useState<EventCategory[]>([]);
 
   // fetch event categories  list
   const fetchEventCategoryList = async () => {
@@ -61,14 +60,17 @@ function EventInterest({
             {eventCategories.map((item) => (
               <li
                 onClick={() => {
-                  handleSetInterest(item);
+                  handleSetInterest({
+                    id: item.id,
+                    event_categories: item.eventCategory,
+                  });
                   formikProps.onBlur({ target: { name: formikProps.name } });
                 }}
                 key={item.id}
                 className={`${styles.Eventlist}`}
               >
                 <label className="position-relative">
-                  {item.event_categories}
+                  {item.eventCategory}
                 </label>
               </li>
             ))}

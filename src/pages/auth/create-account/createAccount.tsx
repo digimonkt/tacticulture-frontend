@@ -110,6 +110,10 @@ function CreateAccountComponent() {
 
         <div className={`${styles.signupBtn}`}>
           <FilledButton
+            style={{
+              background:
+                formik.values.userEmail === "" ? "#363636" : "#CB2C2C",
+            }}
             disabled={preLoaderData}
             onClick={() => formik.handleSubmit()}
           >

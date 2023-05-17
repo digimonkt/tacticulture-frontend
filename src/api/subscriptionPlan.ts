@@ -1,12 +1,12 @@
 import { transformGetSubscriptionPlanListAPIResponse } from "./transform/subscriptionPlan";
 import axiosInstance from "./axiosInstance";
-import { ErrorResult, SuccessResult } from "./types";
+import { ErrorResult, GetListWithPagination, SuccessResult } from "./types";
 import { GetSubscriptionPlanResponse } from "./types/subscriptionPlan";
-import { subscriptionPlan } from "@/redux/reducers/subscriptionPlan";
+import { SubscriptionPlan } from "@/redux/reducers/subscriptionPlan";
 
 // fetch Subscription Plans List
 export const subscriptionPlansList = async (): Promise<
-  SuccessResult<subscriptionPlan> | ErrorResult
+  SuccessResult<GetListWithPagination<SubscriptionPlan[]>> | ErrorResult
 > => {
   const res = await axiosInstance.request<GetSubscriptionPlanResponse>({
     url: "/subscription-plans/",
@@ -15,7 +15,14 @@ export const subscriptionPlansList = async (): Promise<
   if (res.remote === "success") {
     return {
       remote: "success",
-      data: transformGetSubscriptionPlanListAPIResponse(res.data),
+      data: {
+        count: res.data.count,
+        next: res.data.next,
+        previous: res.data.previous,
+        results: res.data.results.map((result) =>
+          transformGetSubscriptionPlanListAPIResponse(result)
+        ),
+      },
     };
   }
   return res;

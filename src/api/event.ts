@@ -1,21 +1,28 @@
-import { ErrorResult, SuccessResult } from "./types";
+import { ErrorResult, GetListWithPagination, SuccessResult } from "./types";
 import axiosInstance from "./axiosInstance";
-import { EventCategoryResponse } from "./types/event";
+import { EventCategory, GetEventCategoryResponse } from "./types/event";
 import { transformGetEventCategoriesAPIResponse } from "./transform/event";
-import { EventCategory } from "@/redux/reducers/event";
 
 // fetch event categories  List
 export const eventCategoriesList = async (): Promise<
-  SuccessResult<EventCategory> | ErrorResult
+  SuccessResult<GetListWithPagination<EventCategory[]>> | ErrorResult
 > => {
-  const response = await axiosInstance.request<EventCategoryResponse>({
+  const response = await axiosInstance.request<GetEventCategoryResponse>({
     url: "/events/categories/",
     method: "GET",
   });
+
   if (response.remote === "success") {
     return {
       remote: "success",
-      data: transformGetEventCategoriesAPIResponse(response.data),
+      data: {
+        count: response.data.count,
+        next: response.data.next,
+        previous: response.data.previous,
+        results: response.data.results.map((result) =>
+          transformGetEventCategoriesAPIResponse(result)
+        ),
+      },
     };
   }
   return response;

@@ -29,6 +29,15 @@ export interface IProps {
   role: USER_ROLES;
 }
 
+export type fomikInitialValueType = {
+  first_name: string;
+  last_name: string;
+  password: string;
+  is_public_profile: boolean;
+  email: string;
+  profile_image: string | null;
+};
+
 const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
   props: IProps,
   ref: Ref<IRef>
@@ -44,15 +53,18 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
   // redux
   const dispatch = useAppDispatch();
 
+  const initialState: fomikInitialValueType = {
+    first_name: "",
+    last_name: "",
+    password: "",
+    is_public_profile: false,
+    email: "",
+    profile_image: "",
+  };
+
   // formik
   const formik = useFormik({
-    initialValues: {
-      first_name: "",
-      last_name: "",
-      password: "",
-      is_public_profile: false,
-      email: "",
-    },
+    initialValues: initialState,
     validationSchema: apprenticeStepOneValidationSchema,
     onSubmit: (values) => {
       handleUpdateProfile(values);
@@ -123,7 +135,11 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
 
   return (
     <div style={{ borderBottom: "1px solid #555", paddingBottom: "24px" }}>
-      <UploadProfileComponent />
+      <UploadProfileComponent
+        handleSetProfileImage={(image: string | null) =>
+          formik.setValues({ ...formik.values, profile_image: image })
+        }
+      />
       <div className="mt-4 mb-4 pt-2 pb-2 ps-4 pe-4">
         <h5 className={`${styles.accounthead}`}>Your Account Information</h5>
         <div className="d-flex align-items-center ">
@@ -187,9 +203,9 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
                 type="password"
                 {...formik.getFieldProps("password")}
               />
-              {formik.touched.password && formik.errors.password ? (
+              {/* {formik.touched.password && formik.errors.password ? (
                 <ErrorMessage>{formik.errors.password}</ErrorMessage>
-              ) : null}
+              ) : null} */}
             </div>
           </Col>
         </Row>

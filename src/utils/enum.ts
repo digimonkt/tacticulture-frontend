@@ -1,3 +1,5 @@
+import { NewIUserType } from "./interfaces";
+
 export enum USER_ROLES {
   apprentice = "apprentice",
   instructor = "instructor",
@@ -6,13 +8,6 @@ export enum USER_ROLES {
 export enum SUBSCRIPTION_PLAN_TYPE {
   monthly = "monthly",
   yearly = "yearly",
-}
-
-export interface NewIUserType {
-  id: string;
-  user_roles: USER_ROLES;
-  content: string;
-  title: string;
 }
 
 export const userTypeList: NewIUserType[] = [
@@ -31,3 +26,8 @@ export const userTypeList: NewIUserType[] = [
       "Create and manage events, accept payments from attendees, manage event roster and questions, and build your training network.",
   },
 ];
+
+export enum IMAGE_VARIENTS {
+  profile = "profile",
+  event = "event",
+}

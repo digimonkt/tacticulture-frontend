@@ -104,6 +104,7 @@ function Role() {
       }
     }
   };
+
   return (
     <div className={`${styles.profileBody}`}>
       <ProfileHeaderComponent />

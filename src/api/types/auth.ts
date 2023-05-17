@@ -1,5 +1,5 @@
 // import { USER_ROLES } from "@/redux/reducers/userRole";
-import { NewIUserType, USER_ROLES } from "@/utils/enum";
+import { USER_ROLES } from "@/utils/enum";
 import { GetListWithPagination } from ".";
 
 export type RegisterUser = {
@@ -46,10 +46,10 @@ export type VerifyLoginToken = {
   uid: string;
 };
 
-// export type GetUserDetailsAPIResponse = {
-//   email: string;
-//   first_name: string;
-//   last_name?: string;
-//   role: USER_ROLES;
-//   created: string;
-// };
+export type GetUserDetailsAPIResponse = {
+  email: string;
+  first_name: string;
+  last_name?: string;
+  role: USER_ROLES;
+  created: string;
+};

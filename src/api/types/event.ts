@@ -8,3 +8,9 @@ export type EventCategoryResponse = {
 export type GetEventCategoryResponse = GetListWithPagination<
   EventCategoryResponse[]
 >;
+
+export type EventCategory = {
+  id: number;
+  eventCategory: string;
+  slugName: string;
+};

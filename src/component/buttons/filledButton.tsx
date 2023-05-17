@@ -12,7 +12,11 @@ function FilledButtonComponent({
   return (
     <Button
       className={`btn ${className}`}
-      style={{ background: color || "#CB2C2C", ...(style || {}) }}
+      style={{
+        background: color || "#CB2C2C",
+        color: "#fff",
+        ...(style || {}),
+      }}
       {...rest}
     >
       {children}

@@ -11,7 +11,6 @@ import {
   VerifyUser,
 } from "./types/auth";
 import {
-  transformGetUserDetailsAPIResponse,
   transformGetUserTypeListAPIResponse,
 } from "./transform/auth";
 import { ErrorResult, SuccessResult } from "./types";

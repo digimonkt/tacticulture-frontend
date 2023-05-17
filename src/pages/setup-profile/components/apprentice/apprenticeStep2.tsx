@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import React, { forwardRef, Ref, useImperativeHandle } from "react";
 import { userEventBioValidationSchema } from "./validation";
 import { useAppDispatch } from "@/redux/hooks/hooks";
-import { updateUser } from "@/api/auth";
+import { updateUser } from "@/api/user";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import {
   resetAlertMessage,
@@ -15,9 +15,9 @@ import { useRouter } from "next/router";
 
 interface IFormik {
   bio: string;
-  isProfileComplete: boolean;
+  is_profile_complete: boolean;
   events: IEventCategories[];
-  eventIds: string[];
+  eventIds: number[];
 }
 
 export interface IStepTwoRef {
@@ -37,7 +37,7 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
   // formik initial state
   const initialStates: IFormik = {
     bio: "",
-    isProfileComplete: true,
+    is_profile_complete: true,
     events: [],
     eventIds: [],
   };
@@ -84,7 +84,12 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
   // handle submit
   const handleSubmit = async (values: IFormik) => {
     dispatch(setPreLoader(true));
-    const response = await updateUser(values);
+    const payload = {
+      events: values.eventIds,
+      bio: values.bio,
+      is_profile_complete: values.is_profile_complete,
+    };
+    const response = await updateUser(payload);
 
     if (response.remote === "success") {
       router.push({
