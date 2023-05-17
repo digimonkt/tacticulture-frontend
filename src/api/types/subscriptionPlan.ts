@@ -1,7 +1,7 @@
 import { SUBSCRIPTION_PLAN_TYPE } from "@/utils/enum";
 import { GetListWithPagination } from ".";
 
-type Choices = {
+export type Choices = {
   id: number;
   choices: string;
   other_information: string;

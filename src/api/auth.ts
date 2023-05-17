@@ -63,15 +63,6 @@ export const weekDaysList = async () => {
   return response;
 };
 
-// fetch Subscription Plans List
-export const subscriptionPlansList = async () => {
-  const response = await axiosInstance.request({
-    url: "/subscription-plans/",
-    method: "GET",
-  });
-  return response;
-};
-
 // Login API
 export const loginUser = async (data: LoginUser) => {
   const response = await axiosInstance.request<LoginUserResponse>({
