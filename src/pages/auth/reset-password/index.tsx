@@ -3,7 +3,6 @@ import React from "react";
 import ResetPasswordComponent from "./resetPassword";
 import { useRouter } from "next/router";
 import { RESET_PASSWORD_PAGE } from "../enum";
-import VerifyEmailComponent from "./emailSent";
 import UpdatePasswordComponent from "./updatePassword";
 
 interface ISearchQuery {
@@ -16,8 +15,6 @@ function PasswordReset() {
 
   const getComponent = () => {
     switch (at) {
-      case RESET_PASSWORD_PAGE.verifyEmail:
-        return <VerifyEmailComponent />;
       case RESET_PASSWORD_PAGE.updatePassword:
         return <UpdatePasswordComponent />;
       default:
