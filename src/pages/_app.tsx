@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import GlobalCompRender from "@/component/globalCompRender";
+import AuthEventListner from "@/HOC/authEventListner";
 
 export default function App({ Component, pageProps }: AppProps) {
   // router
@@ -24,7 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <main>
         <Provider store={store}>
-          <Component {...pageProps} />
+          <AuthEventListner>
+            <Component {...pageProps} />
+          </AuthEventListner>
           <GlobalCompRender />
         </Provider>
       </main>
