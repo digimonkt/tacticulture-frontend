@@ -16,10 +16,10 @@ function PasswordReset() {
 
   const getComponent = () => {
     switch (at) {
-      case RESET_PASSWORD_PAGE.updatePassword:
-        return <UpdatePasswordComponent />;
-      default:
+      case RESET_PASSWORD_PAGE.resetPassword:
         return <ResetPasswordComponent />;
+      default:
+        return <UpdatePasswordComponent />;
     }
   };
   return (

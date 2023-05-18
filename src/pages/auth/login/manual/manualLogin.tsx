@@ -98,7 +98,7 @@ function ManualLoginComponent() {
               Sign in with Email
             </FilledButton>
           </div>
-          <Link href="/reset-password">Forgot password?</Link>
+          <Link href="/reset-password?at=reset-password">Forgot password?</Link>
           <div className={`${styles.spanText}`}>
             <span>OR</span>
           </div>
