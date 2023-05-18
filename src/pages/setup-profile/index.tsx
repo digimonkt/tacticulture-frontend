@@ -14,6 +14,8 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
+import ProtectedPages from "@/HOC/protectedPages";
+import { updateCurrentUser } from "@/redux/reducers/user";
 
 interface IRouter {
   userEmail: string;
@@ -58,17 +60,17 @@ function ProfileSetup() {
       };
       const response = await updateUser(payload);
       if (response.remote === "success") {
-        if (role === "apprentice") {
-          router.push({
-            pathname: `/setup-profile/${role}`,
-            query: { ...router.query, userEmail },
-          });
-        } else {
-          router.push({
-            pathname: `/setup-profile/${role}`,
-            query: { ...router.query, userEmail },
-          });
-        }
+        dispatch(
+          updateCurrentUser({
+            userRoles: role,
+            defaultRole: role,
+            email: userEmail,
+          })
+        );
+        // router.push({
+        //   pathname: `/setup-profile/${role}`,
+        //   query: { ...router.query, userEmail },
+        // });
       } else {
         dispatch(
           setAlertMessage({
@@ -85,67 +87,69 @@ function ProfileSetup() {
   };
 
   return (
-    <div className={`${styles.profileBody}`}>
-      <ProfileHeaderComponent />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
-        }}
-        className={`${styles.mainSection}`}
-      >
-        <h1
+    <ProtectedPages>
+      <div className={`${styles.profileBody}`}>
+        <ProfileHeaderComponent />
+        <div
           style={{
-            fontSize: "37px",
-            fontWeight: "800",
-            fontFamily: "Proxima Nova",
-            letterSpacing: "1px",
-            paddingBottom: "16px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
           }}
+          className={`${styles.mainSection}`}
         >
-          Welcome to Tacticulture!
-        </h1>
-        <p style={{ fontWeight: "500", letterSpacing: "1px" }}>
-          Setup your account for how you plan on using Tacticulture. Don’t
-          worry, you can update this selection at any time in the Account
-          Settings.
-        </p>
-        <h6 className={`${styles.icondefault}`}>
-          Select your <b>Default Account Type</b> <SVG.InfoIcon width="24" />
-        </h6>
-        <div className="d-flex align-items-center justify-content-between">
-          {userTypeList.map((userType) => (
-            <UserCardComponent
-              key={userType?.id}
-              heading={userType?.user_roles}
-              content={userType?.content}
-              onClick={() => {
-                setRole(userType.user_roles);
-                dispatch(setUserRole(userType.user_roles));
-              }}
-              selected={role === userType.user_roles}
-            />
-          ))}
-        </div>
+          <h1
+            style={{
+              fontSize: "37px",
+              fontWeight: "800",
+              fontFamily: "Proxima Nova",
+              letterSpacing: "1px",
+              paddingBottom: "16px",
+            }}
+          >
+            Welcome to Tacticulture!
+          </h1>
+          <p style={{ fontWeight: "500", letterSpacing: "1px" }}>
+            Setup your account for how you plan on using Tacticulture. Don’t
+            worry, you can update this selection at any time in the Account
+            Settings.
+          </p>
+          <h6 className={`${styles.icondefault}`}>
+            Select your <b>Default Account Type</b> <SVG.InfoIcon width="24" />
+          </h6>
+          <div className="d-flex align-items-center justify-content-between">
+            {userTypeList.map((userType) => (
+              <UserCardComponent
+                key={userType?.id}
+                heading={userType?.user_roles}
+                content={userType?.content}
+                onClick={() => {
+                  setRole(userType.user_roles);
+                  dispatch(setUserRole(userType.user_roles));
+                }}
+                selected={role === userType.user_roles}
+              />
+            ))}
+          </div>
 
-        <FilledButton
-          disabled={preLoaderData}
-          style={{ background: role === "" ? "#363636" : "#CB2C2C" }}
-          className="btn configure"
-          onClick={handleSubmit}
-        >
-          Configure My Profile →
-        </FilledButton>
+          <FilledButton
+            disabled={preLoaderData}
+            style={{ background: role === "" ? "#363636" : "#CB2C2C" }}
+            className="btn configure"
+            onClick={handleSubmit}
+          >
+            Configure My Profile →
+          </FilledButton>
+        </div>
+        <div className="text-center p-4">
+          <p className={`${styles.textContent}`}>
+            <SVG.ExclamanationIcon width="24" /> You must select a default
+            account type
+          </p>
+        </div>
       </div>
-      <div className="text-center p-4">
-        <p className={`${styles.textContent}`}>
-          <SVG.ExclamanationIcon width="24" /> You must select a default account
-          type
-        </p>
-      </div>
-    </div>
+    </ProtectedPages>
   );
 }
 

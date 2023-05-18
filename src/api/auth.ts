@@ -6,15 +6,9 @@ import {
   LoginUserResponse,
   RegisterUser,
   ResetPassword,
-  UserTypeResponseType,
   VerifyLoginToken,
   VerifyUser,
 } from "./types/auth";
-import {
-  transformGetUserTypeListAPIResponse,
-} from "./transform/auth";
-import { ErrorResult, SuccessResult } from "./types";
-import { USER_ROLES } from "@/utils/enum";
 
 // @desc register user and send code to email
 export const registerUser = async (data: RegisterUser) => {
@@ -34,23 +28,6 @@ export const verifyUser = async (data: VerifyUser) => {
     data,
   });
 
-  return response;
-};
-
-// fetch user types list
-export const userTypesList = async (): Promise<
-  SuccessResult<USER_ROLES> | ErrorResult
-> => {
-  const response = await axiosInstance.request<UserTypeResponseType>({
-    url: "/user-types/",
-    method: "GET",
-  });
-  if (response.remote === "success") {
-    return {
-      remote: "success",
-      data: transformGetUserTypeListAPIResponse(response.data),
-    };
-  }
   return response;
 };
 
@@ -133,21 +110,4 @@ export const getFollowers = async () => {
 // Logout Function
 export const handleLogout = async () => {
   tokens.removeAccessToken();
-  window.location.reload();
 };
-
-// export const getUserDetailsAPI = async (): Promise<
-//   SuccessResult<USER> | ErrorResult
-// > => {
-//   const res = await axiosInstance.request<GetUserDetailsAPIResponse>({
-//     url: "test",
-//     method: "GET",
-//   });
-//   if (res.remote === "success") {
-//     return {
-//       remote: "success",
-//       data: transformGetUserDetailsAPIResponse(res.data),
-//     };
-//   }
-//   return res;
-// };

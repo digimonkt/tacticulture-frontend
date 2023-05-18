@@ -15,6 +15,7 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { useRouter } from "next/router";
+import { updateCurrentUser } from "@/redux/reducers/user";
 
 // interface IRouter {
 //   userEmail: string;
@@ -74,6 +75,14 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
 
     if (response.remote === "success") {
       setCustomUrlError(false);
+      isNavigable &&
+        dispatch(
+          updateCurrentUser({
+            username: values.customUrl,
+            bio: values.bio,
+            timezone: values.timezone,
+          })
+        );
       isNavigable &&
         router.push({
           pathname: router.pathname,

@@ -20,6 +20,7 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { UpdateUserType } from "@/api/types/user";
+import { updateCurrentUser } from "@/redux/reducers/user";
 
 // export default function Step4() {
 export interface InstructorStepFourRef {
@@ -157,6 +158,7 @@ const Step4 = forwardRef(function Step4(
       };
       const response = await updateUser(payload);
       if (response.remote === "success") {
+        dispatch(updateCurrentUser({ isProfileComplete: true }));
         router.push("/instructor/home");
       } else {
         if (response.error.status === 500) {

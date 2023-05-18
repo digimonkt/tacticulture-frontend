@@ -13,14 +13,15 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { useRouter } from "next/router";
+import { updateCurrentUser } from "@/redux/reducers/user";
 
 export interface InstructorStepTwoRef {
   handleSubmitStepTwoDetail: () => void;
 }
 
 type FormikInitialStateType = {
-  available_from: string | null;
-  available_to: string | null;
+  available_from: string | undefined;
+  available_to: string | undefined;
   off_weekdays: string[];
 };
 // function Step2() {
@@ -70,8 +71,8 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   // formik
   const formik = useFormik<FormikInitialStateType>({
     initialValues: {
-      available_from: null,
-      available_to: null,
+      available_from: undefined,
+      available_to: undefined,
       off_weekdays: [],
     },
     validationSchema: instructorStepTwoValidationSchema,
@@ -89,14 +90,21 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   };
   // handle submit
   const handleSubmit = async (values: {
-    available_from: string | null;
-    available_to: string | null;
+    available_from: string | undefined;
+    available_to: string | undefined;
     off_weekdays: string[];
   }) => {
     dispatch(setPreLoader(true));
 
     const response = await updateUser(values);
     if (response.remote === "success") {
+      dispatch(
+        updateCurrentUser({
+          availableFrom: values.available_from,
+          availableTo: values.available_to,
+          offWeekdays: values.off_weekdays,
+        })
+      );
       router.push({
         pathname: router.pathname,
         query: { ...router.query, step: 3 },

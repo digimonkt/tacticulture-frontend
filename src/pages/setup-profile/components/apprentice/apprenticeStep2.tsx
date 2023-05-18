@@ -12,6 +12,7 @@ import {
 } from "@/redux/reducers/modalsToggle";
 import { ErrorMessage } from "@/component/caption";
 import { useRouter } from "next/router";
+import { updateCurrentUser } from "@/redux/reducers/user";
 
 interface IFormik {
   bio: string;
@@ -92,6 +93,13 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
     const response = await updateUser(payload);
 
     if (response.remote === "success") {
+      dispatch(
+        updateCurrentUser({
+          events: values.eventIds,
+          bio: values.bio,
+          isProfileComplete: values.is_profile_complete,
+        })
+      );
       router.push({
         pathname: "../apprentice/profile",
       });

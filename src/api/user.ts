@@ -1,5 +1,11 @@
-import { UpdateUserType } from "./types/user";
+import {
+  UpdateUserType,
+  userDetailResponseType,
+  userDetailType,
+} from "./types/user";
 import axiosInstance from "./axiosInstance";
+import { ErrorResult, SuccessResult } from "./types";
+import { transformGetUserDetailsAPIResponse } from "./transform/user";
 
 // Update user details
 export const updateUser = async (data: UpdateUserType) => {
@@ -11,18 +17,18 @@ export const updateUser = async (data: UpdateUserType) => {
   return response;
 };
 
-// export const getUserDetailsAPI = async (): Promise<
-//   SuccessResult<USER> | ErrorResult
-// > => {
-//   const res = await axiosInstance.request<GetUserDetailsAPIResponse>({
-//     url: "test",
-//     method: "GET",
-//   });
-//   if (res.remote === "success") {
-//     return {
-//       remote: "success",
-//       data: transformGetUserDetailsAPIResponse(res.data),
-//     };
-//   }
-//   return res;
-// };
+export const getUserDetailsAPI = async (): Promise<
+  SuccessResult<userDetailType> | ErrorResult
+> => {
+  const res = await axiosInstance.request<userDetailResponseType>({
+    url: "/change-profile-details/",
+    method: "GET",
+  });
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: transformGetUserDetailsAPIResponse(res.data),
+    };
+  }
+  return res;
+};

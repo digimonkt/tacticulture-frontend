@@ -1,17 +1,20 @@
 import Head from "next/head";
 import React from "react";
 import VerifyEmailComponent from "./verifyEmail";
+import ProtectedPages from "@/HOC/protectedPages";
 
 function VerifyEmail() {
   return (
-    <>
-      <Head>
-        <title>Verify Email</title>
-      </Head>
-      <main>
-        <VerifyEmailComponent />
-      </main>
-    </>
+    <ProtectedPages>
+      <>
+        <Head>
+          <title>Verify Email</title>
+        </Head>
+        <main>
+          <VerifyEmailComponent />
+        </main>
+      </>
+    </ProtectedPages>
   );
 }
 

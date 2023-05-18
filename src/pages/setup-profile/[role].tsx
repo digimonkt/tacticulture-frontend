@@ -11,6 +11,7 @@ import { IStepTwoRef } from "./components/apprentice/apprenticeStep2";
 import { InstructorStepOneRef } from "./components/instructor/step1";
 import { InstructorStepTwoRef } from "./components/instructor/step2";
 import { InstructorStepFourRef } from "./components/instructor/step4";
+import ProtectedPages from "@/HOC/protectedPages";
 
 interface IRouter {
   role: USER_ROLES;
@@ -109,35 +110,37 @@ function Role() {
   };
 
   return (
-    <div className={`${styles.profileBody}`}>
-      <ProfileHeaderComponent />
-      <div className={`${styles.mainSection}`}>
-        <div className="accountSetup">
-          <span
-            className={`${styles.back}`}
-            onClick={() => {
-              router.push({
-                pathname: router.pathname,
-                query: { ...router.query, step: Number(step) - 1 },
-              });
-            }}
-          >
-            <SVG.Leftarrow className="me-2" width="24px" />
-            GO BACK
-          </span>
-          <h1 className="mt-2">Set Up Your Account</h1>
-        </div>
-        <div className="profileSection pt-4 pb-4">
-          <div>{getComponents()}</div>
+    <ProtectedPages>
+      <div className={`${styles.profileBody}`}>
+        <ProfileHeaderComponent />
+        <div className={`${styles.mainSection}`}>
+          <div className="accountSetup">
+            <span
+              className={`${styles.back}`}
+              onClick={() => {
+                router.push({
+                  pathname: router.pathname,
+                  query: { ...router.query, step: Number(step) - 1 },
+                });
+              }}
+            >
+              <SVG.Leftarrow className="me-2" width="24px" />
+              GO BACK
+            </span>
+            <h1 className="mt-2">Set Up Your Account</h1>
+          </div>
+          <div className="profileSection pt-4 pb-4">
+            <div>{getComponents()}</div>
 
-          <StepperComponent
-            handleSubmit={() => handleUpdateProfile()}
-            steps={USER_ROLES.apprentice === role ? 2 : 4}
-            at={Number(step)}
-          />
+            <StepperComponent
+              handleSubmit={() => handleUpdateProfile()}
+              steps={USER_ROLES.apprentice === role ? 2 : 4}
+              at={Number(step)}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </ProtectedPages>
   );
 }
 

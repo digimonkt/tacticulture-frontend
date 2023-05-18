@@ -16,6 +16,7 @@ import { setPreLoader } from "@/redux/reducers/preLoader";
 import { ErrorMessage } from "@/component/caption";
 import { updateUser } from "@/api/user";
 import { USER_ROLES } from "@/utils/enum";
+import { updateCurrentUser } from "@/redux/reducers/user";
 
 interface IRouter {
   userEmail: string;
@@ -59,7 +60,7 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
     password: "",
     is_public_profile: false,
     email: "",
-    profile_image: "",
+    profile_image: null,
   };
 
   // formik
@@ -78,16 +79,18 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
     }, 2000);
   };
   // handle submit
-  const handleUpdateProfile = async (values: {
-    first_name: string;
-    last_name: string;
-    password: string;
-    is_public_profile: boolean;
-    email: string;
-  }) => {
+  const handleUpdateProfile = async (values: fomikInitialValueType) => {
     dispatch(setPreLoader(true));
     const response = await updateUser(values);
     if (response.remote === "success") {
+      dispatch(
+        updateCurrentUser({
+          firstName: values.first_name,
+          lastName: values.last_name,
+          isPublicProfile: values.is_public_profile,
+          email: values.email,
+        })
+      );
       router.push({
         pathname: router.pathname,
         query: { ...router.query, step: role === "apprentice" ? 2 : 4 },

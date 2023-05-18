@@ -46,13 +46,7 @@ function VerifyTokenComponent() {
       };
       const response = await verifyLoginToken(payload);
       if (response.remote === "success") {
-        if (response.data.default_profile === "apprentice") {
-          router.push("/apprentice/profile");
-        } else if (response.data.default_profile === "instructor") {
-          router.push("/instructor/home");
-        } else {
-          router.push("/setup-profile");
-        }
+        //
       } else {
         if (response.error.status === 500) {
           dispatch(

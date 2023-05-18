@@ -45,11 +45,3 @@ export type VerifyLoginToken = {
   token: string;
   uid: string;
 };
-
-export type GetUserDetailsAPIResponse = {
-  email: string;
-  first_name: string;
-  last_name?: string;
-  role: USER_ROLES;
-  created: string;
-};

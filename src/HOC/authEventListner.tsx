@@ -1,5 +1,9 @@
 import { useAppDispatch } from "@/redux/hooks/hooks";
-import { setIsLoggedIn } from "@/redux/reducers/user";
+import {
+  getUserDetails,
+  resetCurrentUser,
+  setIsLoggedIn,
+} from "@/redux/reducers/user";
 import { tokens } from "@/utils/jwtTokenStorage";
 import React, { useEffect, useCallback } from "react";
 
@@ -15,8 +19,9 @@ function AuthEventListner({ children }: Props) {
   const checkLoginStatus = useCallback(() => {
     const accessToken = tokens.accessToken();
     if (accessToken) {
-      dispatch(setIsLoggedIn(true));
+      dispatch(getUserDetails());
     } else {
+      dispatch(resetCurrentUser());
       dispatch(setIsLoggedIn(false));
     }
   }, [dispatch]);

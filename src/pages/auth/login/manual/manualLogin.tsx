@@ -8,7 +8,6 @@ import { SVG } from "@/assets/svg";
 import { useFormik } from "formik";
 import { manualLoginValidationSchema } from "../validation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { useRouter } from "next/router";
 import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 import { LoginUser } from "@/api/types/auth";
 import {
@@ -22,7 +21,6 @@ function ManualLoginComponent() {
   const dispatch = useAppDispatch();
   const preLoaderData = useAppSelector(preLoader);
   // router
-  const router = useRouter();
   // formik
   const formik = useFormik({
     initialValues: {
@@ -49,15 +47,8 @@ function ManualLoginComponent() {
       password: values.password,
     };
     const response = await loginUser(payload);
-    console.log(response);
     if (response.remote === "success") {
-      if (response.data.default_profile === "apprentice") {
-        router.push("/apprentice/profile");
-      } else if (response.data.default_profile === "instructor") {
-        router.push("/instructor/home");
-      } else {
-        router.push("/setup-profile");
-      }
+      // pass
     } else {
       if (response.error.status === 500) {
         dispatch(

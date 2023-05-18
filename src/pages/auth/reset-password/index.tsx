@@ -4,6 +4,7 @@ import ResetPasswordComponent from "./resetPassword";
 import { useRouter } from "next/router";
 import { RESET_PASSWORD_PAGE } from "../enum";
 import UpdatePasswordComponent from "./updatePassword";
+import ProtectedPages from "@/HOC/protectedPages";
 
 interface ISearchQuery {
   at: string;
@@ -22,12 +23,14 @@ function PasswordReset() {
     }
   };
   return (
-    <>
-      <Head>
-        <title>Reset Password</title>
-      </Head>
-      <main>{getComponent()}</main>
-    </>
+    <ProtectedPages>
+      <>
+        <Head>
+          <title>Reset Password</title>
+        </Head>
+        <main>{getComponent()}</main>
+      </>
+    </ProtectedPages>
   );
 }
 
