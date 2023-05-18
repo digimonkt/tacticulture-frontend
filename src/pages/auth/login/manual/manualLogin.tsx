@@ -49,7 +49,6 @@ function ManualLoginComponent() {
       password: values.password,
     };
     const response = await loginUser(payload);
-    console.log(response);
     if (response.remote === "success") {
       if (response.data.default_profile === "apprentice") {
         router.push("/apprentice/profile");
@@ -107,7 +106,7 @@ function ManualLoginComponent() {
               Sign in with Email
             </FilledButton>
           </div>
-          <Link href="/reset-password">Forgot password?</Link>
+          <Link href="/reset-password?at=reset-password">Forgot password?</Link>
           <div className={`${styles.spanText}`}>
             <span>OR</span>
           </div>

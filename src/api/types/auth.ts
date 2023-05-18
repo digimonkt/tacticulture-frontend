@@ -37,8 +37,8 @@ export type ForgotPassword = {
 export type ResetPassword = {
   password: string;
   password_confirm: string;
-  token: string;
-  uid: string;
+  token?: string;
+  uid?: string;
 };
 
 export type VerifyLoginToken = {
