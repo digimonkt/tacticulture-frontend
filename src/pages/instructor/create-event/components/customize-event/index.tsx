@@ -5,7 +5,7 @@ import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { IMAGES } from "@/assets/images";
 import { Col, Row } from "antd";
 import Image from "next/image";
-import UploadProfileComponent from "@/component/upload-profile";
+// import UploadProfileComponent from "@/component/upload-profile";
 import EventHeaderComponent from "../event-header";
 
 function CustomizeEventComponent() {
@@ -100,7 +100,7 @@ function CustomizeEventComponent() {
             </div>
           </Col>
           <Col md={12} className="hideProfile">
-            <UploadProfileComponent />
+            {/* <UploadProfileComponent /> */}
           </Col>
         </Row>
       </div>

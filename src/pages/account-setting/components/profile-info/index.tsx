@@ -2,10 +2,10 @@ import React from "react";
 import styles from "../../styles.module.css";
 import { SVG } from "@/assets/svg";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
-import UploadProfileComponent from "@/component/upload-profile";
+// import UploadProfileComponent from "@/component/upload-profile";
 import { Col, Row } from "antd";
 import { LabeledInput } from "@/component/input";
-import TextareaComponent from "@/component/textarea";
+// import TextareaComponent from "@/component/textarea";
 
 function ProfileSettingComponent() {
   return (
@@ -50,9 +50,7 @@ function ProfileSettingComponent() {
           </OutlinedButton>
         </div>
       </div>
-      <div>
-        <UploadProfileComponent />
-      </div>
+      <div>{/* <UploadProfileComponent /> */}</div>
       <div className={`${styles.contactField}`}>
         <h3>Your Account Information</h3>
         <Row>
@@ -69,9 +67,7 @@ function ProfileSettingComponent() {
             <LabeledInput placeholder="Eddie" label="Phone Number" />
           </Col>
         </Row>
-        <div className="eventsections">
-          <TextareaComponent />
-        </div>
+        <div className="eventsections">{/* <TextareaComponent /> */}</div>
         <div className="text-end pe-4 me-1">
           <FilledButton
             style={{
