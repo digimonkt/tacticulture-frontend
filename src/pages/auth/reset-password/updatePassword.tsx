@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Layout from "../layout";
 import { LabeledInput } from "@/component/input";
 import styles from "../auth.module.css";
@@ -8,7 +8,7 @@ import {
   resetAlertMessage,
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
-import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
+import { setPreLoader } from "@/redux/reducers/preLoader";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { passwordRestValidationSchema } from "./validation";
 import { useRouter } from "next/router";

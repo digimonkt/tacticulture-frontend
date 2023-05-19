@@ -1,6 +1,6 @@
 import { SVG } from "@/assets/svg";
 import { LabeledInput, TextInput } from "@/component/input";
-import TextareaComponent from "@/component/textarea";
+// import TextareaComponent from "@/component/textarea";
 import { Checkbox } from "antd";
 import React from "react";
 import styles from "../../course.module.css";
@@ -15,7 +15,7 @@ function EventDetailComponent() {
       </div>
       <div className="textArea_section mb-4">
         <label className="ps-3 ms-1">Description*</label>
-        <TextareaComponent />
+        {/* <TextareaComponent /> */}
       </div>
       <div className={`${styles.customInput}`}>
         <LabeledInput label="Location*" />

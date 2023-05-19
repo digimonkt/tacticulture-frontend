@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./header.module.css";
 import Link from "next/link";
 import { FilledButton } from "@/component/buttons";
+import { useRouter } from "next/router";
 
 function Header() {
-  // state management
-  const [urlPathName, setUrlPathName] = useState<string>("");
-
-  useEffect(() => {
-    const pathName = window.location.pathname;
-
-    setUrlPathName(pathName);
-  }, []);
+  // router
+  const router = useRouter();
 
   return (
     <div className={`${styles.headers}`}>
       <Link href="/">
         <span>New to Tacticulture?</span>
       </Link>
-      {urlPathName === "/login" ? (
+      {router.pathname === "/login" ? (
         <Link href={"/create-account"}>
           <FilledButton
             className="btn-grey btnCreate"

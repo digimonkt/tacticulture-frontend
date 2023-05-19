@@ -10,7 +10,7 @@ import {
 import { IMAGE_VARIENTS } from "@/utils/enum";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 
-interface imageCropperI {
+interface IImageCropper {
   fileToCrop: string;
   setCroppedImage: (arg: string | null) => void;
   imageType: IMAGE_VARIENTS;
@@ -22,7 +22,7 @@ const ImageCropperComponent = ({
   setCroppedImage,
   imageType,
   fileExtension,
-}: imageCropperI) => {
+}: IImageCropper) => {
   // redux selector and dispatcher
   const dispatch = useAppDispatch();
   const toggleImageCropper = useAppSelector(imageCropperToggle);
