@@ -134,6 +134,10 @@ function VerifyEmailComponent() {
           )}
           <div className={`${styles.signupBtn}`}>
             <FilledButton
+              style={{
+                background:
+                  formik.values.verificationCode === "" ? "#363636" : "#CB2C2C",
+              }}
               disabled={preLoaderData}
               onClick={() => formik.handleSubmit()}
             >

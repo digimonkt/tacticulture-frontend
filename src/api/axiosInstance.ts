@@ -1,6 +1,8 @@
 import axios from "axios";
-import { parse, stringify } from "qs";
+// import { parse, stringify } from "qs";
 import { tokens } from "@/utils/jwtTokenStorage";
+import { ErrorResult, SuccessResult } from "./types";
+import { AxiosAuthRefreshRequestConfig } from "axios-auth-refresh";
 
 const axiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}`,
@@ -8,10 +10,10 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 
-  paramsSerializer: {
-    encode: parse,
-    serialize: stringify,
-  },
+  // paramsSerializer: {
+  //   encode: parse,
+  //   serialize: stringify,
+  // },
 });
 
 // @axios interceptors
@@ -34,7 +36,9 @@ axiosInstance.interceptors.response.use((response) => {
 
 // @request function for api call.
 
-export const request = async (config) => {
+export const request = async <T>(
+  config: AxiosAuthRefreshRequestConfig
+): Promise<SuccessResult<T> | ErrorResult> => {
   try {
     if (!config.headers) {
       config.headers = {};
@@ -50,9 +54,9 @@ export const request = async (config) => {
     return {
       remote: "success",
       data: response.data,
-      header: response.headers,
+      // header: response.headers,
     };
-  } catch (error) {
+  } catch (error: any) {
     if (error) {
       if (error.response) {
         if (error.response && error.response.data) {
@@ -87,24 +91,5 @@ export const request = async (config) => {
   }
 };
 
-// @parseResponse
-// @desc parse Response data
-export const parseResponse = (response) => {
-  const data = JSON.parse(response);
-
-  if (data && (data.errors || data.error)) {
-    return {
-      remote: "failure",
-      error: {
-        errors: data.errors ?? data.error,
-      },
-    };
-  }
-  return {
-    remote: "success",
-    data,
-  };
-};
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { axiosInstance, request, parseResponse };
+const api = { axiosInstance, request };
+export default api;

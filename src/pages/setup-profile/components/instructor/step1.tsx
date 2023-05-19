@@ -1,17 +1,128 @@
 import { Col, Row } from "antd";
-import React, { useState } from "react";
+import React, { Ref, forwardRef, useImperativeHandle, useState } from "react";
 import styles from "../../profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
 import TextareaComponent from "@/component/textarea";
-// import TimeZoneComponent from "@/component/timezone";
-// import TextareaComponent from "@/component/textarea";
+import { useFormik } from "formik";
+import { instructorStepOneValidationSchema } from "./validation";
+import TimeZoneComponent from "@/component/timezone";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { setPreLoader } from "@/redux/reducers/preLoader";
+import { updateUser } from "@/api/user";
+import {
+  resetAlertMessage,
+  setAlertMessage,
+} from "@/redux/reducers/modalsToggle";
+import { useRouter } from "next/router";
+import { updateCurrentUser } from "@/redux/reducers/user";
 
-function Step1() {
-  const [name, setName] = useState("");
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+// interface IRouter {
+//   userEmail: string;
+// }
+
+export interface InstructorStepOneRef {
+  handleSubmitAccountDetail: () => void;
+}
+
+// function Step1() {
+
+const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
+  const dispatch = useAppDispatch();
+  // router
+  const router = useRouter();
+  // const { userEmail } = router.query as unknown as IRouter;
+
+  // state management
+  const [customUrlError, setCustomUrlError] = useState<boolean | null>(null);
+
+  // formik
+  const formik = useFormik({
+    initialValues: {
+      customUrl: "",
+      bio: "",
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    },
+    validationSchema: instructorStepOneValidationSchema,
+    onSubmit: (values) => {
+      handleUpdateProfile(values, true);
+    },
+  });
+
+  // reset AlertMessage
+  const handleResetAlert = () => {
+    setTimeout(() => {
+      dispatch(resetAlertMessage());
+    }, 2000);
   };
+
+  // handle submit
+  const handleUpdateProfile = async (
+    values: {
+      bio?: string;
+      timezone?: string;
+      customUrl?: string;
+    },
+    isNavigable: boolean
+  ) => {
+    dispatch(setPreLoader(true));
+    const payload = {
+      username: values.customUrl,
+      bio: values.bio,
+      timezone: values.timezone,
+    };
+    const response = await updateUser(payload);
+
+    if (response.remote === "success") {
+      setCustomUrlError(false);
+      isNavigable &&
+        dispatch(
+          updateCurrentUser({
+            username: values.customUrl,
+            bio: values.bio,
+            timezone: values.timezone,
+          })
+        );
+      isNavigable &&
+        router.push({
+          pathname: router.pathname,
+          query: { ...router.query, step: 2 },
+        });
+    } else {
+      if (response.error.status === 500) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: response.error.errors,
+            show: true,
+          })
+        );
+        handleResetAlert();
+      } else if (response.error.status === 404) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: response.error.errors,
+            show: true,
+          })
+        );
+        handleResetAlert();
+      } else {
+        response.error.status === 400 &&
+          response.error.errors?.username?.length &&
+          setCustomUrlError(true);
+        handleResetAlert();
+      }
+    }
+    dispatch(setPreLoader(false));
+  };
+
+  // ----
+
+  useImperativeHandle(ref, () => ({
+    handleSubmitAccountDetail: formik.handleSubmit,
+  }));
+
   return (
     <div>
       <h5
@@ -37,14 +148,28 @@ function Step1() {
           <div className={`${styles.lefthead}`}>
             <h5>tacticulture.com/</h5>
             <span>Username:</span>
-            <h6>@kris</h6>
+            <h6>@{formik.values.customUrl}</h6>
           </div>
         </Col>
         <Col md={16} className="pe-4">
           <div className={`${styles.Instruction}`}>
             <div className="position-relative Instructor">
-              <LabeledInput onChange={onChange} />
-              {name ? (
+              <LabeledInput
+                value={formik.values.customUrl}
+                onChange={(e) => {
+                  if (customUrlError === true || customUrlError === false) {
+                    setCustomUrlError(null);
+                  }
+                  formik.setFieldValue("customUrl", e.target.value);
+                }}
+                onBlur={() => {
+                  handleUpdateProfile(
+                    { customUrl: formik.values.customUrl },
+                    false
+                  );
+                }}
+              />
+              {formik.values.customUrl !== "" && customUrlError && (
                 <>
                   <SVG.ExclamanationIcon
                     style={{
@@ -56,37 +181,45 @@ function Step1() {
                     }}
                   />
                 </>
-              ) : (
-                ""
               )}
             </div>
             <ul className="p-0">
-              <li>
-                <SVG.ExclamanationIcon
-                  className={`${styles.firstLine}`}
-                  width="15px"
-                />
-                That has already been reserved, please modify further
-              </li>
-              <li>
-                <SVG.Fillcheck
-                  className={`${styles.secondLine}`}
-                  width="15px"
-                />
-                That URL is available
-              </li>
+              {formik.values.customUrl !== "" && customUrlError ? (
+                <li>
+                  <SVG.ExclamanationIcon
+                    className={`${styles.firstLine}`}
+                    width="15px"
+                  />
+                  That has already been reserved, please modify further
+                </li>
+              ) : formik.values.customUrl !== "" && customUrlError === false ? (
+                <li>
+                  <SVG.Fillcheck
+                    className={`${styles.secondLine}`}
+                    width="15px"
+                  />
+                  That URL is available
+                </li>
+              ) : null}
             </ul>
           </div>
         </Col>
       </Row>
-      {/* <div className={`${styles.timeZone}`}>
-        <TimeZoneComponent />
-      </div> */}
+      <div className={`${styles.timeZone}`}>
+        <TimeZoneComponent
+          timeZoneValue={formik.values.timezone}
+          handleTimeZoneValue={(vl) => formik.setFieldValue("timezone", vl)}
+        />
+      </div>
       <div className={`${styles.textArea}`}>
-        <TextareaComponent />
+        <TextareaComponent
+          bioValue={formik.values.bio}
+          handleChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
+          formikProps={formik.getFieldProps("bio")}
+        />
       </div>
     </div>
   );
-}
+});
 
 export default Step1;

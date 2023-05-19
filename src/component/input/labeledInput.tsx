@@ -8,7 +8,7 @@ function LabeledInputComponent({ label, ...rest }: ILabeledInput) {
   return (
     <>
       {label ? <label>{label}</label> : ""}
-      <Input {...rest} />
+      <Input style={{ background: "#fff" }} {...rest} />
     </>
   );
 }

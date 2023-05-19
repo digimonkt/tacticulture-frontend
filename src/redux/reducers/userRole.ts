@@ -5,7 +5,7 @@ import { USER_ROLES } from "@/utils/enum";
 
 // Define a type for the slice state
 interface userRoleI {
-  userRole: USER_ROLES | null
+  userRole: USER_ROLES | null;
 }
 
 // Define the initial state using that type

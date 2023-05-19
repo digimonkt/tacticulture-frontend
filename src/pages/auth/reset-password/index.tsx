@@ -3,8 +3,8 @@ import React from "react";
 import ResetPasswordComponent from "./resetPassword";
 import { useRouter } from "next/router";
 import { RESET_PASSWORD_PAGE } from "../enum";
-import VerifyEmailComponent from "./emailSent";
 import UpdatePasswordComponent from "./updatePassword";
+import ProtectedPages from "@/HOC/protectedPages";
 
 interface ISearchQuery {
   at: string;
@@ -13,24 +13,24 @@ interface ISearchQuery {
 function PasswordReset() {
   const router = useRouter();
   const { at } = router.query as unknown as ISearchQuery;
+
   const getComponent = () => {
     switch (at) {
-      case RESET_PASSWORD_PAGE.verifyEmail:
-        return <VerifyEmailComponent />;
-      case RESET_PASSWORD_PAGE.updatePassword:
-        return <UpdatePasswordComponent />;
-
-      default:
+      case RESET_PASSWORD_PAGE.resetPassword:
         return <ResetPasswordComponent />;
+      default:
+        return <UpdatePasswordComponent />;
     }
   };
   return (
-    <>
-      <Head>
-        <title>Reset Password</title>
-      </Head>
-      <main>{getComponent()}</main>
-    </>
+    <ProtectedPages>
+      <>
+        <Head>
+          <title>Reset Password</title>
+        </Head>
+        <main>{getComponent()}</main>
+      </>
+    </ProtectedPages>
   );
 }
 

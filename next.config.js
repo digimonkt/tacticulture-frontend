@@ -9,6 +9,7 @@ const nextConfig = {
     return config;
   },
   reactStrictMode: true,
+  transpilePackages: ["react-timezone-select"],
   async rewrites() {
     return [
       {
@@ -16,8 +17,20 @@ const nextConfig = {
         destination: "/auth/login",
       },
       {
+        source: "/verify-token",
+        destination: "/auth/verify-token",
+      },
+      {
         source: "/login/manual",
         destination: "/auth/login/manual",
+      },
+      {
+        source: "/email-sent",
+        destination: "/auth/email-sent",
+      },
+      {
+        source: "/reset-email-sent",
+        destination: "/auth/reset-email-sent",
       },
       {
         source: "/reset-password",

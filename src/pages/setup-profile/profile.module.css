@@ -67,16 +67,15 @@
   font-size: 16px;
 }
 .dots {
-      display: flex;
-        align-items: center;
+  display: flex;
+  align-items: center;
 }
 .dots div {
   margin-right: 4px;
-      width: 39px !important;
-        border-radius: 2px !important;
+  width: 39px !important;
+  border-radius: 2px !important;
 }
 .mainSection {
-  text-align: start;
   color: #fff;
   font-family: "Proxima Nova" !important;
   width: 720px;

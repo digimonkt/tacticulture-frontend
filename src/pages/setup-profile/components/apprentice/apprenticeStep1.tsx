@@ -1,5 +1,5 @@
+import React, { Ref, forwardRef, useImperativeHandle, useEffect } from "react";
 import UploadProfileComponent from "@/component/upload-profile";
-import React from "react";
 import styles from "../../profile.module.css";
 import { Checkbox, Col, Row } from "antd";
 import { FormLabel } from "react-bootstrap";
@@ -13,32 +13,62 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { setPreLoader } from "@/redux/reducers/preLoader";
-import { updateUser } from "@/api/auth";
+import { ErrorMessage } from "@/component/caption";
+import { updateUser } from "@/api/user";
+import { USER_ROLES } from "@/utils/enum";
+import { updateCurrentUser } from "@/redux/reducers/user";
 
 interface IRouter {
   userEmail: string;
 }
 
-function ApprenticeStep1() {
+export interface IRef {
+  handleSubmitApprenticeStepOne: () => void;
+}
+
+export interface IProps {
+  role: USER_ROLES;
+}
+
+export type fomikInitialValueType = {
+  first_name: string;
+  last_name: string;
+  password: string;
+  is_public_profile: boolean;
+  email: string;
+  profile_image: string | null;
+};
+
+const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
+  props: IProps,
+  ref: Ref<IRef>
+) {
   // router
   const router = useRouter();
+
+  // props
+  const { role } = props;
 
   const { userEmail } = router.query as unknown as IRouter;
 
   // redux
   const dispatch = useAppDispatch();
 
+  const initialState: fomikInitialValueType = {
+    first_name: "",
+    last_name: "",
+    password: "",
+    is_public_profile: false,
+    email: "",
+    profile_image: null,
+  };
+
   // formik
   const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      password: "",
-      isPublicProfile: false,
-    },
+    initialValues: initialState,
     validationSchema: apprenticeStepOneValidationSchema,
     onSubmit: (values) => {
-      handleSubmit(values);
+      handleUpdateProfile(values);
     },
   });
 
@@ -49,17 +79,22 @@ function ApprenticeStep1() {
     }, 2000);
   };
   // handle submit
-  const handleSubmit = async (values: {
-    firstName: string;
-    lastName: string;
-    password: string;
-    isPublicProfile: boolean;
-  }) => {
+  const handleUpdateProfile = async (values: fomikInitialValueType) => {
     dispatch(setPreLoader(true));
     const response = await updateUser(values);
-
     if (response.remote === "success") {
-      /* empty */
+      dispatch(
+        updateCurrentUser({
+          firstName: values.first_name,
+          lastName: values.last_name,
+          isPublicProfile: values.is_public_profile,
+          email: values.email,
+        })
+      );
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, step: role === "apprentice" ? 2 : 4 },
+      });
     } else {
       if (response?.error?.status === 500) {
         dispatch(
@@ -90,16 +125,31 @@ function ApprenticeStep1() {
     dispatch(setPreLoader(false));
   };
 
+  useImperativeHandle(ref, () => ({
+    handleSubmitApprenticeStepOne: formik.handleSubmit,
+  }));
+
+  // ---
+  useEffect(() => {
+    if (userEmail && formik.values.email !== userEmail) {
+      formik.setFieldValue("email", userEmail);
+    }
+  }, [formik, userEmail]);
+
   return (
     <div style={{ borderBottom: "1px solid #555", paddingBottom: "24px" }}>
-      <UploadProfileComponent />
+      <UploadProfileComponent
+        handleSetProfileImage={(image: string | null) =>
+          formik.setValues({ ...formik.values, profile_image: image })
+        }
+      />
       <div className="mt-4 mb-4 pt-2 pb-2 ps-4 pe-4">
         <h5 className={`${styles.accounthead}`}>Your Account Information</h5>
         <div className="d-flex align-items-center ">
           <Checkbox
-            checked={formik.values.isPublicProfile}
+            checked={formik.values.is_public_profile}
             onChange={(e) => {
-              formik.setFieldValue("isPublicProfile", e.target.checked);
+              formik.setFieldValue("is_public_profile", e.target.checked);
             }}
             className="me-2"
           />
@@ -117,7 +167,10 @@ function ApprenticeStep1() {
               <FormLabel>
                 First Name<span>*</span>
               </FormLabel>
-              <LabeledInput {...formik.getFieldProps("firstName")} />
+              <LabeledInput {...formik.getFieldProps("first_name")} />
+              {formik.touched.first_name && formik.errors.first_name ? (
+                <ErrorMessage>{formik.errors.first_name}</ErrorMessage>
+              ) : null}
             </div>
           </Col>
           <Col md={12}>
@@ -125,7 +178,10 @@ function ApprenticeStep1() {
               <FormLabel>
                 Last Name<span>*</span>
               </FormLabel>
-              <LabeledInput {...formik.getFieldProps("lastName")} />
+              <LabeledInput {...formik.getFieldProps("last_name")} />
+              {formik.touched.last_name && formik.errors.last_name ? (
+                <ErrorMessage>{formik.errors.last_name}</ErrorMessage>
+              ) : null}
             </div>
           </Col>
           <Col md={12}>
@@ -135,21 +191,30 @@ function ApprenticeStep1() {
               </FormLabel>
               <LabeledInput
                 disabled
-                value={userEmail}
+                {...formik.getFieldProps("email")}
                 style={{ background: "#fff", color: "#000" }}
               />
+              {formik.touched.email && formik.errors.email ? (
+                <ErrorMessage>{formik.errors.email}</ErrorMessage>
+              ) : null}
             </div>
           </Col>
           <Col md={12}>
             <div className="mb-3">
               <FormLabel>Password</FormLabel>
-              <LabeledInput {...formik.getFieldProps("password")} />
+              <LabeledInput
+                type="password"
+                {...formik.getFieldProps("password")}
+              />
+              {/* {formik.touched.password && formik.errors.password ? (
+                <ErrorMessage>{formik.errors.password}</ErrorMessage>
+              ) : null} */}
             </div>
           </Col>
         </Row>
       </div>
     </div>
   );
-}
+});
 
 export default ApprenticeStep1;

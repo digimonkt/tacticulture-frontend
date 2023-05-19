@@ -317,11 +317,11 @@ nav.navbar.navbar-expand-lg.navbar-light br {
 }
 .btn.selected {
   width: 127px;
-  height: 37px;
+  height: 37px !important;
   margin: 0 auto;
   align-items: flex-end;
   font-family: "Proxima Nova";
-  background: #cb2c2c !important;
+  background: #cb2c2c;
   border-radius: 3px;
   color: #fff;
   font-weight: 700;

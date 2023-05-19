@@ -8,6 +8,7 @@ import Image from "next/image";
 import { IMAGES } from "@/assets/images";
 import { SVG } from "@/assets/svg";
 import { LabeledInput } from "@/component/input";
+import { handleLogout } from "@/api/auth";
 
 function ApprenticeHeaderComponent() {
   return (
@@ -115,7 +116,7 @@ function ApprenticeHeaderComponent() {
                         Account Settings
                       </Dropdown.Item>
                       <Dropdown.Item
-                        href="#/action-6"
+                        onClick={() => handleLogout()}
                         className={`${styles.listDropdown}`}
                       >
                         <SVG.Logout /> Logout
