@@ -89,11 +89,7 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
     }, 2200);
   };
   // handle submit
-  const handleSubmit = async (values: {
-    available_from: string | undefined;
-    available_to: string | undefined;
-    off_weekdays: string[];
-  }) => {
+  const handleSubmit = async (values: FormikInitialStateType) => {
     dispatch(setPreLoader(true));
 
     const response = await updateUser(values);
