@@ -7,11 +7,11 @@ import {
 import { tokens } from "@/utils/jwtTokenStorage";
 import React, { useEffect, useCallback } from "react";
 
-type Props = {
+interface IAuthEventListnerps {
   children: React.ReactNode;
-};
+}
 
-function AuthEventListner({ children }: Props) {
+function AuthEventListner({ children }: IAuthEventListnerps) {
   // redux
   const dispatch = useAppDispatch();
 
