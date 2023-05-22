@@ -35,7 +35,6 @@ function UpdatePasswordComponent() {
   const dispatch = useAppDispatch();
 
   const { token, uid } = router.query as unknown as ISearchQuery;
-  console.log(token, uid);
   // state management
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -50,12 +49,9 @@ function UpdatePasswordComponent() {
     initialValues: initialStates,
     validationSchema: passwordRestValidationSchema,
     onSubmit: (data) => {
-      console.log(data, "dayta");
       handleSubmit(data);
     },
   });
-
-  console.log({ formik });
 
   // reset AlertMessage
   const handleResetAlert = () => {
@@ -74,7 +70,6 @@ function UpdatePasswordComponent() {
       password_confirm: data.passwordConfirm,
     };
     const response = await resetPassword(payload);
-    console.log(response);
     if (response.remote === "success") {
       dispatch(
         setAlertMessage({
@@ -84,7 +79,7 @@ function UpdatePasswordComponent() {
         })
       );
       handleResetAlert();
-      router.push("/manual-login");
+      router.push("/login/manual");
     } else {
       if (response.error.status === 500) {
         dispatch(

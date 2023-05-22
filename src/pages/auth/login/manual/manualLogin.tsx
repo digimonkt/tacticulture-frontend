@@ -15,6 +15,7 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { loginUser } from "@/api/auth";
+import urlcat from "urlcat";
 
 function ManualLoginComponent() {
   // redux dispatch
@@ -98,7 +99,9 @@ function ManualLoginComponent() {
               Sign in with Email
             </FilledButton>
           </div>
-          <Link href="/reset-password?at=reset-password">Forgot password?</Link>
+          <Link href={urlcat("/reset-password", { at: "reset-password" })}>
+            Forgot password?
+          </Link>
           <div className={`${styles.spanText}`}>
             <span>OR</span>
           </div>

@@ -24,7 +24,6 @@ function CustomizeEventComponent() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  console.log(addImages);
   return (
     <div>
       <EventHeaderComponent heading="Customize Event Style" />

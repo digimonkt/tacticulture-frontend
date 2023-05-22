@@ -1,8 +1,8 @@
-import { userDetailResponseType, userDetailType } from "../types/user";
+import { UserDetailResponseType, UserDetailType } from "../types/user";
 
 export const transformGetUserDetailsAPIResponse = (
-  data: userDetailResponseType
-): userDetailType => {
+  data: UserDetailResponseType
+): UserDetailType => {
   return {
     email: data.email,
     firstName: data.first_name,

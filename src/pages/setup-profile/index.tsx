@@ -122,13 +122,13 @@ function ProfileSetup() {
             {userTypeList.map((userType) => (
               <UserCardComponent
                 key={userType?.id}
-                heading={userType?.user_roles}
+                heading={userType?.userRoles}
                 content={userType?.content}
                 onClick={() => {
-                  setRole(userType.user_roles);
-                  dispatch(setUserRole(userType.user_roles));
+                  setRole(userType.userRoles);
+                  dispatch(setUserRole(userType.userRoles));
                 }}
-                selected={role === userType.user_roles}
+                selected={role === userType.userRoles}
               />
             ))}
           </div>

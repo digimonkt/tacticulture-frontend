@@ -16,6 +16,10 @@ import {
 } from "@/redux/reducers/modalsToggle";
 import { ErrorMessage } from "@/component/caption";
 
+export type InitialStateType = {
+  userEmail: string;
+};
+
 function CreateAccountComponent() {
   // redux
   const dispatch = useAppDispatch();
@@ -27,11 +31,12 @@ function CreateAccountComponent() {
   // state management
   const [emailError, setEmailError] = useState<string>("");
 
+  const initialStates: InitialStateType = {
+    userEmail: "",
+  };
   // formik
   const formik = useFormik({
-    initialValues: {
-      userEmail: "",
-    },
+    initialValues: initialStates,
     validationSchema: registerValidationSchema,
     onSubmit: (values) => {
       handleCreateAccount(values);
@@ -46,12 +51,13 @@ function CreateAccountComponent() {
   };
 
   // handle create account
-  const handleCreateAccount = async (values: { userEmail: string }) => {
+  const handleCreateAccount = async (values: InitialStateType) => {
     dispatch(setPreLoader(true));
     const payload = {
       email: values.userEmail,
     };
     const response = await registerUser(payload);
+    console.log(response);
     if (response.remote === "success") {
       router.push({
         pathname: "/verify-email",

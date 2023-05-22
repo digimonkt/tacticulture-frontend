@@ -1,7 +1,7 @@
 import {
   UpdateUserType,
-  userDetailResponseType,
-  userDetailType,
+  UserDetailResponseType,
+  UserDetailType,
 } from "./types/user";
 import axiosInstance from "./axiosInstance";
 import { ErrorResult, SuccessResult } from "./types";
@@ -9,6 +9,7 @@ import { transformGetUserDetailsAPIResponse } from "./transform/user";
 
 // Update user details
 export const updateUser = async (data: UpdateUserType) => {
+  console.log(data);
   const response = await axiosInstance.request({
     url: "/change-profile-details/",
     method: "PATCH",
@@ -18,9 +19,9 @@ export const updateUser = async (data: UpdateUserType) => {
 };
 
 export const getUserDetailsAPI = async (): Promise<
-  SuccessResult<userDetailType> | ErrorResult
+  SuccessResult<UserDetailType> | ErrorResult
 > => {
-  const res = await axiosInstance.request<userDetailResponseType>({
+  const res = await axiosInstance.request<UserDetailResponseType>({
     url: "/change-profile-details/",
     method: "GET",
   });

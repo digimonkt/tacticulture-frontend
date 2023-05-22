@@ -12,7 +12,7 @@ import {
 
 // @desc register user and send code to email
 export const registerUser = async (data: RegisterUser) => {
-  const response = await axiosInstance.request<null>({
+  const response = await axiosInstance.request<void>({
     url: "/register/",
     method: "POST",
     data,
@@ -62,7 +62,7 @@ export const verifyLoginToken = async (data: VerifyLoginToken) => {
 
 // Forgot password API
 export const forgotPassword = async (data: ForgotPassword) => {
-  const response = await axiosInstance.request<null>({
+  const response = await axiosInstance.request<void>({
     url: "/forgot-password/",
     method: "POST",
     data,
@@ -72,7 +72,7 @@ export const forgotPassword = async (data: ForgotPassword) => {
 
 // Reset password API
 export const resetPassword = async (data: ResetPassword) => {
-  const response = await axiosInstance.request<null>({
+  const response = await axiosInstance.request<void>({
     url: "/forgot-password-confirm/",
     method: "POST",
     data,

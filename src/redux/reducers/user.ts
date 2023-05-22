@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store";
-import { userDetailType } from "@/api/types/user";
+import { UserDetailType } from "@/api/types/user";
 import { ServerError } from "@/api/types";
 import { getUserDetailsAPI } from "@/api/user";
 
 // Define a type for the slice state
 interface userI {
   isLoggedIn: boolean;
-  currentUser: userDetailType;
+  currentUser: UserDetailType;
 }
 
 // Define the initial state using that type
@@ -37,7 +37,7 @@ const initialState: userI = {
 // fetch user details
 
 export const getUserDetails = createAsyncThunk<
-  userDetailType,
+  UserDetailType,
   void,
   { state: RootState; rejectValue: ServerError }
 >("users/getUserDetails", async (_, { getState, rejectWithValue }) => {
@@ -60,7 +60,7 @@ export const userSlice = createSlice({
     setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
     },
-    updateCurrentUser: (state, action: PayloadAction<userDetailType>) => {
+    updateCurrentUser: (state, action: PayloadAction<UserDetailType>) => {
       state.currentUser = { ...state.currentUser, ...action.payload };
     },
     resetCurrentUser: () => initialState,

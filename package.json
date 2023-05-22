@@ -33,6 +33,7 @@
     "react-select": "^5.7.2",
     "react-timezone-select": "^2.1.0",
     "typescript": "5.0.4",
+    "urlcat": "^3.1.0",
     "yup": "^1.1.1"
   },
   "devDependencies": {

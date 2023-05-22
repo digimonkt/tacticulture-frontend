@@ -14,6 +14,7 @@ import {
 } from "@/redux/reducers/modalsToggle";
 import { useRouter } from "next/router";
 import { updateCurrentUser } from "@/redux/reducers/user";
+import { Weekdays } from "@/utils/constent";
 
 export interface InstructorStepTwoRef {
   handleSubmitStepTwoDetail: () => void;
@@ -26,44 +27,6 @@ type FormikInitialStateType = {
 };
 // function Step2() {
 const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
-  const Weekdays = [
-    {
-      id: "1",
-      slug: "sunday",
-      name: "Sunday",
-    },
-    {
-      id: "2",
-      slug: "monday",
-      name: "Monday",
-    },
-    {
-      id: "3",
-      slug: "tuesday",
-      name: "Tuesday",
-    },
-    {
-      id: "4",
-      slug: "wednesday",
-      name: "Wednesday",
-    },
-    {
-      id: "5",
-      slug: "thursday",
-      name: "Thursday",
-    },
-    {
-      id: "6",
-      slug: "friday",
-      name: "Friday",
-    },
-    {
-      id: "7",
-      slug: "saturday",
-      name: "Saturday",
-    },
-  ];
-
   // redux dispatch
   const dispatch = useDispatch();
   // router

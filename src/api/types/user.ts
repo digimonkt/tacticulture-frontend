@@ -17,7 +17,7 @@ export type UpdateUserType = {
   username?: string;
 };
 
-export type userDetailType = {
+export type UserDetailType = {
   email?: string;
   username?: string;
   firstName?: string;
@@ -36,7 +36,7 @@ export type userDetailType = {
   defaultRole?: string;
 };
 
-export type userDetailResponseType = {
+export type UserDetailResponseType = {
   email: string;
   username: string;
   first_name: string;

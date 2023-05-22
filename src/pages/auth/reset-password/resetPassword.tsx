@@ -15,28 +15,23 @@ import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 import { ErrorMessage } from "@/component/caption";
 import { forgotPassword } from "@/api/auth";
 import { ForgotPassword } from "@/api/types/auth";
+import { InitialStateType } from "../create-account/createAccount";
 
 function ResetPasswordComponent() {
   const router = useRouter();
   const preLoaderData = useAppSelector(preLoader);
 
-  // const handleNextStep = () => {
-  //   router.push({
-  //     pathname: router.pathname.replace("auth", ""),
-  //     query: { ...router.query, at: RESET_PASSWORD_PAGE.verifyEmail },
-  //   });
-  // };
   // redux dispatch
   const dispatch = useAppDispatch();
 
   // state management
   const [emailError, setEmailError] = useState("");
-
+  const initialStates: InitialStateType = {
+    userEmail: "",
+  };
   // formik
   const formik = useFormik({
-    initialValues: {
-      userEmail: "",
-    },
+    initialValues: initialStates,
     validationSchema: registerValidationSchema,
     onSubmit: (values) => {
       handleSubmit(values);
@@ -50,13 +45,9 @@ function ResetPasswordComponent() {
       setEmailError("");
     }, 2200);
   };
-  setTimeout(() => {
-    dispatch(resetAlertMessage());
-    setEmailError("");
-  }, 2200);
 
   // handle submit
-  const handleSubmit = async (values: { userEmail: string }) => {
+  const handleSubmit = async (values: InitialStateType) => {
     dispatch(setPreLoader(true));
     const payload: ForgotPassword = {
       email: values.userEmail,
