@@ -80,8 +80,13 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
   // handle submit
   const handleUpdateProfile = async (values: InitialValueType) => {
     dispatch(setPreLoader(true));
-    console.log(values);
-    const response = await updateUser(values);
+    const payload = {
+      first_name: values.firstName,
+      last_name: values.lastName,
+      is_public_profile: values.isPublicProfile,
+      email: values.email,
+    };
+    const response = await updateUser(payload);
     if (response.remote === "success") {
       dispatch(
         updateCurrentUser({
