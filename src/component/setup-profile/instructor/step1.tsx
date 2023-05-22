@@ -17,13 +17,15 @@ import {
 import { useRouter } from "next/router";
 import { updateCurrentUser } from "@/redux/reducers/user";
 
-// interface IRouter {
-//   userEmail: string;
-// }
-
 export interface InstructorStepOneRef {
   handleSubmitAccountDetail: () => void;
 }
+
+type initialValuesType = {
+  customUrl?: string;
+  bio: string;
+  timezone: string;
+};
 
 // function Step1() {
 
@@ -31,15 +33,14 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   const dispatch = useAppDispatch();
   // router
   const router = useRouter();
-  // const { userEmail } = router.query as unknown as IRouter;
 
   // state management
   const [customUrlError, setCustomUrlError] = useState<boolean | null>(null);
 
   // formik
-  const formik = useFormik({
+  const formik = useFormik<initialValuesType>({
     initialValues: {
-      customUrl: "",
+      customUrl: undefined,
       bio: "",
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     },
@@ -58,11 +59,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
 
   // handle submit
   const handleUpdateProfile = async (
-    values: {
-      bio?: string;
-      timezone?: string;
-      customUrl?: string;
-    },
+    values: initialValuesType,
     isNavigable: boolean
   ) => {
     dispatch(setPreLoader(true));
@@ -164,7 +161,11 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
                 }}
                 onBlur={() => {
                   handleUpdateProfile(
-                    { customUrl: formik.values.customUrl },
+                    {
+                      customUrl: formik.values.customUrl,
+                      bio: "",
+                      timezone: "",
+                    },
                     false
                   );
                 }}

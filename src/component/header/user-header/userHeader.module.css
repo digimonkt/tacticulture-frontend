@@ -2,6 +2,21 @@
   width: 184px;
   object-fit: contain;
 }
+.outline_eventtbn {
+  width: 168px !important;
+  font-size: 15px !important;
+  border: 1px solid #cb2c2c !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  height: 40px;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+.outline_eventtbn svg {
+  width: 16px;
+}
 .navMenu {
   border-bottom: 1px solid #414141;
   position: fixed;

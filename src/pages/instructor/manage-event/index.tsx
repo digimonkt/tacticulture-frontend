@@ -9,8 +9,12 @@ import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";
 import { OptionsInput } from "@/component/input";
 import ForumCardComponent from "@/pages/apprentice/components/forum-card";
+import { useRouter } from "next/router";
 
 function ManageEvent() {
+  // router
+  const router = useRouter();
+
   const Data = [
     {
       id: 1,
@@ -118,6 +122,7 @@ function ManageEvent() {
                     </div>
                   </OptionsInput>
                   <FilledButton
+                    onClick={() => router.push("/instructor/create-event")}
                     className="btnEvents"
                     icon={<SVG.Plus width="20px" />}
                     style={{

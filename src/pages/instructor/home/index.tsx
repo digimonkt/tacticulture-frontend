@@ -9,46 +9,50 @@ import { Checkbox, Col, Row } from "antd";
 import EventCardComponent from "@/component/card/event-card";
 import NotificationComponent from "@/pages/apprentice/components/notification";
 import PrivateRoute from "@/HOC/privatePages";
+import { useRouter } from "next/router";
 
+const Data = [
+  {
+    id: 1,
+    icon: (
+      <>
+        <SVG.Plusevent width="18px" />
+      </>
+    ),
+    heading: "Creating an Event",
+  },
+  {
+    id: 2,
+    icon: (
+      <>
+        <SVG.Setting width="18px" />
+      </>
+    ),
+    heading: "Your account",
+  },
+  {
+    id: 3,
+    icon: (
+      <>
+        <SVG.Magic width="18px" />
+      </>
+    ),
+    heading: "Marketing",
+  },
+  {
+    id: 4,
+    icon: (
+      <>
+        <SVG.Card width="18px" />
+      </>
+    ),
+    heading: "Payouts and Taxes",
+  },
+];
 function Home() {
-  const Data = [
-    {
-      id: 1,
-      icon: (
-        <>
-          <SVG.Plusevent width="18px" />
-        </>
-      ),
-      heading: "Creating an Event",
-    },
-    {
-      id: 2,
-      icon: (
-        <>
-          <SVG.Setting width="18px" />
-        </>
-      ),
-      heading: "Your account",
-    },
-    {
-      id: 3,
-      icon: (
-        <>
-          <SVG.Magic width="18px" />
-        </>
-      ),
-      heading: "Marketing",
-    },
-    {
-      id: 4,
-      icon: (
-        <>
-          <SVG.Card width="18px" />
-        </>
-      ),
-      heading: "Payouts and Taxes",
-    },
-  ];
+  // route
+  const router = useRouter();
+
   return (
     <PrivateRoute>
       <>
@@ -84,23 +88,14 @@ function Home() {
                 followersCount={9}
               />
               <CardComponent title="Upcoming Events">
-                <FilledButton className={`${styles.BtnEvent}`}>
+                <FilledButton
+                  onClick={() => router.push("/instructor/create-event")}
+                  className={`${styles.BtnEvent}`}
+                >
                   <SVG.Plus width="15px" /> Create New Event
                 </FilledButton>
 
                 <div>
-                  {/* <p
-                  className="mb-0 pt-4 pb-5"
-                  style={{
-                    fontWeight: "700",
-                    color: "#fff",
-                    fontFamily: "Proxima Nova",
-                    letterSpacing: "1px",
-                  }}
-                >
-                  You don’t have any events yet,{" "}
-                  <span style={{ color: "#FF3030" }}>let’s create one!</span>
-                </p> */}
                   <EventCardComponent
                     date=" January 7, 2023 -"
                     time="8:00 AM"
@@ -115,18 +110,6 @@ function Home() {
               </CardComponent>
               <CardComponent title="Recent Event Activity">
                 <div className={`${styles.RecentActivity}`}>
-                  {/* <p
-                  className="mb-0 "
-                  style={{
-                    fontWeight: "700",
-                    color: "#fff",
-                    fontFamily: "Proxima Nova",
-                    letterSpacing: "1px",
-                  }}
-                >
-                  Once you have events, you’ll see questions and registration
-                  updates here.
-                </p> */}
                   <NotificationComponent />
                 </div>
               </CardComponent>

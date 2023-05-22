@@ -5,30 +5,65 @@ import { Checkbox } from "antd";
 import React from "react";
 import styles from "../../course.module.css";
 import EventHeaderComponent from "../event-header";
+import { useFormik } from "formik";
+import { FaEyeSlash } from "react-icons/fa";
 
 function EventDetailComponent() {
+  // formik
+  const initialValues = {
+    eventName: "",
+    courceCategory: [],
+    description: "",
+    location: "",
+    courceLink: "",
+    isPrivateEvent: false,
+    availableSpots: 1,
+    perSpotCost: "",
+    transactionFee: false,
+    isAddSaleTax: false,
+    saleTaxValue: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values) => {
+      console.log("values -- ", values);
+    },
+  });
+
   return (
     <div>
       <EventHeaderComponent heading="Event Details" />
       <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
-        <TextInput row={3} text="Event Name*" />
+        <TextInput
+          {...formik.getFieldProps("eventName")}
+          row={3}
+          text="Event Name*"
+        />
       </div>
       <div className="textArea_section mb-4">
         <label className="ps-3 ms-1">Description*</label>
         {/* <TextareaComponent /> */}
       </div>
       <div className={`${styles.customInput}`}>
-        <LabeledInput label="Location*" />
+        <LabeledInput label="Location*" {...formik.getFieldProps("location")} />
       </div>
       <div className={`${styles.customInput}`}>
         <label>Course Link*</label>
         <p className="mb-0 ps-3 ms-1">tacticulture.com/eddiegallagher/</p>
-        <LabeledInput className="mb-0" />
+        <LabeledInput
+          className="mb-0"
+          {...formik.getFieldProps("courceLink")}
+        />
         <span
           style={{ position: "relative", top: "6px" }}
           className="ps-3 ms-1 mb-3 d-block"
         >
-          <SVG.Eye className="me-2" width="20px" />{" "}
+          {formik.values.isPrivateEvent ? (
+            <FaEyeSlash className="me-2" width="20px" />
+          ) : (
+            <SVG.Eye className="me-2" width="20px" />
+          )}
           <b>Make this a Private Event?</b> (Event Not Displayed on Your
           Profile)
         </span>
