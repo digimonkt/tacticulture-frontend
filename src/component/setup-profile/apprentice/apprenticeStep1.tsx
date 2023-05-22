@@ -7,7 +7,7 @@ import { LabeledInput } from "@/component/input";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { apprenticeStepOneValidationSchema } from "@/utils/validations/apprenticeProfileValidation";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import {
   resetAlertMessage,
   setAlertMessage,
@@ -53,6 +53,7 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
 
   // redux
   const dispatch = useAppDispatch();
+  const { currentUser } = useAppSelector((state) => state.userReducer);
 
   const initialState: InitialValueType = {
     firstName: "",
@@ -90,6 +91,7 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
     if (response.remote === "success") {
       dispatch(
         updateCurrentUser({
+          ...currentUser,
           firstName: values.firstName,
           lastName: values.lastName,
           isPublicProfile: values.isPublicProfile,

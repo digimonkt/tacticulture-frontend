@@ -7,7 +7,7 @@ import TextareaComponent from "@/component/textarea";
 import { useFormik } from "formik";
 import { instructorStepOneValidationSchema } from "@/utils/validations/instructorProfileValidation";
 import TimeZoneComponent from "@/component/timezone";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import { updateUser } from "@/api/user";
 import {
@@ -33,6 +33,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   const dispatch = useAppDispatch();
   // router
   const router = useRouter();
+  const { currentUser } = useAppSelector((state) => state.userReducer);
 
   // state management
   const [customUrlError, setCustomUrlError] = useState<boolean | null>(null);
@@ -75,9 +76,10 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
       isNavigable &&
         dispatch(
           updateCurrentUser({
-            username: values.customUrl,
-            bio: values.bio,
-            timezone: values.timezone,
+            ...currentUser,
+            username: values.customUrl || "",
+            bio: values.bio || "",
+            timezone: values.timezone || "",
           })
         );
       isNavigable &&

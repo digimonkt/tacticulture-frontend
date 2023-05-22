@@ -3,7 +3,7 @@ import TextareaComponent from "@/component/textarea";
 import { useFormik } from "formik";
 import React, { forwardRef, Ref, useImperativeHandle } from "react";
 import { userEventBioValidationSchema } from "@/utils/validations/apprenticeProfileValidation";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { updateUser } from "@/api/user";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import {
@@ -31,6 +31,7 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
 ) {
   // redux
   const dispatch = useAppDispatch();
+  const { currentUser } = useAppSelector((state) => state.userReducer);
 
   // router
   const router = useRouter();
@@ -95,6 +96,7 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
     if (response.remote === "success") {
       dispatch(
         updateCurrentUser({
+          ...currentUser,
           events: values.eventIds,
           bio: values.bio,
           isProfileComplete: values.isProfileComplete,
