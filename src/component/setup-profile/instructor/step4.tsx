@@ -7,7 +7,7 @@ import React, {
   useState,
   useImperativeHandle,
 } from "react";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { SVG } from "@/assets/svg";
 import { subscriptionPlansList } from "@/api/subscriptionPlan";
 import { SubscriptionPlan } from "@/api/types/subscriptionPlan";

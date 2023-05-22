@@ -1,6 +1,6 @@
 import { SVG } from "@/assets/svg";
 import { Checkbox, Col, Row } from "antd";
-import React, { ReactEventHandler } from "react";
+import React from "react";
 import styles from "./schedule.module.css";
 import { LabeledInput } from "../input";
 
@@ -27,7 +27,6 @@ function ScheduleEventComponent({
   day,
   isChecked,
   schedules,
-  id,
   handleAddSchedule,
   handleChangeChecked,
   handleUpdateStart,

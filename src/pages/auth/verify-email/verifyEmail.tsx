@@ -6,7 +6,7 @@ import styles from "../auth.module.css";
 import { FilledButton } from "@/component/buttons";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import { verificationCodeValidationSchema } from "./validation";
+import { verificationCodeValidationSchema } from "@/utils/validations/verifyEmailValidation";
 import { ErrorMessage } from "@/component/caption";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";

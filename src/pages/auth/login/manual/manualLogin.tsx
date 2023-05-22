@@ -6,7 +6,7 @@ import { FilledButton, OutlinedButton } from "@/component/buttons";
 import Link from "next/link";
 import { SVG } from "@/assets/svg";
 import { useFormik } from "formik";
-import { manualLoginValidationSchema } from "../validation";
+import { manualLoginValidationSchema } from "@/utils/validations/loginValidation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 import { LoginUser } from "@/api/types/auth";

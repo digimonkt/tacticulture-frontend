@@ -2,7 +2,7 @@ import EventInterest, { IEventCategories } from "@/component/eventInterest";
 import TextareaComponent from "@/component/textarea";
 import { useFormik } from "formik";
 import React, { forwardRef, Ref, useImperativeHandle } from "react";
-import { userEventBioValidationSchema } from "./validation";
+import { userEventBioValidationSchema } from "@/utils/validations/apprenticeProfileValidation";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { updateUser } from "@/api/user";
 import { setPreLoader } from "@/redux/reducers/preLoader";

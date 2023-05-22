@@ -1,12 +1,12 @@
 import React, { Ref, forwardRef, useImperativeHandle, useEffect } from "react";
 import UploadProfileComponent from "@/component/upload-profile";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { Checkbox, Col, Row } from "antd";
 import { FormLabel } from "react-bootstrap";
 import { LabeledInput } from "@/component/input";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import { apprenticeStepOneValidationSchema } from "./validation";
+import { apprenticeStepOneValidationSchema } from "@/utils/validations/apprenticeProfileValidation";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import {
   resetAlertMessage,

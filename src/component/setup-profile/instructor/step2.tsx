@@ -1,13 +1,13 @@
 import { SVG } from "@/assets/svg";
 import { Checkbox, Col, Row } from "antd";
 import React, { Ref, forwardRef, useImperativeHandle } from "react";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import { updateUser } from "@/api/user";
-import { instructorStepTwoValidationSchema } from "./validation";
+import { instructorStepTwoValidationSchema } from "@/utils/validations/instructorProfileValidation";
 import {
   resetAlertMessage,
   setAlertMessage,

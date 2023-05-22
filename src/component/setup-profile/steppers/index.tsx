@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { FilledButton } from "@/component/buttons";
 
 interface StepperI {

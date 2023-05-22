@@ -4,7 +4,7 @@ import styles from "../auth.module.css";
 import { LabeledInput } from "@/component/input";
 import { FilledButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { registerValidationSchema } from "../create-account/validation";
+import { registerValidationSchema } from "@/utils/validations/createAccountValidation";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import {

@@ -32,6 +32,7 @@
     "react/react-in-jsx-scope": "off",
     "multiline-ternary": "off",
     "react/no-unescaped-entities": "off",
-    "indent": "off"
+    "indent": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
