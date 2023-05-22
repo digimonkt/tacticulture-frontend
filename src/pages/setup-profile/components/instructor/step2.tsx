@@ -21,9 +21,9 @@ export interface InstructorStepTwoRef {
 }
 
 type FormikInitialStateType = {
-  available_from: string | undefined;
-  available_to: string | undefined;
-  off_weekdays: string[];
+  availableFrom?: string;
+  availableTo?: string;
+  offWeekdays?: string[];
 };
 // function Step2() {
 const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
@@ -34,9 +34,9 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   // formik
   const formik = useFormik<FormikInitialStateType>({
     initialValues: {
-      available_from: undefined,
-      available_to: undefined,
-      off_weekdays: [],
+      availableFrom: undefined,
+      availableTo: undefined,
+      offWeekdays: [],
     },
     validationSchema: instructorStepTwoValidationSchema,
     onSubmit: (data) => {
@@ -52,20 +52,20 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
     }, 2200);
   };
   // handle submit
-  const handleSubmit = async (values: {
-    available_from: string | undefined;
-    available_to: string | undefined;
-    off_weekdays: string[];
-  }) => {
+  const handleSubmit = async (values: FormikInitialStateType) => {
     dispatch(setPreLoader(true));
-
-    const response = await updateUser(values);
+    const payload = {
+      available_from: values.availableFrom,
+      available_to: values.availableTo,
+      off_weekdays: values.offWeekdays,
+    };
+    const response = await updateUser(payload);
     if (response.remote === "success") {
       dispatch(
         updateCurrentUser({
-          availableFrom: values.available_from,
-          availableTo: values.available_to,
-          offWeekdays: values.off_weekdays,
+          availableFrom: values.availableFrom,
+          availableTo: values.availableTo,
+          offWeekdays: values.offWeekdays,
         })
       );
       router.push({
@@ -73,16 +73,7 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
         query: { ...router.query, step: 3 },
       });
     } else {
-      if (response.error.status === 500) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response.error.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-      } else if (response.error.status === 404) {
+      if (response.error.status === 500 || response.error.status === 404) {
         dispatch(
           setAlertMessage({
             error: true,
@@ -103,12 +94,14 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   }));
 
   const setWeekdaysValues = (day: string) => {
-    formik.setValues({
-      ...formik.values,
-      off_weekdays: formik.values.off_weekdays.includes(day)
-        ? formik.values.off_weekdays.filter((weekday) => weekday !== day)
-        : [...formik.values.off_weekdays, day],
-    });
+    if (formik.values?.offWeekdays) {
+      formik.setValues({
+        ...formik.values,
+        offWeekdays: formik.values.offWeekdays.includes(day)
+          ? formik.values.offWeekdays.filter((weekday) => weekday !== day)
+          : [...formik.values.offWeekdays, day],
+      });
+    }
   };
   return (
     <>
@@ -129,7 +122,7 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
             <LabeledInput
               type="time"
               className="form-control"
-              {...formik.getFieldProps("available_from")}
+              {...formik.getFieldProps("availableFrom")}
             />
           </div>
         </Col>
@@ -139,7 +132,7 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
             <LabeledInput
               type="time"
               className="form-control"
-              {...formik.getFieldProps("available_to")}
+              {...formik.getFieldProps("availableTo")}
             />
           </div>
         </Col>
@@ -151,7 +144,7 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
             <div className={`${styles.innerSection}`} key={item.id}>
               <span>
                 <Checkbox
-                  checked={formik.values.off_weekdays.includes(item.slug)}
+                  checked={formik.values.offWeekdays?.includes(item.slug)}
                   onClick={() => setWeekdaysValues(item.slug)}
                 />
               </span>

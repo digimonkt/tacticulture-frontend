@@ -16,7 +16,7 @@ import { updateCurrentUser } from "@/redux/reducers/user";
 
 interface IFormik {
   bio: string;
-  is_profile_complete: boolean;
+  isProfileComplete: boolean;
   events: IEventCategories[];
   eventIds: number[];
 }
@@ -38,7 +38,7 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
   // formik initial state
   const initialStates: IFormik = {
     bio: "",
-    is_profile_complete: true,
+    isProfileComplete: true,
     events: [],
     eventIds: [],
   };
@@ -88,7 +88,7 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
     const payload = {
       events: values.eventIds,
       bio: values.bio,
-      is_profile_complete: values.is_profile_complete,
+      is_profile_complete: values.isProfileComplete,
     };
     const response = await updateUser(payload);
 
@@ -97,7 +97,7 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
         updateCurrentUser({
           events: values.eventIds,
           bio: values.bio,
-          isProfileComplete: values.is_profile_complete,
+          isProfileComplete: values.isProfileComplete,
         })
       );
       router.push({

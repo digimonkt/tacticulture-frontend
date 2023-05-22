@@ -45,21 +45,8 @@ function VerifyTokenComponent() {
         uid,
       };
       const response = await verifyLoginToken(payload);
-      if (response.remote === "success") {
-        //
-      } else {
-        if (response.error.status === 500) {
-          dispatch(
-            setAlertMessage({
-              error: true,
-              message: response.error.errors,
-              show: true,
-            })
-          );
-          router.push("/");
-
-          handleResetAlert();
-        } else if (response.error.status === 404) {
+      if (response.remote !== "success") {
+        if (response.error.status === 500 || response.error.status === 404) {
           dispatch(
             setAlertMessage({
               error: true,

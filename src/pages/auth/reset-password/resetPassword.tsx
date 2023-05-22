@@ -60,16 +60,7 @@ function ResetPasswordComponent() {
         query: { ...router.query, userEmail: values.userEmail },
       });
     } else {
-      if (response.error.status === 500) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response.error.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-      } else if (response.error.status === 404) {
+      if (response.error.status === 500 || response.error.status === 404) {
         dispatch(
           setAlertMessage({
             error: true,
