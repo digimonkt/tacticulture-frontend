@@ -9,6 +9,9 @@ import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";
 import { OptionsInput } from "@/component/input";
 import ForumCardComponent from "@/pages/apprentice/components/forum-card";
+import { useAppSelector } from "@/redux/hooks/hooks";
+import { currentUser } from "@/redux/reducers/user";
+import { useRouter } from "next/router";
 
 function ManageEvent() {
   const Data = [
@@ -25,6 +28,8 @@ function ManageEvent() {
       id: 4,
     },
   ];
+  const userDetail = useAppSelector(currentUser);
+  const router = useRouter();
   return (
     <div>
       <InstructorLayout>
@@ -62,7 +67,7 @@ function ManageEvent() {
                         fontFamily: "Proxima Nova",
                       }}
                     >
-                      Eddie Gallagher
+                      {userDetail.firstName} {userDetail.lastName}
                     </h6>
                     <p
                       style={{
@@ -76,7 +81,7 @@ function ManageEvent() {
                         width="20px"
                         className={`${styles.colorClip}`}
                       />{" "}
-                      tacticulture.com/eddie-gallagher
+                      {userDetail.username}
                     </p>
                   </div>
                 </div>
@@ -117,6 +122,7 @@ function ManageEvent() {
                       </span>
                     </div>
                   </OptionsInput>
+
                   <FilledButton
                     className="btnEvents"
                     icon={<SVG.Plus width="20px" />}
@@ -133,6 +139,7 @@ function ManageEvent() {
                       paddingRight: "10px",
                       borderRadius: "4px",
                     }}
+                    onClick={() => router.push("/instructor/create-event")}
                   >
                     Create New Event
                   </FilledButton>

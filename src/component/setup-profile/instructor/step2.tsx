@@ -15,6 +15,7 @@ import {
 import { useRouter } from "next/router";
 import { updateCurrentUser } from "@/redux/reducers/user";
 import { Weekdays } from "@/utils/constent";
+import { useAppSelector } from "@/redux/hooks/hooks";
 
 export interface InstructorStepTwoRef {
   handleSubmitStepTwoDetail: () => void;
@@ -31,6 +32,8 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   const dispatch = useDispatch();
   // router
   const router = useRouter();
+  const { currentUser } = useAppSelector((state) => state.userReducer);
+
   // formik
   const formik = useFormik<FormikInitialStateType>({
     initialValues: {
@@ -63,9 +66,10 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
     if (response.remote === "success") {
       dispatch(
         updateCurrentUser({
-          availableFrom: values.availableFrom,
-          availableTo: values.availableTo,
-          offWeekdays: values.offWeekdays,
+          ...currentUser,
+          availableFrom: values.availableFrom || "",
+          availableTo: values.availableTo || "",
+          offWeekdays: values.offWeekdays || [],
         })
       );
       router.push({
