@@ -5,7 +5,7 @@ import { LabeledInput } from "@/component/input";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { SVG } from "@/assets/svg";
 import { useFormik } from "formik";
-import { registerValidationSchema } from "./validation";
+import { registerValidationSchema } from "@/utils/validations/createAccountValidation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 import { registerUser } from "@/api/auth";

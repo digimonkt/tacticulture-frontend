@@ -1,11 +1,11 @@
 import { Col, Row } from "antd";
 import React, { Ref, forwardRef, useImperativeHandle, useState } from "react";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
 import TextareaComponent from "@/component/textarea";
 import { useFormik } from "formik";
-import { instructorStepOneValidationSchema } from "./validation";
+import { instructorStepOneValidationSchema } from "@/utils/validations/instructorProfileValidation";
 import TimeZoneComponent from "@/component/timezone";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { setPreLoader } from "@/redux/reducers/preLoader";

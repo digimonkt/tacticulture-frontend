@@ -40,3 +40,12 @@ export enum WEEKDAYS {
   friday = "friday",
   saturday = "saturday",
 }
+
+export enum RESET_PASSWORD_PAGE {
+  verifyEmail = "verify-email",
+  resetPassword = "reset-password",
+}
+
+export enum SETUP_PROFILE_PAGE {
+  InstructorUser = "instructor-user",
+}

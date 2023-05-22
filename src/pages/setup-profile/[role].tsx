@@ -4,14 +4,21 @@ import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import styles from "./profile.module.css";
 import { SVG } from "@/assets/svg";
-import { ApprenticeSteps, InstructorSteps } from "./components";
-import StepperComponent from "./components/steppers";
-import { IRef } from "./components/apprentice/apprenticeStep1";
-import { IStepTwoRef } from "./components/apprentice/apprenticeStep2";
-import { InstructorStepOneRef } from "./components/instructor/step1";
-import { InstructorStepTwoRef } from "./components/instructor/step2";
-import { InstructorStepFourRef } from "./components/instructor/step4";
+// import { ApprenticeSteps, InstructorSteps } from "./components";
+// import StepperComponent from "./components/steppers";
+// import { IRef } from "./components/apprentice/apprenticeStep1";
+// import { IStepTwoRef } from "./components/apprentice/apprenticeStep2";
+// import { InstructorStepOneRef } from "./components/instructor/step1";
+// import { InstructorStepTwoRef } from "./components/instructor/step2";
+// import { InstructorStepFourRef } from "./components/instructor/step4";
 import ProtectedPages from "@/HOC/protectedPages";
+import { IRef } from "@/component/setup-profile/apprentice/apprenticeStep1";
+import { IStepTwoRef } from "@/component/setup-profile/apprentice/apprenticeStep2";
+import { InstructorStepOneRef } from "@/component/setup-profile/instructor/step1";
+import { InstructorStepTwoRef } from "@/component/setup-profile/instructor/step2";
+import { InstructorStepFourRef } from "@/component/setup-profile/instructor/step4";
+import { ApprenticeSteps, InstructorSteps } from "@/component/setup-profile";
+import StepperComponent from "@/component/setup-profile/steppers";
 
 interface IRouter {
   role: USER_ROLES;
