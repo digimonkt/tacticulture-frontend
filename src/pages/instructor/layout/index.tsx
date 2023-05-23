@@ -1,7 +1,7 @@
 import { SVG } from "@/assets/svg";
-import ApprenticeHeaderComponent from "@/component/header/apprentice-header";
 import { Row } from "antd";
 import React, { useState } from "react";
+import UserHeaderComponent from "@/component/header/user-header";
 import styles from "./layout.module.css";
 import Link from "next/link";
 
@@ -17,7 +17,7 @@ function InstructorLayout({ children }: IChildren) {
   };
   return (
     <div>
-      <ApprenticeHeaderComponent />
+      <UserHeaderComponent />
       <Row>
         <div className={`${styles.workspaceSidebar}`}>
           <div>
@@ -30,7 +30,10 @@ function InstructorLayout({ children }: IChildren) {
                   <SVG.Home /> Instructor Home
                 </li>
               </Link>
-              <Link href="/instructor/manage-event">
+              <Link
+                className="workspaceSidebarLink"
+                href="/instructor/manage-event"
+              >
                 <li
                   className={
                     activeLink === "/instructor/manage-event" ? "active" : ""

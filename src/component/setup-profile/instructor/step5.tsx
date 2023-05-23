@@ -1,6 +1,6 @@
 import { Col, Radio, Row } from "antd";
 import React from "react";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";

@@ -3,6 +3,9 @@
   margin: 0;
   padding: 0;
 }
+.navbar-expand-lg .navbar-nav {
+  align-items: center;
+}
 #react-select-3-listbox {
   position: absolute !important;
   background-color: #000 !important;

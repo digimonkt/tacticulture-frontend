@@ -1,13 +1,13 @@
 import { Col, Row } from "antd";
 import React, { Ref, forwardRef, useImperativeHandle, useState } from "react";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
 import TextareaComponent from "@/component/textarea";
 import { useFormik } from "formik";
-import { instructorStepOneValidationSchema } from "./validation";
+import { instructorStepOneValidationSchema } from "@/utils/validations/instructorProfileValidation";
 import TimeZoneComponent from "@/component/timezone";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import { updateUser } from "@/api/user";
 import {
@@ -17,13 +17,15 @@ import {
 import { useRouter } from "next/router";
 import { updateCurrentUser } from "@/redux/reducers/user";
 
-// interface IRouter {
-//   userEmail: string;
-// }
-
 export interface InstructorStepOneRef {
   handleSubmitAccountDetail: () => void;
 }
+
+type InitialValuesType = {
+  customUrl?: string;
+  bio: string;
+  timezone: string;
+};
 
 // function Step1() {
 
@@ -31,15 +33,15 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   const dispatch = useAppDispatch();
   // router
   const router = useRouter();
-  // const { userEmail } = router.query as unknown as IRouter;
+  const { currentUser } = useAppSelector((state) => state.userReducer);
 
   // state management
   const [customUrlError, setCustomUrlError] = useState<boolean | null>(null);
 
   // formik
-  const formik = useFormik({
+  const formik = useFormik<InitialValuesType>({
     initialValues: {
-      customUrl: "",
+      customUrl: undefined,
       bio: "",
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     },
@@ -58,11 +60,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
 
   // handle submit
   const handleUpdateProfile = async (
-    values: {
-      bio?: string;
-      timezone?: string;
-      customUrl?: string;
-    },
+    values: InitialValuesType,
     isNavigable: boolean
   ) => {
     dispatch(setPreLoader(true));
@@ -78,9 +76,10 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
       isNavigable &&
         dispatch(
           updateCurrentUser({
-            username: values.customUrl,
-            bio: values.bio,
-            timezone: values.timezone,
+            ...currentUser,
+            username: values.customUrl || "",
+            bio: values.bio || "",
+            timezone: values.timezone || "",
           })
         );
       isNavigable &&
@@ -164,7 +163,11 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
                 }}
                 onBlur={() => {
                   handleUpdateProfile(
-                    { customUrl: formik.values.customUrl },
+                    {
+                      customUrl: formik.values.customUrl,
+                      bio: "",
+                      timezone: "",
+                    },
                     false
                   );
                 }}
@@ -207,15 +210,16 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
       </Row>
       <div className={`${styles.timeZone}`}>
         <TimeZoneComponent
-          timeZoneValue={formik.values.timezone}
-          handleTimeZoneValue={(vl) => formik.setFieldValue("timezone", vl)}
+          title="Time zone"
+          value={formik.values.timezone}
+          onChange={(vl) => formik.setFieldValue("timezone", vl)}
         />
       </div>
       <div className={`${styles.textArea}`}>
         <TextareaComponent
-          bioValue={formik.values.bio}
-          handleChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
-          formikProps={formik.getFieldProps("bio")}
+          title="Your Bio"
+          value={formik.values.bio}
+          onChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
         />
       </div>
     </div>

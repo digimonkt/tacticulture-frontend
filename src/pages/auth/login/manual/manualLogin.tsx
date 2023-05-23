@@ -6,7 +6,7 @@ import { FilledButton, OutlinedButton } from "@/component/buttons";
 import Link from "next/link";
 import { SVG } from "@/assets/svg";
 import { useFormik } from "formik";
-import { manualLoginValidationSchema } from "../validation";
+import { manualLoginValidationSchema } from "@/utils/validations/loginValidation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 import { LoginUser } from "@/api/types/auth";
@@ -15,6 +15,7 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { loginUser } from "@/api/auth";
+import urlcat from "urlcat";
 
 function ManualLoginComponent() {
   // redux dispatch
@@ -98,7 +99,9 @@ function ManualLoginComponent() {
               Sign in with Email
             </FilledButton>
           </div>
-          <Link href="/reset-password?at=reset-password">Forgot password?</Link>
+          <Link href={urlcat("/reset-password", { at: "reset-password" })}>
+            Forgot password?
+          </Link>
           <div className={`${styles.spanText}`}>
             <span>OR</span>
           </div>

@@ -5,7 +5,7 @@ import { LabeledInput } from "@/component/input";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { SVG } from "@/assets/svg";
 import { useFormik } from "formik";
-import { registerValidationSchema } from "./validation";
+import { registerValidationSchema } from "@/utils/validations/createAccountValidation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 import { registerUser } from "@/api/auth";
@@ -15,6 +15,10 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { ErrorMessage } from "@/component/caption";
+
+export type InitialStateType = {
+  userEmail: string;
+};
 
 function CreateAccountComponent() {
   // redux
@@ -27,11 +31,12 @@ function CreateAccountComponent() {
   // state management
   const [emailError, setEmailError] = useState<string>("");
 
+  const initialStates: InitialStateType = {
+    userEmail: "",
+  };
   // formik
   const formik = useFormik({
-    initialValues: {
-      userEmail: "",
-    },
+    initialValues: initialStates,
     validationSchema: registerValidationSchema,
     onSubmit: (values) => {
       handleCreateAccount(values);
@@ -46,7 +51,7 @@ function CreateAccountComponent() {
   };
 
   // handle create account
-  const handleCreateAccount = async (values: { userEmail: string }) => {
+  const handleCreateAccount = async (values: InitialStateType) => {
     dispatch(setPreLoader(true));
     const payload = {
       email: values.userEmail,

@@ -4,7 +4,7 @@ import styles from "../auth.module.css";
 import { LabeledInput } from "@/component/input";
 import { FilledButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { registerValidationSchema } from "../create-account/validation";
+import { registerValidationSchema } from "@/utils/validations/createAccountValidation";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import {
@@ -15,28 +15,23 @@ import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 import { ErrorMessage } from "@/component/caption";
 import { forgotPassword } from "@/api/auth";
 import { ForgotPassword } from "@/api/types/auth";
+import { InitialStateType } from "../create-account/createAccount";
 
 function ResetPasswordComponent() {
   const router = useRouter();
   const preLoaderData = useAppSelector(preLoader);
 
-  // const handleNextStep = () => {
-  //   router.push({
-  //     pathname: router.pathname.replace("auth", ""),
-  //     query: { ...router.query, at: RESET_PASSWORD_PAGE.verifyEmail },
-  //   });
-  // };
   // redux dispatch
   const dispatch = useAppDispatch();
 
   // state management
   const [emailError, setEmailError] = useState("");
-
+  const initialStates: InitialStateType = {
+    userEmail: "",
+  };
   // formik
   const formik = useFormik({
-    initialValues: {
-      userEmail: "",
-    },
+    initialValues: initialStates,
     validationSchema: registerValidationSchema,
     onSubmit: (values) => {
       handleSubmit(values);
@@ -50,13 +45,9 @@ function ResetPasswordComponent() {
       setEmailError("");
     }, 2200);
   };
-  setTimeout(() => {
-    dispatch(resetAlertMessage());
-    setEmailError("");
-  }, 2200);
 
   // handle submit
-  const handleSubmit = async (values: { userEmail: string }) => {
+  const handleSubmit = async (values: InitialStateType) => {
     dispatch(setPreLoader(true));
     const payload: ForgotPassword = {
       email: values.userEmail,
@@ -69,16 +60,7 @@ function ResetPasswordComponent() {
         query: { ...router.query, userEmail: values.userEmail },
       });
     } else {
-      if (response.error.status === 500) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response.error.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-      } else if (response.error.status === 404) {
+      if (response.error.status === 500 || response.error.status === 404) {
         dispatch(
           setAlertMessage({
             error: true,

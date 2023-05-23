@@ -15,9 +15,9 @@ function Header() {
 
   return (
     <div className={`${styles.headers}`}>
-      <Link href="/">
-        <span>New to Tacticulture?</span>
-      </Link>
+      {/* <Link href="/"> */}
+      <span>New to Tacticulture?</span>
+      {/* </Link> */}
       {urlPathName === "/login" ? (
         <Link href={"/create-account"}>
           <FilledButton

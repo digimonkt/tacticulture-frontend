@@ -1,4 +1,4 @@
-import ApprenticeHeaderComponent from "@/component/header/apprentice-header";
+import ApprenticeHeaderComponent from "@/component/header/user-header";
 import React from "react";
 import styles from "./styles.module.css";
 import { SVG } from "@/assets/svg";

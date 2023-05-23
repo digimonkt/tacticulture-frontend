@@ -1,5 +1,5 @@
 import { SVG } from "@/assets/svg";
-import ApprenticeHeaderComponent from "@/component/header/apprentice-header";
+import ApprenticeHeaderComponent from "@/component/header/user-header";
 import React from "react";
 import styles from "./profile.module.css";
 import { Tab, Tabs } from "react-bootstrap";

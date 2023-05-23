@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { LabeledInput } from "@/component/input";
 import { useFormik } from "formik";
-import { magicLinkLoginValidationSchema } from "./validation";
+import { magicLinkLoginValidationSchema } from "@/utils/validations/loginValidation";
 import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
 import {
   resetAlertMessage,
@@ -16,7 +16,7 @@ import { LoginUser } from "@/api/types/auth";
 import { loginUser } from "@/api/auth";
 import { ErrorMessage } from "@/component/caption";
 import { useRouter } from "next/router";
-import { RESET_PASSWORD_PAGE } from "../enum";
+import { RESET_PASSWORD_PAGE } from "@/utils/enum";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 
 function LoginComponent() {

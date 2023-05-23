@@ -1,13 +1,13 @@
 import React, { Ref, forwardRef, useImperativeHandle, useEffect } from "react";
 import UploadProfileComponent from "@/component/upload-profile";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { Checkbox, Col, Row } from "antd";
 import { FormLabel } from "react-bootstrap";
 import { LabeledInput } from "@/component/input";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import { apprenticeStepOneValidationSchema } from "./validation";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { apprenticeStepOneValidationSchema } from "@/utils/validations/apprenticeProfileValidation";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import {
   resetAlertMessage,
   setAlertMessage,
@@ -30,19 +30,16 @@ export interface IProps {
   role: USER_ROLES;
 }
 
-export type fomikInitialValueType = {
-  first_name: string;
-  last_name: string;
+export type InitialValueType = {
+  firstName: string;
+  lastName: string;
   password: string;
-  is_public_profile: boolean;
+  isPublicProfile: boolean;
   email: string;
-  profile_image: string | null;
+  profileImage: string | null;
 };
 
-const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
-  props: IProps,
-  ref: Ref<IRef>
-) {
+const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
   // router
   const router = useRouter();
 
@@ -53,14 +50,15 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
 
   // redux
   const dispatch = useAppDispatch();
+  const { currentUser } = useAppSelector((state) => state.userReducer);
 
-  const initialState: fomikInitialValueType = {
-    first_name: "",
-    last_name: "",
+  const initialState: InitialValueType = {
+    firstName: "",
+    lastName: "",
     password: "",
-    is_public_profile: false,
+    isPublicProfile: false,
     email: "",
-    profile_image: null,
+    profileImage: null,
   };
 
   // formik
@@ -71,7 +69,6 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
       handleUpdateProfile(values);
     },
   });
-
   // reset AlertMessage
   const handleResetAlert = () => {
     setTimeout(() => {
@@ -79,15 +76,22 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
     }, 2000);
   };
   // handle submit
-  const handleUpdateProfile = async (values: fomikInitialValueType) => {
+  const handleUpdateProfile = async (values: InitialValueType) => {
     dispatch(setPreLoader(true));
-    const response = await updateUser(values);
+    const payload = {
+      first_name: values.firstName,
+      last_name: values.lastName,
+      is_public_profile: values.isPublicProfile,
+      email: values.email,
+    };
+    const response = await updateUser(payload);
     if (response.remote === "success") {
       dispatch(
         updateCurrentUser({
-          firstName: values.first_name,
-          lastName: values.last_name,
-          isPublicProfile: values.is_public_profile,
+          ...currentUser,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          isPublicProfile: values.isPublicProfile,
           email: values.email,
         })
       );
@@ -140,16 +144,16 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
     <div style={{ borderBottom: "1px solid #555", paddingBottom: "24px" }}>
       <UploadProfileComponent
         handleSetProfileImage={(image: string | null) =>
-          formik.setValues({ ...formik.values, profile_image: image })
+          formik.setValues({ ...formik.values, profileImage: image })
         }
       />
       <div className="mt-4 mb-4 pt-2 pb-2 ps-4 pe-4">
         <h5 className={`${styles.accounthead}`}>Your Account Information</h5>
         <div className="d-flex align-items-center ">
           <Checkbox
-            checked={formik.values.is_public_profile}
+            checked={formik.values.isPublicProfile}
             onChange={(e) => {
-              formik.setFieldValue("is_public_profile", e.target.checked);
+              formik.setFieldValue("isPublicProfile", e.target.checked);
             }}
             className="me-2"
           />
@@ -167,9 +171,9 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
               <FormLabel>
                 First Name<span>*</span>
               </FormLabel>
-              <LabeledInput {...formik.getFieldProps("first_name")} />
-              {formik.touched.first_name && formik.errors.first_name ? (
-                <ErrorMessage>{formik.errors.first_name}</ErrorMessage>
+              <LabeledInput {...formik.getFieldProps("firstName")} />
+              {formik.touched.firstName && formik.errors.firstName ? (
+                <ErrorMessage>{formik.errors.firstName}</ErrorMessage>
               ) : null}
             </div>
           </Col>
@@ -178,9 +182,9 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
               <FormLabel>
                 Last Name<span>*</span>
               </FormLabel>
-              <LabeledInput {...formik.getFieldProps("last_name")} />
-              {formik.touched.last_name && formik.errors.last_name ? (
-                <ErrorMessage>{formik.errors.last_name}</ErrorMessage>
+              <LabeledInput {...formik.getFieldProps("lastName")} />
+              {formik.touched.lastName && formik.errors.lastName ? (
+                <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
               ) : null}
             </div>
           </Col>
@@ -217,4 +221,4 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
   );
 });
 
-export default ApprenticeStep1;
+export default UserStep;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Layout from "../layout";
 import { LabeledInput } from "@/component/input";
 import styles from "../auth.module.css";
@@ -8,9 +8,9 @@ import {
   resetAlertMessage,
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
-import { preLoader, setPreLoader } from "@/redux/reducers/preLoader";
+import { setPreLoader } from "@/redux/reducers/preLoader";
 import { useAppDispatch } from "@/redux/hooks/hooks";
-import { passwordRestValidationSchema } from "./validation";
+import { passwordRestValidationSchema } from "@/utils/validations/resetPasswordValidation";
 import { useRouter } from "next/router";
 import { resetPassword } from "@/api/auth";
 import { ResetPassword } from "@/api/types/auth";
@@ -35,7 +35,6 @@ function UpdatePasswordComponent() {
   const dispatch = useAppDispatch();
 
   const { token, uid } = router.query as unknown as ISearchQuery;
-  console.log(token, uid);
   // state management
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -50,12 +49,9 @@ function UpdatePasswordComponent() {
     initialValues: initialStates,
     validationSchema: passwordRestValidationSchema,
     onSubmit: (data) => {
-      console.log(data, "dayta");
       handleSubmit(data);
     },
   });
-
-  console.log({ formik });
 
   // reset AlertMessage
   const handleResetAlert = () => {
@@ -74,7 +70,6 @@ function UpdatePasswordComponent() {
       password_confirm: data.passwordConfirm,
     };
     const response = await resetPassword(payload);
-    console.log(response);
     if (response.remote === "success") {
       dispatch(
         setAlertMessage({
@@ -84,7 +79,7 @@ function UpdatePasswordComponent() {
         })
       );
       handleResetAlert();
-      router.push("/manual-login");
+      router.push("/login/manual");
     } else {
       if (response.error.status === 500) {
         dispatch(

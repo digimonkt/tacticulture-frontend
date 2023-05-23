@@ -7,13 +7,13 @@ import React, {
   useState,
   useImperativeHandle,
 } from "react";
-import styles from "../../profile.module.css";
+import styles from "../../../pages/setup-profile/profile.module.css";
 import { SVG } from "@/assets/svg";
 import { subscriptionPlansList } from "@/api/subscriptionPlan";
 import { SubscriptionPlan } from "@/api/types/subscriptionPlan";
 import { updateUser } from "@/api/user";
 import { useRouter } from "next/router";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import {
   resetAlertMessage,
@@ -33,113 +33,13 @@ const Step4 = forwardRef(function Step4(
   props,
   ref: Ref<InstructorStepFourRef>
 ) {
-  // const Plan = [
-  //   {
-  //     id: "1",
-  //     check: (
-  //       <>
-  //         <SVG.Fillcheck />
-  //       </>
-  //     ),
-  //     name: "Unlimited Paid Events",
-  //     info: (
-  //       <>
-  //         <SVG.InfoIcon />{" "}
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     id: "2",
-  //     check: (
-  //       <>
-  //         <SVG.Fillcheck />
-  //       </>
-  //     ),
-  //     name: "1 Calendar Integration",
-  //     info: (
-  //       <>
-  //         <SVG.InfoIcon />{" "}
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     id: "3",
-  //     check: (
-  //       <>
-  //         <SVG.Fillcheck />
-  //       </>
-  //     ),
-  //     name: "Basic Event Promotion on the Tacticulture events library  ",
-  //     info: (
-  //       <>
-  //         <SVG.InfoIcon />{" "}
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     id: "4",
-  //     check: (
-  //       <>
-  //         <SVG.Fillcheck />
-  //       </>
-  //     ),
-  //     name: "Basic Event Promotion on the Tacticulture events library  ",
-  //     info: (
-  //       <>
-  //         <SVG.InfoIcon />{" "}
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     id: "5",
-  //     check: (
-  //       <>
-  //         <SVG.Fillcheck />
-  //       </>
-  //     ),
-  //     name: "Basic Event Promotion on the Tacticulture events library  ",
-  //     info: (
-  //       <>
-  //         <SVG.InfoIcon />{" "}
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     id: "6",
-  //     check: (
-  //       <>
-  //         <SVG.Fillcheck />
-  //       </>
-  //     ),
-  //     name: "Basic Event Promotion on the Tacticulture events library  ",
-  //     info: (
-  //       <>
-  //         <SVG.InfoIcon />{" "}
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     id: "7",
-  //     check: (
-  //       <>
-  //         <SVG.Fillcheck />
-  //       </>
-  //     ),
-  //     name: "Basic Event Promotion on the Tacticulture events library  ",
-  //     info: (
-  //       <>
-  //         <SVG.InfoIcon />{" "}
-  //       </>
-  //     ),
-  //   },
-  // ];
   const [plansList, setPlansList] = useState<SubscriptionPlan[]>([]);
   const [planType, setPlanType] = useState("annually");
   const [selectedPlan, setSelectedPlan] = useState(0);
   const [selectedPlanType, setSelectedPlanType] = useState("");
 
   const dispatch = useAppDispatch();
-
+  const { currentUser } = useAppSelector((state) => state.userReducer);
   // router
   const router = useRouter();
   // reset AlertMessage
@@ -158,7 +58,12 @@ const Step4 = forwardRef(function Step4(
       };
       const response = await updateUser(payload);
       if (response.remote === "success") {
-        dispatch(updateCurrentUser({ isProfileComplete: true }));
+        dispatch(
+          updateCurrentUser({
+            ...currentUser,
+            isProfileComplete: true,
+          })
+        );
         router.push("/instructor/home");
       } else {
         if (response.error.status === 500) {

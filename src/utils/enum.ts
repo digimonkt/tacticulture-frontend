@@ -10,18 +10,18 @@ export enum SUBSCRIPTION_PLAN_TYPE {
   yearly = "yearly",
 }
 
-export const userTypeList: NewIUserType[] = [
+export const USER_TYPE_LIST: NewIUserType[] = [
   {
     id: "1",
     title: "1",
-    user_roles: USER_ROLES.apprentice,
+    userRoles: USER_ROLES.apprentice,
     content:
       "Discover and attend new events, track your training and progress by collecting badges, and connect with new instructors and friends.",
   },
   {
     id: "2",
     title: "2",
-    user_roles: USER_ROLES.instructor,
+    userRoles: USER_ROLES.instructor,
     content:
       "Create and manage events, accept payments from attendees, manage event roster and questions, and build your training network.",
   },
@@ -30,4 +30,18 @@ export const userTypeList: NewIUserType[] = [
 export enum IMAGE_VARIENTS {
   profile = "profile",
   event = "event",
+}
+export enum WEEKDAYS {
+  sunday = "sunday",
+  monday = "monday",
+  tuesday = "tuesday",
+  wednesday = "wednesday",
+  thursday = "thursday",
+  friday = "friday",
+  saturday = "saturday",
+}
+
+export enum RESET_PASSWORD_PAGE {
+  verifyEmail = "verify-email",
+  resetPassword = "reset-password",
 }
