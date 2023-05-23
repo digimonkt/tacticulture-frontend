@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../course.module.css";
 import { SVG } from "@/assets/svg";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
@@ -24,6 +24,9 @@ function CustomizeEventComponent() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+  useEffect(() => {
+    console.log(addImages);
+  }, [addImages]);
 
   return (
     <div>
