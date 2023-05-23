@@ -81,7 +81,10 @@ function EventDetailComponent() {
         <label>
           Event Cost (per spot) <SVG.InfoIcon width="16px" />
         </label>
-        <LabeledInput className="mb-2 d-block" style={{ width: "235px" }} />
+        <LabeledInput
+          className="mb-2 d-block"
+          style={{ width: "235px", paddingLeft: "36px" }}
+        />
         <span className={`${styles.dollarIcon}`}>
           <SVG.Dollar width="24px" />
         </span>

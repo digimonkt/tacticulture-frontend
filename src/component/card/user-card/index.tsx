@@ -17,7 +17,7 @@ function UserCardComponent({
   ...rest
 }: IUserCardComponent) {
   return (
-    <div style={{ marginInline: "15px" }}>
+    <div style={{ marginInline: "15px" }} className="boxed-user">
       <div className={`${styles.apprenticeCard}`}>
         <h4>{heading}</h4>
         <p>{content}</p>
