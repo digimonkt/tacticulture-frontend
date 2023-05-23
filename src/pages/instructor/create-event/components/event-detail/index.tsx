@@ -30,7 +30,7 @@ function EventDetailComponent() {
       console.log("values -- ", values);
     },
   });
-
+  console.log("first push of event create");
   return (
     <div>
       <EventHeaderComponent heading="Event Details" />
