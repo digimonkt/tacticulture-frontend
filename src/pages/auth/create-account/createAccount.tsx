@@ -57,7 +57,6 @@ function CreateAccountComponent() {
       email: values.userEmail,
     };
     const response = await registerUser(payload);
-    console.log(response);
     if (response.remote === "success") {
       router.push({
         pathname: "/verify-email",

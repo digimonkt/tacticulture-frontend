@@ -9,7 +9,6 @@ import { transformGetUserDetailsAPIResponse } from "./transform/user";
 
 // Update user details
 export const updateUser = async (data: UpdateUserType) => {
-  console.log(data);
   const response = await axiosInstance.request({
     url: "/change-profile-details/",
     method: "PATCH",
