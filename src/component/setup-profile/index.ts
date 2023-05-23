@@ -2,7 +2,7 @@ import Step1 from "./instructor/step1";
 import Step2 from "./instructor/step2";
 import Step4 from "./instructor/step4";
 import Step5 from "./instructor/step5";
-import ApprenticeStep1 from "./apprentice/apprenticeStep1";
+import UserStep from "./apprentice/userStep";
 import ApprenticeStep2 from "./apprentice/apprenticeStep2";
 
 export const InstructorSteps = {
@@ -13,6 +13,6 @@ export const InstructorSteps = {
 };
 
 export const ApprenticeSteps = {
-  ApprenticeStep1,
+  UserStep,
   ApprenticeStep2,
 };

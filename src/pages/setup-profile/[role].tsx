@@ -12,7 +12,7 @@ import { SVG } from "@/assets/svg";
 // import { InstructorStepTwoRef } from "./components/instructor/step2";
 // import { InstructorStepFourRef } from "./components/instructor/step4";
 import ProtectedPages from "@/HOC/protectedPages";
-import { IRef } from "@/component/setup-profile/apprentice/apprenticeStep1";
+import { IRef } from "@/component/setup-profile/apprentice/userStep";
 import { IStepTwoRef } from "@/component/setup-profile/apprentice/apprenticeStep2";
 import { InstructorStepOneRef } from "@/component/setup-profile/instructor/step1";
 import { InstructorStepTwoRef } from "@/component/setup-profile/instructor/step2";
@@ -47,10 +47,7 @@ function Role() {
           return <InstructorSteps.Step2 ref={instructorStepTwoRef} />;
         case "3":
           return (
-            <ApprenticeSteps.ApprenticeStep1
-              ref={apprenticeStepOneRef}
-              role={role}
-            />
+            <ApprenticeSteps.UserStep ref={apprenticeStepOneRef} role={role} />
           );
         case "4":
           return <InstructorSteps.Step4 ref={instructorStepFourRef} />;
@@ -66,10 +63,7 @@ function Role() {
       switch (step) {
         case "1":
           return (
-            <ApprenticeSteps.ApprenticeStep1
-              ref={apprenticeStepOneRef}
-              role={role}
-            />
+            <ApprenticeSteps.UserStep ref={apprenticeStepOneRef} role={role} />
           );
         case "2":
           return <ApprenticeSteps.ApprenticeStep2 ref={apprenticeStepTwoRef} />;
