@@ -3,6 +3,13 @@
   margin: 0;
   padding: 0;
 }
+a {
+  text-decoration: none !important;
+}
+.userBoxed .boxed-user {
+  width: 248px !important;
+  margin: 0 !important;
+}
 .navbar-expand-lg .navbar-nav {
   align-items: center;
 }
@@ -445,10 +452,13 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   padding: 0 10px;
   border-radius: 3px !important;
 }
+.userBoxed .boxed-user button {
+  width: auto !important;
+}
 .schedule .btn.selected {
-  background: #fff !important;
+  /* background: #fff !important; */
   color: #cb2c2c;
-  width: 83px !important;
+  width: 83px;
   margin-bottom: 10px;
   justify-content: center !important;
 }
