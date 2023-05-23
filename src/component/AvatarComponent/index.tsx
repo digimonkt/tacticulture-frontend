@@ -2,11 +2,10 @@ import { Avatar, AvatarProps } from "antd";
 import React from "react";
 
 interface Props extends AvatarProps {
-  imageUrl: string;
   title: string;
 }
 
-const AvatarComponent = ({ title, imageUrl, style, ...rest }: Props) => {
+const AvatarComponent = ({ title, style, ...rest }: Props) => {
   return (
     <Avatar
       style={{
@@ -14,7 +13,6 @@ const AvatarComponent = ({ title, imageUrl, style, ...rest }: Props) => {
         lineHeight: "24px",
         ...(style || {}),
       }}
-      src={imageUrl}
       {...rest}
     >
       {title}
