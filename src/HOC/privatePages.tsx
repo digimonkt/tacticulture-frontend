@@ -3,11 +3,11 @@ import { isLoggedIn } from "@/redux/reducers/user";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export default function PrivateRoute({
-  children,
-}: {
+interface IPrivateRoute {
   children: React.ReactNode;
-}) {
+}
+
+export default function PrivateRoute({ children }: IPrivateRoute) {
   // router
   const router = useRouter();
 

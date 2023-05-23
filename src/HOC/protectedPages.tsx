@@ -4,11 +4,11 @@ import { USER_ROLES } from "@/utils/enum";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-type Props = {
+interface IProtectedPages {
   children: React.ReactNode;
-};
+}
 
-function ProtectedPages({ children }: Props) {
+function ProtectedPages({ children }: IProtectedPages) {
   // router
   const router = useRouter();
 
