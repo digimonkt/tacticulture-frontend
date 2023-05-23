@@ -1,5 +1,5 @@
 import { SVG } from "@/assets/svg";
-import { WEEKDAYS } from "./enum";
+import { EVENT_SCHEDULE_TYPES, WEEKDAYS } from "./enum";
 
 export const Weekdays = [
   {
@@ -59,5 +59,26 @@ export const Data = [
     id: 4,
     icon: SVG.Card,
     heading: "Payouts and Taxes",
+  },
+];
+
+export const eventScheduleTypes = [
+  {
+    id: 1,
+    title: "Scheduled Event(s)",
+    description: "A single-date calendar event with limited availability.",
+    scheduleType: EVENT_SCHEDULE_TYPES.scheduledEvent,
+  },
+  {
+    id: 2,
+    title: "Open Schedule",
+    description: "A user can schedule an event based on your availability.",
+    scheduleType: EVENT_SCHEDULE_TYPES.openScheduled,
+  },
+  {
+    id: 3,
+    title: "Combined",
+    description: "Both event types, all your availability in one event.",
+    scheduleType: EVENT_SCHEDULE_TYPES.combined,
   },
 ];

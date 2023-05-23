@@ -15,7 +15,7 @@ function CreateEvent() {
 
   const { step } = router.query;
 
-  const getComponents = () => {
+  const getComponents = (step: string) => {
     switch (step) {
       case "1":
         return <EventDetailComponent />;
@@ -28,11 +28,10 @@ function CreateEvent() {
       // case "5":
       //   return "step five";
       default:
-        typeof window !== "undefined" &&
-          router.push({
-            pathname: router.pathname,
-            query: { ...router.query, step: 1 },
-          });
+        router.push({
+          pathname: router.pathname,
+          query: { ...router.query, step: step || 1 },
+        });
     }
   };
   return (
@@ -48,7 +47,7 @@ function CreateEvent() {
           </div>
           <div className="profileSections">
             {/* <EventHeaderComponent heading="Event Details" /> */}
-            <div>{getComponents()}</div>
+            <div>{step && getComponents(step as string)}</div>
             <div className="footer">
               <EventHeaderComponent />
             </div>

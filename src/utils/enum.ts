@@ -45,3 +45,9 @@ export enum RESET_PASSWORD_PAGE {
   verifyEmail = "verify-email",
   resetPassword = "reset-password",
 }
+
+export enum EVENT_SCHEDULE_TYPES {
+  scheduledEvent = "scheduledEvent",
+  openScheduled = "openScheduled",
+  combined = "combined",
+}

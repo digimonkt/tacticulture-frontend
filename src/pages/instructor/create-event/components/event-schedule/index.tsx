@@ -5,37 +5,55 @@ import styles from "../../course.module.css";
 import ScheduleDateComponent from "../schedule-date";
 import OpenAvailabilityComponent from "./components/open-avalability";
 import EventHeaderComponent from "../event-header";
+import { EVENT_SCHEDULE_TYPES } from "@/utils/enum";
+import { eventScheduleTypes } from "@/utils/constant";
+import { useFormik } from "formik";
+
+type initialValuesType = {
+  eventScheduledList: {
+    eventStartDatetime: string;
+    eventEndDatetime: string;
+  }[];
+};
 
 function EventScheduleComponent() {
-  const [show, setShow] = useState(false);
+  // state management
+  const [selectedType, setSelectedType] = useState("");
+
+  // formik
+  const formik = useFormik<initialValuesType>({
+    initialValues: {
+      eventScheduledList: [],
+    },
+    onSubmit: (values) => {
+      console.log("vlaues ", values);
+    },
+  });
+
   return (
     <div className="schedule">
       <EventHeaderComponent heading="Event Details" />
       <div className={`${styles.headerComponent}`}>
         <Row>
-          <Col md={8}>
-            <UserCardComponent
-              heading="Scheduled Event(s)"
-              content="A single-date calendar event with limited availability."
-            />
-          </Col>
-          <Col md={8}>
-            <UserCardComponent
-              heading="Open Schedule"
-              content="A user can schedule an event based on your availability."
-            />
-          </Col>
-          <Col md={8}>
-            <UserCardComponent
-              heading="Combined"
-              content="Both event types, all your availability in one event."
-              onClick={() => setShow(!show)}
-              selected={show}
-            />
-          </Col>
+          {eventScheduleTypes.map((type) => (
+            <Col md={8} key={type.id}>
+              <UserCardComponent
+                onClick={() => setSelectedType(type.scheduleType)}
+                selected={type.scheduleType === selectedType}
+                heading={type.title}
+                content={type.description}
+              />
+            </Col>
+          ))}
         </Row>
-        {show && <ScheduleDateComponent />}
-        <OpenAvailabilityComponent />
+        {(selectedType === EVENT_SCHEDULE_TYPES.scheduledEvent ||
+          selectedType === EVENT_SCHEDULE_TYPES.combined) && (
+          <ScheduleDateComponent />
+        )}
+        {(selectedType === EVENT_SCHEDULE_TYPES.openScheduled ||
+          selectedType === EVENT_SCHEDULE_TYPES.combined) && (
+          <OpenAvailabilityComponent />
+        )}
       </div>
     </div>
   );
