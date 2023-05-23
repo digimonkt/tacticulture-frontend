@@ -39,10 +39,7 @@ export type InitialValueType = {
   profileImage: string | null;
 };
 
-const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
-  props: IProps,
-  ref: Ref<IRef>
-) {
+const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
   // router
   const router = useRouter();
 
@@ -224,4 +221,4 @@ const ApprenticeStep1 = forwardRef(function ApprenticeStep1(
   );
 });
 
-export default ApprenticeStep1;
+export default UserStep;

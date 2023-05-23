@@ -1,13 +1,20 @@
 import React from "react";
-import TimezoneSelect, { ITimezone } from "react-timezone-select";
+import TimezoneSelect, {
+  ITimezone,
+  TimezoneSelectOptions,
+} from "react-timezone-select";
 import styles from "./timeZone.module.css";
 
-interface timezoneI {
+interface timezoneI extends TimezoneSelectOptions {
   timeZoneValue: ITimezone | string;
   handleTimeZoneValue: (arg: ITimezone | string) => void;
 }
 
-function TimeZoneComponent({ timeZoneValue, handleTimeZoneValue }: timezoneI) {
+function TimeZoneComponent({
+  timeZoneValue,
+  handleTimeZoneValue,
+  ...rest
+}: timezoneI) {
   return (
     <div className="pe-4 ps-4">
       <div className={`${styles.selectWrapper}`}>
@@ -15,6 +22,7 @@ function TimeZoneComponent({ timeZoneValue, handleTimeZoneValue }: timezoneI) {
         <TimezoneSelect
           value={timeZoneValue}
           onChange={(e) => handleTimeZoneValue(e.value)}
+          {...rest}
         />
       </div>
     </div>

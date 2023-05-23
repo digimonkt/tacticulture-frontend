@@ -216,6 +216,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
       </div>
       <div className={`${styles.textArea}`}>
         <TextareaComponent
+          title="Your Bio"
           bioValue={formik.values.bio}
           handleChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
           formikProps={formik.getFieldProps("bio")}

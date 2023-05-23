@@ -5,10 +5,10 @@ import { eventCategoriesList } from "@/api/event";
 import { FieldInputProps } from "formik";
 import { EventCategory } from "@/api/types/event";
 
-export interface IEventCategories {
+export type IEventCategories = {
   id: number;
   eventCategories: string;
-}
+};
 
 interface IEventInterest {
   eventInterestValues: IEventCategories[];
