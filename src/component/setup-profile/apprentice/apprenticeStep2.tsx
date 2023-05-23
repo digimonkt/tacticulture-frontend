@@ -143,9 +143,8 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
     <div>
       <TextareaComponent
         title="Your Bio"
-        bioValue={formik.values.bio}
-        handleChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
-        formikProps={formik.getFieldProps("bio")}
+        value={formik.values.bio}
+        onChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
       />
       {formik?.touched?.bio && formik.errors.bio ? (
         <ErrorMessage>{formik.errors.bio}</ErrorMessage>

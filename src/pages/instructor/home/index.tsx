@@ -10,45 +10,8 @@ import EventCardComponent from "@/component/card/event-card";
 import NotificationComponent from "@/pages/apprentice/components/notification";
 import PrivateRoute from "@/HOC/privatePages";
 import { useRouter } from "next/router";
+import { Data } from "@/utils/constant";
 
-const Data = [
-  {
-    id: 1,
-    icon: (
-      <>
-        <SVG.Plusevent width="18px" />
-      </>
-    ),
-    heading: "Creating an Event",
-  },
-  {
-    id: 2,
-    icon: (
-      <>
-        <SVG.Setting width="18px" />
-      </>
-    ),
-    heading: "Your account",
-  },
-  {
-    id: 3,
-    icon: (
-      <>
-        <SVG.Magic width="18px" />
-      </>
-    ),
-    heading: "Marketing",
-  },
-  {
-    id: 4,
-    icon: (
-      <>
-        <SVG.Card width="18px" />
-      </>
-    ),
-    heading: "Payouts and Taxes",
-  },
-];
 function Home() {
   // route
   const router = useRouter();
@@ -156,10 +119,12 @@ function Home() {
               </CardComponent>
               <CardComponent title="How can we help?">
                 <Row className="pb-2 pt-2">
-                  {Data.map((Data) => (
-                    <Col md={6} key={Data.id}>
+                  {Data.map((typeItem) => (
+                    <Col md={6} key={typeItem.id}>
                       <div className={`${styles.boxEvent}`}>
-                        <span>{Data.icon}</span>
+                        <span>
+                          <typeItem.icon width="18px" />
+                        </span>
                         <p
                           style={{
                             fontSize: "14px",
@@ -173,7 +138,7 @@ function Home() {
                             top: "16px",
                           }}
                         >
-                          {Data.heading}
+                          {typeItem.heading}
                         </p>
                       </div>
                     </Col>

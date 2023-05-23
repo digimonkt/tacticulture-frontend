@@ -10,7 +10,7 @@ export enum SUBSCRIPTION_PLAN_TYPE {
   yearly = "yearly",
 }
 
-export const userTypeList: NewIUserType[] = [
+export const USER_TYPE_LIST: NewIUserType[] = [
   {
     id: "1",
     title: "1",
@@ -44,8 +44,4 @@ export enum WEEKDAYS {
 export enum RESET_PASSWORD_PAGE {
   verifyEmail = "verify-email",
   resetPassword = "reset-password",
-}
-
-export enum SETUP_PROFILE_PAGE {
-  InstructorUser = "instructor-user",
 }

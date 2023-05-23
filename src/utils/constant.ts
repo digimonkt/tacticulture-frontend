@@ -1,3 +1,4 @@
+import { SVG } from "@/assets/svg";
 import { WEEKDAYS } from "./enum";
 
 export const Weekdays = [
@@ -35,5 +36,28 @@ export const Weekdays = [
     id: "7",
     slug: WEEKDAYS.saturday,
     name: "Saturday",
+  },
+];
+
+export const Data = [
+  {
+    id: 1,
+    icon: SVG.Plusevent,
+    heading: "Creating an Event",
+  },
+  {
+    id: 2,
+    icon: SVG.Setting,
+    heading: "Your account",
+  },
+  {
+    id: 3,
+    icon: SVG.Magic,
+    heading: "Marketing",
+  },
+  {
+    id: 4,
+    icon: SVG.Card,
+    heading: "Payouts and Taxes",
   },
 ];

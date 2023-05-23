@@ -21,7 +21,7 @@ export interface InstructorStepOneRef {
   handleSubmitAccountDetail: () => void;
 }
 
-type initialValuesType = {
+type InitialValuesType = {
   customUrl?: string;
   bio: string;
   timezone: string;
@@ -39,7 +39,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   const [customUrlError, setCustomUrlError] = useState<boolean | null>(null);
 
   // formik
-  const formik = useFormik<initialValuesType>({
+  const formik = useFormik<InitialValuesType>({
     initialValues: {
       customUrl: undefined,
       bio: "",
@@ -60,7 +60,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
 
   // handle submit
   const handleUpdateProfile = async (
-    values: initialValuesType,
+    values: InitialValuesType,
     isNavigable: boolean
   ) => {
     dispatch(setPreLoader(true));
@@ -210,16 +210,16 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
       </Row>
       <div className={`${styles.timeZone}`}>
         <TimeZoneComponent
-          timeZoneValue={formik.values.timezone}
-          handleTimeZoneValue={(vl) => formik.setFieldValue("timezone", vl)}
+          title="Time zone"
+          value={formik.values.timezone}
+          onChange={(vl) => formik.setFieldValue("timezone", vl)}
         />
       </div>
       <div className={`${styles.textArea}`}>
         <TextareaComponent
           title="Your Bio"
-          bioValue={formik.values.bio}
-          handleChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
-          formikProps={formik.getFieldProps("bio")}
+          value={formik.values.bio}
+          onChange={(vl) => formik.setValues({ ...formik.values, bio: vl })}
         />
       </div>
     </div>

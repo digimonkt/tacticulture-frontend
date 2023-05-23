@@ -5,7 +5,7 @@ import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";
 import UserCardComponent from "@/component/card/user-card";
 import { useRouter } from "next/router";
-import { USER_ROLES, userTypeList } from "@/utils/enum";
+import { USER_ROLES, USER_TYPE_LIST } from "@/utils/enum";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { setUserRole } from "@/redux/reducers/userRole";
 import { updateUser } from "@/api/user";
@@ -25,6 +25,7 @@ function ProfileSetup() {
   // redux dispatch
   const dispatch = useAppDispatch();
   const preLoaderData = useAppSelector(preLoader);
+  const { currentUser } = useAppSelector((state) => state.userReducer);
 
   // router
   const router = useRouter();
@@ -62,15 +63,12 @@ function ProfileSetup() {
       if (response.remote === "success") {
         dispatch(
           updateCurrentUser({
+            ...currentUser,
             userRoles: role,
             defaultRole: role,
             email: userEmail,
           })
         );
-        // router.push({
-        //   pathname: `/setup-profile/${role}`,
-        //   query: { ...router.query, userEmail },
-        // });
       } else {
         dispatch(
           setAlertMessage({
@@ -119,10 +117,10 @@ function ProfileSetup() {
             Select your <b>Default Account Type</b> <SVG.InfoIcon width="24" />
           </h6>
           <div className="d-flex align-items-center justify-content-between">
-            {userTypeList.map((userType) => (
+            {USER_TYPE_LIST.map((userType) => (
               <UserCardComponent
                 key={userType?.id}
-                heading={userType?.userRoles}
+                heading={userType.userRoles}
                 content={userType?.content}
                 onClick={() => {
                   setRole(userType.userRoles);

@@ -14,7 +14,7 @@ import {
 } from "@/redux/reducers/modalsToggle";
 import { useRouter } from "next/router";
 import { updateCurrentUser } from "@/redux/reducers/user";
-import { Weekdays } from "@/utils/constent";
+import { Weekdays } from "@/utils/constant";
 import { useAppSelector } from "@/redux/hooks/hooks";
 
 export interface InstructorStepTwoRef {

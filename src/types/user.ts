@@ -1,3 +1,5 @@
+import { USER_ROLES } from "@/utils/enum";
+
 export type UserDetailType = {
   email: string;
   username: string;

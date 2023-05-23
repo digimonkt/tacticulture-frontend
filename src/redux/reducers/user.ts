@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store";
-import { UserDetailType } from "@/api/types/user";
 import { ServerError } from "@/api/types";
 import { getUserDetailsAPI } from "@/api/user";
+import { UserDetailType } from "@/types/user";
 
 // Define a type for the slice state
 interface userI {

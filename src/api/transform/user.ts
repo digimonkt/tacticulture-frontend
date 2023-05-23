@@ -1,4 +1,5 @@
-import { UserDetailResponseType, UserDetailType } from "../types/user";
+import { UserDetailType } from "@/types/user";
+import { UserDetailResponseType } from "../types/user";
 
 export const transformGetUserDetailsAPIResponse = (
   data: UserDetailResponseType

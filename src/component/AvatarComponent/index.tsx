@@ -2,8 +2,8 @@ import { Avatar, AvatarProps } from "antd";
 import React from "react";
 
 interface Props extends AvatarProps {
-  imageUrl?: string;
-  title?: string;
+  imageUrl: string;
+  title: string;
 }
 
 const AvatarComponent = ({ title, imageUrl, style, ...rest }: Props) => {
@@ -17,7 +17,7 @@ const AvatarComponent = ({ title, imageUrl, style, ...rest }: Props) => {
       src={imageUrl}
       {...rest}
     >
-      {title && title[0]}
+      {title}
     </Avatar>
   );
 };
