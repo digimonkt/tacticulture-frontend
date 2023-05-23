@@ -12,10 +12,10 @@ function EventScheduleComponent() {
     <div className="schedule">
       <EventHeaderComponent heading="Event Details" />
       <div className={`${styles.headerComponent}`}>
-        <Row>
+        <Row className="userBoxed">
           <Col md={8}>
             <UserCardComponent
-              heading="Scheduled Event(s)"
+              heading="Scheduled Event(s) "
               content="A single-date calendar event with limited availability."
             />
           </Col>

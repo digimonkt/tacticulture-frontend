@@ -19,3 +19,6 @@
   font-family: "Proxima Nova";
   opacity: 1; /* Firefox */
 }
+.InputField {
+  color: #000 !important;
+}
