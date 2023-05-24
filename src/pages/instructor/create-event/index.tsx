@@ -7,6 +7,7 @@ import EventDetailComponent from "./components/event-detail";
 import { useRouter } from "next/router";
 import EventScheduleComponent from "./components/event-schedule";
 import CustomizeEventComponent from "./components/customize-event";
+import PrivateRoute from "@/HOC/privatePages";
 // import EventSummaryComponent from "./event-summary";
 
 function CreateEvent() {
@@ -35,26 +36,28 @@ function CreateEvent() {
     }
   };
   return (
-    <div>
-      <InstructorLayout>
-        <div className="headerMain">
-          <div className={`${styles.accountSetup}`}>
-            <span>
-              <SVG.Leftarrow className="me-2" width="20px" />
-              GO BACK
-            </span>
-            <h1 className="mt-2">Configure Your Event</h1>
-          </div>
-          <div className="profileSections">
-            {/* <EventHeaderComponent heading="Event Details" /> */}
-            <div>{step && getComponents(step as string)}</div>
-            <div className="footer">
-              <EventHeaderComponent />
+    <PrivateRoute>
+      <div>
+        <InstructorLayout>
+          <div className="headerMain">
+            <div className={`${styles.accountSetup}`}>
+              <span>
+                <SVG.Leftarrow className="me-2" width="20px" />
+                GO BACK
+              </span>
+              <h1 className="mt-2">Configure Your Event</h1>
+            </div>
+            <div className="profileSections">
+              {/* <EventHeaderComponent heading="Event Details" /> */}
+              <div>{step && getComponents(step as string)}</div>
+              <div className="footer">
+                <EventHeaderComponent />
+              </div>
             </div>
           </div>
-        </div>
-      </InstructorLayout>
-    </div>
+        </InstructorLayout>
+      </div>
+    </PrivateRoute>
   );
 }
 

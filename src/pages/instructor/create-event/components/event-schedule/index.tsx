@@ -9,11 +9,13 @@ import { EVENT_SCHEDULE_TYPES } from "@/utils/enum";
 import { eventScheduleTypes } from "@/utils/constant";
 import { useFormik } from "formik";
 
+export type EventSchduledType = {
+  eventStartDatetime: string;
+  eventEndDatetime: string;
+};
+
 type initialValuesType = {
-  eventScheduledList: {
-    eventStartDatetime: string;
-    eventEndDatetime: string;
-  }[];
+  eventScheduledList: EventSchduledType[];
 };
 
 function EventScheduleComponent() {
@@ -48,7 +50,12 @@ function EventScheduleComponent() {
         </Row>
         {(selectedType === EVENT_SCHEDULE_TYPES.scheduledEvent ||
           selectedType === EVENT_SCHEDULE_TYPES.combined) && (
-          <ScheduleDateComponent />
+          <ScheduleDateComponent
+            eventScheduledList={formik.values.eventScheduledList || []}
+            handleUpdateList={(values) =>
+              formik.setFieldValue("eventScheduledList", values)
+            }
+          />
         )}
         {(selectedType === EVENT_SCHEDULE_TYPES.openScheduled ||
           selectedType === EVENT_SCHEDULE_TYPES.combined) && (
