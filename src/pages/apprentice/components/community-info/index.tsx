@@ -38,7 +38,7 @@ function CommunityInfoComponent({
               }}
               size="large"
               src={imageURL}
-              title={name[0]}
+              title={name && name[0]}
             />
             <div className={`${styles.followingDetail}`}>
               <h6 className="mb-0">{name}</h6>
