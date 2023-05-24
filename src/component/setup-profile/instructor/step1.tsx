@@ -170,7 +170,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
                     },
                     false
                   );
-                  formik.getFieldProps("firstName").onBlur(e);
+                  formik.getFieldProps("customUrl").onBlur(e);
                 }}
               />
               {formik.values.customUrl !== "" && customUrlError && (

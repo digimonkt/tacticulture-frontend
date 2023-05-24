@@ -206,7 +206,7 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
                   } else {
                     dispatch(setIsUserStepActive(false));
                   }
-                  formik.getFieldProps("firstName").onBlur(e);
+                  formik.getFieldProps("lastName").onBlur(e);
                 }}
               />
               {formik.touched.lastName && formik.errors.lastName ? (
