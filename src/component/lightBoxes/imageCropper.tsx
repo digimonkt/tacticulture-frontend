@@ -80,7 +80,7 @@ const ImageCropperComponent = ({
             imageType === IMAGE_VARIENTS.profile
               ? 1 / 1
               : imageType === IMAGE_VARIENTS.event
-              ? 300 / 157
+              ? 100 / 100
               : 1 / 1
           }
           cropShape={imageType === IMAGE_VARIENTS.event ? "rect" : "round"}
