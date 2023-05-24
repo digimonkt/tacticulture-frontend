@@ -4,9 +4,11 @@ import OptionsInputComponent from "./optionsInput";
 import TextAreaComponents from "./textareaInput";
 import SwitchInputComponent from "./switchInput";
 import SelectInputComponent from "./selectInput";
+import TimePickerComponent from "./timepicker";
 
 export type IInput = InputProps;
 
+export const TimepickerInput = TimePickerComponent;
 export const LabeledInput = LabeledInputComponent;
 export const OptionsInput = OptionsInputComponent;
 export const TextInput = TextAreaComponents;

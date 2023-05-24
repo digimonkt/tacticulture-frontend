@@ -127,8 +127,8 @@ const Step4 = forwardRef(function Step4(
             <FilledButton
               className={
                 planType === "annually"
-                  ? `${styles.btnannual}`
-                  : `${styles.btnmonthly}`
+                  ? `${styles.btnmonthly}`
+                  : `${styles.btnannual}`
               }
               onClick={() => setPlanType("annually")}
             >
@@ -137,8 +137,8 @@ const Step4 = forwardRef(function Step4(
             <OutlinedButton
               className={
                 planType === "annually"
-                  ? `${styles.btnmonthly}`
-                  : `${styles.btnannual}`
+                  ? `${styles.btnannual}`
+                  : `${styles.btnmonthly}`
               }
               onClick={() => setPlanType("monthly")}
             >
