@@ -5,6 +5,7 @@ import CheckIcon from "./check.svg";
 import InfoIcon from "./info.svg";
 import TickIcon from "./tick.svg";
 import ExclamanationIcon from "./exclamanation.svg";
+import DownChevron from "./downarrow.svg";
 import Redbtn from "./redbtn.svg";
 import Leftarrow from "./leftarrow.svg";
 import Fillcheck from "./fillcheck.svg";
@@ -72,6 +73,7 @@ import Rightcheck from "./rightcheck.svg";
 
 export const SVG = {
   GoogleIcon,
+  DownChevron,
   Rightcheck,
   S,
   ZSIGN,

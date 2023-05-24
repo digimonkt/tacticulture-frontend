@@ -6,6 +6,11 @@
 a {
   text-decoration: none !important;
 }
+.timePickers {
+  width: 367px;
+  height: 55px;
+  border-radius: 4px;
+}
 .userBoxed .boxed-user {
   width: 248px !important;
   margin: 0 !important;
@@ -15,8 +20,9 @@ a {
 }
 #react-select-3-listbox {
   position: absolute !important;
-  background-color: #000 !important;
-  height: 100px !important;
+  background-color: #fff !important;
+  color: #000 !important;
+  height: 200px !important;
   overflow: hidden !important;
 }
 .ant-input-affix-wrapper.ant-input-textarea-affix-wrapper {

@@ -2,7 +2,7 @@ import { SVG } from "@/assets/svg";
 import { Checkbox, Col, Row } from "antd";
 import React, { Ref, forwardRef, useImperativeHandle } from "react";
 import styles from "../../../pages/setup-profile/profile.module.css";
-import { LabeledInput } from "@/component/input";
+import { TimepickerInput } from "@/component/input";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { setPreLoader } from "@/redux/reducers/preLoader";
@@ -123,21 +123,31 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
         <Col md={12} className="ps-4 pe-2">
           <div className={`${styles.Hours}`}>
             <label>Available Hours</label>
-            <LabeledInput
+            <TimepickerInput
+              className="timePickers"
+              suffixIcon={<SVG.DownChevron width="16px" />}
+              {...formik.getFieldProps("availableFrom")}
+            />
+            {/* <LabeledInput
               type="time"
               className="form-control"
               {...formik.getFieldProps("availableFrom")}
-            />
+            /> */}
           </div>
         </Col>
         <Col md={12} className="pe-4 ps-2">
           <div className={`${styles.Hours}`}>
             <label className="mb-4"></label>
-            <LabeledInput
+            <TimepickerInput
+              suffixIcon={<SVG.DownChevron width="16px" />}
+              className="timePickers"
+              {...formik.getFieldProps("availableTo")}
+            />
+            {/* <LabeledInput
               type="time"
               className="form-control"
               {...formik.getFieldProps("availableTo")}
-            />
+            /> */}
           </div>
         </Col>
       </Row>
