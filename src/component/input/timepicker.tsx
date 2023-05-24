@@ -1,7 +1,7 @@
 import React from "react";
-import { TimePicker } from "antd";
+import { TimePicker, TimePickerProps } from "antd";
 
-function TimePickerComponent({ ...rest }) {
+function TimePickerComponent({ ...rest }: TimePickerProps) {
   return (
     <div>
       <TimePicker
