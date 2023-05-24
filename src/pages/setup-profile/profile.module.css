@@ -184,6 +184,7 @@
   font-size: 15px !important;
   margin-right: 14px !important;
   background-color: #f0f0f0 !important;
+  margin-top: 0;
 }
 .btnmonthly {
   width: 133px;
@@ -192,7 +193,7 @@
   border-radius: 3px;
   height: 35px;
   background-color: transparent;
-
+  margin-right: 13px;
   color: #fff;
 
   margin-top: 0 !important;

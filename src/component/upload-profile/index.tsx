@@ -8,6 +8,8 @@ import { useAppDispatch } from "@/redux/hooks/hooks";
 import { handleImageCropperToggle } from "@/redux/reducers/modalsToggle";
 import { ImageCropper } from "../lightBoxes";
 import { IMAGE_VARIENTS } from "@/utils/enum";
+// import { Upload } from "antd";
+// import ImgCrop from "antd-img-crop";
 
 interface PropsI {
   handleSetProfileImage: (arg: string | null) => void;
@@ -63,6 +65,10 @@ function UploadProfileComponent(props: PropsI) {
           ) : (
             <OutlinedButton>or Choose a File</OutlinedButton>
           )}
+
+          {/* <ImgCrop>
+            <Upload>+ Add image</Upload>
+          </ImgCrop> */}
 
           <input type="file" onChange={fileUpload} />
         </div>
