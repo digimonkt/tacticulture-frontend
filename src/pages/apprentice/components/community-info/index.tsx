@@ -1,9 +1,8 @@
-import { IMAGES } from "@/assets/images";
 import { Col, Row } from "antd";
 import styles from "./community.module.css";
-import Image from "next/image";
 import React from "react";
 import { LabeledInput } from "@/component/input";
+import AvatarComponent from "@/component/AvatarComponent";
 
 interface ICommunityInfoComponent {
   name: string;
@@ -13,6 +12,7 @@ interface ICommunityInfoComponent {
   following: string;
   followersCount: number;
   followers: string;
+  imageURL: string;
 }
 
 function CommunityInfoComponent({
@@ -23,16 +23,22 @@ function CommunityInfoComponent({
   following,
   followers,
   followersCount,
+  imageURL,
 }: ICommunityInfoComponent) {
   return (
     <div>
       <Row>
         <Col md={10}>
           <div className="d-flex align-items-center">
-            <Image
-              src={IMAGES.ProfilePic}
-              alt=""
-              style={{ width: "50px", marginRight: "18px", height: "50px" }}
+            <AvatarComponent
+              style={{
+                marginRight: "18px",
+                lineHeight: "30px",
+                fontSize: "22px",
+              }}
+              size="large"
+              src={imageURL}
+              title={name[0]}
             />
             <div className={`${styles.followingDetail}`}>
               <h6 className="mb-0">{name}</h6>
@@ -49,7 +55,7 @@ function CommunityInfoComponent({
                   {eventCount ? (
                     <span style={{ color: "#FF3030" }}> {eventCount}</span>
                   ) : (
-                    ""
+                    <span style={{ color: "#FF3030" }}>0</span>
                   )}
                   &nbsp;{eventName}
                 </span>

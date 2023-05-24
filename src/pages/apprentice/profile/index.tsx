@@ -6,17 +6,20 @@ import { Tab, Tabs } from "react-bootstrap";
 import CommunityInfoComponent from "../components/community-info";
 import CardComponent from "@/component/card/card";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
-import EventCardComponent from "@/component/card/event-card";
-import BadgeCardComponent from "@/component/card/badge-card";
+// import EventCardComponent from "@/component/card/event-card";
+// import BadgeCardComponent from "@/component/card/badge-card";
 import { Col, Row } from "antd";
-import Image from "next/image";
-import { IMAGES } from "@/assets/images";
 import ForumCardComponent from "../components/forum-card";
 import ApprenticeCommuntity from "../components/apprentice-community";
 import EventForumComponent from "../components/event-forum";
 import PrivatePages from "@/HOC/privatePages";
+import { useAppSelector } from "@/redux/hooks/hooks";
+import { currentUser } from "@/redux/reducers/user";
 
 function ApprenticeLayout() {
+  // redux
+  const currentUserDetails = useAppSelector(currentUser);
+
   return (
     <PrivatePages>
       <div
@@ -53,25 +56,56 @@ function ApprenticeLayout() {
             >
               <div className={`${styles.mainBoxCard}`}>
                 <CommunityInfoComponent
-                  name="Shivesh Bhardwaj"
-                  eventCount={2}
+                  name={`${currentUserDetails.firstName} ${currentUserDetails.lastName}`}
+                  imageURL={currentUserDetails.profileImage}
+                  eventCount={0}
                   eventName="Events"
-                  followingCount={2}
+                  followingCount={0}
                   following="Following"
                   followers="Followers"
-                  followersCount={9}
+                  followersCount={0}
                 />
                 <CardComponent title="Upcoming Events">
-                  <EventCardComponent
+                  {/* <EventCardComponent
                     date=" January 7, 2023 -"
                     time="8:00 AM"
                     description="Title ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lorem pharetra, varius quam.
          (85 max)"
                     address="12345 Address Ave, Georgetown, TX 78628"
-                  />
+                  /> */}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "21px",
+                        fontWeight: 800,
+                        color: "#fff",
+                      }}
+                    >
+                      No Upcoming Events
+                    </span>
+                    <FilledButton className={`${styles.BtnEvent}`}>
+                      Browes Events
+                    </FilledButton>
+                    <span
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 700,
+                        color: "#FF3030",
+                        marginTop: "14px",
+                      }}
+                    >
+                      See past events
+                    </span>
+                  </div>
                 </CardComponent>
                 <CardComponent title="Achievement Badges">
-                  <Row>
+                  {/* <Row>
                     <Col md={12}>
                       <BadgeCardComponent>
                         <div className="d-flex align-items-center position-relative">
@@ -116,51 +150,29 @@ function ApprenticeLayout() {
                         </div>
                       </BadgeCardComponent>
                     </Col>
-                    <Col md={12}>
-                      <BadgeCardComponent>
-                        <div className="d-flex align-items-center position-relative">
-                          <Image src={IMAGES.Badge} alt="" />
-                          <div>
-                            <div className="d-flex ">
-                              <SVG.CheckIcon
-                                style={{
-                                  width: "24px",
-                                  marginRight: "6px",
-                                  position: "relative",
-                                  bottom: "17px",
-                                }}
-                              />
-                              <p
-                                className="mb-0"
-                                style={{
-                                  width: "100%",
-                                  fontSize: "16px",
-                                  color: "#333333",
-                                  fontWeight: "700",
-                                  letterSpacing: "2px",
-                                  lineHeight: "20px",
-                                }}
-                              >
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Etiam luctus orci.
-                              </p>
-                            </div>
-                            <span
-                              style={{
-                                color: "#333333",
-                                fontSize: "12px",
-                                fontWeight: "700",
-                                fontFamily: "Proxima Nova",
-                                marginLeft: "24px",
-                              }}
-                            >
-                              [Instructor Name]
-                            </span>
-                          </div>
-                        </div>
-                      </BadgeCardComponent>
-                    </Col>
-                  </Row>
+                  </Row> */}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "15px",
+                        color: "#fff",
+                        width: "627px",
+                      }}
+                    >
+                      Ready to start earning badges? Get rewarded for completing
+                      events and completing your goals, collect event-exclusive
+                      badges and showcase them on your profile.
+                    </span>
+                    <FilledButton className={`${styles.apprenticeScheuleBtn}`}>
+                      Schedule Your First Event
+                    </FilledButton>
+                  </div>
                 </CardComponent>
                 <CardComponent
                   className={`${styles.class}`}
@@ -191,13 +203,14 @@ function ApprenticeLayout() {
             >
               <div className={`${styles.mainBoxCard}`}>
                 <CommunityInfoComponent
-                  name="Shivesh Bhardwaj"
-                  eventCount={2}
+                  name={`${currentUserDetails.firstName} ${currentUserDetails.lastName}`}
+                  imageURL={currentUserDetails.profileImage}
+                  eventCount={0}
                   eventName="Events"
-                  followingCount={2}
+                  followingCount={0}
                   following="Following"
                   followers="Followers"
-                  followersCount={9}
+                  followersCount={0}
                 />
                 <Row>
                   <Col md={15}>

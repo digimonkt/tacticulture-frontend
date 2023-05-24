@@ -161,7 +161,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
                   }
                   formik.setFieldValue("customUrl", e.target.value);
                 }}
-                onBlur={() => {
+                onBlur={(e) => {
                   handleUpdateProfile(
                     {
                       customUrl: formik.values.customUrl,
@@ -170,6 +170,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
                     },
                     false
                   );
+                  formik.getFieldProps("customUrl").onBlur(e);
                 }}
               />
               {formik.values.customUrl !== "" && customUrlError && (

@@ -14,22 +14,22 @@ export const Weekdays = [
   },
   {
     id: "3",
-    slug: WEEKDAYS.saturday,
+    slug: WEEKDAYS.tuesday,
     name: "Tuesday",
   },
   {
     id: "4",
-    slug: WEEKDAYS.saturday,
+    slug: WEEKDAYS.wednesday,
     name: "Wednesday",
   },
   {
     id: "5",
-    slug: WEEKDAYS.saturday,
+    slug: WEEKDAYS.thursday,
     name: "Thursday",
   },
   {
     id: "6",
-    slug: WEEKDAYS.saturday,
+    slug: WEEKDAYS.friday,
     name: "Friday",
   },
   {

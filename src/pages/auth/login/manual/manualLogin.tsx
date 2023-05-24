@@ -89,6 +89,7 @@ function ManualLoginComponent() {
             disabled={preLoaderData}
             placeholder="Password"
             className=""
+            type="password"
             {...formik.getFieldProps("password")}
           />
           <div className={`${styles.signupBtn}`}>
