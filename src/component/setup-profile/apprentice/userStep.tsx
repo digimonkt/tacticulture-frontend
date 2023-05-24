@@ -173,7 +173,7 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
               </FormLabel>
               <LabeledInput
                 {...formik.getFieldProps("firstName")}
-                onBlur={() => {
+                onBlur={(e) => {
                   if (
                     formik.values.firstName !== "" &&
                     formik.values.lastName !== ""
@@ -182,6 +182,7 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
                   } else {
                     dispatch(setIsUserStepActive(false));
                   }
+                  formik.getFieldProps("firstName").onBlur(e);
                 }}
               />
               {formik.touched.firstName && formik.errors.firstName ? (
@@ -196,7 +197,7 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
               </FormLabel>
               <LabeledInput
                 {...formik.getFieldProps("lastName")}
-                onBlur={() => {
+                onBlur={(e) => {
                   if (
                     formik.values.firstName !== "" &&
                     formik.values.lastName !== ""
@@ -205,6 +206,7 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
                   } else {
                     dispatch(setIsUserStepActive(false));
                   }
+                  formik.getFieldProps("firstName").onBlur(e);
                 }}
               />
               {formik.touched.lastName && formik.errors.lastName ? (
