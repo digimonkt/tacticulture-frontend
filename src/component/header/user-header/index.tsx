@@ -217,7 +217,7 @@ function UserHeaderComponent() {
                     <Dropdown.Toggle>
                       <AvatarComponent
                         src={currentUserDetail.profileImage}
-                        title={currentUserDetail.email[0] || ""}
+                        title={currentUserDetail.firstName[0] || ""}
                       />
                     </Dropdown.Toggle>
 

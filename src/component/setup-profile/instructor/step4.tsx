@@ -20,7 +20,7 @@ import {
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { UpdateUserType } from "@/api/types/user";
-import { updateCurrentUser } from "@/redux/reducers/user";
+import { setIsPlanPageActive, updateCurrentUser } from "@/redux/reducers/user";
 
 // export default function Step4() {
 export interface InstructorStepFourRef {
@@ -171,13 +171,14 @@ const Step4 = forwardRef(function Step4(
                     onClick={() => {
                       setSelectedPlan(plan.id);
                       setSelectedPlanType(plan.planType);
+                      dispatch(setIsPlanPageActive(true));
                     }}
                     style={{
-                      background: "#CB2C2C",
+                      background: selectedPlan === plan.id ? "#CB2C2C" : "#fff",
                       boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.2)",
                       borderRadius: "3px",
                       fontSize: "17px",
-                      color: "#fff",
+                      color: selectedPlan === plan.id ? "#fff" : "#CB2C2C",
                       fontFamily: "Proxima Nova",
                       width: "140px",
                       height: "37px",

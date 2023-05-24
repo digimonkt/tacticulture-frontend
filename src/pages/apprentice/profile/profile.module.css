@@ -20,6 +20,24 @@
   font-family: "Proxima Nova";
   padding: 0 15px;
 }
+.apprenticeScheuleBtn {
+  width: 220px;
+  height: 38px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 14px;
+}
+.BtnEvent {
+  width: 140px;
+  height: 38px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 14px;
+}
 .intesertbtn {
   width: 199px !important;
   height: 34px !important;

@@ -34,7 +34,12 @@ const ImageCropperComponent = ({
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
   const onCropComplete = useCallback((croppedAreaPixels: Area) => {
-    setCroppedAreaPixels(croppedAreaPixels);
+    setCroppedAreaPixels({
+      x: croppedAreaPixels.x,
+      y: croppedAreaPixels.y,
+      width: 300,
+      height: 300,
+    });
   }, []);
 
   const showCroppedImage = useCallback(async () => {

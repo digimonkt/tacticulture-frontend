@@ -16,7 +16,7 @@ import { setPreLoader } from "@/redux/reducers/preLoader";
 import { ErrorMessage } from "@/component/caption";
 import { updateUser } from "@/api/user";
 import { USER_ROLES } from "@/utils/enum";
-import { updateCurrentUser } from "@/redux/reducers/user";
+import { setIsUserStepActive, updateCurrentUser } from "@/redux/reducers/user";
 
 interface IRouter {
   userEmail: string;
@@ -171,7 +171,19 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
               <FormLabel>
                 First Name<span>*</span>
               </FormLabel>
-              <LabeledInput {...formik.getFieldProps("firstName")} />
+              <LabeledInput
+                {...formik.getFieldProps("firstName")}
+                onBlur={() => {
+                  if (
+                    formik.values.firstName !== "" &&
+                    formik.values.lastName !== ""
+                  ) {
+                    dispatch(setIsUserStepActive(true));
+                  } else {
+                    dispatch(setIsUserStepActive(false));
+                  }
+                }}
+              />
               {formik.touched.firstName && formik.errors.firstName ? (
                 <ErrorMessage>{formik.errors.firstName}</ErrorMessage>
               ) : null}
@@ -182,7 +194,19 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
               <FormLabel>
                 Last Name<span>*</span>
               </FormLabel>
-              <LabeledInput {...formik.getFieldProps("lastName")} />
+              <LabeledInput
+                {...formik.getFieldProps("lastName")}
+                onBlur={() => {
+                  if (
+                    formik.values.firstName !== "" &&
+                    formik.values.lastName !== ""
+                  ) {
+                    dispatch(setIsUserStepActive(true));
+                  } else {
+                    dispatch(setIsUserStepActive(false));
+                  }
+                }}
+              />
               {formik.touched.lastName && formik.errors.lastName ? (
                 <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
               ) : null}
