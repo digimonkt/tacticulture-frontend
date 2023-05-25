@@ -4,7 +4,7 @@
 .followingDetail h6 {
   font-size: 18px;
   font-weight: 700;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
 }
 
 .InputField {
@@ -16,7 +16,7 @@
 }
 .InputField::placeholder {
   color: #fff !important;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   opacity: 1; /* Firefox */
 }
 .InputField {

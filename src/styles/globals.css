@@ -1,4 +1,6 @@
-@font-face {
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
+/* @font-face {
   font-family: "proxima-nova";
   src: url("https://use.typekit.net/af/b683e3/00000000000000003b9b306c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n9&v=3")
       format("woff2"),
@@ -134,11 +136,12 @@
   font-style: normal;
   font-weight: 300;
   font-stretch: normal;
-}
+} */
 
 * {
   margin: 0;
   padding: 0;
+  font-family: "Inter";
 }
 a {
   text-decoration: none !important;
@@ -184,19 +187,19 @@ a {
 }
 
 body {
-  font-family: "proxima-nova" !important;
+  font-family: "Inter", sans-serif !important;
 }
 h6 {
-  font-family: "proxima-nova" !important;
+  font-family: "Inter", sans-serif !important;
 }
-@font-face {
-  font-family: "Proxima Nova";
+/* @font-face {
+  font-family: 'Inter', sans-serif;
   src: url(../assets/fonts/ProximaNova-Regular.otf);
 }
 @font-face {
   font-family: "Proxima Bold";
   src: url(../assets/fonts/Proxima\ Nova\ Alt\ Bold.otf);
-}
+} */
 
 :where(.css-dev-only-do-not-override-1km3mtt).ant-checkbox-checked
   .ant-checkbox-inner {
@@ -207,7 +210,7 @@ h6 {
   color: #fff !important;
   font-size: 14px;
   font-weight: 400;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
   position: relative;
   bottom: 10px;
@@ -292,7 +295,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   border-radius: 8px;
   color: #fff;
   width: 800px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
 }
 .bottomdiv .btnheding {
   border-top: 0 !important;
@@ -327,7 +330,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   list-style: none;
   padding: 12px 0 0;
   font-size: 15px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: 700;
 }
 .Instructor svg path {
@@ -337,14 +340,14 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   height: 56px;
   border: 1px solid #a9adb9;
   border-radius: 3px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
 }
 .btn.selected {
   width: 127px;
   height: 37px !important;
   margin: 0 auto;
   align-items: flex-end;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   background: #cb2c2c;
   border-radius: 3px;
   color: #fff;
@@ -379,7 +382,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
 .profileSection h4 {
   font-size: 24px;
   font-weight: 700;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   top: 7px;
   left: 0px;
   letter-spacing: 1px;
@@ -391,11 +394,11 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   border: 1px solid #dddddd;
   border-radius: 8px;
   color: #fff;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
 }
 .btn.configure {
   width: 446px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   height: 56px;
   color: #fff;
   background: #363636;
@@ -504,7 +507,7 @@ textarea {
   border: 0 !important;
   font-size: 16px;
   font-weight: 700;
-  font-family: "Proxima Nova", sans-serif;
+  font-family: "Inter", sans-serif;
   padding-top: 4px;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -553,7 +556,7 @@ textarea {
 }
 .mainAccount .ant-select-selection-item {
   color: #333 !important;
-  font-family: "proxima Nova";
+  font-family: "Inter", sans-serif;
 
   padding: 6px;
   font-weight: 600 !important;
@@ -586,7 +589,7 @@ textarea {
 .DropdownSelects .ant-select-selection-item {
   background: transparent !important;
   color: #000 !important;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   width: auto !important;
   height: auto !important;
 }
@@ -654,7 +657,7 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
   font-size: 21px;
   margin: 0;
   font-weight: 700;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
 }
 .activeClass svg path {
@@ -714,7 +717,7 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
 .ant-tabs-tab.ant-tabs-tab-active {
   font-size: 17px !important;
   font-weight: 600 !important;
-  font-family: "Proxima Nova" !important;
+  font-family: "Inter", sans-serif;
   border-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
@@ -724,7 +727,7 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
 .ant-tabs-tab span {
   font-size: 17px !important;
   color: #fff !important;
-  font-family: "Proxima Nova" !important;
+  font-family: "Inter", sans-serif;
   font-weight: 600 !important;
 }
 .ant-tabs-tab svg {
@@ -933,7 +936,7 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
 
 span.ant-modal-close-x {
   font-size: 18px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: bold;
 }
 .body {
@@ -1010,13 +1013,13 @@ span.rmdp-arrow-container.rmdp-right {
   font-size: 15px !important;
   color: #666666 !important;
   font-weight: 400 !important;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
 }
 .datepick h3 {
   font-size: 24px;
   color: #5c5c5c;
   font-weight: 800;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   padding-top: 20px;
   padding-left: 15px;
   padding-right: 10px;
@@ -1096,7 +1099,7 @@ span.ant-input-data-count {
   height: 38px;
   background: #cb2c2c;
   color: #fff;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   border-radius: 5px;
   font-size: 15px;
   font-weight: 700;
@@ -1151,14 +1154,14 @@ span.ant-input-data-count {
 }
 .customcheck h3 {
   font-size: 24px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: 800;
   color: #fff;
   letter-spacing: 1px;
 }
 .customcheck p {
   font-size: 16px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   color: #fff;
   letter-spacing: 1px;
@@ -1190,7 +1193,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   font-size: 16px;
   color: #333333;
   font-weight: 800;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
   padding-bottom: 7px;
 }
@@ -1259,7 +1262,7 @@ button#dropdown-basic {
   text-align: start;
   font-size: 21px;
   font-weight: 700;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
   padding-top: 0;
   padding-left: 0 !important;
