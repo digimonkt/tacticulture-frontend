@@ -17,7 +17,7 @@
   border-radius: 4px;
   margin-top: 6px;
   letter-spacing: 1px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   padding: 0 15px;
 }
 .apprenticeScheuleBtn {
@@ -77,7 +77,7 @@
 }
 .community h3 {
   font-size: 24px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   line-height: 36px;
   letter-spacing: 1px;
   font-weight: 800;
@@ -85,7 +85,7 @@
 .community p {
   font-size: 13px;
   font-weight: 400;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
   padding-top: 5px;
 }
@@ -96,7 +96,7 @@
 }
 .community h6 {
   font-size: 18px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: 800;
   letter-spacing: 1px;
 }
@@ -109,14 +109,14 @@
 .detailsCommunity p {
   font-size: 14px;
   font-weight: 400;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
 }
 .eventDetails h6 {
   color: #fff;
   font-size: 21px;
   font-weight: 800;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   letter-spacing: 2px;
 }
 .eventForum {
@@ -127,7 +127,7 @@
   letter-spacing: 2px;
   font-size: 15px;
   font-weight: 500;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
 }
 .eventDetails {
   position: relative;

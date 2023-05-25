@@ -11,12 +11,12 @@
 
 .labeled label {
   font-size: 16px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
 }
 
 .BillingSection label {
   font-size: 16px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
 }
 
 .BillingSection {
@@ -28,7 +28,7 @@
 
 .icondefault {
   font-weight: 100;
-  font-family: "Proxima Nova" !important;
+  font-family: 'Inter', sans-serif; !important;
   letter-spacing: 1px;
 }
 .billingForm {
@@ -62,7 +62,7 @@
   margin-top: 18px;
   border-radius: 3px;
   color: #000;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
   font-weight: 700;
   font-size: 16px;
 }
@@ -77,14 +77,14 @@
 }
 .mainSection {
   color: #fff;
-  font-family: "Proxima Nova" !important;
+  font-family: 'Inter', sans-serif; !important;
   width: 720px;
   margin: 40px auto 0px;
   padding-bottom: 30px;
 }
 .textContent {
   color: #fff;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
   font-size: 18px;
 
   font-weight: 900;
@@ -117,12 +117,12 @@
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 8px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
 }
 .Hours input {
   height: 55px;
   border-radius: 3px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
 }
 .Weekend {
   display: flex;
@@ -142,17 +142,17 @@
   font-size: 18px;
   font-weight: 900;
   letter-spacing: 1px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
 }
 .accounthead {
   font-size: 18px;
   font-weight: 900;
   letter-spacing: 1px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
 }
 .textContent {
   color: #fff;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
   font-size: 18px;
 
   font-weight: 900;
@@ -167,7 +167,7 @@
 }
 .apprenticeForm label {
   font-weight: 700;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
   letter-spacing: 1px;
 }
 .apprenticeForm label span {
@@ -180,7 +180,7 @@
   height: 35px !important;
   color: #cb2c2c !important;
   font-weight: 700 !important;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
   font-size: 15px !important;
   margin-right: 14px !important;
   background-color: #f0f0f0 !important;
@@ -189,7 +189,7 @@
 .btnmonthly {
   width: 133px;
   border: 1px solid #fff;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
   border-radius: 3px;
   height: 35px;
   background-color: transparent;
@@ -204,7 +204,7 @@
 
 .planDetail h5 {
   font-size: 24px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
   font-weight: 700;
   color: #fff;
 }
@@ -228,12 +228,12 @@
 }
 .planDetail h1 {
   font-size: 58px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
   font-weight: bold;
 }
 .planDetail span {
   font-size: 16px;
-  font-family: "Proxima Nova";
+  font-family: 'Inter', sans-serif;;
 }
 .planDetail svg {
   width: 24px;

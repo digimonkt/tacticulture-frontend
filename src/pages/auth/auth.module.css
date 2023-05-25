@@ -2,7 +2,7 @@
   background-color: #212121;
   height: 100%;
   position: relative;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   min-height: 100vh;
 }
 .auth_layout a {
@@ -17,19 +17,19 @@
 }
 .auth_layout p {
   font-size: 16px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   color: #fff;
 }
 .auth_layout h2 {
   font-size: 31px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   color: #fff;
   font-weight: 700;
 }
 .auth_layout h1 {
   margin-top: 0;
   font-size: 40px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   color: #fff;
 
   padding-top: 8px;
@@ -37,7 +37,7 @@
 .spanText {
   margin-top: 20px;
   color: #fff;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-size: 16px;
 
   font-weight: 500;
@@ -56,13 +56,12 @@
   font-size: 20px;
   margin: 0 18px;
   font-weight: 700;
-  font-family: "Proxima Nova";
 }
 .socialIcon span {
   position: relative;
   right: 4px;
   bottom: 2px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
 }
 .checkIocn {
   position: relative;
@@ -77,7 +76,7 @@
 .auth_layout h1 {
   margin-top: 0;
   font-size: 40px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: 600;
   color: #fff;
   padding-top: 8px;
@@ -89,7 +88,7 @@
   border: 1px solid #a9adb9;
   border-radius: 4px;
   color: #000;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: bold;
 }
 .auth_layout input::placeholder {
@@ -102,7 +101,7 @@
   margin-top: 20px;
   color: #fff;
   font-size: 16px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   margin-bottom: 20px;
 }
@@ -112,14 +111,14 @@
   background-color: #cb2c2c;
   border-radius: 4px;
   border: 0;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   color: #fff;
   font-size: 20px;
   font-weight: 700;
 }
 .signupBtn {
   margin-top: 18px;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   margin-bottom: 22px;
 }
 
@@ -129,7 +128,7 @@
   background: #000000;
   border-radius: 13px;
   color: #fff;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   text-align: left;
   padding: 0px;
   height: 90px;
@@ -138,7 +137,7 @@
   font-size: 15px;
   margin-left: 39px;
   margin-top: 0;
-  font-family: "Proxima Nova";
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   margin-bottom: 0;
   font-family: "Inter", sans-serif;

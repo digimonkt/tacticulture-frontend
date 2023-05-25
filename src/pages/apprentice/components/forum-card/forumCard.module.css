@@ -4,20 +4,20 @@
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
-  font-family: "Proxima Nova" !important;
+  font-family: 'Inter', sans-serif; !important;
 }
 .cardDetails p {
   color: #000;
   margin-bottom: 0;
   font-size: 13px;
   font-weight: 800;
-  font-family: "Proxima Nova" !important;
+  font-family: 'Inter', sans-serif; !important;
   letter-spacing: 1px;
 }
 .cardDetail p {
   color: #000;
   margin-bottom: 0;
-  font-family: "Proxima Nova" !important;
+  font-family: 'Inter', sans-serif; !important;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -25,14 +25,14 @@
 .cardDetail span {
   color: #000;
   font-size: 11px;
-  font-family: "Proxima Nova" !important;
+  font-family: 'Inter', sans-serif; !important;
   font-weight: 500;
   letter-spacing: 1px;
 }
 .cardDetails span {
   color: #fff;
   font-size: 11px;
-  font-family: "Proxima Nova" !important;
+  font-family: 'Inter', sans-serif; !important;
   font-weight: 500;
   letter-spacing: 1px;
 }
