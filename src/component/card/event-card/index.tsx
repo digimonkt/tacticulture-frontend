@@ -24,38 +24,6 @@ function EventCardComponent({
   CopyLink,
   CourseText,
 }: IEventCardComponent) {
-  //   const Listarray = [
-  //     {
-  //       id: 1,
-  //       icon: (
-  //         <>
-  //           <SVG.Fillcheck
-  //             width="20px"
-  //             style={{ position: "relative", right: "6px", bottom: "3px" }}
-  //           />
-  //         </>
-  //       ),
-  //       option: "Message Instructor ",
-  //     },
-  //     {
-  //       id: 2,
-  //       icon: (
-  //         <>
-  //           <SVG.Clip
-  //             width="20px"
-  //             style={{
-  //               position: "relative",
-  //               right: "6px",
-  //               bottom: "1px",
-  //               width: "17px",
-  //             }}
-  //           />
-  //         </>
-  //       ),
-  //       option: "   Request Cancellation",
-  //     },
-  //   ];
-
   return (
     <div
       style={{ background: "#fff", borderRadius: "8px" }}

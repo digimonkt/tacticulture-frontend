@@ -6,15 +6,20 @@ import { FilledButton } from "@/component/buttons";
 import { SVG } from "@/assets/svg";
 import styles from "./home.module.css";
 import { Checkbox, Col, Row } from "antd";
-import EventCardComponent from "@/component/card/event-card";
-import NotificationComponent from "@/pages/apprentice/components/notification";
+// import EventCardComponent from "@/component/card/event-card";
+// import NotificationComponent from "@/pages/apprentice/components/notification";
 import PrivateRoute from "@/HOC/privatePages";
 import { useRouter } from "next/router";
 import { Data } from "@/utils/constant";
+import { useAppSelector } from "@/redux/hooks/hooks";
+import { currentUser } from "@/redux/reducers/user";
 
 function Home() {
   // route
   const router = useRouter();
+
+  // redux
+  const currentUserDetails = useAppSelector(currentUser);
 
   return (
     <PrivateRoute>
@@ -42,13 +47,14 @@ function Home() {
               }}
             >
               <CommunityInfoComponent
-                name="Eddie Gallagher"
-                eventCount={2}
+                name={`${currentUserDetails.firstName} ${currentUserDetails.lastName}`}
+                imageURL={currentUserDetails.profileImage}
+                eventCount={0}
                 eventName="Events"
-                followingCount={2}
+                followingCount={0}
                 following="Following"
                 followers="Followers"
-                followersCount={9}
+                followersCount={0}
               />
               <CardComponent title="Upcoming Events">
                 <FilledButton
@@ -57,9 +63,20 @@ function Home() {
                 >
                   <SVG.Plus width="15px" /> Create New Event
                 </FilledButton>
+                <div style={{ marginTop: "72px", marginBottom: "72px" }}>
+                  <span className={styles.instructorHomeEmptyEventStyle}>
+                    You don’t have any events yet,{" "}
+                    <span
+                      onClick={() => router.push("/instructor/create-event")}
+                      style={{ color: "#FF3030", cursor: "pointer" }}
+                    >
+                      let’s create one!
+                    </span>
+                  </span>
+                </div>
 
                 <div>
-                  <EventCardComponent
+                  {/* <EventCardComponent
                     date=" January 7, 2023 -"
                     time="8:00 AM"
                     Share="Share"
@@ -68,12 +85,18 @@ function Home() {
                     description="Title ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lorem pharetra, varius quam.
          (85 max)"
                     address="12345 Address Ave, Georgetown, TX 78628"
-                  />
+                  /> */}
                 </div>
               </CardComponent>
               <CardComponent title="Recent Event Activity">
                 <div className={`${styles.RecentActivity}`}>
-                  <NotificationComponent />
+                  <span
+                    style={{ fontSize: "16px", fontWeight: 800, color: "#fff" }}
+                  >
+                    Once you have events, you’ll see questions and registration
+                    updates here.
+                  </span>
+                  {/* <NotificationComponent /> */}
                 </div>
               </CardComponent>
               <CardComponent

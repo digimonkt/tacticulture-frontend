@@ -9,6 +9,8 @@ import { UserDetailType } from "@/types/user";
 interface userI {
   isLoggedIn: boolean;
   currentUser: UserDetailType;
+  isUserStepActive: boolean;
+  isPlanPageActive: boolean;
 }
 
 // Define the initial state using that type
@@ -32,6 +34,8 @@ const initialState: userI = {
     isProfileComplete: false,
     defaultRole: "",
   },
+  isUserStepActive: false,
+  isPlanPageActive: false,
 };
 
 // fetch user details
@@ -64,6 +68,12 @@ export const userSlice = createSlice({
       state.currentUser = { ...state.currentUser, ...action.payload };
     },
     resetCurrentUser: () => initialState,
+    setIsUserStepActive: (state, action: PayloadAction<boolean>) => {
+      state.isUserStepActive = action.payload;
+    },
+    setIsPlanPageActive: (state, action: PayloadAction<boolean>) => {
+      state.isPlanPageActive = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUserDetails.fulfilled, (state, action) => {
@@ -74,11 +84,20 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setIsLoggedIn, updateCurrentUser, resetCurrentUser } =
-  userSlice.actions;
+export const {
+  setIsLoggedIn,
+  updateCurrentUser,
+  resetCurrentUser,
+  setIsUserStepActive,
+  setIsPlanPageActive,
+} = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const isLoggedIn = (state: RootState) => state.userReducer.isLoggedIn;
 export const currentUser = (state: RootState) => state.userReducer.currentUser;
+export const isUserStepActive = (state: RootState) =>
+  state.userReducer.isUserStepActive;
+export const isPlanPageActive = (state: RootState) =>
+  state.userReducer.isPlanPageActive;
 
 export default userSlice.reducer;
