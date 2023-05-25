@@ -16,14 +16,14 @@
 .eventImg h6 {
   font-size: 16px;
   font-weight: 900;
-  font-family: 'Inter', sans-serif; !important;
+  font-family: "Inter", sans-serif;
   padding-top: 3%;
   letter-spacing: 1px;
 }
 .eventImg p {
   font-size: 16px;
   font-weight: 500;
-  font-family: 'Inter', sans-serif; !important;
+  font-family: "Inter", sans-serif;
   padding-top: 5px;
   padding-bottom: 5px;
   letter-spacing: 1px;
@@ -42,7 +42,7 @@
   box-shadow: 0px 1px 4px 0px #00000033;
   font-size: 17px;
   font-weight: 700;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
   border-radius: 4px;
 }
 .achievementBadge {
@@ -76,7 +76,7 @@
   font-size: 17px;
   font-weight: 700;
   letter-spacing: 1px;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
   color: #fff;
 }
 .eventImg input {
@@ -93,7 +93,7 @@
 .accountSetup h1 {
   font-size: 37px;
   font-weight: 800;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
   color: #fff;
   letter-spacing: 1px;
 }
@@ -171,7 +171,7 @@
   font-size: 14px !important;
   font-weight: 500 !important;
   margin: 0;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
 }
 .eventDate h3 {
   text-align: initial;
@@ -206,7 +206,7 @@
 .eventImg p {
   font-size: 16px;
   font-weight: 500;
-  font-family: 'Inter', sans-serif; !important;
+  font-family: "Inter", sans-serif;
   padding-top: 5px;
   padding-bottom: 5px;
   letter-spacing: 1px;
@@ -225,7 +225,7 @@
   box-shadow: 0px 1px 4px 0px #00000033;
   font-size: 17px;
   font-weight: 700;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
   border-radius: 4px;
 }
 .achievementBadge {
@@ -250,14 +250,14 @@
   font-size: 21px;
   font-weight: 800;
   letter-spacing: 1px;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
   padding: 13px 20px 0;
 }
 .eventDetails p {
   padding-left: 20px;
   font-size: 13px;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
 }
 .nodata {
   text-align: center;
@@ -265,7 +265,7 @@
 .nodata p {
   font-size: 16px;
   font-weight: 800;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -293,7 +293,7 @@
   font-size: 12px !important;
   font-weight: 700 !important;
   letter-spacing: 1px !important;
-  font-family: 'Inter', sans-serif; !important;
+  font-family: "Inter", sans-serif;
   white-space: nowrap !important;
 }
 .manageSection button span {
@@ -331,14 +331,14 @@
 .eventHeader h3 {
   font-size: 37px;
   font-weight: 800;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
   margin-bottom: 0;
 }
 .eventHeader span {
   font-size: 12px;
   letter-spacing: 1px;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
 }
 .eventHeader button {
   box-shadow: 0px 1px 4px 0px #00000033 !important;
@@ -348,7 +348,7 @@
   color: #fff !important;
   padding: 0 6px !important;
   height: 23px !important;
-  font-family: 'Inter', sans-serif;;
+  font-family: "Inter", sans-serif;
   letter-spacing: 1px;
   border-radius: 3px;
   margin-left: 10px;
