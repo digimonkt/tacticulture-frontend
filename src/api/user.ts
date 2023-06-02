@@ -1,14 +1,16 @@
-import { UpdateUserType, UserDetailResponseType } from "./types/user";
+import { UserDetailResponseType, UserDetailType } from "./types/user";
 import axiosInstance from "./axiosInstance";
 import { ErrorResult, SuccessResult } from "./types";
-import { transformGetUserDetailsAPIResponse } from "./transform/user";
-import { UserDetailType } from "@/types/user";
+import {
+  transformGetUserDetailsAPIResponse,
+  transformUpdateUserDetailsPayload,
+} from "./transform/user";
 // Update user details
-export const updateUser = async (data: UpdateUserType) => {
+export const updateUser = async (data: UserDetailType) => {
   const response = await axiosInstance.request({
     url: "/change-profile-details/",
     method: "PATCH",
-    data,
+    data: transformUpdateUserDetailsPayload(data),
   });
   return response;
 };

@@ -1,10 +1,9 @@
 import EventInterest, { IEventCategories } from "@/component/eventInterest";
 import TextareaComponent from "@/component/textarea";
 import { useFormik } from "formik";
-import React, { forwardRef, Ref, useImperativeHandle } from "react";
+import React, { forwardRef, Ref, useEffect, useImperativeHandle } from "react";
 import { userEventBioValidationSchema } from "@/utils/validations/apprenticeProfileValidation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { updateUser } from "@/api/user";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import {
   resetAlertMessage,
@@ -12,7 +11,8 @@ import {
 } from "@/redux/reducers/modalsToggle";
 import { ErrorMessage } from "@/component/caption";
 import { useRouter } from "next/router";
-import { updateCurrentUser } from "@/redux/reducers/user";
+import { updateUserDetails } from "@/redux/reducers/user";
+import { REQUEST_STATUS_TYPE } from "@/utils/enum";
 
 interface IFormik {
   bio: string;
@@ -31,22 +31,21 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
 ) {
   // redux
   const dispatch = useAppDispatch();
-  const { currentUser } = useAppSelector((state) => state.userReducer);
+  const { currentUser, updateUserStatus } = useAppSelector(
+    (state) => state.userReducer
+  );
 
   // router
   const router = useRouter();
 
-  // formik initial state
-  const initialStates: IFormik = {
-    bio: "",
-    isProfileComplete: true,
-    events: [],
-    eventIds: [],
-  };
-
   // formik
-  const formik = useFormik({
-    initialValues: initialStates,
+  const formik = useFormik<IFormik>({
+    initialValues: {
+      bio: "",
+      isProfileComplete: true,
+      events: [],
+      eventIds: [],
+    },
     validationSchema: userEventBioValidationSchema,
     onSubmit: (data) => {
       handleSubmit(data);
@@ -86,51 +85,26 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
   // handle submit
   const handleSubmit = async (values: IFormik) => {
     dispatch(setPreLoader(true));
-    const payload = {
-      events: values.eventIds,
-      bio: values.bio,
-      is_profile_complete: values.isProfileComplete,
-    };
-    const response = await updateUser(payload);
-
-    if (response.remote === "success") {
-      dispatch(
-        updateCurrentUser({
-          ...currentUser,
-          events: values.eventIds,
-          bio: values.bio,
-          isProfileComplete: values.isProfileComplete,
-        })
-      );
+    dispatch(
+      updateUserDetails({
+        events: values.eventIds,
+        bio: values.bio,
+        isProfileComplete: values.isProfileComplete,
+      })
+    );
+    if (updateUserStatus === REQUEST_STATUS_TYPE.fulfilled) {
       router.push({
         pathname: "../apprentice/profile",
       });
-    } else {
-      if (response?.error?.status === 500) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response.error.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-        dispatch(setPreLoader(false));
-      } else if (response?.error?.status === 404) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response.error.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-        dispatch(setPreLoader(false));
-      } else {
-        // setEmailError(response.error.errors?.email[0]);
-        handleResetAlert();
-        dispatch(setPreLoader(false));
-      }
+    } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
+      dispatch(
+        setAlertMessage({
+          error: true,
+          message: "Error has occurs!",
+          show: true,
+        })
+      );
+      handleResetAlert();
     }
     dispatch(setPreLoader(false));
   };
@@ -138,6 +112,12 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
   useImperativeHandle(ref, () => ({
     handleSubmitApprenticeStepTwo: formik.handleSubmit,
   }));
+
+  useEffect(() => {
+    formik.setFieldValue("bio", currentUser.bio);
+    formik.setFieldValue("isProfileComplete", currentUser.isProfileComplete);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
