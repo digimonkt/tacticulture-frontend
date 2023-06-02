@@ -1,5 +1,3 @@
-import { WEEKDAYS } from "@/utils/enum";
-
 export type Categories = {
   eventCategories: string;
   slugName: string;

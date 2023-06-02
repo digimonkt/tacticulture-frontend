@@ -76,10 +76,10 @@ function OpenAvailabilityComponent(customAvailabilityData: any) {
   const [availabilityId, setAvailabilityId] = useState(0);
   // const { defaultAvailability } = useAppSelector((state) => state.userReducer);
   //   handleRemoveSchedule,
-  const { eventData } = useAppSelector((state) => state.EventReducer);
+  // const { eventData } = useAppSelector((state) => state.EventReducer);
 
   useEffect(() => {
-    customAvailabilityData(availability);
+    // customAvailabilityData(availability);
   }, [availability]);
 
   useEffect(() => {
@@ -152,6 +152,11 @@ function OpenAvailabilityComponent(customAvailabilityData: any) {
     setAvailability(newAvailability);
   };
 
+  const { eventData } = useAppSelector((state) => state.EventReducer);
+  const { currentUser, defaultAvailability } = useAppSelector(
+    (state) => state.userReducer
+  );
+  // console.log(defaultAvailability);
   return (
     <>
       <div className={`${styles.scheduleDate}`}>

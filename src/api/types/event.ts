@@ -39,10 +39,10 @@ export type EventResponse = {
     event_custom_availability_details: { from_time: string; to_time: string }[];
     specific_hours_date: string;
   }[];
-  default_availability: number | null;
+  default_availability?: number;
   requirements: string;
   cancellation_policies: string;
-  default_waiver_settings: number | null;
+  default_waiver_settings?: number;
   custom_waiver_settings: string;
   custom_questions: {
     additionalProp1: string;

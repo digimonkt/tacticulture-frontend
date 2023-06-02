@@ -63,6 +63,7 @@ function CreateAccountComponent() {
         query: { ...router.query, userEmail: values.userEmail },
       });
     } else {
+      console.log(response, "pppp");
       if (response?.error?.status === 500) {
         dispatch(
           setAlertMessage({
@@ -74,6 +75,7 @@ function CreateAccountComponent() {
         dispatch(setPreLoader(false));
         handleResetAlert();
       } else if (response?.error?.status === 404) {
+        console.log(response, "efslj");
         dispatch(
           setAlertMessage({
             error: true,

@@ -11,15 +11,20 @@ import { Checkbox, Col, Row } from "antd";
 import PrivateRoute from "@/HOC/privatePages";
 import { useRouter } from "next/router";
 import { Data } from "@/utils/constant";
-import { useAppSelector } from "@/redux/hooks/hooks";
-import { currentUser } from "@/redux/reducers/user";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { currentUser, getUserDefaultAvailability } from "@/redux/reducers/user";
 
 function Home() {
+  const dispatch = useAppDispatch();
   // route
   const router = useRouter();
 
   // redux
   const currentUserDetails = useAppSelector(currentUser);
+
+  useEffect(() => {
+    dispatch(getUserDefaultAvailability());
+  }, []);
 
   return (
     <PrivateRoute>

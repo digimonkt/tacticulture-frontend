@@ -6,6 +6,7 @@ import {
   UpdateUserDetailPayloadType,
   UserDetailResponseType,
   UserDetailType,
+  // UpdateUserType,
 } from "./types/user";
 import axiosInstance from "./axiosInstance";
 import { ErrorResult, SuccessResult } from "./types";
@@ -51,7 +52,6 @@ export const getUserAvailabilityAPI = async (): Promise<
     url: "/events/availability/",
     method: "GET",
   });
-
   if (res.remote === "success") {
     return {
       remote: "success",

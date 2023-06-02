@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store";
 import { GetListWithPagination, ServerError } from "@/api/types";
-import { CreateEventType, EventDataType } from "@/types/event";
+import { CreateEventType } from "@/types/event";
 import { createEventApi, getEventDataAPI } from "@/api/event";
-import { EventPayload, EventResponse } from "@/api/types/event";
+import { EventPayload } from "@/api/types/event";
 
 interface Ievent {
   eventData: CreateEventType;

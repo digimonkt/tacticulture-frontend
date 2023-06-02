@@ -116,19 +116,14 @@ function EventScheduleComponent() {
           </Col>
         </Row>
         {scheduleType === "schedule" || scheduleType === "combined"
-          ? scheduleData?.map((el, index) => {
-              // console.log(el.eventStartDate, "kya data");
+          ? scheduleData?.map((el) => {
               return (
                 <ScheduleDateComponent
-                  key={index}
-                  eventData={{
-                    id: el?.id,
-                    eventStartDate: el.eventStartDate,
-                    eventStartTime: el.eventStartTime,
-                    eventEndDate: el.eventEndDate,
-                    eventEndTime: el.eventEndTime,
-                  }}
-                  getChildValue={(value) => console.log({ value })}
+                  key={el.id}
+                  eventData={el}
+                  getChildValue={(value: any) =>
+                    updateScheduleEvent(el.id, value)
+                  }
                 />
               );
             })

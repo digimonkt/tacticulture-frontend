@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InstructorLayout from "../layout";
 import { SVG } from "@/assets/svg";
 import { Button, Checkbox } from "antd";
 import styles from "./availability.module.css";
-import DatePicker from "@/component/calendar";
 import ScheduleEventComponent, {
   IScheduleEvent,
   ISpecificData,
 } from "@/component/schedule-event";
 import { OutlinedButton } from "@/component/buttons";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import {
-  getUserDefaultAvailability,
-  updateUserAvailability,
-} from "@/redux/reducers/user";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { updateUserAvailability } from "@/redux/reducers/user";
 import { AvailabilityPayloadType } from "@/api/types/user";
 import { WEEKDAYS } from "@/utils/enum";
-import TimeZoneComponent from "@/component/timezone";
-import TimePickerComponent from "@/component/input/timepicker";
 
 const scheduleEvents: IScheduleEvent[] = [
   {
@@ -84,12 +78,6 @@ const specificData: ISpecificData[] = [
 ];
 
 function Availability() {
-  // const [opencalendar, setOpencalendar] = useState(false);
-
-  // const handleDateClick = (dates: Date[]) => {
-  //   console.log(dates);
-  // };
-
   const dispatch = useAppDispatch();
   const [availability, setAvailability] = useState(scheduleEvents);
   const [timezoneData, setTimezoneData] = useState(
