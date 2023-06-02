@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InstructorLayout from "../layout";
 
 import { Col, Row } from "antd";
@@ -9,29 +9,26 @@ import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";
 import { OptionsInput } from "@/component/input";
 import ForumCardComponent from "@/pages/apprentice/components/forum-card";
-import { useAppSelector } from "@/redux/hooks/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks/hooks";
 import { currentUser } from "@/redux/reducers/user";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import event, {
+  availableEventData,
+  getEventData,
+} from "@/redux/reducers/event";
 
 function ManageEvent() {
+  const dispatch = useAppDispatch();
   // router
   const router = useRouter();
 
-  const Data = [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 4,
-    },
-  ];
   const userDetail = useAppSelector(currentUser);
+  const eventData = useAppSelector(availableEventData);
+  useEffect(() => {
+    dispatch(getEventData());
+  }, []);
+
   return (
     <div>
       <InstructorLayout>
@@ -164,12 +161,12 @@ function ManageEvent() {
               </div>
             </CardComponent> */}
             <Row>
-              {Data.map((Data) => (
+              {eventData?.results?.map((Data) => (
                 <Col md={12} key={Data.id}>
                   <div className="manageCard">
                     <ForumCardComponent
-                      Description="View Course Details"
-                      Heading="Event Title Name Goes Here"
+                      Description={Data.description}
+                      Heading={Data.name}
                       Content="[MM.DD.YYYY] + Open Availability"
                     />
                   </div>

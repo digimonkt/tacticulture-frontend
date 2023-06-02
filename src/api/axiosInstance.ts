@@ -58,6 +58,7 @@ export const request = async <T>(
     };
   } catch (error: any) {
     if (error) {
+      console.log(error, "erororo");
       if (error.response) {
         if (error.response && error.response.data) {
           let errorMessage = error.response.data;

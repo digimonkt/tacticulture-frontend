@@ -107,6 +107,7 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
       });
     }
   };
+  console.log(ref, "ref");
   return (
     <>
       <div

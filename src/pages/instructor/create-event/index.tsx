@@ -2,11 +2,11 @@ import { SVG } from "@/assets/svg";
 import React from "react";
 import styles from "./course.module.css";
 import InstructorLayout from "../layout";
-import EventHeaderComponent from "./components/event-header";
-import EventDetailComponent from "./components/event-detail";
 import { useRouter } from "next/router";
-import EventScheduleComponent from "./components/event-schedule";
-import CustomizeEventComponent from "./components/customize-event";
+import EventDetailComponent from "@/pages/instructor/create-event/components/event-detail";
+import EventScheduleComponent from "@/pages/instructor/create-event/components/event-schedule";
+import CustomizeEventComponent from "@/pages/instructor/create-event/components/customize-event";
+import EventHeaderComponent from "@/pages/instructor/create-event/components/event-header";
 // import EventSummaryComponent from "./event-summary";
 
 function CreateEvent() {
@@ -40,7 +40,14 @@ function CreateEvent() {
       <InstructorLayout>
         <div className="headerMain">
           <div className={`${styles.accountSetup}`}>
-            <span>
+            <span
+              onClick={() =>
+                Number(step) > 1 &&
+                router.push(
+                  `../instructor/create-event?step=${Number(step) - 1}`
+                )
+              }
+            >
               <SVG.Leftarrow className="me-2" width="20px" />
               GO BACK
             </span>
@@ -48,9 +55,17 @@ function CreateEvent() {
           </div>
           <div className="profileSections">
             {/* <EventHeaderComponent heading="Event Details" /> */}
+            {/* <EventHeaderComponent
+              heading="Event Detail"
+              // onPress={() => formik.handleSubmit()}
+            /> */}
             <div>{getComponents()}</div>
+
             <div className="footer">
-              <EventHeaderComponent />
+              {/* <EventHeaderComponent
+                heading="Event Detail"
+                // onPress={() => formik.handleSubmit()}
+              /> */}
             </div>
           </div>
         </div>

@@ -15,36 +15,10 @@ export type EventCategory = {
   slugName: string;
 };
 
-// @desc Event Form types
-type Categories = {
-  event_categories: string;
-  slug_name: string;
-};
-
-type EventScheduledDateTime = {
-  event_start_datetime: string;
-  event_end_datetime: string;
-};
-
-type EventCustomAvailabilityDetails = {
-  from_time: string;
-  to_time: string;
-};
-type EventCustomAvailability = {
-  weekdays_id: number;
-  event_custom_availability_details: EventCustomAvailabilityDetails[];
-  specific_hours_date: string;
-};
-
-type CustomQuestions = {
-  additionalProp1: string;
-  additionalProp2: string;
-  additionalProp3: string;
-};
-
 export type EventResponse = {
+  id: string;
   name: string;
-  course_category: Categories[];
+  course_category: { event_categories: string; slug_name: string }[];
   description: string;
   location: string;
   course_url: string;
@@ -53,17 +27,85 @@ export type EventResponse = {
   cost_per_spot: number;
   is_include_transaction_fee_in_cost: boolean;
   is_add_sales_tax: boolean;
-  event_type_and_schedule_id: number;
-  event_scheduled_datetime: EventScheduledDateTime[];
-  event_custom_availability: EventCustomAvailability[];
-  default_availability: number;
+  event_type_and_schedule_id: string;
+  test: {
+    test1: string;
+    test2: string[];
+    test3: {
+      test4: string;
+      test5: boolean;
+      test6: number[];
+    }[];
+  };
+  event_scheduled_datetime: {
+    event_start_date: string;
+    event_start_time: string;
+    event_end_date: string;
+    event_end_time: string;
+  }[];
+  event_custom_availability: {
+    weekdays_id: number;
+    event_custom_availability_details: { from_time: string; to_time: string }[];
+    specific_hours_date: string;
+  }[];
+  default_availability?: number;
   requirements: string;
   cancellation_policies: string;
-  default_waiver_settings: number;
+  default_waiver_settings?: number;
   custom_waiver_settings: string;
-  custom_questions: CustomQuestions;
-  event_image: string;
-  achievement_badge_image: string;
+  custom_questions: {
+    additionalProp1: string;
+    additionalProp2: string;
+    additionalProp3: string;
+  }[];
+  event_image?: string;
+  achievement_badge_image?: string;
+  publish_status: boolean;
+  is_event_live: boolean;
+  salesTaxPercent: number;
+};
+
+export type EventCustomeAvailabilityDetails = {
+  weekDays?: string;
+  event_custom_availability_details?: {
+    from_time: string;
+    to_time: string;
+  }[];
+  specific_hours_date?: string;
+};
+
+export type EventPayload = {
+  name: string;
+  course_category: { event_categories: string; slug_name: string }[];
+  description: string;
+  location: string;
+  course_url: string;
+  is_private_event: boolean;
+  available_spots: number;
+  cost_per_spot: number;
+  is_include_transaction_fee_in_cost: boolean;
+  is_add_sales_tax: boolean;
+  event_type_and_schedule_id: string;
+  event_scheduled_datetime: {
+    event_start_date: string;
+    event_start_time: string;
+    event_end_date: string;
+    event_end_time: string;
+  }[];
+  event_custom_availability: EventCustomeAvailabilityDetails[];
+
+  default_availability?: number;
+  requirements: string;
+  cancellation_policies: string;
+  default_waiver_settings?: number;
+  custom_waiver_settings: string;
+  custom_questions: {
+    additionalProp1: string;
+    additionalProp2: string;
+    additionalProp3: string;
+  }[];
+  event_image?: string;
+  achievement_badge_image?: string;
   publish_status: boolean;
   is_event_live: boolean;
 };

@@ -1,9 +1,16 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../store/store";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store/store";
 import { ServerError } from "@/api/types";
-import { getUserDetailsAPI } from "@/api/user";
+import {
+  getUserAvailabilityAPI,
+  getUserDetailsAPI,
+  updateUserAvailabilityAPI,
+} from "@/api/user";
 import { UserDetailType } from "@/types/user";
+import {
+  AvailabilityGetDataType,
+  AvailabilityPayloadType,
+} from "@/api/types/user";
 
 // Define a type for the slice state
 interface userI {
@@ -11,10 +18,30 @@ interface userI {
   currentUser: UserDetailType;
   isUserStepActive: boolean;
   isPlanPageActive: boolean;
+  defaultAvailability: AvailabilityPayloadType;
+  availabilityResponse: {
+    id: number;
+    timeZone: string;
+    availability: null;
+    specificDate: null;
+  };
 }
 
 // Define the initial state using that type
 const initialState: userI = {
+  defaultAvailability: {
+    timeZone: "",
+    specificDate: [
+      {
+        date: "",
+        timeZone: "",
+        availableHours: [{ fromTime: "", toTime: "" }],
+      },
+    ],
+    userCustomAvailability: [
+      { day: "", timeArray: [{ fromTime: "", toTime: "" }] },
+    ],
+  },
   isLoggedIn: false,
   currentUser: {
     email: "",
@@ -36,6 +63,12 @@ const initialState: userI = {
   },
   isUserStepActive: false,
   isPlanPageActive: false,
+  availabilityResponse: {
+    id: 0,
+    timeZone: "",
+    availability: null,
+    specificDate: null,
+  },
 };
 
 // fetch user details
@@ -50,6 +83,36 @@ export const getUserDetails = createAsyncThunk<
     return { ...userReducer.currentUser };
   }
   const res = await getUserDetailsAPI();
+  if (res.remote === "success") {
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+
+// fetch user availability
+
+export const getUserDefaultAvailability = createAsyncThunk<
+  AvailabilityPayloadType,
+  void,
+  { state: RootState; rejectValue: ServerError }
+>("getUserDefaultAvailability", async (_, { rejectWithValue }) => {
+  const res = await getUserAvailabilityAPI();
+
+  console.log(res, "resdjlf");
+  if (res.remote === "success") {
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+
+export const updateUserAvailability = createAsyncThunk<
+  AvailabilityGetDataType,
+  AvailabilityPayloadType,
+  { state: RootState; rejectValue: ServerError }
+>("updateUserAvailability", async (data, { getState, rejectWithValue }) => {
+  const res = await updateUserAvailabilityAPI(data);
   if (res.remote === "success") {
     return res.data;
   } else {
@@ -80,6 +143,14 @@ export const userSlice = createSlice({
       // handle fulfilled action
       state.currentUser = { ...state.currentUser, ...action.payload };
       state.isLoggedIn = true;
+    });
+
+    builder.addCase(updateUserAvailability.fulfilled, (state, action) => {
+      state.availabilityResponse = { ...action.payload };
+    });
+
+    builder.addCase(getUserDefaultAvailability.fulfilled, (state, action) => {
+      state.defaultAvailability = { ...action.payload };
     });
   },
 });

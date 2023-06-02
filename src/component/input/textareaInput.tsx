@@ -13,11 +13,17 @@ interface ITextAreaComponents {
   text?: string;
 }
 
-function TextAreaComponents({ row, text }: ITextAreaComponents) {
+function TextAreaComponents({ row, text, ...rest }: ITextAreaComponents) {
   return (
     <div>
       {text && <label>{text}</label>}
-      <TextArea showCount maxLength={100} onChange={onChange} rows={row} />
+      <TextArea
+        showCount
+        maxLength={100}
+        onChange={onChange}
+        rows={row}
+        {...rest}
+      />
     </div>
   );
 }

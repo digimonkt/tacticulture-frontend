@@ -1,5 +1,12 @@
 import { UserDetailType } from "@/types/user";
-import { UserDetailResponseType } from "../types/user";
+import {
+  AvailabilityGetDataType,
+  AvailabilityPayloadType,
+  AvailabilityResponseType,
+  AvailabilitySendDataType,
+  defaultAvailabilityResponseType,
+  UserDetailResponseType,
+} from "../types/user";
 
 export const transformGetUserDetailsAPIResponse = (
   data: UserDetailResponseType
@@ -21,5 +28,69 @@ export const transformGetUserDetailsAPIResponse = (
     isPublicProfile: data.is_public_profile,
     isProfileComplete: data.is_profile_complete,
     defaultRole: data.default_profile,
+  };
+};
+export const transformGetUserAvailabilityResponse = (
+  data: AvailabilityResponseType
+): AvailabilityGetDataType => {
+  return {
+    id: data.id,
+    timeZone: data.time_zone,
+    availability: data.availability,
+    specificDate: data.specific_date,
+  };
+};
+
+export const transformUserDefaultAvailabilityResponse = (
+  data: defaultAvailabilityResponseType
+): AvailabilityPayloadType => {
+  return {
+    id: data.id,
+    timeZone: data.timezone,
+    userCustomAvailability: data.availability.map((el) => {
+      return {
+        day: el.weekdays,
+        timeArray: el.user_availability_time_slot.map((ell) => {
+          return {
+            fromTime: ell.from_time,
+            toTime: ell.to_time,
+          };
+        }),
+      };
+    }),
+    specificDate: data.specific_date.map((el) => {
+      return {
+        date: el.specific_hours_date,
+        timeZone: el.specific_date_timezone,
+        availableHours: el.user_availability_time_slot.map((ell) => {
+          return { id: ell.id, fromTime: ell.from_time, toTime: ell.to_time };
+        }),
+      };
+    }),
+  };
+};
+
+export const transformSendUserAvailabilityPayload = (
+  data: AvailabilityPayloadType
+): AvailabilitySendDataType => {
+  return {
+    timezone: data.timeZone,
+    availability: data.userCustomAvailability.map((el) => {
+      return {
+        weekdays: el.day,
+        user_availability_time_slot: el.timeArray.map((time) => {
+          return { from_time: time.fromTime, to_time: time.toTime };
+        }),
+      };
+    }),
+    specific_date: data.specificDate.map((spe) => {
+      return {
+        specific_date_timezone: spe.timeZone,
+        specific_hours_date: spe.date,
+        user_availability_time_slot: spe.availableHours.map((time) => {
+          return { from_time: time.fromTime, to_time: time.toTime };
+        }),
+      };
+    }),
   };
 };
