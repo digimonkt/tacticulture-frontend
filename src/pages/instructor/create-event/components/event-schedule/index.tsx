@@ -1,6 +1,6 @@
 import UserCardComponent from "@/component/card/user-card";
 import { Col, Row } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../course.module.css";
 import EventHeaderComponent from "../event-header";
 import { useRouter } from "next/router";
@@ -14,20 +14,32 @@ import { createEvent } from "@/redux/reducers/event";
 function EventScheduleComponent() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [scheduleType, setScheduleType] = useState("");
-  const [scheduleData, setScheduleData] = useState([
-    { id: 1, startDate: "", startTime: "", endDate: "", endTime: "" },
-  ]);
+  const [scheduleType, setScheduleType] = useState("schedule");
 
+  const { eventData } = useAppSelector((state) => state.EventReducer);
+  const [scheduleData, setScheduleData] = useState(
+    eventData.eventScheduledDateTime
+  );
+  // console.log(eventData, "eventData");
+  useEffect(() => {
+    // console.log("hihiihhihihi");
+    setScheduleType(eventData.eventTypeAndScheduleId);
+    setScheduleData(eventData.eventScheduledDateTime);
+  }, []);
+
+  useEffect(() => {
+    console.log({ scheduleData, eventData });
+  }, [scheduleData]);
+  // console.log(scheduleData, "asldkjf");
   const addScheduleEvent = () => {
     setScheduleData([
       ...scheduleData,
       {
         id: scheduleData.length + 1,
-        startDate: "",
-        startTime: "",
-        endDate: "",
-        endTime: "",
+        eventStartDate: "",
+        eventStartTime: "",
+        eventEndDate: "",
+        eventEndTime: "",
       },
     ]);
   };
@@ -46,12 +58,12 @@ function EventScheduleComponent() {
     dispatch(
       createEvent({
         eventTypeAndScheduleId: scheduleType,
-        eventScheduleDateTime: scheduleData,
+        eventScheduledDateTime: scheduleData,
       })
     );
     router.push(`../instructor/create-event?step=${3}`);
   };
-
+  console.log(scheduleData, "dddd");
   return (
     <div className="schedule">
       <EventHeaderComponent heading="Event Details" onPress={nextPage} />
@@ -74,10 +86,10 @@ function EventScheduleComponent() {
                 setScheduleData([
                   {
                     id: 1,
-                    startDate: "",
-                    startTime: "",
-                    endDate: "",
-                    endTime: "",
+                    eventStartDate: "",
+                    eventStartTime: "",
+                    eventEndDate: "",
+                    eventEndTime: "",
                   },
                 ]);
               }}
@@ -95,10 +107,12 @@ function EventScheduleComponent() {
         </Row>
         {scheduleType === "schedule" || scheduleType === "combined"
           ? scheduleData.map((el) => {
+              // console.log(el.eventStartDate, "kya data");
               return (
                 <ScheduleDateComponent
                   key={el.id}
                   value={el.id}
+                  startDate={el.eventStartDate}
                   getChildValue={(value: any) =>
                     updateScheduleEvent(el.id, value)
                   }
@@ -109,7 +123,7 @@ function EventScheduleComponent() {
 
         {scheduleType === "schedule" || scheduleType === "combined" ? (
           <FilledButton
-            onClick={addScheduleEvent}
+            onClick={() => addScheduleEvent()}
             style={{
               fontSize: " 17px",
               color: "#fff",

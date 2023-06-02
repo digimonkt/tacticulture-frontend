@@ -36,8 +36,6 @@ function CustomizeEventComponent() {
     console.log(addImages);
   }, [addImages]);
 
-  console.log(eventData, "eventData");
-
   const submitEvent = () => {
     const data = eventData.eventCustomAvailability.filter((eve) => {
       return eve.isChecked;

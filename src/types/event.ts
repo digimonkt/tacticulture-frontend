@@ -37,6 +37,7 @@ export type CreateEventType = {
   salesTaxPercent: number;
   eventTypeAndScheduleId: string;
   eventScheduledDateTime: {
+    id?: number;
     eventStartDate: string;
     eventStartTime: string;
     eventEndDate: string;
@@ -103,6 +104,7 @@ export type EventDataType = {
   salesTaxPercent: number;
   eventTypeAndScheduleId: string;
   eventScheduledDateTime: {
+    id?: number;
     eventStartDate: string;
     eventStartTime: string;
     eventEndDate: string;

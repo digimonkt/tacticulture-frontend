@@ -3,7 +3,7 @@ import styles from "../../course.module.css";
 import { LabeledInput } from "@/component/input";
 // import { FilledButton } from "@/component/buttons";
 
-function ScheduleDateComponent({ value, getChildValue }) {
+function ScheduleDateComponent({ value, getChildValue, startDate }) {
   return (
     <>
       <div className={`${styles.scheduleDate}`}>
@@ -17,14 +17,15 @@ function ScheduleDateComponent({ value, getChildValue }) {
             <LabeledInput
               type="date"
               className="me-3"
+              value={startDate}
               onChange={(e) =>
-                getChildValue({ key: "startDate", value: e.target.value })
+                getChildValue({ key: "eventStartDate", value: e.target.value })
               }
             />
             <LabeledInput
               type="time"
               onChange={(e) =>
-                getChildValue({ key: "startTime", value: e.target.value })
+                getChildValue({ key: "eventStartTime", value: e.target.value })
               }
             />
           </div>
@@ -36,13 +37,13 @@ function ScheduleDateComponent({ value, getChildValue }) {
               type="date"
               className="me-3"
               onChange={(e) =>
-                getChildValue({ key: "endDate", value: e.target.value })
+                getChildValue({ key: "eventEndDate", value: e.target.value })
               }
             />
             <LabeledInput
               type="time"
               onChange={(e) =>
-                getChildValue({ key: "endTime", value: e.target.value })
+                getChildValue({ key: "eventEndTime", value: e.target.value })
               }
             />
           </div>

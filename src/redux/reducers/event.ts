@@ -33,7 +33,15 @@ const initialState: Ievent = {
     isAddSalesTax: false,
     salesTaxPercent: 0,
     eventTypeAndScheduleId: "schedule",
-    eventScheduledDateTime: [],
+    eventScheduledDateTime: [
+      {
+        id: 1,
+        eventStartDate: "",
+        eventStartTime: "",
+        eventEndDate: "",
+        eventEndTime: "",
+      },
+    ],
     eventCustomAvailability: [],
     defaultAvailability: 0,
     requirements: "",
@@ -87,6 +95,7 @@ export const eventSlice = createSlice({
   initialState,
   reducers: {
     createEvent: (state, action) => {
+      console.log({ action });
       state.eventData = { ...state.eventData, ...action.payload };
     },
   },
