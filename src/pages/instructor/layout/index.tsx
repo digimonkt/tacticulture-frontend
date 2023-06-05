@@ -43,11 +43,14 @@ function InstructorLayout({ children }: IChildren) {
                   <SVG.Managevent /> Manage Events
                 </li>
               </Link>
-
-              <li onClick={() => handleLinkClick("/instructor/availability")}>
-                <SVG.Clock /> Availability
-              </li>
-
+              <Link
+                className="workspaceSidebarLink"
+                href="/instructor/availability"
+              >
+                <li onClick={() => handleLinkClick("/instructor/availability")}>
+                  <SVG.Clock /> Availability
+                </li>
+              </Link>
               <li>
                 <SVG.Bell />
                 Notifications

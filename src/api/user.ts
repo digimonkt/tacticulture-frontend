@@ -48,7 +48,7 @@ export const getUserAvailabilityAPI = async (): Promise<
     url: "/events/availability/",
     method: "GET",
   });
-  console.log(res, "res hai");
+
   if (res.remote === "success") {
     return {
       remote: "success",

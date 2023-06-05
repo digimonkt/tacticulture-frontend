@@ -28,30 +28,21 @@ export type EventResponse = {
   is_include_transaction_fee_in_cost: boolean;
   is_add_sales_tax: boolean;
   event_type_and_schedule_id: string;
-  test: {
-    test1: string;
-    test2: string[];
-    test3: {
-      test4: string;
-      test5: boolean;
-      test6: number[];
-    }[];
-  };
   event_scheduled_datetime: {
     event_start_date: string;
     event_start_time: string;
     event_end_date: string;
     event_end_time: string;
   }[];
-  event_custom_availability: {
+  event_custom_availability?: {
     weekdays_id: number;
     event_custom_availability_details: { from_time: string; to_time: string }[];
     specific_hours_date: string;
   }[];
-  default_availability?: number;
+  default_availability: number | null;
   requirements: string;
   cancellation_policies: string;
-  default_waiver_settings?: number;
+  default_waiver_settings: number | null;
   custom_waiver_settings: string;
   custom_questions: {
     additionalProp1: string;
@@ -86,19 +77,19 @@ export type EventPayload = {
   is_include_transaction_fee_in_cost: boolean;
   is_add_sales_tax: boolean;
   event_type_and_schedule_id: string;
-  event_scheduled_datetime: {
+  event_scheduled_datetime?: {
     event_start_date: string;
     event_start_time: string;
     event_end_date: string;
     event_end_time: string;
   }[];
-  event_custom_availability: EventCustomeAvailabilityDetails[];
+  event_custom_availability?: EventCustomeAvailabilityDetails[];
 
-  default_availability?: number;
+  default_availability?: number | null;
   requirements: string;
   cancellation_policies: string;
-  default_waiver_settings?: number;
-  custom_waiver_settings: string;
+  default_waiver_settings?: number | null;
+  custom_waiver_settings?: string;
   custom_questions: {
     additionalProp1: string;
     additionalProp2: string;

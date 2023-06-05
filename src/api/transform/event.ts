@@ -41,7 +41,7 @@ export const transformGetEventAPIResponse = (
       eventEndDate: item.event_end_date,
       eventEndTime: item.event_end_time,
     })),
-    eventCustomAvailability: data.event_custom_availability.map((item) => ({
+    eventCustomAvailability: data.event_custom_availability?.map((item) => ({
       weekdaysId: item.weekdays_id,
       eventCustomAvailabilityDetails:
         item.event_custom_availability_details.map((i) => ({

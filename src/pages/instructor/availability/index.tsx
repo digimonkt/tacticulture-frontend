@@ -9,10 +9,7 @@ import ScheduleEventComponent, {
 } from "@/component/schedule-event";
 import { OutlinedButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import {
-  getUserDefaultAvailability,
-  updateUserAvailability,
-} from "@/redux/reducers/user";
+import { updateUserAvailability } from "@/redux/reducers/user";
 import { AvailabilityPayloadType } from "@/api/types/user";
 import { WEEKDAYS } from "@/utils/enum";
 

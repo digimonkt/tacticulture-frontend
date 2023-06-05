@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import styles from " @/pages/instructor/create-event/course.module.css";
 import styles from "../../../../course.module.css";
 import { OutlinedButton } from "@/component/buttons";
 import ScheduleEventComponent, {
   IScheduleEvent,
 } from "@/component/schedule-event";
-import { useDispatch } from "react-redux";
 import { createEvent } from "@/redux/reducers/event";
-import { useAppSelector } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { WEEKDAYS } from "@/utils/enum";
 
 const scheduleEvents: IScheduleEvent[] = [
@@ -62,12 +61,46 @@ const scheduleEvents: IScheduleEvent[] = [
   },
 ];
 
-function OpenAvailabilityComponent() {
-  const dispatch = useDispatch();
+export type availabilityType = {
+  id: string;
+  day: string;
+  value: string;
+  isChecked: boolean;
+  schedules: { startDate: string }[];
+};
+
+function OpenAvailabilityComponent(customAvailabilityData: any) {
+  const dispatch = useAppDispatch();
   const [isComponent, setIsComponent] = useState("default");
   const [availability, setAvailability] = useState(scheduleEvents);
-
+  const [availabilityId, setAvailabilityId] = useState(0);
+  // const { defaultAvailability } = useAppSelector((state) => state.userReducer);
   //   handleRemoveSchedule,
+  const { eventData } = useAppSelector((state) => state.EventReducer);
+
+  useEffect(() => {
+    customAvailabilityData(availability);
+  }, [availability]);
+
+  useEffect(() => {
+    getAvailabilityId();
+  }, [isComponent]);
+
+  useEffect(() => {
+    dispatch(
+      createEvent({
+        defaultAvailability:
+          availabilityId > 0 && isComponent === "default" ? availabilityId : 0,
+      })
+    );
+  }, [isComponent]);
+
+  const getAvailabilityId = async () => {
+    const id = await localStorage.getItem("defaultAvailabilityId");
+    if (id) {
+      setAvailabilityId(parseInt(id));
+    }
+  };
 
   const handleRemoveSchedule = (idx: number) => (scheduleIndex: number) => {
     const newAvailability = [...availability];
@@ -119,11 +152,6 @@ function OpenAvailabilityComponent() {
     setAvailability(newAvailability);
   };
 
-  const { eventData } = useAppSelector((state) => state.EventReducer);
-  const { currentUser, defaultAvailability } = useAppSelector(
-    (state) => state.userReducer
-  );
-  // console.log(defaultAvailability);
   return (
     <>
       <div className={`${styles.scheduleDate}`}>
@@ -174,13 +202,13 @@ function OpenAvailabilityComponent() {
               })}
             </>
           )}
-          <h1
+          {/* <h1
             onClick={() =>
               dispatch(createEvent({ eventCustomAvailability: availability }))
             }
           >
             submit
-          </h1>
+          </h1> */}
         </div>
       </div>
     </>

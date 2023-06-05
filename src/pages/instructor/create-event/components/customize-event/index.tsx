@@ -37,10 +37,10 @@ function CustomizeEventComponent() {
   }, [addImages]);
 
   const submitEvent = () => {
-    const data = eventData.eventCustomAvailability.filter((eve) => {
+    const data = eventData.eventCustomAvailability?.filter((eve) => {
       return eve.isChecked;
     });
-    const newData = data.map((eve) => {
+    const newData = data?.map((eve) => {
       return {
         weekDays: eve.day,
         event_custom_availability_details: eve.schedules?.map((schedule) => {
@@ -48,7 +48,7 @@ function CustomizeEventComponent() {
         }),
       };
     });
-
+    console.log(eventData, "pay");
     const payload: EventPayload = {
       name: eventData.name,
       course_category: [
@@ -67,28 +67,45 @@ function CustomizeEventComponent() {
         eventData.isIncludeTransactionFeeInCost,
       is_add_sales_tax: eventData.isAddSalesTax,
       event_type_and_schedule_id: eventData.eventTypeAndScheduleId,
-      event_scheduled_datetime: eventData.eventScheduledDateTime.map((el) => ({
-        event_start_date: el.eventStartDate,
-        event_start_time: el.eventStartTime,
-        event_end_date: el.eventEndDate,
-        event_end_time: el.eventEndTime,
-      })),
-      event_custom_availability: newData.map((el) => ({
-        weekDays: el.weekDays,
-        event_custom_availability_details: el.event_custom_availability_details,
-        // specific_hours_date: undefined,
-      })),
+      event_scheduled_datetime:
+        eventData.eventTypeAndScheduleId !== "open"
+          ? eventData?.eventScheduledDateTime?.map((el) => ({
+              event_start_date: el.eventStartDate,
+              event_start_time: el.eventStartTime,
+              event_end_date: el.eventEndDate,
+              event_end_time: el.eventEndTime,
+            }))
+          : [],
+      event_custom_availability: !eventData.defaultAvailability
+        ? newData?.map((el) => ({
+            weekDays: el.weekDays,
+            event_custom_availability_details:
+              el.event_custom_availability_details,
+            // specific_hours_date: undefined,
+          }))
+        : [],
       default_availability: eventData.defaultAvailability,
       requirements: eventData.requirements,
       cancellation_policies: eventData.cancellationPolicies,
       default_waiver_settings: eventData.defaultWaiverSettings,
       custom_waiver_settings: eventData.customWaiverSettings,
       custom_questions: eventData.customQuestions,
-      event_image: eventData.eventImage,
-      achievement_badge_image: eventData.achievementBadgeImage,
+      // event_image: eventData.eventImage,
+      // achievement_badge_image: eventData.achievementBadgeImage,
       publish_status: eventData.publishStatus,
       is_event_live: eventData.isEventLive,
     };
+    console.log(JSON.stringify(payload));
+
+    // Object.keys(payload).forEach((key) => {
+    //   if (
+    //     payload[key] === null ||
+    //     payload[key] === undefined ||
+    //     payload[key] === ""
+    //   ) {
+    //     delete payload[key];
+    //   }
+    // });
 
     dispatch(createEventData(payload));
   };

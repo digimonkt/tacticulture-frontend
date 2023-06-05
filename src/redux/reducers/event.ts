@@ -43,10 +43,10 @@ const initialState: Ievent = {
       },
     ],
     eventCustomAvailability: [],
-    defaultAvailability: 0,
+    defaultAvailability: null,
     requirements: "",
     cancellationPolicies: "",
-    defaultWaiverSettings: 0,
+    defaultWaiverSettings: null,
     customWaiverSettings: "",
     customQuestions: [
       {
@@ -95,7 +95,7 @@ export const eventSlice = createSlice({
   initialState,
   reducers: {
     createEvent: (state, action) => {
-      console.log({ action });
+      // console.log({ action });
       state.eventData = { ...state.eventData, ...action.payload };
     },
   },

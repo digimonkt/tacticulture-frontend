@@ -98,9 +98,11 @@ export const getUserDefaultAvailability = createAsyncThunk<
   { state: RootState; rejectValue: ServerError }
 >("getUserDefaultAvailability", async (_, { rejectWithValue }) => {
   const res = await getUserAvailabilityAPI();
+  console.log(res, "res");
 
-  console.log(res, "resdjlf");
   if (res.remote === "success") {
+    const num = res.data.id?.toString() || "";
+    localStorage.setItem("defaultAvailabilityId", num);
     return res.data;
   } else {
     return rejectWithValue(res.error);

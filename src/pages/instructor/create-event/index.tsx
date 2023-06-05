@@ -6,11 +6,12 @@ import { useRouter } from "next/router";
 import EventDetailComponent from "@/pages/instructor/create-event/components/event-detail";
 import EventScheduleComponent from "@/pages/instructor/create-event/components/event-schedule";
 import CustomizeEventComponent from "@/pages/instructor/create-event/components/customize-event";
-import EventHeaderComponent from "@/pages/instructor/create-event/components/event-header";
+
 // import EventSummaryComponent from "./event-summary";
 
 function CreateEvent() {
   // router
+
   const router = useRouter();
 
   const { step } = router.query;
@@ -35,6 +36,7 @@ function CreateEvent() {
           });
     }
   };
+
   return (
     <div>
       <InstructorLayout>

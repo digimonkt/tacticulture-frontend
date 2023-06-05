@@ -9,6 +9,7 @@ import OpenAvailabilityComponent from "./components/open-avalability";
 import { FilledButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { createEvent } from "@/redux/reducers/event";
+import { getUserDefaultAvailability } from "@/redux/reducers/user";
 // import EventHeaderComponent from "../event-header";
 
 function EventScheduleComponent() {
@@ -17,41 +18,47 @@ function EventScheduleComponent() {
   const [scheduleType, setScheduleType] = useState("schedule");
 
   const { eventData } = useAppSelector((state) => state.EventReducer);
+  // const { defaultAvailability } = useAppSelector((state) => state.userReducer);
   const [scheduleData, setScheduleData] = useState(
     eventData.eventScheduledDateTime
   );
-  // console.log(eventData, "eventData");
+  const [customeEvent, setCustomEvent] = useState(
+    eventData.eventCustomAvailability
+  );
+
   useEffect(() => {
     // console.log("hihiihhihihi");
     setScheduleType(eventData.eventTypeAndScheduleId);
     setScheduleData(eventData.eventScheduledDateTime);
+    setCustomEvent(eventData.eventCustomAvailability);
   }, []);
 
-  useEffect(() => {
-    console.log({ scheduleData, eventData });
-  }, [scheduleData]);
   // console.log(scheduleData, "asldkjf");
   const addScheduleEvent = () => {
-    setScheduleData([
-      ...scheduleData,
-      {
-        id: scheduleData.length + 1,
-        eventStartDate: "",
-        eventStartTime: "",
-        eventEndDate: "",
-        eventEndTime: "",
-      },
-    ]);
+    if (scheduleData) {
+      setScheduleData([
+        ...scheduleData,
+        {
+          id: scheduleData.length + 1,
+          eventStartDate: "",
+          eventStartTime: "",
+          eventEndDate: "",
+          eventEndTime: "",
+        },
+      ]);
+    }
   };
 
   const updateScheduleEvent = (id: any, value: any) => {
-    const index = scheduleData.findIndex((el) => el.id === id);
-    const updatedData = [...scheduleData];
-    updatedData[index] = {
-      ...updatedData[index],
-      [value.key]: value.value,
-    };
-    setScheduleData(updatedData);
+    if (scheduleData) {
+      const index = scheduleData.findIndex((el) => el.id === id);
+      const updatedData = [...scheduleData];
+      updatedData[index] = {
+        ...updatedData[index],
+        [value.key]: value.value,
+      };
+      setScheduleData(updatedData);
+    }
   };
 
   const nextPage = () => {
@@ -59,11 +66,11 @@ function EventScheduleComponent() {
       createEvent({
         eventTypeAndScheduleId: scheduleType,
         eventScheduledDateTime: scheduleData,
+        eventCustomAvailability: customeEvent,
       })
     );
     router.push(`../instructor/create-event?step=${3}`);
   };
-  console.log(scheduleData, "dddd");
   return (
     <div className="schedule">
       <EventHeaderComponent heading="Event Details" onPress={nextPage} />
@@ -83,6 +90,9 @@ function EventScheduleComponent() {
               content="A user can schedule an event based on your availability."
               onClick={() => {
                 setScheduleType("open");
+
+                dispatch(getUserDefaultAvailability());
+
                 setScheduleData([
                   {
                     id: 1,
@@ -106,16 +116,19 @@ function EventScheduleComponent() {
           </Col>
         </Row>
         {scheduleType === "schedule" || scheduleType === "combined"
-          ? scheduleData.map((el) => {
+          ? scheduleData?.map((el, index) => {
               // console.log(el.eventStartDate, "kya data");
               return (
                 <ScheduleDateComponent
-                  key={el.id}
-                  value={el.id}
-                  startDate={el.eventStartDate}
-                  getChildValue={(value: any) =>
-                    updateScheduleEvent(el.id, value)
-                  }
+                  key={index}
+                  eventData={{
+                    id: el?.id,
+                    eventStartDate: el.eventStartDate,
+                    eventStartTime: el.eventStartTime,
+                    eventEndDate: el.eventEndDate,
+                    eventEndTime: el.eventEndTime,
+                  }}
+                  getChildValue={(value) => console.log({ value })}
                 />
               );
             })
@@ -140,7 +153,9 @@ function EventScheduleComponent() {
           </FilledButton>
         ) : null}
         {scheduleType === "open" || scheduleType === "combined" ? (
-          <OpenAvailabilityComponent />
+          <OpenAvailabilityComponent
+            customAvailabilityData={(value: any) => setCustomEvent(value)}
+          />
         ) : null}
         <EventHeaderComponent heading="Event Details" onPress={nextPage} />
       </div>

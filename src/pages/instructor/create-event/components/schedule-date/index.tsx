@@ -3,12 +3,23 @@ import styles from "../../course.module.css";
 import { LabeledInput } from "@/component/input";
 // import { FilledButton } from "@/component/buttons";
 
-function ScheduleDateComponent({ value, getChildValue, startDate }) {
+interface IScheduleDate {
+  eventData: {
+    id?: number;
+    eventStartDate: string;
+    eventStartTime: string;
+    eventEndDate: string;
+    eventEndTime: string;
+  };
+  getChildValue: (arg: { key: string; value: string }) => void;
+}
+
+function ScheduleDateComponent({ eventData, getChildValue }: IScheduleDate) {
   return (
     <>
       <div className={`${styles.scheduleDate}`}>
         <div className={`${styles.eventDate}`}>
-          <h3>Scheduled Event #{value}</h3>
+          <h3>Scheduled Event #{eventData.id}</h3>
         </div>
         <hr />
         <div className={`${styles.startTime}`}>
@@ -17,13 +28,14 @@ function ScheduleDateComponent({ value, getChildValue, startDate }) {
             <LabeledInput
               type="date"
               className="me-3"
-              value={startDate}
+              value={eventData.eventStartDate}
               onChange={(e) =>
                 getChildValue({ key: "eventStartDate", value: e.target.value })
               }
             />
             <LabeledInput
               type="time"
+              value={eventData.eventStartTime}
               onChange={(e) =>
                 getChildValue({ key: "eventStartTime", value: e.target.value })
               }
@@ -36,12 +48,14 @@ function ScheduleDateComponent({ value, getChildValue, startDate }) {
             <LabeledInput
               type="date"
               className="me-3"
+              value={eventData.eventEndDate}
               onChange={(e) =>
                 getChildValue({ key: "eventEndDate", value: e.target.value })
               }
             />
             <LabeledInput
               type="time"
+              value={eventData.eventEndTime}
               onChange={(e) =>
                 getChildValue({ key: "eventEndTime", value: e.target.value })
               }
@@ -67,5 +81,9 @@ function ScheduleDateComponent({ value, getChildValue, startDate }) {
     </>
   );
 }
+
+ScheduleDateComponent.defaultProps = {
+  eventData: {},
+};
 
 export default ScheduleDateComponent;

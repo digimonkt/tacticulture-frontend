@@ -36,14 +36,15 @@ export type CreateEventType = {
   isAddSalesTax: boolean;
   salesTaxPercent: number;
   eventTypeAndScheduleId: string;
-  eventScheduledDateTime: {
+  eventScheduledDateTime?: {
     id?: number;
     eventStartDate: string;
     eventStartTime: string;
     eventEndDate: string;
     eventEndTime: string;
   }[];
-  eventCustomAvailability: {
+
+  eventCustomAvailability?: {
     isChecked?: boolean;
     day?: string;
     schedules?: { startTime: string; endTime: string }[];
@@ -51,10 +52,10 @@ export type CreateEventType = {
     eventCustomAvailabilityDetails: { fromTime: string; toTime: string }[];
     specificHoursDate: string;
   }[];
-  defaultAvailability: number | undefined;
+  defaultAvailability: number | null;
   requirements: string;
   cancellationPolicies: string;
-  defaultWaiverSettings: number | undefined;
+  defaultWaiverSettings: number | null;
   customWaiverSettings: string;
   customQuestions: {
     additionalProp1: string;
