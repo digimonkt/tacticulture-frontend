@@ -120,7 +120,11 @@ export const transformUpdateUserDetailsPayload = (
   };
 
   for (const key in payload) {
-    if (!payload[key as keyof UserPayloadType]) {
+    if (
+      payload[key as keyof UserPayloadType] === "" ||
+      payload[key as keyof UserPayloadType] === undefined ||
+      payload[key as keyof UserPayloadType] === null
+    ) {
       delete payload[key as keyof UserPayloadType];
     }
   }

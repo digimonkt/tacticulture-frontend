@@ -114,10 +114,14 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
   }));
 
   useEffect(() => {
-    formik.setFieldValue("bio", currentUser.bio);
-    formik.setFieldValue("isProfileComplete", currentUser.isProfileComplete);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (
+      formik.values.bio !== currentUser.bio ||
+      formik.values.isProfileComplete !== currentUser.isProfileComplete
+    ) {
+      formik.setFieldValue("bio", currentUser.bio);
+      formik.setFieldValue("isProfileComplete", currentUser.isProfileComplete);
+    }
+  }, [formik, currentUser]);
 
   return (
     <div>
