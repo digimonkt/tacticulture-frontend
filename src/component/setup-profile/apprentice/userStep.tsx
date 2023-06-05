@@ -105,20 +105,14 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
 
   // ---
   useEffect(() => {
-    if (
-      formik.values.email !== userEmail ||
-      formik.values.firstName !== currentUser.firstName ||
-      formik.values.lastName !== currentUser.lastName ||
-      formik.values.isPublicProfile !== currentUser.isPublicProfile ||
-      formik.values.profileImage !== currentUser.profileImage
-    ) {
-      formik.setFieldValue("email", userEmail);
-      formik.setFieldValue("firstName", currentUser.firstName);
-      formik.setFieldValue("lastName", currentUser.lastName);
-      formik.setFieldValue("isPublicProfile", currentUser.isPublicProfile);
-      formik.setFieldValue("profileImage", currentUser.profileImage);
-    }
-  }, [formik, currentUser, userEmail]);
+    formik.setFieldValue("email", userEmail);
+    formik.setFieldValue("firstName", currentUser.firstName);
+    formik.setFieldValue("lastName", currentUser.lastName);
+    formik.setFieldValue("isPublicProfile", currentUser.isPublicProfile);
+    formik.setFieldValue("profileImage", currentUser.profileImage);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div style={{ borderBottom: "1px solid #555", paddingBottom: "24px" }}>
