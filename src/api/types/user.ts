@@ -6,7 +6,7 @@ export type UserPayloadType = {
   default_profile?: string;
   first_name?: string;
   last_name?: string;
-  profile_image?: string | null;
+  profile_image?: string;
   is_public_profile?: boolean;
   password?: string;
   timezone?: string;
@@ -32,13 +32,32 @@ export type UserDetailResponseType = {
   available_to: string;
   off_weekdays: string[];
   events: number[];
-  profile_image?: string | null;
+  profile_image?: string;
   is_public_profile: boolean;
   is_profile_complete: boolean;
   default_profile: USER_ROLES | "";
 };
 
 export type UserDetailType = {
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  userRoles: USER_ROLES | "";
+  phoneNumber: string;
+  timezone: string;
+  bio: string;
+  availableFrom: string;
+  availableTo: string;
+  offWeekdays: string[];
+  events: number[];
+  profileImage: string;
+  isPublicProfile: boolean;
+  isProfileComplete: boolean;
+  defaultRole: USER_ROLES | "";
+};
+
+export type UpdateUserDetailPayloadType = {
   email?: string;
   username?: string;
   firstName?: string;
@@ -51,7 +70,7 @@ export type UserDetailType = {
   availableTo?: string;
   offWeekdays?: string[];
   events?: number[];
-  profileImage?: string | null;
+  profileImage?: string;
   isPublicProfile?: boolean;
   isProfileComplete?: boolean;
   defaultRole?: USER_ROLES | "";

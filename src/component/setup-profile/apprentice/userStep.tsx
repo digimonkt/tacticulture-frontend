@@ -35,7 +35,7 @@ export type InitialValueType = {
   password: string;
   isPublicProfile: boolean;
   email: string;
-  profileImage: string | null;
+  profileImage: string;
 };
 
 const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
@@ -61,7 +61,7 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
       password: "",
       isPublicProfile: false,
       email: "",
-      profileImage: null,
+      profileImage: "",
     },
     validationSchema: apprenticeStepOneValidationSchema,
     onSubmit: (values) => {
@@ -117,7 +117,7 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
     <div style={{ borderBottom: "1px solid #555", paddingBottom: "24px" }}>
       <UploadProfileComponent
         handleSetProfileImage={(image: string | null) =>
-          formik.setValues({ ...formik.values, profileImage: image })
+          formik.setValues({ ...formik.values, profileImage: image || "" })
         }
       />
       <div className="mt-4 mb-4 pt-2 pb-2 ps-4 pe-4">

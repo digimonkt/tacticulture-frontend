@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store";
 import { ServerError } from "@/api/types";
 import { getUserDetailsAPI, updateUser } from "@/api/user";
-import { UserDetailType } from "@/api/types/user";
+import { UpdateUserDetailPayloadType, UserDetailType } from "@/api/types/user";
 import { REQUEST_STATUS_TYPE } from "@/utils/enum";
 import { setAlertMessage } from "./modalsToggle";
 import { tokens } from "@/utils/jwtTokenStorage";
@@ -34,7 +34,7 @@ const initialState: userI = {
     availableTo: "",
     offWeekdays: [],
     events: [],
-    profileImage: null,
+    profileImage: "",
     isPublicProfile: false,
     isProfileComplete: false,
     defaultRole: "",
@@ -68,7 +68,7 @@ export const getUserDetails = createAsyncThunk<
 // update user details
 export const updateUserDetails = createAsyncThunk<
   UserDetailType,
-  UserDetailType,
+  UpdateUserDetailPayloadType,
   { state: RootState; rejectValue: ServerError }
 >(
   "users/updateUserDetails",
