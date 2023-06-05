@@ -4,13 +4,16 @@
   border-radius: 5px;
   padding: 10px 16px 16px;
 }
+.widthBtn span {
+  font-size: 17px;
+}
 .Availability hr {
   border-bottom: 1px solid #474747 !important;
   width: 500px !important;
   margin-top: 30px !important;
   margin-bottom: 8px !important;
 }
-.WidthBtn {
+.widthBtn {
   width: 219px !important;
   height: 35px !important;
   margin: 0 !important;

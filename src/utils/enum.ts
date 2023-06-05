@@ -45,3 +45,13 @@ export enum RESET_PASSWORD_PAGE {
   verifyEmail = "verify-email",
   resetPassword = "reset-password",
 }
+
+export enum EVENT_QUESTION_TYPE {
+  shortText = "ShortText",
+  longText = "LongText",
+  selectDropdown = "Select/Dropdown",
+}
+export enum EVENT_TEST {
+  one = "1",
+  two = "2",
+}

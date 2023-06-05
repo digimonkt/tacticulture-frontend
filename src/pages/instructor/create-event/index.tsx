@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 import EventDetailComponent from "@/pages/instructor/create-event/components/event-detail";
 import EventScheduleComponent from "@/pages/instructor/create-event/components/event-schedule";
 import CustomizeEventComponent from "@/pages/instructor/create-event/components/customize-event";
-import EventHeaderComponent from "@/pages/instructor/create-event/components/event-header";
+// import EventHeaderComponent from "@/pages/instructor/create-event/components/event-header";
+import EventRequirement from "./components/event-requirement";
 // import EventSummaryComponent from "./event-summary";
 
 function CreateEvent() {
@@ -22,6 +23,8 @@ function CreateEvent() {
       case "2":
         return <EventScheduleComponent />;
       case "3":
+        return <EventRequirement />;
+      case "4":
         return <CustomizeEventComponent />;
       // case "4":
       //   return <EventSummaryComponent />;

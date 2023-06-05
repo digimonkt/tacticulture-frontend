@@ -185,12 +185,39 @@ a {
   background-color: #cb2c2c !important;
   border-color: #cb2c2c !important;
 }
-
+.waiverSetting {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  margin: 4px 18px 20px;
+}
+.waiverSetting .quill {
+  width: 96%;
+  margin: 10px 0 20px !important;
+}
+.waiverSetting p {
+  font-size: 12px;
+  padding-left: 30px;
+  padding-bottom: 20px;
+}
+.questionBox {
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  margin-left: 18px;
+  margin-bottom: 20px;
+}
 body {
   font-family: "Inter", sans-serif !important;
 }
 h6 {
   font-family: "Inter", sans-serif !important;
+}
+.antSelectDropdown {
+  width: 237px !important;
+  height: 55px !important;
+}
+.antSelectDropdown .ant-select-selector {
+  height: 55px !important;
+  border-radius: 3px !important;
 }
 /* @font-face {
   font-family: 'Inter', sans-serif;
@@ -307,9 +334,32 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   position: relative;
   top: 30px;
 }
+.eventRequirement .quill {
+  width: 740px;
+  position: relative;
+  right: 10px;
+  margin-top: 16px !important;
+  margin-bottom: 16px;
+  height: 204px !important;
+}
+.eventRequirement {
+  border-bottom: 1px solid #555555;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+.eventRequirement h5 {
+  font-size: 21px;
+  padding-left: 16px;
+}
+.eventRequirement p {
+  font-size: 16px;
+  width: 540px;
+  padding-left: 17px;
+  font-weight: 400;
+}
 .quill {
   background: #fff !important;
-  width: 550px !important;
+  width: 550px;
   border-radius: 4px !important;
   height: 300px !important;
   margin-top: 20px !important;
@@ -1033,6 +1083,7 @@ span.rmdp-arrow-container.rmdp-right {
   font-weight: 700 !important;
   letter-spacing: 1px !important;
 }
+
 .rmdp-day.rmdp-today span {
   background-color: #fff !important;
   color: #000 !important;

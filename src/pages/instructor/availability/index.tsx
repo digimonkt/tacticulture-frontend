@@ -15,6 +15,7 @@ import {
 } from "@/redux/reducers/user";
 import { AvailabilityPayloadType } from "@/api/types/user";
 import { WEEKDAYS } from "@/utils/enum";
+import TimeZoneComponent from "@/component/timezone";
 
 const scheduleEvents: IScheduleEvent[] = [
   {
@@ -83,6 +84,9 @@ const specificData: ISpecificData[] = [
 function Availability() {
   const dispatch = useAppDispatch();
   const [availability, setAvailability] = useState(scheduleEvents);
+  const [timezoneData, setTimezoneData] = useState(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
 
   //   handleRemoveSchedule,
 
@@ -198,7 +202,10 @@ function Availability() {
                 Auto-detect Location-defined Time zone
               </p>
               <div style={{ position: "relative", bottom: "10px" }}>
-                {/* <TimezoneComponent /> */}
+                <TimeZoneComponent
+                  value={timezoneData}
+                  onChange={(vl) => setTimezoneData(vl.value)}
+                />
               </div>
             </div>
             {availability.map((available, idx) => {
@@ -216,10 +223,8 @@ function Availability() {
             })}
             <div className="d-flex align-items-center pt-3">
               <OutlinedButton
-                className={`${styles.WidthBtn}`}
+                className={`${styles.widthBtn}`}
                 style={{
-                  fontSize: "17px",
-
                   height: "35px",
                   fontWeight: "700",
                   color: "#fff",

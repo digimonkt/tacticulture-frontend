@@ -1,20 +1,21 @@
+import { SVG } from "@/assets/svg";
 import { Select } from "antd";
+import { SelectProps } from "antd/lib/select";
 import React from "react";
 
-function SelectInputComponent() {
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+interface ISelectInput extends SelectProps<any> {
+  label?: string;
+  class?: string;
+}
+
+function SelectInputComponent({ label, ...rest }: ISelectInput) {
   return (
     <div>
+      <p className="mb-1 mt-3">{label}</p>
       <Select
-        defaultValue="lucy"
+        suffixIcon={<SVG.DownChevron width="16px" />}
         style={{ width: 120 }}
-        onChange={handleChange}
-        options={[
-          { value: "jack", label: "Jack" },
-          { value: "lucy", label: "Lucy" },
-        ]}
+        {...rest}
       />
     </div>
   );
