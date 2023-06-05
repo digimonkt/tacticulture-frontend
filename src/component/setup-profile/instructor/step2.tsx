@@ -94,11 +94,16 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   };
 
   useEffect(() => {
-    formik.setFieldValue("availableFrom", currentUser.availableFrom);
-    formik.setFieldValue("availableTo", currentUser.availableTo);
-    formik.setFieldValue("offWeekdays", currentUser.offWeekdays);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (
+      formik.values.availableFrom !== currentUser.availableFrom ||
+      formik.values.availableTo !== currentUser.availableTo ||
+      formik.values.offWeekdays !== currentUser.offWeekdays
+    ) {
+      formik.setFieldValue("availableFrom", currentUser.availableFrom);
+      formik.setFieldValue("availableTo", currentUser.availableTo);
+      formik.setFieldValue("offWeekdays", currentUser.offWeekdays);
+    }
+  }, [formik, currentUser]);
   return (
     <>
       <div
