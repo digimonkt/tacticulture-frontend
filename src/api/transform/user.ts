@@ -1,6 +1,11 @@
-import { UserDetailType } from "@/types/user";
-import { UserDetailResponseType } from "../types/user";
+import {
+  UpdateUserDetailPayloadType,
+  UserDetailResponseType,
+  UserDetailType,
+  UserPayloadType,
+} from "../types/user";
 
+// ======transform user data for response======
 export const transformGetUserDetailsAPIResponse = (
   data: UserDetailResponseType
 ): UserDetailType => {
@@ -22,4 +27,38 @@ export const transformGetUserDetailsAPIResponse = (
     isProfileComplete: data.is_profile_complete,
     defaultRole: data.default_profile,
   };
+};
+
+// ======transform user data for API request======
+export const transformUpdateUserDetailsPayload = (
+  data: UpdateUserDetailPayloadType
+): UserPayloadType => {
+  const payload: UserPayloadType = {
+    email: data.email,
+    first_name: data.firstName,
+    last_name: data.lastName,
+    user_roles: data.userRoles,
+    username: data.username,
+    timezone: data.timezone,
+    bio: data.bio,
+    available_from: data.availableFrom,
+    available_to: data.availableTo,
+    off_weekdays: data.offWeekdays,
+    events: data.events,
+    profile_image: data.profileImage,
+    is_public_profile: data.isPublicProfile,
+    is_profile_complete: data.isProfileComplete,
+    default_profile: data.defaultRole,
+  };
+
+  for (const key in payload) {
+    if (
+      payload[key as keyof UserPayloadType] === "" ||
+      payload[key as keyof UserPayloadType] === undefined ||
+      payload[key as keyof UserPayloadType] === null
+    ) {
+      delete payload[key as keyof UserPayloadType];
+    }
+  }
+  return payload;
 };

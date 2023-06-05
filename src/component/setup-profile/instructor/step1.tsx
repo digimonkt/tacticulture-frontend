@@ -1,5 +1,11 @@
 import { Col, Row } from "antd";
-import React, { Ref, forwardRef, useImperativeHandle, useState } from "react";
+import React, {
+  Ref,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import styles from "../../../pages/setup-profile/profile.module.css";
 import { LabeledInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
@@ -9,20 +15,20 @@ import { instructorStepOneValidationSchema } from "@/utils/validations/instructo
 import TimeZoneComponent from "@/component/timezone";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { setPreLoader } from "@/redux/reducers/preLoader";
-import { updateUser } from "@/api/user";
 import {
   resetAlertMessage,
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { useRouter } from "next/router";
-import { updateCurrentUser } from "@/redux/reducers/user";
+import { updateUserDetails } from "@/redux/reducers/user";
+import { REQUEST_STATUS_TYPE } from "@/utils/enum";
 
 export interface InstructorStepOneRef {
   handleSubmitAccountDetail: () => void;
 }
 
 type InitialValuesType = {
-  customUrl?: string;
+  username?: string;
   bio: string;
   timezone: string;
 };
@@ -33,7 +39,9 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   const dispatch = useAppDispatch();
   // router
   const router = useRouter();
-  const { currentUser } = useAppSelector((state) => state.userReducer);
+  const { currentUser, updateUserStatus, errroList } = useAppSelector(
+    (state) => state.userReducer
+  );
 
   // state management
   const [customUrlError, setCustomUrlError] = useState<boolean | null>(null);
@@ -41,7 +49,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   // formik
   const formik = useFormik<InitialValuesType>({
     initialValues: {
-      customUrl: undefined,
+      username: undefined,
       bio: "",
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     },
@@ -64,54 +72,25 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
     isNavigable: boolean
   ) => {
     dispatch(setPreLoader(true));
-    const payload = {
-      username: values.customUrl,
-      bio: values.bio,
-      timezone: values.timezone,
-    };
-    const response = await updateUser(payload);
+    dispatch(updateUserDetails(values));
 
-    if (response.remote === "success") {
+    if (updateUserStatus === REQUEST_STATUS_TYPE.fulfilled) {
       setCustomUrlError(false);
-      isNavigable &&
-        dispatch(
-          updateCurrentUser({
-            ...currentUser,
-            username: values.customUrl || "",
-            bio: values.bio || "",
-            timezone: values.timezone || "",
-          })
-        );
       isNavigable &&
         router.push({
           pathname: router.pathname,
           query: { ...router.query, step: 2 },
         });
-    } else {
-      if (response.error.status === 500) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response.error.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-      } else if (response.error.status === 404) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response.error.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-      } else {
-        response.error.status === 400 &&
-          response.error.errors?.username?.length &&
-          setCustomUrlError(true);
-        handleResetAlert();
-      }
+    } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
+      console.log("rejected error -- ", errroList);
+      dispatch(
+        setAlertMessage({
+          error: true,
+          message: "Error has occurs!",
+          show: true,
+        })
+      );
+      handleResetAlert();
     }
     dispatch(setPreLoader(false));
   };
@@ -121,6 +100,20 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   useImperativeHandle(ref, () => ({
     handleSubmitAccountDetail: formik.handleSubmit,
   }));
+
+  console.log({ formik });
+
+  useEffect(() => {
+    if (
+      formik.values.bio !== currentUser.bio ||
+      formik.values.timezone !== currentUser.timezone ||
+      formik.values.username !== currentUser.username
+    ) {
+      formik.setFieldValue("username", currentUser.username);
+      formik.setFieldValue("bio", currentUser.bio);
+      formik.setFieldValue("timezone", currentUser.timezone);
+    }
+  }, [currentUser, formik]);
 
   return (
     <div>
@@ -147,33 +140,33 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
           <div className={`${styles.lefthead}`}>
             <h5>tacticulture.com/</h5>
             <span>Username:</span>
-            <h6>@{formik.values.customUrl}</h6>
+            <h6>@{formik.values.username}</h6>
           </div>
         </Col>
         <Col md={16} className="pe-4">
           <div className={`${styles.Instruction}`}>
             <div className="position-relative Instructor">
               <LabeledInput
-                value={formik.values.customUrl}
+                value={formik.values.username}
                 onChange={(e) => {
                   if (customUrlError === true || customUrlError === false) {
                     setCustomUrlError(null);
                   }
-                  formik.setFieldValue("customUrl", e.target.value);
+                  formik.setFieldValue("username", e.target.value);
                 }}
                 onBlur={(e) => {
                   handleUpdateProfile(
                     {
-                      customUrl: formik.values.customUrl,
+                      username: formik.values.username,
                       bio: "",
                       timezone: "",
                     },
                     false
                   );
-                  formik.getFieldProps("customUrl").onBlur(e);
+                  formik.getFieldProps("username").onBlur(e);
                 }}
               />
-              {formik.values.customUrl !== "" && customUrlError && (
+              {formik.values.username !== "" && customUrlError && (
                 <>
                   <SVG.ExclamanationIcon
                     style={{
@@ -188,7 +181,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
               )}
             </div>
             <ul className="p-0">
-              {formik.values.customUrl !== "" && customUrlError ? (
+              {formik.values.username !== "" && customUrlError ? (
                 <li>
                   <SVG.ExclamanationIcon
                     className={`${styles.firstLine}`}
@@ -196,7 +189,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
                   />
                   That has already been reserved, please modify further
                 </li>
-              ) : formik.values.customUrl !== "" && customUrlError === false ? (
+              ) : formik.values.username !== "" && customUrlError === false ? (
                 <li>
                   <SVG.Fillcheck
                     className={`${styles.secondLine}`}
@@ -213,7 +206,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
         <TimeZoneComponent
           title="Time zone"
           value={formik.values.timezone}
-          onChange={(vl) => formik.setFieldValue("timezone", vl)}
+          onChange={(vl) => formik.setFieldValue("timezone", vl.value)}
         />
       </div>
       <div className={`${styles.textArea}`}>

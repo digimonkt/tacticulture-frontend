@@ -11,7 +11,6 @@ import styles from "../../../pages/setup-profile/profile.module.css";
 import { SVG } from "@/assets/svg";
 import { subscriptionPlansList } from "@/api/subscriptionPlan";
 import { SubscriptionPlan } from "@/api/types/subscriptionPlan";
-import { updateUser } from "@/api/user";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { setPreLoader } from "@/redux/reducers/preLoader";
@@ -19,8 +18,8 @@ import {
   resetAlertMessage,
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
-import { UpdateUserType } from "@/api/types/user";
-import { setIsPlanPageActive, updateCurrentUser } from "@/redux/reducers/user";
+import { setIsPlanPageActive, updateUserDetails } from "@/redux/reducers/user";
+import { REQUEST_STATUS_TYPE } from "@/utils/enum";
 
 // export default function Step4() {
 export interface InstructorStepFourRef {
@@ -39,7 +38,9 @@ const Step4 = forwardRef(function Step4(
   const [selectedPlanType, setSelectedPlanType] = useState("");
 
   const dispatch = useAppDispatch();
-  const { currentUser } = useAppSelector((state) => state.userReducer);
+  const { updateUserStatus, errroList } = useAppSelector(
+    (state) => state.userReducer
+  );
   // router
   const router = useRouter();
   // reset AlertMessage
@@ -53,40 +54,20 @@ const Step4 = forwardRef(function Step4(
     dispatch(setPreLoader(true));
 
     if (selectedPlanType === "free") {
-      const payload: UpdateUserType = {
-        is_profile_complete: true,
-      };
-      const response = await updateUser(payload);
-      if (response.remote === "success") {
+      dispatch(updateUserDetails({ isProfileComplete: true }));
+
+      if (updateUserStatus === REQUEST_STATUS_TYPE.fulfilled) {
+        router.push("/instructor/home");
+      } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
+        console.log("rejected error -- ", errroList);
         dispatch(
-          updateCurrentUser({
-            ...currentUser,
-            isProfileComplete: true,
+          setAlertMessage({
+            error: true,
+            message: "Error has occurs!",
+            show: true,
           })
         );
-        router.push("/instructor/home");
-      } else {
-        if (response.error.status === 500) {
-          dispatch(
-            setAlertMessage({
-              error: true,
-              message: response.error.errors,
-              show: true,
-            })
-          );
-          handleResetAlert();
-        } else if (response.error.status === 404) {
-          dispatch(
-            setAlertMessage({
-              error: true,
-              message: response.error.errors,
-              show: true,
-            })
-          );
-          handleResetAlert();
-        } else {
-          handleResetAlert();
-        }
+        handleResetAlert();
       }
       dispatch(setPreLoader(false));
     } else {
