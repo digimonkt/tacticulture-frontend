@@ -16,6 +16,7 @@ import {
 
 import { REQUEST_STATUS_TYPE } from "@/utils/enum";
 import { setAlertMessage } from "./modalsToggle";
+import { tokens } from "@/utils/jwtTokenStorage";
 
 // Define a type for the slice state
 interface userI {
@@ -95,6 +96,7 @@ export const getUserDetails = createAsyncThunk<
   if (res.remote === "success") {
     return res.data;
   } else {
+    res.error.status === 401 && tokens.removeAccessToken();
     return rejectWithValue(res.error);
   }
 });
