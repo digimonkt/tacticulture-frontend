@@ -162,6 +162,35 @@ export const updateUserDetails = createAsyncThunk<
   }
 );
 
+// update user details
+export const updateUserDetails = createAsyncThunk<
+  UserDetailType,
+  UpdateUserDetailPayloadType,
+  { state: RootState; rejectValue: ServerError }
+>(
+  "users/updateUserDetails",
+  async (payload, { getState, rejectWithValue, dispatch }) => {
+    const { userReducer } = getState();
+
+    const res = await updateUser(payload);
+
+    if (res.remote === "success") {
+      return { ...userReducer.currentUser, ...payload };
+    } else {
+      if (res.error.status === 500) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: res.error.errors,
+            show: true,
+          })
+        );
+      }
+      return rejectWithValue(res.error.errors);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -186,7 +215,6 @@ export const userSlice = createSlice({
       state.currentUser = { ...state.currentUser, ...action.payload };
       state.isLoggedIn = true;
     });
-
     // ======update user detail handlers======
     builder.addCase(updateUserDetails.pending, (state) => {
       state.updateUserStatus = REQUEST_STATUS_TYPE.pending;

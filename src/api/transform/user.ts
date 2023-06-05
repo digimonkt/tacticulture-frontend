@@ -97,6 +97,7 @@ export const transformSendUserAvailabilityPayload = (
     }),
   };
 };
+
 // ======transform user data for API request======
 export const transformUpdateUserDetailsPayload = (
   data: UpdateUserDetailPayloadType
