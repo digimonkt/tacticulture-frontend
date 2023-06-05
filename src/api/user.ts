@@ -3,6 +3,7 @@ import {
   AvailabilityPayloadType,
   AvailabilityResponseType,
   UserDefaultResponseType,
+  UpdateUserDetailPayloadType,
   UserDetailResponseType,
   UserDetailType,
 } from "./types/user";
@@ -18,7 +19,7 @@ import {
 // import { UserDetailType } from "@/types/user";
 
 // Update user details
-export const updateUser = async (data: UserDetailType) => {
+export const updateUser = async (data: UpdateUserDetailPayloadType) => {
   const response = await axiosInstance.request({
     url: "/change-profile-details/",
     method: "PATCH",

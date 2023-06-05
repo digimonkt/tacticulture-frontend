@@ -12,6 +12,7 @@ import {
   AvailabilityGetDataType,
   AvailabilityPayloadType,
   UserDetailType,
+  UpdateUserDetailPayloadType,
 } from "@/api/types/user";
 
 import { REQUEST_STATUS_TYPE } from "@/utils/enum";
@@ -64,7 +65,7 @@ const initialState: userI = {
     availableTo: "",
     offWeekdays: [],
     events: [],
-    profileImage: null,
+    profileImage: "",
     isPublicProfile: false,
     isProfileComplete: false,
     defaultRole: "",
@@ -135,7 +136,7 @@ export const updateUserAvailability = createAsyncThunk<
 // update user details
 export const updateUserDetails = createAsyncThunk<
   UserDetailType,
-  UserDetailType,
+  UpdateUserDetailPayloadType,
   { state: RootState; rejectValue: ServerError }
 >(
   "users/updateUserDetails",
