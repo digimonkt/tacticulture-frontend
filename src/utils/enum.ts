@@ -45,3 +45,9 @@ export enum RESET_PASSWORD_PAGE {
   verifyEmail = "verify-email",
   resetPassword = "reset-password",
 }
+
+export enum REQUEST_STATUS_TYPE {
+  pending = "pending",
+  fulfilled = "fulfilled",
+  rejected = "rejected",
+}

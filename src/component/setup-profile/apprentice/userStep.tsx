@@ -14,9 +14,8 @@ import {
 } from "@/redux/reducers/modalsToggle";
 import { setPreLoader } from "@/redux/reducers/preLoader";
 import { ErrorMessage } from "@/component/caption";
-import { updateUser } from "@/api/user";
-import { USER_ROLES } from "@/utils/enum";
-import { setIsUserStepActive, updateCurrentUser } from "@/redux/reducers/user";
+import { REQUEST_STATUS_TYPE, USER_ROLES } from "@/utils/enum";
+import { setIsUserStepActive, updateUserDetails } from "@/redux/reducers/user";
 
 interface IRouter {
   userEmail: string;
@@ -50,81 +49,52 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
 
   // redux
   const dispatch = useAppDispatch();
-  const { currentUser } = useAppSelector((state) => state.userReducer);
-
-  const initialState: InitialValueType = {
-    firstName: "",
-    lastName: "",
-    password: "",
-    isPublicProfile: false,
-    email: "",
-    profileImage: null,
-  };
+  const { updateUserStatus, errroList, currentUser } = useAppSelector(
+    (state) => state.userReducer
+  );
 
   // formik
-  const formik = useFormik({
-    initialValues: initialState,
+  const formik = useFormik<InitialValueType>({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      password: "",
+      isPublicProfile: false,
+      email: "",
+      profileImage: null,
+    },
     validationSchema: apprenticeStepOneValidationSchema,
     onSubmit: (values) => {
       handleUpdateProfile(values);
     },
   });
+
   // reset AlertMessage
   const handleResetAlert = () => {
     setTimeout(() => {
       dispatch(resetAlertMessage());
     }, 2000);
   };
+
   // handle submit
   const handleUpdateProfile = async (values: InitialValueType) => {
     dispatch(setPreLoader(true));
-    const payload = {
-      first_name: values.firstName,
-      last_name: values.lastName,
-      is_public_profile: values.isPublicProfile,
-      email: values.email,
-    };
-    const response = await updateUser(payload);
-    if (response.remote === "success") {
-      dispatch(
-        updateCurrentUser({
-          ...currentUser,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          isPublicProfile: values.isPublicProfile,
-          email: values.email,
-        })
-      );
+    dispatch(updateUserDetails(values));
+    if (updateUserStatus === REQUEST_STATUS_TYPE.fulfilled) {
       router.push({
         pathname: router.pathname,
         query: { ...router.query, step: role === "apprentice" ? 2 : 4 },
       });
-    } else {
-      if (response?.error?.status === 500) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response?.error?.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-        dispatch(setPreLoader(false));
-      } else if (response?.error?.status === 404) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response?.error?.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-        dispatch(setPreLoader(false));
-      } else {
-        // setEmailError(response.error.errors?.email[0]);
-        handleResetAlert();
-        dispatch(setPreLoader(false));
-      }
+    } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
+      console.log("rejected error -- ", errroList);
+      dispatch(
+        setAlertMessage({
+          error: true,
+          message: "Error has occurs!",
+          show: true,
+        })
+      );
+      handleResetAlert();
     }
     dispatch(setPreLoader(false));
   };
@@ -135,10 +105,13 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
 
   // ---
   useEffect(() => {
-    if (userEmail && formik.values.email !== userEmail) {
-      formik.setFieldValue("email", userEmail);
-    }
-  }, [formik, userEmail]);
+    formik.setFieldValue("email", userEmail);
+    formik.setFieldValue("firstName", currentUser.firstName);
+    formik.setFieldValue("lastName", currentUser.lastName);
+    formik.setFieldValue("isPublicProfile", currentUser.isPublicProfile);
+    formik.setFieldValue("profileImage", currentUser.profileImage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div style={{ borderBottom: "1px solid #555", paddingBottom: "24px" }}>
