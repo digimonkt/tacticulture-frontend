@@ -104,16 +104,12 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   console.log({ formik });
 
   useEffect(() => {
-    if (
-      formik.values.bio !== currentUser.bio ||
-      formik.values.timezone !== currentUser.timezone ||
-      formik.values.username !== currentUser.username
-    ) {
-      formik.setFieldValue("username", currentUser.username);
-      formik.setFieldValue("bio", currentUser.bio);
-      formik.setFieldValue("timezone", currentUser.timezone);
-    }
-  }, [currentUser, formik]);
+    formik.setFieldValue("username", currentUser.username);
+    formik.setFieldValue("bio", currentUser.bio);
+    formik.setFieldValue("timezone", currentUser.timezone);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
