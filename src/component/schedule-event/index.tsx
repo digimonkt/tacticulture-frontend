@@ -43,6 +43,9 @@ function ScheduleEventComponent({
 }: IScheduleEventComponent) {
   return (
     <div>
+      <div className={`${styles.weeklyDate}`}>
+        <h6>Set your weekly hours</h6>
+      </div>
       <Row className="mt-3">
         <Col md={3}>
           <p
@@ -87,7 +90,12 @@ function ScheduleEventComponent({
                 );
               })
             ) : (
-              <p className="mb-0 mt-3">Unavailable</p>
+              <p
+                className="mb-0 mt-3"
+                style={{ position: "relative", top: "4px" }}
+              >
+                Unavailable
+              </p>
             )}
           </div>
         </Col>

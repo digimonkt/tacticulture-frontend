@@ -5,6 +5,15 @@
 .rdp-month.rdp-caption_start.rdp-caption_end {
   width: 370px !important;
 }
+.ant-checkbox-checked .ant-checkbox-inner {
+  background: #cb2c2c !important;
+  border: #cb2c2c !important;
+  border-radius: 1px !important;
+}
+.ant-checkbox {
+  position: relative;
+  bottom: 1px !important;
+}
 .rdp-caption {
   justify-content: start !important;
 }

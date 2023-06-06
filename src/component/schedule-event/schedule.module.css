@@ -8,6 +8,12 @@
   font-family: "proxima-nova";
   letter-spacing: 1px;
 }
+.weeklyDate h6 {
+  margin-bottom: 0;
+  color: #fff;
+  position: relative;
+  top: 12px;
+}
 .box input {
   width: 141px !important;
   height: 55px !important;
