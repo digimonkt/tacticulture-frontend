@@ -56,8 +56,8 @@ function ProfileSetup() {
     } else {
       dispatch(setPreLoader(true));
       const payload = {
-        user_roles: role,
-        default_profile: role,
+        userRoles: role,
+        defaultRole: role,
       };
       const response = await updateUser(payload);
       if (response.remote === "success") {
