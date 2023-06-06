@@ -20,3 +20,45 @@
   border-radius: 4px !important;
   margin-right: 14px !important;
 }
+.calendarPopup {
+  background-color: #fff;
+  width: 390px;
+  padding: 2px;
+  border-radius: 4px;
+  position: relative;
+}
+.plusIcon path {
+  fill: #cb2c2c;
+}
+.plusIcon {
+  position: relative;
+  left: 30px;
+}
+.appendIcon {
+  margin-left: 20px;
+}
+.trashIcon path {
+  fill: #454545 !important;
+}
+.hourSection {
+  background: #f3f3f3;
+  padding: 16px;
+  border: 1px solid #ddd;
+}
+.hourSection h6 {
+  font-size: 18px;
+  color: #666666;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.timezoneData {
+  position: relative;
+}
+.calendarPopup h3 {
+  color: #5c5c5c;
+  font-size: 24px;
+  font-weight: bold;
+  width: 357px;
+  padding: 16px 0px 0 15px;
+  margin: 0;
+}

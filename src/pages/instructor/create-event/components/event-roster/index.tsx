@@ -1,7 +1,6 @@
 import { Col, Row } from "antd";
 import React, { useState } from "react";
 import styles from "../../course.module.css";
-
 import Image from "next/image";
 import { FilledButton } from "@/component/buttons";
 import { IMAGES } from "@/assets/images";

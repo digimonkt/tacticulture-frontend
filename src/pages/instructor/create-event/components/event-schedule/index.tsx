@@ -123,6 +123,7 @@ function EventScheduleComponent() {
 
         {scheduleType === "schedule" || scheduleType === "combined" ? (
           <FilledButton
+            className={`${styles.btnSchedule}`}
             onClick={() => addScheduleEvent()}
             style={{
               fontSize: " 17px",

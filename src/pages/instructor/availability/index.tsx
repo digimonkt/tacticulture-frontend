@@ -3,6 +3,7 @@ import InstructorLayout from "../layout";
 import { SVG } from "@/assets/svg";
 import { Button, Checkbox } from "antd";
 import styles from "./availability.module.css";
+import DatePicker from "@/component/calendar";
 import ScheduleEventComponent, {
   IScheduleEvent,
   ISpecificData,
@@ -16,6 +17,7 @@ import {
 import { AvailabilityPayloadType } from "@/api/types/user";
 import { WEEKDAYS } from "@/utils/enum";
 import TimeZoneComponent from "@/component/timezone";
+import TimePickerComponent from "@/component/input/timepicker";
 
 const scheduleEvents: IScheduleEvent[] = [
   {
@@ -82,6 +84,12 @@ const specificData: ISpecificData[] = [
 ];
 
 function Availability() {
+  const [opencalendar, setOpencalendar] = useState(false);
+
+  const handleDateClick = (dates: Date[]) => {
+    console.log(dates);
+  };
+
   const dispatch = useAppDispatch();
   const [availability, setAvailability] = useState(scheduleEvents);
   const [timezoneData, setTimezoneData] = useState(
@@ -224,6 +232,7 @@ function Availability() {
             <div className="d-flex align-items-center pt-3">
               <OutlinedButton
                 className={`${styles.widthBtn}`}
+                onClick={() => setOpencalendar(!opencalendar)}
                 style={{
                   height: "35px",
                   fontWeight: "700",
@@ -252,6 +261,43 @@ function Availability() {
             </div>
           </div>
         </div>
+        {opencalendar && (
+          <div className={`${styles.calendarPopup}`}>
+            <h3>Select the date(s) you want to assign specific hours</h3>
+            <DatePicker onDayClick={handleDateClick} />
+            <div className="timezoneData">
+              <SVG.EarthIcon width="18px" />
+              <label>Timezone:</label>
+              <div className="timeSelect">
+                <TimeZoneComponent
+                  value={timezoneData}
+                  onChange={(vl) => setTimezoneData(vl.value)}
+                />
+              </div>
+            </div>
+            <div className={`${styles.hourSection}`}>
+              <h6>What hours are you available?</h6>
+              <div className="timeZone">
+                <TimePickerComponent />
+                <span
+                  style={{
+                    margin: "0 7px",
+                    color: "#333333",
+                    fontSize: "22px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  -
+                </span>
+                <TimePickerComponent />
+                <div className={`${styles.appendIcon}`}>
+                  <SVG.Trash width="20px" className={`${styles.trashIcon}`} />
+                  <SVG.Plus width="20px" className={`${styles.plusIcon}`} />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </InstructorLayout>
     </div>
   );

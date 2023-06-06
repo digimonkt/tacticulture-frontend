@@ -1,5 +1,5 @@
 import React from "react";
-import EventHeaderComponent from "../event-header";
+// import EventHeaderComponent from "../event-header";
 import TextareaComponent from "@/component/textarea";
 import styles from "../course.module.css";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
@@ -28,6 +28,7 @@ function EventRequirement() {
       </div>
       <div className={`${styles.customEvents}`}>
         <h4>Custom Event Questions</h4>
+
         <p>
           Configure the information you’d like to collect. We automatically
           collect each users personal profile information in addition to

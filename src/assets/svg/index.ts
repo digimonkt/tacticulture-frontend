@@ -71,9 +71,11 @@ import S from "./s.svg";
 import ZSIGN from "./zsign.svg";
 import Rightcheck from "./rightcheck.svg";
 import SwitchIcon from "./switchicon.svg";
+import EarthIcon from "./earth.svg";
 
 export const SVG = {
   SwitchIcon,
+  EarthIcon,
   GoogleIcon,
   DownChevron,
   Rightcheck,

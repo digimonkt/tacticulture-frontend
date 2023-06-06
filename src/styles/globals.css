@@ -2,6 +2,76 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.rdp-month.rdp-caption_start.rdp-caption_end {
+  width: 370px !important;
+}
+.rdp-caption {
+  justify-content: start !important;
+}
+.rdp-nav_icon path {
+  fill: #fff !important;
+}
+.timeSelect div {
+  padding: 0 !important;
+}
+.timeSelect {
+  position: relative;
+  bottom: 10px;
+  left: 9px;
+}
+.timezoneData label {
+  font-size: 12px !important;
+  color: #5c5c5c;
+  font-weight: bold;
+}
+.timeZone {
+  display: flex;
+  align-items: center;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.timeZone .ant-picker {
+  height: 45px !important;
+  border: 1px solid #cccccc !important;
+  border-radius: 4px !important;
+  width: 116px !important;
+}
+.timezoneData {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-bottom: 16px;
+  padding-left: 10px;
+}
+.rdp-nav_icon {
+  background: #cb2c2c !important;
+  width: 27px !important;
+  padding: 7px !important;
+  height: 26px !important;
+}
+.rdp {
+  margin-top: 4px !important;
+  margin-left: 10px !important;
+}
+.rdp-day_today {
+  background: #cb2c2c !important;
+  color: #fff !important;
+}
+.rdp-day_selected {
+  background-color: #fff !important;
+  border: 2px solid #cb2c2c !important;
+  color: #000 !important;
+  font-weight: bold !important;
+}
+.rdp-caption_label {
+  font-size: 14px !important;
+  color: #333333 !important;
+}
+table.rdp-table {
+  max-width: 370px !important;
+  margin: 0 !important;
+  width: 355px !important;
+}
 /* @font-face {
   font-family: "proxima-nova";
   src: url("https://use.typekit.net/af/b683e3/00000000000000003b9b306c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n9&v=3")
