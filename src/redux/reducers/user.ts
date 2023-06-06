@@ -74,7 +74,6 @@ export const updateUserDetails = createAsyncThunk<
   "users/updateUserDetails",
   async (payload, { getState, rejectWithValue, dispatch }) => {
     const { userReducer } = getState();
-    console.log({ payload });
 
     const res = await updateUser(payload);
 
