@@ -5,12 +5,17 @@ import {
   getUserAvailabilityAPI,
   getUserDetailsAPI,
   updateUserAvailabilityAPI,
+  updateUser,
 } from "@/api/user";
-import { UserDetailType } from "@/types/user";
 import {
   AvailabilityGetDataType,
   AvailabilityPayloadType,
+  UpdateUserDetailPayloadType,
+  UserDetailType,
 } from "@/api/types/user";
+import { REQUEST_STATUS_TYPE } from "@/utils/enum";
+import { setAlertMessage } from "./modalsToggle";
+import { tokens } from "@/utils/jwtTokenStorage";
 
 // Define a type for the slice state
 interface userI {
@@ -25,6 +30,8 @@ interface userI {
     availability: null;
     specificDate: null;
   };
+  updateUserStatus: REQUEST_STATUS_TYPE | "";
+  errroList: any;
 }
 
 // Define the initial state using that type
@@ -69,6 +76,8 @@ const initialState: userI = {
     availability: null,
     specificDate: null,
   },
+  updateUserStatus: "",
+  errroList: null,
 };
 
 // fetch user details
@@ -86,6 +95,7 @@ export const getUserDetails = createAsyncThunk<
   if (res.remote === "success") {
     return res.data;
   } else {
+    res.error.status === 401 && tokens.removeAccessToken();
     return rejectWithValue(res.error);
   }
 });
@@ -119,6 +129,34 @@ export const updateUserAvailability = createAsyncThunk<
     return rejectWithValue(res.error);
   }
 });
+// update user details
+export const updateUserDetails = createAsyncThunk<
+  UserDetailType,
+  UpdateUserDetailPayloadType,
+  { state: RootState; rejectValue: ServerError }
+>(
+  "users/updateUserDetails",
+  async (payload, { getState, rejectWithValue, dispatch }) => {
+    const { userReducer } = getState();
+
+    const res = await updateUser(payload);
+
+    if (res.remote === "success") {
+      return { ...userReducer.currentUser, ...payload };
+    } else {
+      if (res.error.status === 500) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: res.error.errors,
+            show: true,
+          })
+        );
+      }
+      return rejectWithValue(res.error.errors);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -139,12 +177,23 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // ======get user details handler======
     builder.addCase(getUserDetails.fulfilled, (state, action) => {
-      // handle fulfilled action
       state.currentUser = { ...state.currentUser, ...action.payload };
       state.isLoggedIn = true;
     });
-
+    // ======update user detail handlers======
+    builder.addCase(updateUserDetails.pending, (state) => {
+      state.updateUserStatus = REQUEST_STATUS_TYPE.pending;
+    });
+    builder.addCase(updateUserDetails.fulfilled, (state, action) => {
+      state.updateUserStatus = REQUEST_STATUS_TYPE.fulfilled;
+      state.currentUser = action.payload;
+    });
+    builder.addCase(updateUserDetails.rejected, (state, action) => {
+      state.updateUserStatus = REQUEST_STATUS_TYPE.rejected;
+      state.errroList = action.error;
+    });
     builder.addCase(updateUserAvailability.fulfilled, (state, action) => {
       state.availabilityResponse = { ...action.payload };
     });
@@ -170,5 +219,7 @@ export const isUserStepActive = (state: RootState) =>
   state.userReducer.isUserStepActive;
 export const isPlanPageActive = (state: RootState) =>
   state.userReducer.isPlanPageActive;
+export const userUpdateStatus = (state: RootState) =>
+  state.userReducer.updateUserStatus;
 
 export default userSlice.reducer;

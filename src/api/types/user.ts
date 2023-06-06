@@ -1,6 +1,6 @@
 import { USER_ROLES } from "@/utils/enum";
 
-export type UpdateUserType = {
+export type UserPayloadType = {
   email?: string;
   user_roles?: string;
   default_profile?: string;
@@ -138,4 +138,41 @@ export type AvailabilitySendDataType = {
       to_time: string;
     }[];
   }[];
+};
+export type UserDetailType = {
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  userRoles: USER_ROLES | "";
+  phoneNumber: string;
+  timezone: string;
+  bio: string;
+  availableFrom: string;
+  availableTo: string;
+  offWeekdays: string[];
+  events: number[];
+  profileImage: string;
+  isPublicProfile: boolean;
+  isProfileComplete: boolean;
+  defaultRole: USER_ROLES | "";
+};
+
+export type UpdateUserDetailPayloadType = {
+  email?: string;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  userRoles?: USER_ROLES | "";
+  phoneNumber?: string;
+  timezone?: string;
+  bio?: string;
+  availableFrom?: string;
+  availableTo?: string;
+  offWeekdays?: string[];
+  events?: number[];
+  profileImage?: string;
+  isPublicProfile?: boolean;
+  isProfileComplete?: boolean;
+  defaultRole?: USER_ROLES | "";
 };

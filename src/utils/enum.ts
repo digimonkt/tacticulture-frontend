@@ -55,3 +55,8 @@ export enum EVENT_TEST {
   one = "1",
   two = "2",
 }
+export enum REQUEST_STATUS_TYPE {
+  pending = "pending",
+  fulfilled = "fulfilled",
+  rejected = "rejected",
+}

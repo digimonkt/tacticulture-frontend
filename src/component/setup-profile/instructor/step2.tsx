@@ -1,22 +1,20 @@
 import { SVG } from "@/assets/svg";
 import { Checkbox, Col, Row } from "antd";
-import React, { Ref, forwardRef, useImperativeHandle } from "react";
+import React, { Ref, forwardRef, useEffect, useImperativeHandle } from "react";
 import styles from "../../../pages/setup-profile/profile.module.css";
 import { LabeledInput } from "@/component/input";
-import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { setPreLoader } from "@/redux/reducers/preLoader";
-import { updateUser } from "@/api/user";
 import { instructorStepTwoValidationSchema } from "@/utils/validations/instructorProfileValidation";
 import {
   resetAlertMessage,
   setAlertMessage,
 } from "@/redux/reducers/modalsToggle";
 import { useRouter } from "next/router";
-import { updateCurrentUser } from "@/redux/reducers/user";
+import { updateUserDetails } from "@/redux/reducers/user";
 import { Weekdays } from "@/utils/constant";
-import { useAppSelector } from "@/redux/hooks/hooks";
-
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { REQUEST_STATUS_TYPE } from "@/utils/enum";
 export interface InstructorStepTwoRef {
   handleSubmitStepTwoDetail: () => void;
 }
@@ -29,10 +27,12 @@ type FormikInitialStateType = {
 // function Step2() {
 const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   // redux dispatch
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   // router
   const router = useRouter();
-  const { currentUser } = useAppSelector((state) => state.userReducer);
+  const { currentUser, updateUserStatus, errroList } = useAppSelector(
+    (state) => state.userReducer
+  );
 
   // formik
   const formik = useFormik<FormikInitialStateType>({
@@ -57,38 +57,23 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
   // handle submit
   const handleSubmit = async (values: FormikInitialStateType) => {
     dispatch(setPreLoader(true));
-    const payload = {
-      available_from: values.availableFrom,
-      available_to: values.availableTo,
-      off_weekdays: values.offWeekdays,
-    };
-    const response = await updateUser(payload);
-    if (response.remote === "success") {
-      dispatch(
-        updateCurrentUser({
-          ...currentUser,
-          availableFrom: values.availableFrom || "",
-          availableTo: values.availableTo || "",
-          offWeekdays: values.offWeekdays || [],
-        })
-      );
+    dispatch(updateUserDetails(values));
+
+    if (updateUserStatus === REQUEST_STATUS_TYPE.fulfilled) {
       router.push({
         pathname: router.pathname,
         query: { ...router.query, step: 3 },
       });
-    } else {
-      if (response.error.status === 500 || response.error.status === 404) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: response.error.errors,
-            show: true,
-          })
-        );
-        handleResetAlert();
-      } else {
-        handleResetAlert();
-      }
+    } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
+      console.log("rejected error -- ", errroList);
+      dispatch(
+        setAlertMessage({
+          error: true,
+          message: "Error has occurs!",
+          show: true,
+        })
+      );
+      handleResetAlert();
     }
     dispatch(setPreLoader(false));
   };
@@ -107,7 +92,14 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
       });
     }
   };
-  console.log(ref, "ref");
+
+  useEffect(() => {
+    formik.setFieldValue("availableFrom", currentUser.availableFrom);
+    formik.setFieldValue("availableTo", currentUser.availableTo);
+    formik.setFieldValue("offWeekdays", currentUser.offWeekdays);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <div
