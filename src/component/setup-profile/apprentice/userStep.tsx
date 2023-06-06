@@ -69,6 +69,8 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
     },
   });
 
+  console.log("vlue -- ", formik.values);
+
   // reset AlertMessage
   const handleResetAlert = () => {
     setTimeout(() => {
