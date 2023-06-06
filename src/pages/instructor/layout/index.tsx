@@ -44,9 +44,12 @@ function InstructorLayout({ children }: IChildren) {
                 </li>
               </Link>
 
-              <li onClick={() => handleLinkClick("/instructor/availability")}>
-                <SVG.Clock /> Availability
-              </li>
+              <Link href="/instructor/availability">
+                {" "}
+                <li onClick={() => handleLinkClick("/instructor/availability")}>
+                  <SVG.Clock /> Availability
+                </li>
+              </Link>
 
               <li>
                 <SVG.Bell />
