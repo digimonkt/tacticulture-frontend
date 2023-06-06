@@ -49,6 +49,7 @@ export const transformUpdateUserDetailsPayload = (
     is_public_profile: data.isPublicProfile,
     is_profile_complete: data.isProfileComplete,
     default_profile: data.defaultRole,
+    password: data.password,
   };
 
   for (const key in payload) {

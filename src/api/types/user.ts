@@ -74,4 +74,5 @@ export type UpdateUserDetailPayloadType = {
   isPublicProfile?: boolean;
   isProfileComplete?: boolean;
   defaultRole?: USER_ROLES | "";
+  password?: string;
 };
