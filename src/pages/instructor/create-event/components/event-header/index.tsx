@@ -1,15 +1,23 @@
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import React from "react";
 import styles from "../../course.module.css";
-import { useRouter } from "next/router";
+
+// import { useRouter } from "next/router";
+import { FormikHandlers } from "formik";
 
 interface IEventHeaderComponent {
   heading?: string;
+  onPress: () => void;
+  // formik: FormikHandlers;
 }
 
-function EventHeaderComponent({ heading }: IEventHeaderComponent) {
-  const router = useRouter();
-  const { step } = router.query;
+function EventHeaderComponent({ heading, onPress }: IEventHeaderComponent) {
+  // const router = useRouter();
+  // const { step } = router.query;
+
+  // const ChangePage = () => {
+  //   router.push(`../instructor/create-event?step=${Number(step) + 1}`);
+  // };
   return (
     <>
       <div className={`${styles.header}`}>
@@ -20,9 +28,8 @@ function EventHeaderComponent({ heading }: IEventHeaderComponent) {
           </OutlinedButton>
           <FilledButton
             onClick={() => {
-              router.push(
-                `../instructor/create-event?step=${Number(step) + 1}`
-              );
+              onPress();
+              // ChangePage();
             }}
             className={`${styles.BtnNext}`}
           >

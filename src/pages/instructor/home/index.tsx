@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InstructorLayout from "../layout";
 import CommunityInfoComponent from "@/pages/apprentice/components/community-info";
 import CardComponent from "@/component/card/card";

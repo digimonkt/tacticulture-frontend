@@ -38,6 +38,107 @@ export type UserDetailResponseType = {
   default_profile: USER_ROLES | "";
 };
 
+export type AvailabilityPayloadType = {
+  id?: number;
+  timeZone: string;
+  specificDate: {
+    date: string;
+    timeZone: string;
+    availableHours: { fromTime: string; toTime: string }[];
+  }[];
+  userCustomAvailability: {
+    day: string;
+    timeArray: { id?: number; fromTime: string; toTime: string }[];
+  }[];
+};
+
+// export type UserDefaultAvailabilityType = {
+//   id: number;
+//   timeZone: string;
+//   userCustomAvailability: {
+//     day: string;
+//     timeArray: { id: number; fromTime: string; toTime: string }[];
+//   }[];
+//   specificDate: {
+//     date: string;
+//     timeZone: string;
+//     availableHours: { id: number; fromTime: string; toTime: string }[];
+//   }[];
+// };
+
+export type UserDefaultResponseType = {
+  id: number;
+  timezone: string;
+  availability: {
+    weekdays: string;
+    user_availability_time_slot: {
+      id: number;
+      from_time: string;
+      to_time: string;
+    }[];
+  }[];
+  specific_date: {
+    specific_hours_date: string;
+    specific_date_timezone: string;
+    user_availability_time_slot: {
+      id: number;
+      from_time: string;
+      to_time: string;
+    }[];
+  }[];
+};
+
+export type AvailabilityResponseType = {
+  id: number;
+  time_zone: string;
+  availability: null;
+  specific_date: null;
+};
+
+export type defaultAvailabilityResponseType = {
+  id: number;
+  timezone: string;
+  availability: {
+    weekdays: string;
+    user_availability_time_slot: {
+      id: number;
+      from_time: string;
+      to_time: string;
+    }[];
+  }[];
+  specific_date: {
+    specific_hours_date: string;
+    specific_date_timezone: string;
+    user_availability_time_slot: {
+      id: number;
+      from_time: string;
+      to_time: string;
+    }[];
+  }[];
+};
+
+export type AvailabilityGetDataType = {
+  id: number;
+  timeZone: string;
+  availability: null;
+  specificDate: null;
+};
+
+export type AvailabilitySendDataType = {
+  timezone: string;
+  availability: {
+    weekdays: string;
+    user_availability_time_slot: { from_time: string; to_time: string }[];
+  }[];
+  specific_date: {
+    specific_hours_date: string;
+    specific_date_timezone: string;
+    user_availability_time_slot: {
+      from_time: string;
+      to_time: string;
+    }[];
+  }[];
+};
 export type UserDetailType = {
   email: string;
   username: string;

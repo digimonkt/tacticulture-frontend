@@ -1,25 +1,106 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+// import styles from " @/pages/instructor/create-event/course.module.css";
 import styles from "../../../../course.module.css";
 import { OutlinedButton } from "@/component/buttons";
 import ScheduleEventComponent, {
   IScheduleEvent,
 } from "@/component/schedule-event";
+import { createEvent } from "@/redux/reducers/event";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { WEEKDAYS } from "@/utils/enum";
 
 const scheduleEvents: IScheduleEvent[] = [
-  { id: "sun", day: "SUN", isChecked: false, schedules: [] },
-  { id: "mon", day: "MON", isChecked: false, schedules: [] },
-  { id: "tue", day: "TUE", isChecked: false, schedules: [] },
-  { id: "wed", day: "WED", isChecked: false, schedules: [] },
-  { id: "thu", day: "THU", isChecked: false, schedules: [] },
-  { id: "fri", day: "FRI", isChecked: false, schedules: [] },
-  { id: "sat", day: "SAT", isChecked: false, schedules: [] },
+  {
+    id: "sun",
+    day: "SUN",
+    value: WEEKDAYS.sunday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "mon",
+    day: "MON",
+    value: WEEKDAYS.monday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "tue",
+    day: "TUE",
+    value: WEEKDAYS.tuesday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "wed",
+    day: "WED",
+    value: WEEKDAYS.wednesday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "thu",
+    day: "THU",
+    value: WEEKDAYS.thursday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "fri",
+    day: "FRI",
+    value: WEEKDAYS.friday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "sat",
+    day: "SAT",
+    value: WEEKDAYS.saturday,
+    isChecked: false,
+    schedules: [],
+  },
 ];
 
-function OpenAvailabilityComponent() {
-  const [isComponent, setIsComponent] = useState(false);
-  const [availability, setAvailability] = useState(scheduleEvents);
+export type availabilityType = {
+  id: string;
+  day: string;
+  value: string;
+  isChecked: boolean;
+  schedules: { startDate: string }[];
+};
 
+function OpenAvailabilityComponent(customAvailabilityData: any) {
+  const dispatch = useAppDispatch();
+  const [isComponent, setIsComponent] = useState("default");
+  const [availability, setAvailability] = useState(scheduleEvents);
+  const [availabilityId, setAvailabilityId] = useState(0);
+  // const { defaultAvailability } = useAppSelector((state) => state.userReducer);
   //   handleRemoveSchedule,
+  const { eventData } = useAppSelector((state) => state.EventReducer);
+
+  useEffect(() => {
+    customAvailabilityData(availability);
+  }, [availability]);
+
+  useEffect(() => {
+    getAvailabilityId();
+  }, [isComponent]);
+
+  useEffect(() => {
+    dispatch(
+      createEvent({
+        defaultAvailability:
+          availabilityId > 0 && isComponent === "default" ? availabilityId : 0,
+      })
+    );
+  }, [isComponent]);
+
+  const getAvailabilityId = async () => {
+    const id = await localStorage.getItem("defaultAvailabilityId");
+    if (id) {
+      setAvailabilityId(parseInt(id));
+    }
+  };
 
   const handleRemoveSchedule = (idx: number) => (scheduleIndex: number) => {
     const newAvailability = [...availability];
@@ -38,7 +119,7 @@ function OpenAvailabilityComponent() {
       setAvailability(newAvailability);
     };
   const handleUpdateEnd =
-    (idx: number) => (scheduleIndex: number, value: string) => {
+    (idx: number) => async (scheduleIndex: number, value: string) => {
       const newAvailability = [...availability];
       const at = { ...newAvailability[idx] };
       const scheduleAt = at.schedules[scheduleIndex];
@@ -51,7 +132,8 @@ function OpenAvailabilityComponent() {
   const handleAddSchedule = (idx: number) => () => {
     const newAvailability = [...availability];
     const at = { ...newAvailability[idx] };
-    at.schedules.push({
+    // console.log(at, "atttt");
+    at?.schedules?.push({
       startTime: "",
       endTime: "",
     });
@@ -69,6 +151,7 @@ function OpenAvailabilityComponent() {
     newAvailability[idx] = at;
     setAvailability(newAvailability);
   };
+
   return (
     <>
       <div className={`${styles.scheduleDate}`}>
@@ -78,20 +161,21 @@ function OpenAvailabilityComponent() {
             <div className="d-flex">
               <OutlinedButton
                 className={
-                  isComponent
-                    ? "w-auto mt-0 me-2 openbtn"
-                    : "w-auto mt-0 me-2 activeborder openbtn"
+                  isComponent === "default"
+                    ? "w-auto mt-0 me-2 activeborder openbtn"
+                    : "w-auto mt-0 me-2 openbtn"
                 }
+                onClick={() => setIsComponent("default")}
               >
                 Use My Default Availability
               </OutlinedButton>
               <OutlinedButton
                 className={
-                  isComponent
+                  isComponent === "custom"
                     ? "w-auto mt-0 me-2 activeborder openbtn"
                     : "w-auto mt-0 me-2 openbtn"
                 }
-                onClick={() => setIsComponent(!isComponent)}
+                onClick={() => setIsComponent("custom")}
               >
                 Set Custom Hours
               </OutlinedButton>
@@ -100,7 +184,7 @@ function OpenAvailabilityComponent() {
         </div>
         <hr />
         <div className="scheduleSection">
-          {isComponent && (
+          {isComponent === "custom" && (
             <>
               {" "}
               {availability.map((available, idx) => {
@@ -118,6 +202,13 @@ function OpenAvailabilityComponent() {
               })}
             </>
           )}
+          {/* <h1
+            onClick={() =>
+              dispatch(createEvent({ eventCustomAvailability: availability }))
+            }
+          >
+            submit
+          </h1> */}
         </div>
       </div>
     </>

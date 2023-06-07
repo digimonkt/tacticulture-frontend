@@ -1,24 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InstructorLayout from "../layout";
 import { SVG } from "@/assets/svg";
-import { Checkbox } from "antd";
+import { Button, Checkbox } from "antd";
 import styles from "./availability.module.css";
 import ScheduleEventComponent, {
   IScheduleEvent,
+  ISpecificData,
 } from "@/component/schedule-event";
 import { OutlinedButton } from "@/component/buttons";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { updateUserAvailability } from "@/redux/reducers/user";
+import { AvailabilityPayloadType } from "@/api/types/user";
+import { WEEKDAYS } from "@/utils/enum";
 
 const scheduleEvents: IScheduleEvent[] = [
-  { id: "sun", day: "SUN", isChecked: false, schedules: [] },
-  { id: "mon", day: "MON", isChecked: false, schedules: [] },
-  { id: "tue", day: "TUE", isChecked: false, schedules: [] },
-  { id: "wed", day: "WED", isChecked: false, schedules: [] },
-  { id: "thu", day: "THU", isChecked: false, schedules: [] },
-  { id: "fri", day: "FRI", isChecked: false, schedules: [] },
-  { id: "sat", day: "SAT", isChecked: false, schedules: [] },
+  {
+    id: "sun",
+    day: "SUN",
+    value: WEEKDAYS.sunday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "mon",
+    day: "MON",
+    value: WEEKDAYS.monday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "tue",
+    day: "TUE",
+    value: WEEKDAYS.tuesday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "wed",
+    day: "WED",
+    value: WEEKDAYS.wednesday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "thu",
+    day: "THU",
+    value: WEEKDAYS.thursday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "fri",
+    day: "FRI",
+    value: WEEKDAYS.friday,
+    isChecked: false,
+    schedules: [],
+  },
+  {
+    id: "sat",
+    day: "SAT",
+    value: WEEKDAYS.saturday,
+    isChecked: false,
+    schedules: [],
+  },
+];
+const specificData: ISpecificData[] = [
+  {
+    date: "2023-07-01",
+    timeZone: "asia",
+    availableHours: [
+      {
+        fromTime: "12:00",
+        toTime: "13:00",
+      },
+    ],
+  },
 ];
 
 function Availability() {
+  const dispatch = useAppDispatch();
   const [availability, setAvailability] = useState(scheduleEvents);
 
   //   handleRemoveSchedule,
@@ -70,6 +130,27 @@ function Availability() {
     at.isChecked = value;
     newAvailability[idx] = at;
     setAvailability(newAvailability);
+  };
+
+  const submitData = () => {
+    const data = availability.filter((el) => {
+      return el.isChecked;
+    });
+    const availableArray = data.map((eve) => {
+      return {
+        day: eve.value,
+        timeArray: eve.schedules.map((schedule) => {
+          return { fromTime: schedule.startTime, toTime: schedule.endTime };
+        }),
+      };
+    });
+
+    const payload: AvailabilityPayloadType = {
+      timeZone: "asia",
+      userCustomAvailability: availableArray,
+      specificDate: specificData,
+    };
+    dispatch(updateUserAvailability(payload));
   };
 
   return (
@@ -155,6 +236,11 @@ function Availability() {
                 Add specific dates when your availability
                 <br /> changes from your weekly hours
               </span>
+              <Button
+                onClick={submitData}
+                title="Save"
+                style={{ color: "#000" }}
+              />
             </div>
           </div>
         </div>

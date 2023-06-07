@@ -3,6 +3,7 @@ import { Checkbox, Col, Row } from "antd";
 import React from "react";
 import styles from "./schedule.module.css";
 import { LabeledInput } from "../input";
+import { WEEKDAYS } from "../../utils/enum";
 
 type AvailabilitySchedule = {
   startTime: string;
@@ -13,6 +14,13 @@ export interface IScheduleEvent {
   day: string;
   isChecked: boolean;
   schedules: AvailabilitySchedule[];
+  value: WEEKDAYS;
+}
+
+export interface ISpecificData {
+  date: string;
+  timeZone: string;
+  availableHours: { fromTime: string; toTime: string }[];
 }
 
 interface IScheduleEventComponent extends IScheduleEvent {

@@ -1,9 +1,20 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../store/store";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store/store";
 import { ServerError } from "@/api/types";
-import { getUserDetailsAPI, updateUser } from "@/api/user";
-import { UpdateUserDetailPayloadType, UserDetailType } from "@/api/types/user";
+import {
+  getUserAvailabilityAPI,
+  getUserDetailsAPI,
+  updateUser,
+  updateUserAvailabilityAPI,
+} from "@/api/user";
+
+import {
+  AvailabilityGetDataType,
+  AvailabilityPayloadType,
+  UserDetailType,
+  UpdateUserDetailPayloadType,
+} from "@/api/types/user";
+
 import { REQUEST_STATUS_TYPE } from "@/utils/enum";
 import { setAlertMessage } from "./modalsToggle";
 import { tokens } from "@/utils/jwtTokenStorage";
@@ -14,12 +25,32 @@ interface userI {
   currentUser: UserDetailType;
   isUserStepActive: boolean;
   isPlanPageActive: boolean;
+  defaultAvailability: AvailabilityPayloadType;
+  availabilityResponse: {
+    id: number;
+    timeZone: string;
+    availability: null;
+    specificDate: null;
+  };
   updateUserStatus: REQUEST_STATUS_TYPE | "";
   errroList: any;
 }
 
 // Define the initial state using that type
 const initialState: userI = {
+  defaultAvailability: {
+    timeZone: "",
+    specificDate: [
+      {
+        date: "",
+        timeZone: "",
+        availableHours: [{ fromTime: "", toTime: "" }],
+      },
+    ],
+    userCustomAvailability: [
+      { day: "", timeArray: [{ fromTime: "", toTime: "" }] },
+    ],
+  },
   isLoggedIn: false,
   currentUser: {
     email: "",
@@ -41,6 +72,12 @@ const initialState: userI = {
   },
   isUserStepActive: false,
   isPlanPageActive: false,
+  availabilityResponse: {
+    id: 0,
+    timeZone: "",
+    availability: null,
+    specificDate: null,
+  },
   updateUserStatus: "",
   errroList: null,
 };
@@ -64,6 +101,66 @@ export const getUserDetails = createAsyncThunk<
     return rejectWithValue(res.error);
   }
 });
+
+// fetch user availability
+
+export const getUserDefaultAvailability = createAsyncThunk<
+  AvailabilityPayloadType,
+  void,
+  { state: RootState; rejectValue: ServerError }
+>("getUserDefaultAvailability", async (_, { rejectWithValue }) => {
+  const res = await getUserAvailabilityAPI();
+  console.log(res, "res");
+
+  if (res.remote === "success") {
+    const num = res.data.id?.toString() || "";
+    localStorage.setItem("defaultAvailabilityId", num);
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+
+export const updateUserAvailability = createAsyncThunk<
+  AvailabilityGetDataType,
+  AvailabilityPayloadType,
+  { state: RootState; rejectValue: ServerError }
+>("updateUserAvailability", async (data, { getState, rejectWithValue }) => {
+  const res = await updateUserAvailabilityAPI(data);
+  if (res.remote === "success") {
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+// update user details
+export const updateUserDetails = createAsyncThunk<
+  UserDetailType,
+  UpdateUserDetailPayloadType,
+  { state: RootState; rejectValue: ServerError }
+>(
+  "users/updateUserDetails",
+  async (payload, { getState, rejectWithValue, dispatch }) => {
+    const { userReducer } = getState();
+
+    const res = await updateUser(payload);
+
+    if (res.remote === "success") {
+      return { ...userReducer.currentUser, ...payload };
+    } else {
+      if (res.error.status === 500) {
+        dispatch(
+          setAlertMessage({
+            error: true,
+            message: res.error.errors,
+            show: true,
+          })
+        );
+      }
+      return rejectWithValue(res.error.errors);
+    }
+  }
+);
 
 // update user details
 export const updateUserDetails = createAsyncThunk<
@@ -129,6 +226,13 @@ export const userSlice = createSlice({
     builder.addCase(updateUserDetails.rejected, (state, action) => {
       state.updateUserStatus = REQUEST_STATUS_TYPE.rejected;
       state.errroList = action.error;
+    });
+    builder.addCase(updateUserAvailability.fulfilled, (state, action) => {
+      state.availabilityResponse = { ...action.payload };
+    });
+
+    builder.addCase(getUserDefaultAvailability.fulfilled, (state, action) => {
+      state.defaultAvailability = { ...action.payload };
     });
   },
 });
