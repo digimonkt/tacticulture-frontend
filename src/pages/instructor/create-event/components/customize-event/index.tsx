@@ -32,9 +32,9 @@ function CustomizeEventComponent() {
     }
   };
 
-  useEffect(() => {
-    console.log(addImages);
-  }, [addImages]);
+  // useEffect(() => {
+  //   console.log(addImages);
+  // }, [addImages]);
 
   const submitEvent = () => {
     const data = eventData.eventCustomAvailability?.filter((eve) => {
@@ -48,7 +48,7 @@ function CustomizeEventComponent() {
         }),
       };
     });
-    console.log(eventData, "pay");
+
     const payload: EventPayload = {
       name: eventData.name,
       course_category: [
