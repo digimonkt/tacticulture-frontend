@@ -110,7 +110,6 @@ export const getUserDefaultAvailability = createAsyncThunk<
   { state: RootState; rejectValue: ServerError }
 >("getUserDefaultAvailability", async (_, { rejectWithValue }) => {
   const res = await getUserAvailabilityAPI();
-  console.log(res, "res");
 
   if (res.remote === "success") {
     const num = res.data.id?.toString() || "";
@@ -133,35 +132,6 @@ export const updateUserAvailability = createAsyncThunk<
     return rejectWithValue(res.error);
   }
 });
-// update user details
-export const updateUserDetails = createAsyncThunk<
-  UserDetailType,
-  UpdateUserDetailPayloadType,
-  { state: RootState; rejectValue: ServerError }
->(
-  "users/updateUserDetails",
-  async (payload, { getState, rejectWithValue, dispatch }) => {
-    const { userReducer } = getState();
-
-    const res = await updateUser(payload);
-
-    if (res.remote === "success") {
-      return { ...userReducer.currentUser, ...payload };
-    } else {
-      if (res.error.status === 500) {
-        dispatch(
-          setAlertMessage({
-            error: true,
-            message: res.error.errors,
-            show: true,
-          })
-        );
-      }
-      return rejectWithValue(res.error.errors);
-    }
-  }
-);
-
 // update user details
 export const updateUserDetails = createAsyncThunk<
   UserDetailType,

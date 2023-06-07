@@ -17,13 +17,7 @@ function TextAreaComponents({ row, text, ...rest }: ITextAreaComponents) {
   return (
     <div>
       {text && <label>{text}</label>}
-      <TextArea
-        showCount
-        maxLength={100}
-        onChange={onChange}
-        rows={row}
-        {...rest}
-      />
+      <TextArea showCount maxLength={100} rows={row} {...rest} />
     </div>
   );
 }

@@ -145,7 +145,6 @@ const EventDetailComponent = () => {
           className="mb-2 d-block"
           style={{ width: "235px", paddingLeft: "36px" }}
           {...formik.getFieldProps("perSpotCost")}
-          value={formik.values.perSpotCost}
         />
         <span className={`${styles.dollarIcon}`}>
           <SVG.Dollar width="24px" />
@@ -185,7 +184,6 @@ const EventDetailComponent = () => {
               label="Sales Tax Percent  "
               style={{ paddingLeft: "40px" }}
               {...formik.getFieldProps("salesTaxPercent")}
-              value={formik.values.salesTaxPercent}
             />
             <span className={`${styles.dollarIcon}`}>
               <SVG.Percent width="24px" />
