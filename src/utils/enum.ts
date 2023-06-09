@@ -49,11 +49,16 @@ export enum RESET_PASSWORD_PAGE {
 export enum EVENT_QUESTION_TYPE {
   shortText = "ShortText",
   longText = "LongText",
+  checkbox = "CheckBox",
   selectDropdown = "Select/Dropdown",
+  optionalGuest = "OptionalGuest",
 }
 export enum EVENT_TEST {
   one = "1",
   two = "2",
+  three = "3",
+  four = "4",
+  five = "5",
 }
 export enum REQUEST_STATUS_TYPE {
   pending = "pending",

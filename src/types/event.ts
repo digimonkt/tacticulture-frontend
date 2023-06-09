@@ -55,10 +55,21 @@ export type CreateEventType = {
   cancellationPolicies: string;
   defaultWaiverSettings: number | null;
   customWaiverSettings: string;
+  // customQuestions: {
+  //   additionalProp1: string;
+  //   additionalProp2: string;
+  //   additionalProp3: string;
+  // }[];
   customQuestions: {
-    additionalProp1: string;
-    additionalProp2: string;
-    additionalProp3: string;
+    id: number;
+    fieldType: string;
+    questionPromptLabel?: string;
+    answerRequired?: boolean;
+    paidUpgrade?: boolean;
+    upgradeCost?: number;
+    answerData?: { description: string; upgradeCost: number }[];
+    costPerGuest?: string;
+    maxGuest?: number;
   }[];
   eventImage?: string;
   achievementBadgeImage?: string;

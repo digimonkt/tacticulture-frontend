@@ -62,6 +62,11 @@ export const Data = [
   },
 ];
 
+export const paidUpgradeList = [
+  { label: "Yes", value: "yes" },
+  { label: "No", value: "no" },
+];
+
 export const eventQuestionList = [
   {
     label: "Short Text",
@@ -72,8 +77,16 @@ export const eventQuestionList = [
     value: EVENT_QUESTION_TYPE.longText,
   },
   {
+    label: "Checkbox",
+    value: EVENT_QUESTION_TYPE.checkbox,
+  },
+  {
     label: "Select/Dropdown",
     value: EVENT_QUESTION_TYPE.selectDropdown,
+  },
+  {
+    label: "Optional Guests(#)",
+    value: EVENT_QUESTION_TYPE.optionalGuest,
   },
 ];
 
@@ -85,5 +98,17 @@ export const eventGuestList = [
   {
     label: "2",
     value: EVENT_TEST.two,
+  },
+  {
+    label: "3",
+    value: EVENT_TEST.three,
+  },
+  {
+    label: "4",
+    value: EVENT_TEST.four,
+  },
+  {
+    label: "5",
+    value: EVENT_TEST.five,
   },
 ];

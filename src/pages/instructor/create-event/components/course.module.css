@@ -25,8 +25,13 @@
   height: 37px;
   margin: 0;
   position: relative;
-  left: 40px;
+  left: 0px;
   border-radius: 3px;
+}
+.waiverBtn {
+  display: flex;
+  width: 490px;
+  justify-content: space-between;
 }
 .btnDefault span {
   font-size: 17px;
@@ -37,7 +42,7 @@
   font-weight: 500;
 }
 .btnCustom {
-  width: 190px;
+  width: 233px;
   height: 37px;
   border: 1px solid #ff3030 !important;
   border-radius: 3px;

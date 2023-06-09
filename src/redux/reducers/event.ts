@@ -50,9 +50,10 @@ const initialState: Ievent = {
     customWaiverSettings: "",
     customQuestions: [
       {
-        additionalProp1: "",
-        additionalProp2: "",
-        additionalProp3: "",
+        id: 1,
+        fieldType: "ShortText",
+        questionPromptLabel: "",
+        answerRequired: true,
       },
     ],
     eventImage: "",
