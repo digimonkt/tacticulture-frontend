@@ -10,6 +10,7 @@ import Redbtn from "./redbtn.svg";
 import Leftarrow from "./leftarrow.svg";
 import Fillcheck from "./fillcheck.svg";
 import First from "./first.svg";
+import EarthIcon from "./earth.svg";
 import Second from "./second.svg";
 import Third from "./three.svg";
 import Two from "./two.svg";

@@ -46,6 +46,15 @@ export enum RESET_PASSWORD_PAGE {
   resetPassword = "reset-password",
 }
 
+export enum EVENT_QUESTION_TYPE {
+  shortText = "ShortText",
+  longText = "LongText",
+  selectDropdown = "Select/Dropdown",
+}
+export enum EVENT_TEST {
+  one = "1",
+  two = "2",
+}
 export enum REQUEST_STATUS_TYPE {
   pending = "pending",
   fulfilled = "fulfilled",

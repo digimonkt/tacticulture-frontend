@@ -5,6 +5,7 @@ import TextAreaComponents from "./textareaInput";
 import SwitchInputComponent from "./switchInput";
 import SelectInputComponent from "./selectInput";
 import TimePickerComponent from "./timepicker";
+import CheckBoxComponent from "./checkbox";
 
 export type IInput = InputProps;
 
@@ -14,3 +15,4 @@ export const OptionsInput = OptionsInputComponent;
 export const TextInput = TextAreaComponents;
 export const SwitchInput = SwitchInputComponent;
 export const SelectInput = SelectInputComponent;
+export const CheckInput = CheckBoxComponent;

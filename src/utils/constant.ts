@@ -1,5 +1,5 @@
 import { SVG } from "@/assets/svg";
-import { WEEKDAYS } from "./enum";
+import { EVENT_QUESTION_TYPE, EVENT_TEST, WEEKDAYS } from "./enum";
 
 export const Weekdays = [
   {
@@ -59,5 +59,31 @@ export const Data = [
     id: 4,
     icon: SVG.Card,
     heading: "Payouts and Taxes",
+  },
+];
+
+export const eventQuestionList = [
+  {
+    label: "Short Text",
+    value: EVENT_QUESTION_TYPE.shortText,
+  },
+  {
+    label: "Long Text",
+    value: EVENT_QUESTION_TYPE.longText,
+  },
+  {
+    label: "Select/Dropdown",
+    value: EVENT_QUESTION_TYPE.selectDropdown,
+  },
+];
+
+export const eventGuestList = [
+  {
+    label: "1",
+    value: EVENT_TEST.one,
+  },
+  {
+    label: "2",
+    value: EVENT_TEST.two,
   },
 ];

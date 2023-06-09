@@ -1,6 +1,160 @@
 .accountSetup span {
   color: #ff3030;
 }
+
+.waiverHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid #474747;
+  margin-bottom: 20px;
+}
+.waiverTextarea h4 {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.waiverTextarea .quill {
+}
+.waiverHeader h3 {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+.btnDefault {
+  width: 233px;
+  height: 37px;
+  margin: 0;
+  position: relative;
+  left: 40px;
+  border-radius: 3px;
+}
+.btnDefault span {
+  font-size: 17px;
+  font-weight: 500;
+}
+.btnCustom span {
+  font-size: 17px;
+  font-weight: 500;
+}
+.btnCustom {
+  width: 190px;
+  height: 37px;
+  border: 1px solid #ff3030 !important;
+  border-radius: 3px;
+  margin: 0;
+}
+.selectionInput {
+  padding-left: 24px;
+}
+.selectionInput label {
+  padding-bottom: 4px;
+}
+.selectionInput input {
+  height: 55px;
+  border-radius: 3px;
+}
+.priceSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon {
+  margin-top: 23px;
+  margin-left: 10px;
+}
+.icon svg {
+  margin-right: 5px;
+}
+.cost {
+  position: relative;
+}
+.cost input {
+  height: 55px;
+  border-radius: 3px;
+  width: 103px;
+  padding-left: 34px;
+}
+.cost label {
+  display: block;
+  padding-bottom: 4px;
+}
+.cost svg {
+  position: absolute;
+  bottom: 17%;
+  z-index: 9;
+  left: 3%;
+}
+.titles {
+  font-size: 21px;
+  padding-left: 16px;
+  padding-top: 10px;
+}
+
+.requiredCheckbox {
+  display: flex;
+  margin-left: 21px;
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.upgradeCosts input {
+  height: 55px;
+  border-radius: 3px;
+}
+.upgradeCosts input {
+  padding-left: 40px;
+}
+.upgradeCosts label {
+  padding-bottom: 4px;
+}
+.upgradeCosts svg {
+  position: absolute;
+  bottom: 17%;
+  z-index: 9;
+  left: 12%;
+}
+.upgradeCosts {
+  width: 100%;
+  position: relative;
+  padding: 15px 24px 0px;
+}
+.upgradeCost input {
+  height: 55px;
+  border-radius: 3px;
+}
+.upgradeCost input {
+  padding-left: 40px;
+}
+.upgradeCost label {
+  padding-bottom: 4px;
+}
+.upgradeCost svg {
+  position: absolute;
+  bottom: 33%;
+  z-index: 9;
+  left: 6%;
+}
+.upgradeCost {
+  border-top: 1px solid #454545;
+  width: 100%;
+  position: relative;
+  padding: 10px 24px 20px;
+}
+.requiredCheckbox p {
+  margin-bottom: 0;
+  margin-left: 18px;
+}
+.labelInput {
+  width: 500px;
+  margin: 0 auto;
+}
+.labelInput input {
+  height: 55px;
+  border-radius: 3px;
+}
+.labelInput label {
+  padding-bottom: 4px;
+}
 .eventImg {
   width: 556px;
   height: 154px;
@@ -12,6 +166,26 @@
 .eventImg button {
   margin: 0 auto !important;
   font-size: 17px !important;
+}
+.btnAdd span {
+  font-size: 17px;
+}
+.btnAdd {
+  width: 166px;
+  height: 37px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.customEvents {
+  padding-left: 17px;
+}
+.customEvents p {
+  font-size: 16px;
+  width: 540px;
+}
+.customEvents h4 {
+  font-size: 24px;
+  font-weight: bold;
 }
 .eventImg h6 {
   font-size: 16px;
