@@ -26,7 +26,7 @@
 .timeSelect {
   position: relative;
   bottom: 10px;
-  left: 9px;
+  left: 0px;
 }
 .timezoneData label {
   font-size: 12px !important;

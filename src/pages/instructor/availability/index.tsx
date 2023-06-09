@@ -84,11 +84,11 @@ const specificData: ISpecificData[] = [
 ];
 
 function Availability() {
-  // const [opencalendar, setOpencalendar] = useState(false);
+  const [opencalendar, setOpencalendar] = useState(false);
 
-  // const handleDateClick = (dates: Date[]) => {
-  //   console.log(dates);
-  // };
+  const handleDateClick = (dates: Date[]) => {
+    console.log(dates);
+  };
 
   const dispatch = useAppDispatch();
   const [availability, setAvailability] = useState(scheduleEvents);
@@ -232,7 +232,7 @@ function Availability() {
             <div className="d-flex align-items-center pt-3">
               <OutlinedButton
                 className={`${styles.widthBtn}`}
-                // onClick={() => setOpencalendar(!opencalendar)}
+                onClick={() => setOpencalendar(!opencalendar)}
                 style={{
                   height: "35px",
                   fontWeight: "700",
@@ -261,7 +261,7 @@ function Availability() {
             </div>
           </div>
         </div>
-        {/* {opencalendar && (
+        {opencalendar && (
           <div className={`${styles.calendarPopup}`}>
             <h3>Select the date(s) you want to assign specific hours</h3>
             <DatePicker onDayClick={handleDateClick} />
@@ -297,7 +297,7 @@ function Availability() {
               </div>
             </div>
           </div>
-        )} */}
+        )}
       </InstructorLayout>
     </div>
   );
