@@ -1,5 +1,5 @@
 import ApprenticeHeaderComponent from "@/component/header/user-header";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import { IMAGES } from "@/assets/images";
 import Image from "next/image";
@@ -7,8 +7,25 @@ import { SVG } from "@/assets/svg";
 import { FilledButton } from "@/component/buttons";
 import { Col, Row } from "antd";
 import EmbedCardComponent from "./component/embed-card";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { getEventDetail } from "@/redux/reducers/event";
+import { useRouter } from "next/router";
+
+interface IRouter {
+  id: string;
+}
 
 function EmbedBody() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const { eventDetail } = useAppSelector((state) => state.EventReducer);
+  useEffect(() => {
+    const { id } = router.query as unknown as IRouter;
+    dispatch(getEventDetail({ id }));
+  }, []);
+
+  console.log(eventDetail, "detail");
   return (
     <div>
       <ApprenticeHeaderComponent />
@@ -18,7 +35,7 @@ function EmbedBody() {
             <Image src={IMAGES.Images} alt="" />
             <div className={`${styles.eventTitle}`}>
               <div>
-                <h6>Course or Event Title Goes Here</h6>
+                <h6>{eventDetail.name}</h6>
                 <p>
                   <SVG.Clock
                     width="16px"
@@ -68,8 +85,8 @@ function EmbedBody() {
                 </div>
                 <EmbedCardComponent
                   icon={<SVG.Location width="16px" />}
-                  heading="Location Name"
-                  address="12345 Address Ave Georgetown, TX 78628"
+                  heading={eventDetail.location}
+                  // address="12345 Address Ave Georgetown, TX 78628"
                   label="View Map"
                 />
                 <EmbedCardComponent

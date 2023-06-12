@@ -1,6 +1,7 @@
 import { ErrorResult, GetListWithPagination, SuccessResult } from "./types";
 import axiosInstance from "./axiosInstance";
 import {
+  detailPayloadId,
   EventCategory,
   EventPayload,
   EventResponse,
@@ -42,7 +43,7 @@ export const createEventApi = async (
   data: EventPayload
 ): Promise<SuccessResult<CreateEventType> | ErrorResult> => {
   const res = await axiosInstance.request<EventResponse>({
-    url: "/events/event/",
+    url: "/events/user-event/",
     method: "post",
     data,
   });
@@ -59,7 +60,7 @@ export const getEventDataAPI = async (): Promise<
   SuccessResult<GetListWithPagination<CreateEventType[]>> | ErrorResult
 > => {
   const res = await axiosInstance.request<GetEventResponse>({
-    url: "/events/event/",
+    url: "/events/user-event/",
     method: "GET",
   });
   if (res.remote === "success") {
@@ -76,5 +77,46 @@ export const getEventDataAPI = async (): Promise<
     };
   }
 
+  return res;
+};
+
+export const getAllEventAPI = async (): Promise<
+  SuccessResult<GetListWithPagination<CreateEventType[]>> | ErrorResult
+> => {
+  const res = await axiosInstance.request<GetEventResponse>({
+    url: "/events/all/",
+    method: "GET",
+  });
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: {
+        count: res.data.count,
+        next: res.data.next,
+        previous: res.data.previous,
+        results: res.data.results.map((result) =>
+          transformGetEventAPIResponse(result)
+        ),
+      },
+    };
+  }
+
+  return res;
+};
+
+export const getEventDetailAPI = async (
+  id: detailPayloadId
+): Promise<SuccessResult<CreateEventType> | ErrorResult> => {
+  const res = await axiosInstance.request<EventResponse>({
+    url: `/events/details/${id.id}`,
+    method: "GET",
+  });
+  console.log(res, "detail res");
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: transformGetEventAPIResponse(res.data),
+    };
+  }
   return res;
 };

@@ -2,17 +2,26 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store";
 import { GetListWithPagination, ServerError } from "@/api/types";
 import { CreateEventType } from "@/types/event";
-import { createEventApi, getEventDataAPI } from "@/api/event";
-import { EventPayload } from "@/api/types/event";
+import {
+  createEventApi,
+  getAllEventAPI,
+  getEventDataAPI,
+  getEventDetailAPI,
+} from "@/api/event";
+import { detailPayloadId, EventPayload } from "@/api/types/event";
 
 interface Ievent {
   eventData: CreateEventType;
   availableEventData: GetListWithPagination<CreateEventType[]>;
+  allEventData: GetListWithPagination<CreateEventType[]>;
+  eventDetail: CreateEventType;
 }
 
 // Define the initial state using that type
 
 const initialState: Ievent = {
+  eventDetail: {},
+  allEventData: { count: 0, next: undefined, previous: undefined, results: [] },
   availableEventData: {
     count: 0,
     next: undefined,
@@ -46,7 +55,7 @@ const initialState: Ievent = {
     defaultAvailability: null,
     requirements: "",
     cancellationPolicies: "",
-    defaultWaiverSettings: null,
+    defaultWaiverSettings: "default",
     customWaiverSettings: "",
     customQuestions: [
       {
@@ -56,7 +65,7 @@ const initialState: Ievent = {
         answerRequired: true,
         paidUpgrade: "yes",
         upgradeCost: 0,
-        answerData: [{ id: 0, description: "", upgradeCost: 0 }],
+        answerData: [{ id: 1, description: "", upgradeCost: 0 }],
       },
     ],
     eventImage: "",
@@ -94,27 +103,53 @@ export const getEventData = createAsyncThunk<
   }
 });
 
+export const getAllEventData = createAsyncThunk<
+  GetListWithPagination<CreateEventType[]>,
+  void,
+  { state: RootState; rejectValue: ServerError }
+>("getAllEventData", async (_, { rejectWithValue }) => {
+  const res = await getAllEventAPI();
+  if (res.remote === "success") {
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+
+export const getEventDetail = createAsyncThunk<
+  CreateEventType,
+  detailPayloadId,
+  { state: RootState; rejectValue: ServerError }
+>("getEventDetail", async (id, { rejectWithValue }) => {
+  const res = await getEventDetailAPI(id);
+  if (res.remote === "success") {
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+
 export const eventSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
     createEvent: (state, action) => {
-      // console.log({ action });
       state.eventData = { ...state.eventData, ...action.payload };
     },
   },
 
   extraReducers: (builder) => {
-    // [createEventData.fulfilled]: (state, action) => {},
-    // [createEventData.pending]: (state, action) => {},
-    // [createEventData.rejected]: (state, action) => {},
-
     builder.addCase(getEventData.fulfilled, (state, action) => {
       state.availableEventData = action.payload;
     });
-    // [getEventData.fulfilled]: (state, action) => {
-    //   console.log(action.payload, "event payload");
-    // },
+
+    builder.addCase(getAllEventData.fulfilled, (state, action) => {
+      state.allEventData = action.payload;
+    });
+
+    builder.addCase(getEventDetail.fulfilled, (state, action) => {
+      state.eventDetail = action.payload;
+    });
   },
 });
 

@@ -42,7 +42,7 @@ export type EventResponse = {
   default_availability?: number;
   requirements: string;
   cancellation_policies: string;
-  default_waiver_settings?: number;
+  default_waiver_settings?: string;
   custom_waiver_settings: string;
   custom_questions: {
     additionalProp1: string;
@@ -54,6 +54,7 @@ export type EventResponse = {
   publish_status: boolean;
   is_event_live: boolean;
   salesTaxPercent: number;
+  instructor_details: { id: number };
 };
 
 export type EventCustomeAvailabilityDetails = {
@@ -99,6 +100,10 @@ export type EventPayload = {
   achievement_badge_image?: string;
   publish_status: boolean;
   is_event_live: boolean;
+};
+
+export type detailPayloadId = {
+  id: number;
 };
 
 export type GetEventResponse = GetListWithPagination<EventResponse[]>;

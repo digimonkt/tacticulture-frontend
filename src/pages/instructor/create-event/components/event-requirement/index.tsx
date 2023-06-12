@@ -17,8 +17,7 @@ import { useRouter } from "next/router";
 function EventRequirement() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  // const [eventQuestion, setEventQuestion] = useState([{ id: 1 }]);
-  const [waiverSetting, setWaiverSetting] = useState("default");
+
   const { eventData } = useAppSelector((state) => state.EventReducer);
   const addEventQuestion = (type: string, id?: number) => {
     if (type === "add") {
@@ -135,9 +134,11 @@ function EventRequirement() {
           <h3>Waiver Settings</h3>
           <div className={`${styles.waiverBtn}`}>
             <OutlinedButton
-              onClick={() => setWaiverSetting("default")}
+              onClick={() =>
+                dispatch(createEvent({ defaultWaiverSettings: "default" }))
+              }
               className={
-                waiverSetting === "default"
+                eventData.defaultWaiverSettings === "default"
                   ? `${styles.btnCustom}`
                   : `${styles.btnDefault}`
               }
@@ -145,9 +146,11 @@ function EventRequirement() {
               Use Tacticulture Default
             </OutlinedButton>
             <OutlinedButton
-              onClick={() => setWaiverSetting("custom")}
+              onClick={() =>
+                dispatch(createEvent({ defaultWaiverSettings: "custom" }))
+              }
               className={
-                waiverSetting === "custom"
+                eventData.defaultWaiverSettings === "custom"
                   ? `${styles.btnCustom}`
                   : `${styles.btnDefault}`
               }
@@ -160,6 +163,7 @@ function EventRequirement() {
           <TextareaComponent
             title="Set Your Custom Waiver Contents"
             className="mb-3"
+            onChange={(e) => dispatch(createEvent({ customWaiverSettings: e }))}
           />
           <p className="mb-0">
             By publishing this event utilizing this this waiver you agree to the

@@ -50,7 +50,7 @@ export const transformGetEventAPIResponse = (
         })),
       specificHoursDate: item.specific_hours_date,
     })),
-    defaultAvailability: data.default_availability,
+    defaultAvailability: data?.default_availability,
     requirements: data.requirements,
     cancellationPolicies: data.cancellation_policies,
     defaultWaiverSettings: data.default_waiver_settings,
@@ -60,5 +60,6 @@ export const transformGetEventAPIResponse = (
     achievementBadgeImage: data.achievement_badge_image,
     publishStatus: data.publish_status,
     isEventLive: data.is_event_live,
+    instructorDetails: data.instructor_details,
   };
 };

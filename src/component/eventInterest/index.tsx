@@ -15,6 +15,7 @@ interface IEventInterest {
   handleSetInterest: (arg: IEventCategories) => void;
   handleRemoveInterest: (arg: IEventCategories) => void;
   formikProps: FieldInputProps<string>;
+  headerValue: string;
 }
 
 function EventInterest({
@@ -22,6 +23,7 @@ function EventInterest({
   handleSetInterest,
   handleRemoveInterest,
   formikProps,
+  headerValue,
 }: IEventInterest) {
   // state management
   const [eventCategories, setEventCategories] = useState<EventCategory[]>([]);
@@ -40,7 +42,7 @@ function EventInterest({
   }, []);
   return (
     <div className={`${styles.Eventinterest}`}>
-      <h4>Event Interests</h4>
+      <h4>{headerValue}</h4>
       <div className={`${styles.eventInterestItemContainer}`}>
         {eventInterestValues.map((item) => (
           <span key={item.id} className={`${styles.Eventlist2}`}>

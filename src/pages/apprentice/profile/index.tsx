@@ -15,6 +15,7 @@ import EventForumComponent from "../components/event-forum";
 import PrivatePages from "@/HOC/privatePages";
 import { useAppSelector } from "@/redux/hooks/hooks";
 import { currentUser } from "@/redux/reducers/user";
+import EventOrderList from "../components/event-order-list";
 
 function ApprenticeLayout() {
   // redux
@@ -192,7 +193,11 @@ function ApprenticeLayout() {
                   <SVG.Events width="20px" /> Events / Orders
                 </span>
               }
-            ></Tab>
+            >
+              <div className={`${styles.mainBoxCard}`}>
+                <EventOrderList />
+              </div>
+            </Tab>
             <Tab
               eventKey="Community"
               title={

@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { createEvent, eventData } from "@/redux/reducers/event";
 import { useAppSelector } from "@/redux/hooks/hooks";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
+import EventInterest from "@/component/eventInterest";
 
 // export interface IEventStepOne {
 //   handleSubmitEventStepOne: () => void;
@@ -95,6 +96,16 @@ const EventDetailComponent = () => {
         />
         <p style={{ color: "red" }}>{formik.errors.name}</p>
       </div>
+      <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
+        <EventInterest
+          eventInterestValues={[]}
+          handleSetInterest={(vl) => console.log(vl)}
+          handleRemoveInterest={(vl) => console.log(vl)}
+          headerValue="Course Category* (Limit 3)"
+          formikProps={formik.getFieldProps("category")}
+        />
+      </div>
+
       <div className="textArea_section mb-4">
         <label className="ps-3 ms-1">Description*</label>
         <TextareaComponent

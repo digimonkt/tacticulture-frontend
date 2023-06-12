@@ -17,20 +17,40 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 const CustomizedForm = ({ index, data, deleteQuestion }) => {
   const dispatch = useAppDispatch();
   const [fieldType, setFieldType] = useState("ShortText");
-  const [answerData, setAnswerData] = useState([{ id: 1 }]);
+  const [answerData, setAnswerData] = useState([
+    { id: 1, description: "", upgradeCost: 0 },
+  ]);
 
   const { eventData } = useAppSelector((state) => state.EventReducer);
 
   const addSelectAnswer = (id: number, type: string) => {
-    if (type === "delete" && answerData.length > 1) {
-      setAnswerData(answerData.filter((da) => da.id !== id));
+    if (type === "delete") {
+      const updatedData = eventData.customQuestions.map((quest, idx) => {
+        if (idx === index) {
+          return {
+            answerData: quest?.answerData?.filter((el) => el.id !== id),
+          };
+        }
+      });
+      dispatch(createEvent({ customQuestions: updatedData }));
     } else if (type === "add") {
-      setAnswerData([
-        ...answerData,
-        {
-          id: answerData.length + 1,
-        },
-      ]);
+      let ans = [...answerData];
+      ans = [
+        ...ans,
+        { id: answerData.length + 1, description: "", upgradeCost: 0 },
+      ];
+      setAnswerData(ans);
+      const updatedData = eventData.customQuestions.map((el, idx) => {
+        if (idx === index) {
+          return {
+            ...el,
+            answerData: ans,
+          };
+        }
+        return el;
+      });
+
+      dispatch(createEvent({ customQuestions: updatedData }));
     }
   };
 
@@ -95,7 +115,80 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
     dispatch(createEvent({ customQuestions: updatedQuestions }));
   };
 
-  // console.log(data, "data");
+  const addAnswerForDropDown = (text: string, indexx: number) => {
+    const updatedData = answerData.map((el) => {
+      if (el.id === indexx) {
+        return {
+          ...el,
+          description: text,
+        };
+      }
+      return el;
+    });
+
+    setAnswerData(updatedData);
+
+    const updatedAnswer = eventData.customQuestions.map((answer, idx) => {
+      if (idx === index) {
+        return { ...answer, answerData: updatedData };
+      }
+      return answer;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedAnswer }));
+  };
+
+  const addUpgradeCostForDropdown = (text: number, indexx: number) => {
+    const updatedData = answerData.map((el) => {
+      if (el.id === indexx) {
+        return {
+          ...el,
+          upgradeCost: text,
+        };
+      }
+      return el;
+    });
+
+    setAnswerData(updatedData);
+
+    const updatedAnswer = eventData.customQuestions.map((answer, idx) => {
+      if (idx === index) {
+        return { ...answer, answerData: updatedData };
+      }
+      return answer;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedAnswer }));
+  };
+
+  const addCostPerGuest = (value: number) => {
+    const updatedData = eventData.customQuestions.map((el, idx) => {
+      if (idx === index) {
+        return {
+          ...el,
+          costPerGuest: value,
+        };
+      }
+      return el;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedData }));
+  };
+
+  const addMaxGuests = (value: number) => {
+    const updatedData = eventData.customQuestions.map((el, idx) => {
+      if (idx === index) {
+        return {
+          ...el,
+          maxGuest: value,
+        };
+      }
+      return el;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedData }));
+  };
+
   return (
     <div className={`${styles.question}`}>
       <h3 className={`${styles.titles}`}>Custom Question #:{index + 1}</h3>
@@ -161,10 +254,10 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                         <SVG.Dollar width="24px" />
                         <LabeledInput
                           label="Cost Per Guest"
-                          // onChange={(e) =>
-
-                          // }
-                          // value={}
+                          onChange={(e) =>
+                            addCostPerGuest(parseInt(e.target.value))
+                          }
+                          value={data.costPerGuest}
                         />
                       </div>
                     </div>
@@ -175,6 +268,8 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                         label="Max Guests?"
                         className="antSelectDropdown"
                         options={eventGuestList}
+                        onChange={(e) => addMaxGuests(parseInt(e))}
+                        value={data.maxGuest}
                       />
                     </div>
                   </Col>
@@ -193,6 +288,9 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                           <div className={`${styles.selectionInput}`}>
                             <LabeledInput
                               label={`Selection Answer #${idx + 1}`}
+                              onChange={(e) =>
+                                addAnswerForDropDown(e.target.value, el.id)
+                              }
                             />
                           </div>
                         </Col>
@@ -200,7 +298,15 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                           <div className={`${styles.priceSection}`}>
                             <div className={`${styles.cost}`}>
                               <SVG.Dollar width="24px" />
-                              <LabeledInput label="Upgrade Cost" />
+                              <LabeledInput
+                                label="Upgrade Cost"
+                                onChange={(e) =>
+                                  addUpgradeCostForDropdown(
+                                    parseInt(e.target.value),
+                                    el.id
+                                  )
+                                }
+                              />
                             </div>
                             <div className={`${styles.icon}`}>
                               <SVG.Trash

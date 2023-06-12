@@ -134,6 +134,7 @@ const ApprenticeStep2 = forwardRef(function ApprenticeStep2(
         handleSetInterest={(vl) => handleAddEventInterestList(vl)}
         handleRemoveInterest={(vl) => handleRemoveEventInterest(vl)}
         formikProps={formik.getFieldProps("events")}
+        headerValue="Event Interests"
       />
       {/* {formik?.touched?.events && formik.errors.events ? (
         <ErrorMessage>{formik.errors.events}</ErrorMessage>
