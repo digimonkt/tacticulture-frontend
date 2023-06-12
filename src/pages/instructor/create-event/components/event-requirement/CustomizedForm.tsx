@@ -9,15 +9,19 @@ import {
 import { CheckInput, LabeledInput } from "@/component/input";
 import styles from "../course.module.css";
 import { SVG } from "@/assets/svg";
-import { createEvent } from "@/redux/reducers/event";
+import { createEvent, eventData } from "@/redux/reducers/event";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+// import { useFormik } from "formik";
+// import * as Yup from "yup";
 
-const CustomizedForm = ({ index }) => {
+const CustomizedForm = ({ index, data, deleteQuestion }) => {
   const dispatch = useAppDispatch();
   const [fieldType, setFieldType] = useState("ShortText");
   const [answerData, setAnswerData] = useState([{ id: 1 }]);
 
-  const addSelectAnswer = (id, type) => {
+  const { eventData } = useAppSelector((state) => state.EventReducer);
+
+  const addSelectAnswer = (id: number, type: string) => {
     if (type === "delete" && answerData.length > 1) {
       setAnswerData(answerData.filter((da) => da.id !== id));
     } else if (type === "add") {
@@ -30,6 +34,68 @@ const CustomizedForm = ({ index }) => {
     }
   };
 
+  const addFieldType = (text: string) => {
+    const updatedData = eventData.customQuestions.map((el, idx) => {
+      if (idx === index) {
+        return {
+          ...el,
+          fieldType: text,
+        };
+      }
+      return el;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedData }));
+  };
+
+  const addQuestionPromptData = (text: string) => {
+    const updatedQuestions = eventData.customQuestions.map((question, idx) => {
+      if (idx === index) {
+        return {
+          ...question,
+          questionPromptLabel: text,
+        };
+      }
+      return question;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedQuestions }));
+  };
+
+  const setAnswerRequired = (value: boolean) => {
+    const updatedQuestions = eventData.customQuestions.map((question, idx) => {
+      if (idx === index) {
+        return { ...question, answerRequired: value };
+      }
+      return question;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedQuestions }));
+  };
+
+  const addPaidUpgrade = (value: string) => {
+    const updatedQuestions = eventData.customQuestions.map((question, idx) => {
+      if (idx === index) {
+        return { ...question, paidUpgrade: value };
+      }
+      return question;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedQuestions }));
+  };
+
+  const addUpgradeCost = (value: number) => {
+    const updatedQuestions = eventData.customQuestions.map((question, idx) => {
+      if (idx === index) {
+        return { ...question, upgradeCost: value };
+      }
+      return question;
+    });
+
+    dispatch(createEvent({ customQuestions: updatedQuestions }));
+  };
+
+  // console.log(data, "data");
   return (
     <div className={`${styles.question}`}>
       <h3 className={`${styles.titles}`}>Custom Question #:{index + 1}</h3>
@@ -43,20 +109,22 @@ const CustomizedForm = ({ index }) => {
                     label="Field Type"
                     className="antSelectDropdown"
                     options={eventQuestionList}
-                    onChange={(value) => setFieldType(value)}
-                    value={fieldType}
+                    onChange={(value) => addFieldType(value)}
+                    value={data.fieldType}
                   />
                 </div>
               </Col>
-              {fieldType === "CheckBox" ||
-              fieldType === "Select/Dropdown" ||
-              fieldType === "OptionalGuest" ? (
+              {data.fieldType === "CheckBox" ||
+              data.fieldType === "Select/Dropdown" ||
+              data.fieldType === "OptionalGuest" ? (
                 <Col md={12}>
                   <div style={{ marginLeft: "10px", marginBottom: "20px" }}>
                     <SelectInputComponent
                       label="Paid Upgrade?"
                       className="antSelectDropdown"
                       options={paidUpgradeList}
+                      value={data.paidUpgrade}
+                      onChange={(value) => addPaidUpgrade(value)}
                     />
                   </div>
                 </Col>
@@ -72,12 +140,13 @@ const CustomizedForm = ({ index }) => {
                 complete required waivers and basic profile information.{" "}
               </span>
 
-              {fieldType !== "OptionalGuest" ? (
+              {data.fieldType !== "OptionalGuest" ? (
                 <Col md={24}>
                   <div className={`${styles.labelInput}`}>
                     <LabeledInput
                       label="Question Prompt / Label"
-                      onChange={(e) => createEvent}
+                      onChange={(e) => addQuestionPromptData(e.target.value)}
+                      value={data.questionPromptLabel}
                     />
                   </div>
                 </Col>
@@ -90,7 +159,13 @@ const CustomizedForm = ({ index }) => {
                     <div className={`${styles.upgradeCosts}`}>
                       <div style={{ width: "237px" }}>
                         <SVG.Dollar width="24px" />
-                        <LabeledInput label="Cost Per Guest" />
+                        <LabeledInput
+                          label="Cost Per Guest"
+                          // onChange={(e) =>
+
+                          // }
+                          // value={}
+                        />
                       </div>
                     </div>
                   </Col>
@@ -106,7 +181,7 @@ const CustomizedForm = ({ index }) => {
                 </Row>
               )}
 
-              {fieldType === "Select/Dropdown" && (
+              {data.fieldType === "Select/Dropdown" && (
                 <Row
                   className="mb-3 pt-3"
                   style={{ borderTop: "1px solid #454545" }}
@@ -146,18 +221,26 @@ const CustomizedForm = ({ index }) => {
                 </Row>
               )}
 
-              {fieldType === "ShortText" || fieldType === "LongText" ? (
+              {data.fieldType === "ShortText" ||
+              data.fieldType === "LongText" ? (
                 <div className={`${styles.requiredCheckbox}`}>
-                  <CheckInput />
+                  <CheckInput
+                    checked={data.answerRequired}
+                    onChange={() => setAnswerRequired(!data.answerRequired)}
+                  />
                   <p>Is an answer required?</p>
                 </div>
               ) : null}
 
-              {fieldType === "CheckBox" ? (
+              {data.fieldType === "CheckBox" ? (
                 <div className={`${styles.upgradeCost}`}>
                   <div style={{ width: "237px" }}>
                     <SVG.Dollar width="24px" />
-                    <LabeledInput label="Upgrade Cost" />
+                    <LabeledInput
+                      label="Upgrade Cost"
+                      onChange={(e) => addUpgradeCost(parseInt(e.target.value))}
+                      value={data.upgradeCost}
+                    />
                   </div>
                 </div>
               ) : null}
@@ -166,7 +249,7 @@ const CustomizedForm = ({ index }) => {
         </Col>
         <Col md={7}>
           <div className={`${styles.icon}`}>
-            <SVG.Trash width="24px" />
+            <SVG.Trash width="24px" onClick={deleteQuestion} />
             <SVG.File width="24px" />
             <SVG.Plus width="24px" />
           </div>

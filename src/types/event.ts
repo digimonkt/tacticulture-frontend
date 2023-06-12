@@ -65,9 +65,9 @@ export type CreateEventType = {
     fieldType: string;
     questionPromptLabel?: string;
     answerRequired?: boolean;
-    paidUpgrade?: boolean;
+    paidUpgrade?: string;
     upgradeCost?: number;
-    answerData?: { description: string; upgradeCost: number }[];
+    answerData?: { id: number; description: string; upgradeCost: number }[];
     costPerGuest?: string;
     maxGuest?: number;
   }[];

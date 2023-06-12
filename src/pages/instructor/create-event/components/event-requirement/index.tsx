@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import EventHeaderComponent from "../event-header";
 import TextareaComponent from "@/component/textarea";
 import styles from "../course.module.css";
@@ -9,26 +9,72 @@ import { SVG } from "@/assets/svg";
 import { EVENT_QUESTION_TYPE } from "@/utils/enum";
 import CustomizedForm from "./CustomizedForm";
 import { createEvent, eventData } from "@/redux/reducers/event";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import EventHeaderComponent from "../event-header";
+import { useRouter } from "next/router";
 
 function EventRequirement() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   // const [eventQuestion, setEventQuestion] = useState([{ id: 1 }]);
   const [waiverSetting, setWaiverSetting] = useState("default");
   const { eventData } = useAppSelector((state) => state.EventReducer);
-  const addEventQuestion = () => {
-    // if (eventQuestion) {
-    //   setEventQuestion([
-    //     ...eventQuestion,
-    //     {
-    //       id: eventQuestion.length + 1,
-    //     },
-    //   ]);
-    // }
+  const addEventQuestion = (type: string, id?: number) => {
+    if (type === "add") {
+      dispatch(
+        createEvent({
+          customQuestions: [
+            ...eventData.customQuestions,
+            {
+              id: eventData.customQuestions.length + 1,
+              fieldType: "ShortText",
+              answerRequired: true,
+            },
+          ],
+        })
+      );
+    } else {
+      dispatch(
+        createEvent({
+          customQuestions: [
+            ...eventData.customQuestions.filter((el) => el.id !== id),
+          ],
+        })
+      );
+    }
   };
+
+  const initialValues = {
+    requirement: "",
+    cancellation: "",
+  };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues,
+    validationSchema: Yup.object({
+      requirement: Yup.string().required("Requirement is required"),
+      cancellation: Yup.string().required("Cancellation is required"),
+    }),
+    onSubmit: (values) => {
+      // dispatch(createEvent(values));
+      console.log({ values });
+      router.push(`../instructor/create-event?step=${Number(4)}`);
+    },
+  });
+
+  useEffect(() => {
+    console.log(eventData, "ell");
+  }, [eventData]);
+
   // console.log(eventData, "ef");
   return (
     <div>
-      {/* <EventHeaderComponent heading="Policies, Questions and Waiver" /> */}
+      <EventHeaderComponent
+        heading="Policies, Questions and Waiver"
+        onPress={() => formik.handleSubmit()}
+      />
       <div className="eventRequirement">
         <h5>Requirements</h5>
         <p className="mb-0">
@@ -36,15 +82,23 @@ function EventRequirement() {
           restrictions the user should consider when booking this event.
         </p>
         <TextareaComponent
-          onChange={(value) => dispatch(createEvent({ requirements: value }))}
+          title="Requirement"
+          onChange={(e) => formik.setFieldValue("requirement", e)}
+          onBlur={() => formik.setTouched({ requirement: true })}
+          value={formik.values.requirement}
         />
+        <p style={{ color: "red" }}>{formik.errors.requirement}</p>
         <div>
           <h5>Cancellation</h5>
 
           <TextareaComponent
-            onChange={(value) =>
-              dispatch(createEvent({ cancellationPolicies: value }))
-            }
+            // onChange={(value) =>
+            //   dispatch(createEvent({ cancellationPolicies: value }))
+            // }
+            title="Cancellation"
+            onChange={(e) => formik.setFieldValue("cancellation", e)}
+            onBlur={() => formik.setTouched({ cancellation: true })}
+            value={formik.values.cancellation}
           />
         </div>
       </div>
@@ -58,7 +112,7 @@ function EventRequirement() {
           add additional questions, including paid additions.
         </p>
         <FilledButton
-          onClick={() => addEventQuestion()}
+          onClick={() => addEventQuestion("add")}
           className={`${styles.btnAdd}`}
         >
           + Add Questions
@@ -68,7 +122,11 @@ function EventRequirement() {
       {eventData.customQuestions.map((el, index) => {
         return (
           <div key={el.id}>
-            <CustomizedForm index={index} />
+            <CustomizedForm
+              index={index}
+              data={el}
+              deleteQuestion={() => addEventQuestion("delete", el.id)}
+            />
           </div>
         );
       })}
