@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { createEvent, eventData } from "@/redux/reducers/event";
 import { useAppSelector } from "@/redux/hooks/hooks";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
-import EventInterest from "@/component/eventInterest";
+import EventInterest, { IEventCategories } from "@/component/eventInterest";
 
 // export interface IEventStepOne {
 //   handleSubmitEventStepOne: () => void;
@@ -37,6 +37,8 @@ const EventDetailComponent = () => {
     isAddSalesTax: false,
     salesTaxPercent: "",
     isIncludeTransactionFeeInCost: false,
+    courseCategory: [],
+    eventIds: [],
   };
 
   const formik = useFormik({
@@ -49,9 +51,13 @@ const EventDetailComponent = () => {
       location: Yup.string().required("Please Enter Event Location"),
       courseUrl: Yup.string().required("Please Enter Course Link"),
       availableSpots: Yup.number().required("Please Enter Available Spots No."),
+      courseCategory: Yup.array()
+        .min(1)
+        .required("Please select minimum 1 category"),
       // perSpotCost: Yup.string().required("Please Enter Sport Cost"),
     }),
     onSubmit: (values) => {
+      console.log(values, "vaues");
       // handleSubmit(values);
       // console.log(values, "value");
       dispatch(createEvent(values));
@@ -59,13 +65,32 @@ const EventDetailComponent = () => {
       // router.push(`../instructor/create-event?step=${2}`);
     },
   });
+  // add event interest list
+  const handleAddEventInterestList = (item: IEventCategories) => {
+    if (formik.values.courseCategory.length < 3) {
+      const isExist = formik.values.courseCategory?.includes(item);
+      if (!isExist) {
+        formik.setValues({
+          ...formik.values,
+          courseCategory: [...formik.values.courseCategory, item],
+          // eventIds: [...formik.courseCategory.eventIds, item.id],
+        });
+      }
+    }
+  };
 
-  // const handleSubmit = (data: any) => {
-  //   console.log(data, "data");
-  // };
-  // useImperativeHandle(ref, () => ({
-  //   handleSubmitEventStepOne: formik.handleSubmit,
-  // }));
+  // handle remove interest from list
+  const handleRemoveEventInterest = (item: IEventCategories) => {
+    const filteredList = formik.values.courseCategory?.filter(
+      (el) => el !== item
+    );
+    // const filteredIds = formik.values.eventIds?.filter((el) => el !== item.id);
+    formik.setValues({
+      ...formik.values,
+      courseCategory: filteredList || [],
+      // eventIds: filteredIds || [],
+    });
+  };
 
   useEffect(() => {
     formik.setFieldValue("name", data.name);
@@ -98,14 +123,14 @@ const EventDetailComponent = () => {
       </div>
       <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
         <EventInterest
-          eventInterestValues={[]}
-          handleSetInterest={(vl) => console.log(vl)}
-          handleRemoveInterest={(vl) => console.log(vl)}
+          eventInterestValues={formik.values.courseCategory}
+          handleSetInterest={(vl) => handleAddEventInterestList(vl)}
+          handleRemoveInterest={(vl) => handleRemoveEventInterest(vl)}
           headerValue="Course Category* (Limit 3)"
-          formikProps={formik.getFieldProps("category")}
+          formikProps={formik.getFieldProps("courseCategory")}
         />
       </div>
-
+      <p style={{ color: "red" }}>{formik.errors.courseCategory}</p>
       <div className="textArea_section mb-4">
         <label className="ps-3 ms-1">Description*</label>
         <TextareaComponent
