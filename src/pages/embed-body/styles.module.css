@@ -3,6 +3,70 @@
   height: 100%;
   min-height: 100vh;
 }
+.btnAll span {
+  font-size: 15px;
+}
+.btnSchedule span {
+  font-size: 15px;
+  font-weight: bold;
+}
+.btnSchedule {
+  width: auto !important;
+  border-radius: 4px !important;
+  border: 1px solid #212121 !important;
+  color: #212121 !important;
+  height: auto !important;
+  padding: 4px !important;
+  margin-top: 0 !important;
+  margin-right: 12px !important;
+}
+
+.btnAll {
+  background: #212121 !important;
+  padding: 0 15px;
+  font-size: 15px;
+  margin-right: 12px;
+  font-weight: bold;
+  width: 52px !important;
+  font-family: "Inter";
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+.mainBody h3 {
+  color: #5c5c5c;
+  font-size: 24px;
+  font-weight: 800;
+  padding: 15px 15px 0;
+}
+.registerCard h6 {
+  color: #5c5c5c;
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 0;
+}
+.registerCard p {
+  display: none;
+}
+.registerCard span {
+  color: #5c5c5c;
+  font-size: 12px;
+}
+.registerCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 10px;
+  width: 330px;
+  margin: 13px auto;
+  border-radius: 5px;
+}
+.mainBody {
+  background-color: #f3f3f3;
+}
+.categoryBtn span {
+  color: #333333;
+}
 .content {
   width: 810px;
   max-width: 810px;

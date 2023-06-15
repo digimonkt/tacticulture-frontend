@@ -2,6 +2,22 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.ant-modal-content {
+  padding: 0 !important;
+}
+.radioBtns {
+  margin-left: 16px;
+}
+.timezoneData .pe-4.ps-4 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.ant-modal-footer {
+  display: none !important;
+}
+.courseModal {
+  width: 734px !important;
+}
 .rdp-month.rdp-caption_start.rdp-caption_end {
   width: 370px !important;
 }
