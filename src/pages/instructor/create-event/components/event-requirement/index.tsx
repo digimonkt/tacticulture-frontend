@@ -19,11 +19,11 @@ function EventRequirement() {
           ex. Necessary equipment, physical requirements or any additional event
           restrictions the user should consider when booking this event.
         </p>
-        {/* <TextareaComponent /> */}
+        <TextareaComponent />
         <div>
           <h5>Cancellation</h5>
 
-          {/* <TextareaComponent /> */}
+          <TextareaComponent />
         </div>
       </div>
       <div className={`${styles.customEvents}`}>
@@ -139,7 +139,7 @@ function EventRequirement() {
           </Col>
           <Col md={7}>
             <div className={`${styles.icon}`}>
-              {/* <SVG.SwitchIcon width="20px" /> */}
+              <SVG.SwitchIcon width="20px" />
               <SVG.Trash width="24px" />
               <SVG.File width="24px" />
               <SVG.Plus width="24px" />

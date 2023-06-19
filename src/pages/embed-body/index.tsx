@@ -1,14 +1,39 @@
 import ApprenticeHeaderComponent from "@/component/header/user-header";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.css";
 import { IMAGES } from "@/assets/images";
 import Image from "next/image";
 import { SVG } from "@/assets/svg";
-import { FilledButton } from "@/component/buttons";
+import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { Col, Row } from "antd";
 import EmbedCardComponent from "./component/embed-card";
+import Modal from "@/component/model";
+import ModalHeader from "@/modal/modalHeader";
+import DatePicker from "@/component/calendar";
+import SelectInputComponent from "@/component/input/selectInput";
+import { RadioButtonInput } from "@/component/input";
+import FilledButtonComponent from "@/component/buttons/filledButton";
+import TimeZoneComponent from "@/component/timezone";
 
 function EmbedBody() {
+  const [timezoneData, setTimezoneData] = useState(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
+
+  const handleDateClick = (dates: Date[]) => {
+    console.log(dates);
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <ApprenticeHeaderComponent />
@@ -92,9 +117,15 @@ function EmbedBody() {
                 />
                 <div className={`${styles.coursecategory}`}>
                   <h5>Course Categories</h5>
-                  <FilledButton>Category</FilledButton>
-                  <FilledButton>Category</FilledButton>
-                  <FilledButton>Category</FilledButton>
+                  <FilledButton className={`${styles.categoryBtn}`}>
+                    Category
+                  </FilledButton>
+                  <FilledButton className={`${styles.categoryBtn}`}>
+                    Category
+                  </FilledButton>
+                  <FilledButton className={`${styles.categoryBtn}`}>
+                    Category
+                  </FilledButton>
                 </div>
               </Col>
               <Col md={12}>
@@ -112,8 +143,9 @@ function EmbedBody() {
                       letterSpacing: "1px",
                       height: "38px",
                     }}
+                    onClick={showModal}
                   >
-                    Register Now{" "}
+                    Register Now
                   </FilledButton>
                   <h6>Course Summary</h6>
                   <p className="pb-4">
@@ -161,6 +193,62 @@ function EmbedBody() {
           </div>
         </div>
       </div>
+      <Modal
+        className="courseModal"
+        showModal={showModal}
+        handleOk={handleOk}
+        open={isModalOpen}
+        onCancel={handleCancel}
+      >
+        <ModalHeader />
+        <div className={`${styles.mainBody}`}>
+          <Row>
+            <Col md={12}>
+              <div style={{ background: "#fff", height: "100%" }}>
+                <h3>Schedule Your Training:</h3>
+                <div className="radioBtns">
+                  <RadioButtonInput label="Schedule Events" />
+                  <RadioButtonInput label="Open Availiability" />
+                </div>
+                <DatePicker onDayClick={handleDateClick} />
+                <div className="timezoneData">
+                  <TimeZoneComponent
+                    value={timezoneData}
+                    onChange={(vl) => setTimezoneData(vl.value)}
+                  />
+                </div>
+              </div>
+            </Col>
+            <Col md={12} className="pt-3">
+              <div className="d-flex align-items-center ms-3 ps-1">
+                <FilledButtonComponent className={`${styles.btnAll}`}>
+                  All
+                </FilledButtonComponent>
+                <OutlinedButton className={`${styles.btnSchedule}`}>
+                  Scheduled
+                </OutlinedButton>
+                <OutlinedButton className={`${styles.btnSchedule}`}>
+                  Open
+                </OutlinedButton>
+              </div>
+              <div className={`${styles.registerCard}`}>
+                <div className="d-block">
+                  <h6>January 1, 2023</h6>
+                  <span>Open Availability</span>
+                </div>
+
+                <SelectInputComponent
+                  defaultValue="8:00 am"
+                  options={[
+                    { value: "8:00 am", label: "8:00 am" },
+                    { value: "9:00 am", label: "9:00 am" },
+                  ]}
+                />
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
     </div>
   );
 }

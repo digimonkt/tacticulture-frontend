@@ -7,7 +7,7 @@ import { ReactQuillProps } from "react-quill";
 const QuillNoSSRWrapper = dynamic(() => import("react-quill"), { ssr: false });
 
 interface ITextArea extends ReactQuillProps {
-  title: string;
+  title?: string;
 }
 
 function TextareaComponent({ title, ...rest }: ITextArea) {

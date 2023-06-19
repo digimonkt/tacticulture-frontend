@@ -1,0 +1,21 @@
+.clockIcon path {
+  fill: red;
+}
+.eventTitle {
+  background-color: #000;
+  color: #fff;
+}
+.courseModal {
+  width: 734px !important;
+}
+.eventTitle h6 {
+  font-size: 28px;
+  font-weight: bold;
+  padding: 0 10px;
+  margin-bottom: 0;
+}
+.eventTitle p {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 10px 10px;
+}
