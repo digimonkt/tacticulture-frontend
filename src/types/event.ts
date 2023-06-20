@@ -50,7 +50,7 @@ export type CreateEventType = {
     eventCustomAvailabilityDetails: { fromTime: string; toTime: string }[];
     specificHoursDate: string;
   }[];
-  defaultAvailability?: number;
+  defaultAvailability: number | null;
   requirements: string;
   cancellationPolicies: string;
   defaultWaiverSettings?: string;
@@ -117,7 +117,7 @@ export type EventDataType = {
     eventEndTime: string;
   }[];
   eventCustomAvailability: [];
-  defaultAvailability?: number;
+  defaultAvailability: number | null;
   requirements: string;
   cancellationPolicies: string;
   defaultWaiverSettings?: string;

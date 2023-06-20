@@ -39,7 +39,7 @@ export type EventResponse = {
     event_custom_availability_details: { from_time: string; to_time: string }[];
     specific_hours_date: string;
   }[];
-  default_availability?: number;
+  default_availability: number | null;
   requirements: string;
   cancellation_policies: string;
   default_waiver_settings?: string;
@@ -92,7 +92,7 @@ export type EventPayload = {
   }[];
   event_custom_availability?: EventCustomeAvailabilityDetails[];
 
-  default_availability?: number | null;
+  default_availability: number | null;
   requirements: string;
   cancellation_policies: string;
   default_waiver_settings?: string;

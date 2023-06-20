@@ -1,21 +1,56 @@
 import ApprenticeHeaderComponent from "@/component/header/user-header";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import type { MenuProps } from "antd";
 import { IMAGES } from "@/assets/images";
 import Image from "next/image";
 import { SVG } from "@/assets/svg";
-import { FilledButton } from "@/component/buttons";
-import { Col, Row } from "antd";
+import { FilledButton, OutlinedButton } from "@/component/buttons";
+import { Col, Dropdown, Row, Space } from "antd";
 import EmbedCardComponent from "./component/embed-card";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { getEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
+
+import ModalHeader from "@/component/model/modalHeader";
+import TimeZoneComponent from "@/component/timezone";
+import FilledButtonComponent from "@/component/buttons/filledButton";
+import DatePicker from "@/component/calendar";
+import Modal from "@/component/model";
 
 interface IRouter {
   id: string;
 }
 
 function EmbedBody() {
+  const items: MenuProps["items"] = [
+    {
+      label: "Select Time",
+      key: "0",
+    },
+    {
+      label: "8:00 AM",
+      key: "1",
+    },
+
+    {
+      label: "9:00 AM",
+      key: "3",
+    },
+    {
+      label: "10:00 AM",
+      key: "3",
+    },
+  ];
+
+  const [timezoneData, setTimezoneData] = useState(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
+
+  const handleDateClick = (dates: Date[]) => {
+    console.log(dates);
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -24,6 +59,17 @@ function EmbedBody() {
     const { id } = router.query as unknown as IRouter;
     dispatch(getEventDetail({ id }));
   }, []);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   console.log(eventDetail, "detail");
   return (
@@ -63,7 +109,8 @@ function EmbedBody() {
                   <div>
                     <span>Instructor</span>
                     <h6>
-                      <SVG.Guard width="14px" /> Eddie Gallagher
+                      <SVG.Guard width="14px" />{" "}
+                      {`${eventDetail?.instructorDetails?.first_name} ${eventDetail?.instructorDetails?.last_name}`}
                     </h6>
                     <FilledButton
                       className="p-0"
@@ -109,9 +156,16 @@ function EmbedBody() {
                 />
                 <div className={`${styles.coursecategory}`}>
                   <h5>Course Categories</h5>
-                  <FilledButton>Category</FilledButton>
-                  <FilledButton>Category</FilledButton>
-                  <FilledButton>Category</FilledButton>
+
+                  {eventDetail.courseCategory?.map((el: any) => {
+                    return (
+                      <div key={el.slugName}>
+                        <FilledButton style={{ color: "#000" }}>
+                          {el.eventCategories}
+                        </FilledButton>
+                      </div>
+                    );
+                  })}
                 </div>
               </Col>
               <Col md={12}>
@@ -129,35 +183,21 @@ function EmbedBody() {
                       letterSpacing: "1px",
                       height: "38px",
                     }}
+                    onClick={showModal}
                   >
                     Register Now{" "}
                   </FilledButton>
                   <h6>Course Summary</h6>
                   <p className="pb-4">
-                    Private pistol lessons are for individuals that want to
-                    master concepts and skills in a private setting. Whether
-                    you've never handled a gun before or are already seasoned,
-                    we'll get you to the next level.
+                    {
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: eventDetail.description,
+                        }}
+                      />
+                    }
                   </p>
-                  <p className="pb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Proin leo justo, convallis non sagittis vitae, gravida at
-                    massa. Nunc placerat neque eu pellentesque tincidunt.
-                  </p>
-                  <ul className="p-0">
-                    <li>
-                      Lorem ipsum dolor sit amet Consectetur adipiscing elit.
-                    </li>
-                    <li>
-                      {" "}
-                      Quisque sem tortor, iaculis quis tortor ut ultricies
-                      condimentum enim.
-                    </li>
-                    <li>
-                      Fusce et neque viverra, consequat justo sed, sollicitudin
-                      leo.
-                    </li>
-                  </ul>
+
                   <span
                     style={{
                       color: "#CB2C2C",
@@ -178,6 +218,70 @@ function EmbedBody() {
           </div>
         </div>
       </div>
+      {/* Event calendar modal start */}
+      <Modal
+        className="courseModal"
+        showModal={showModal}
+        handleOk={handleOk}
+        open={isModalOpen}
+        onCancel={handleCancel}
+      >
+        <ModalHeader />
+        <div className={`${styles.mainBody}`}>
+          <Row>
+            <Col md={12}>
+              <div style={{ background: "#fff", height: "100%" }}>
+                <h3>Schedule Your Training:</h3>
+                <div className="radioBtns">
+                  {/* <RadioButtonInput label="Schedule Events" />
+                  <RadioButtonInput label="Open Availiability" /> */}
+                </div>
+                <DatePicker onDayClick={handleDateClick} />
+                <div className="timezoneData">
+                  <TimeZoneComponent
+                    title=""
+                    value={timezoneData}
+                    onChange={(vl) => setTimezoneData(vl.value)}
+                  />
+                </div>
+              </div>
+            </Col>
+            <Col md={12} className="pt-3">
+              <div className="d-flex align-items-center ms-3 ps-1">
+                <FilledButtonComponent className={`${styles.btnAll}`}>
+                  All
+                </FilledButtonComponent>
+                <OutlinedButton className={`${styles.btnSchedule}`}>
+                  Scheduled
+                </OutlinedButton>
+                <OutlinedButton className={`${styles.btnSchedule}`}>
+                  Open
+                </OutlinedButton>
+              </div>
+              <div className={`${styles.registerCard}`}>
+                <div className="d-block">
+                  <h6>January 1, 2023</h6>
+                  <span>Open Availability</span>
+                </div>
+
+                <Dropdown
+                  menu={{ items }}
+                  className="timeDropdown"
+                  trigger={["click"]}
+                >
+                  <a className="menuList" onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      Register
+                      <SVG.DownChevron width="12px" />
+                    </Space>
+                  </a>
+                </Dropdown>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
+      {/* Event calendar modal end */}
     </div>
   );
 }

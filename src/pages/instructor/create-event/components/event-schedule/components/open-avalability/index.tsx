@@ -69,17 +69,14 @@ export type availabilityType = {
   schedules: { startDate: string }[];
 };
 
-function OpenAvailabilityComponent(customAvailabilityData: any) {
+function OpenAvailabilityComponent({ customAvailabilityData }: any) {
   const dispatch = useAppDispatch();
   const [isComponent, setIsComponent] = useState("default");
   const [availability, setAvailability] = useState(scheduleEvents);
   const [availabilityId, setAvailabilityId] = useState(0);
-  // const { defaultAvailability } = useAppSelector((state) => state.userReducer);
-  //   handleRemoveSchedule,
-  // const { eventData } = useAppSelector((state) => state.EventReducer);
 
   useEffect(() => {
-    // customAvailabilityData(availability);
+    customAvailabilityData(availability);
   }, [availability]);
 
   useEffect(() => {
@@ -90,7 +87,9 @@ function OpenAvailabilityComponent(customAvailabilityData: any) {
     dispatch(
       createEvent({
         defaultAvailability:
-          availabilityId > 0 && isComponent === "default" ? availabilityId : 0,
+          availabilityId > 0 && isComponent === "default"
+            ? availabilityId
+            : null,
       })
     );
   }, [isComponent]);

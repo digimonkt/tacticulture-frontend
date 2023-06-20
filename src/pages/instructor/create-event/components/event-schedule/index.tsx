@@ -71,6 +71,7 @@ function EventScheduleComponent() {
     );
     router.push(`../instructor/create-event?step=${3}`);
   };
+  console.log(eventData, "event-schedule page");
   return (
     <div className="schedule">
       <EventHeaderComponent heading="Event Details" onPress={nextPage} />

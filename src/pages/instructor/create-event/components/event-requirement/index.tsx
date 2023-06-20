@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 // import EventHeaderComponent from "../event-header";
 import TextareaComponent from "@/component/textarea";
 import styles from "../course.module.css";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
-import { Row, Col } from "antd";
+
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { SVG } from "@/assets/svg";
-import { EVENT_QUESTION_TYPE } from "@/utils/enum";
+
 import CustomizedForm from "./CustomizedForm";
-import { createEvent, eventData } from "@/redux/reducers/event";
+import { createEvent } from "@/redux/reducers/event";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import EventHeaderComponent from "../event-header";
