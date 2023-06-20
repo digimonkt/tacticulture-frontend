@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store";
 import { GetListWithPagination, ServerError } from "@/api/types";
@@ -20,6 +21,7 @@ interface Ievent {
 // Define the initial state using that type
 
 const initialState: Ievent = {
+  // @ts-ignore
   eventDetail: {},
   allEventData: { count: 0, next: undefined, previous: undefined, results: [] },
   availableEventData: {
@@ -52,7 +54,7 @@ const initialState: Ievent = {
       },
     ],
     eventCustomAvailability: [],
-    defaultAvailability: null,
+    defaultAvailability: 0,
     requirements: "",
     cancellationPolicies: "",
     defaultWaiverSettings: "default",
@@ -72,6 +74,7 @@ const initialState: Ievent = {
     achievementBadgeImage: "",
     publishStatus: true,
     isEventLive: false,
+    instructorDetails: { id: 0 },
   },
 };
 

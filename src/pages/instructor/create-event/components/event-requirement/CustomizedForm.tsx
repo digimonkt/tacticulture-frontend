@@ -14,9 +14,19 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 // import { useFormik } from "formik";
 // import * as Yup from "yup";
 
-const CustomizedForm = ({ index, data, deleteQuestion }) => {
+interface CustomizedFormProps {
+  index: any;
+  data: any;
+  deleteQuestion: () => void;
+}
+
+const CustomizedForm = ({
+  index,
+  data,
+  deleteQuestion,
+}: CustomizedFormProps) => {
   const dispatch = useAppDispatch();
-  const [fieldType, setFieldType] = useState("ShortText");
+  // const [fieldType, setFieldType] = useState("ShortText");
   const [answerData, setAnswerData] = useState([
     { id: 1, description: "", upgradeCost: 0 },
   ]);
@@ -25,6 +35,7 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
 
   const addSelectAnswer = (id: number, type: string) => {
     if (type === "delete") {
+      // eslint-disable-next-line array-callback-return
       const updatedData = eventData.customQuestions.map((quest, idx) => {
         if (idx === index) {
           return {
@@ -69,7 +80,7 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
   };
 
   const addQuestionPromptData = (text: string) => {
-    const updatedQuestions = eventData.customQuestions.map((question, idx) => {
+    const updatedQuestions = eventData.customQuestions?.map((question, idx) => {
       if (idx === index) {
         return {
           ...question,
@@ -203,13 +214,13 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                     className="antSelectDropdown"
                     options={eventQuestionList}
                     onChange={(value) => addFieldType(value)}
-                    value={data.fieldType}
+                    value={data?.fieldType}
                   />
                 </div>
               </Col>
-              {data.fieldType === "CheckBox" ||
-              data.fieldType === "Select/Dropdown" ||
-              data.fieldType === "OptionalGuest" ? (
+              {data?.fieldType === "CheckBox" ||
+              data?.fieldType === "Select/Dropdown" ||
+              data?.fieldType === "OptionalGuest" ? (
                 <Col md={12}>
                   <div style={{ marginLeft: "10px", marginBottom: "20px" }}>
                     <SelectInputComponent
@@ -233,13 +244,13 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                 complete required waivers and basic profile information.{" "}
               </span>
 
-              {data.fieldType !== "OptionalGuest" ? (
+              {data?.fieldType !== "OptionalGuest" ? (
                 <Col md={24}>
                   <div className={`${styles.labelInput}`}>
                     <LabeledInput
                       label="Question Prompt / Label"
                       onChange={(e) => addQuestionPromptData(e.target.value)}
-                      value={data.questionPromptLabel}
+                      value={data?.questionPromptLabel}
                     />
                   </div>
                 </Col>
@@ -276,7 +287,7 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                 </Row>
               )}
 
-              {data.fieldType === "Select/Dropdown" && (
+              {data?.fieldType === "Select/Dropdown" && (
                 <Row
                   className="mb-3 pt-3"
                   style={{ borderTop: "1px solid #454545" }}
@@ -327,8 +338,8 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                 </Row>
               )}
 
-              {data.fieldType === "ShortText" ||
-              data.fieldType === "LongText" ? (
+              {data?.fieldType === "ShortText" ||
+              data?.fieldType === "LongText" ? (
                 <div className={`${styles.requiredCheckbox}`}>
                   <CheckInput
                     checked={data.answerRequired}
@@ -338,7 +349,7 @@ const CustomizedForm = ({ index, data, deleteQuestion }) => {
                 </div>
               ) : null}
 
-              {data.fieldType === "CheckBox" ? (
+              {data?.fieldType === "CheckBox" ? (
                 <div className={`${styles.upgradeCost}`}>
                   <div style={{ width: "237px" }}>
                     <SVG.Dollar width="24px" />

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { SVG } from "@/assets/svg";
 import { LabeledInput, TextInput } from "@/component/input";
 import TextareaComponent from "@/component/textarea";
@@ -68,10 +69,14 @@ const EventDetailComponent = () => {
   // add event interest list
   const handleAddEventInterestList = (item: IEventCategories) => {
     if (formik.values.courseCategory.length < 3) {
+      // @ts-ignore
       const isExist = formik.values.courseCategory?.includes(item);
+
       if (!isExist) {
         formik.setValues({
           ...formik.values,
+
+          // @ts-ignore
           courseCategory: [...formik.values.courseCategory, item],
           // eventIds: [...formik.courseCategory.eventIds, item.id],
         });

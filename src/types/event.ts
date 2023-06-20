@@ -55,11 +55,6 @@ export type CreateEventType = {
   cancellationPolicies: string;
   defaultWaiverSettings?: string;
   customWaiverSettings: string;
-  // customQuestions: {
-  //   additionalProp1: string;
-  //   additionalProp2: string;
-  //   additionalProp3: string;
-  // }[];
   customQuestions: {
     id: number;
     fieldType: string;
@@ -75,7 +70,7 @@ export type CreateEventType = {
   achievementBadgeImage?: string;
   publishStatus: boolean;
   isEventLive: boolean;
-  instructor_details: { id: number };
+  instructorDetails: { id: number };
 };
 
 // type CourseCategory = {
@@ -122,10 +117,10 @@ export type EventDataType = {
     eventEndTime: string;
   }[];
   eventCustomAvailability: [];
-  defaultAvailability: number | null;
+  defaultAvailability?: number;
   requirements: string;
   cancellationPolicies: string;
-  defaultWaiverSettings: number | null;
+  defaultWaiverSettings?: string;
   customQuestions: {
     additionalProp1: string;
     additionalProp2: string;

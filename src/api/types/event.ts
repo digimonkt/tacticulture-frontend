@@ -45,9 +45,15 @@ export type EventResponse = {
   default_waiver_settings?: string;
   custom_waiver_settings: string;
   custom_questions: {
-    additionalProp1: string;
-    additionalProp2: string;
-    additionalProp3: string;
+    id: number;
+    fieldType: string;
+    questionPromptLabel?: string;
+    answerRequired?: boolean;
+    paidUpgrade?: string;
+    upgradeCost?: number;
+    answerData?: { id: number; description: string; upgradeCost: number }[];
+    costPerGuest?: string;
+    maxGuest?: number;
   }[];
   event_image?: string;
   achievement_badge_image?: string;
@@ -89,12 +95,18 @@ export type EventPayload = {
   default_availability?: number | null;
   requirements: string;
   cancellation_policies: string;
-  default_waiver_settings?: number | null;
+  default_waiver_settings?: string;
   custom_waiver_settings?: string;
   custom_questions: {
-    additionalProp1: string;
-    additionalProp2: string;
-    additionalProp3: string;
+    id: number;
+    fieldType: string;
+    questionPromptLabel?: string;
+    answerRequired?: boolean;
+    paidUpgrade?: string;
+    upgradeCost?: number;
+    answerData?: { id: number; description: string; upgradeCost: number }[];
+    costPerGuest?: string;
+    maxGuest?: number;
   }[];
   event_image?: string;
   achievement_badge_image?: string;
@@ -103,7 +115,7 @@ export type EventPayload = {
 };
 
 export type detailPayloadId = {
-  id: number;
+  id: string;
 };
 
 export type GetEventResponse = GetListWithPagination<EventResponse[]>;
