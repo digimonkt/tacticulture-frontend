@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store";
 import { GetListWithPagination, ServerError } from "@/api/types";
-import { CreateEventType } from "@/types/event";
+import { CreateEventType, getEventType } from "@/types/event";
 import {
   createEventApi,
   getAllEventAPI,
@@ -9,18 +9,75 @@ import {
   getEventDetailAPI,
 } from "@/api/event";
 import { detailPayloadId, EventPayload } from "@/api/types/event";
+import { string } from "yup";
 
 interface Ievent {
   eventData: CreateEventType;
   availableEventData: GetListWithPagination<CreateEventType[]>;
   allEventData: GetListWithPagination<CreateEventType[]>;
-  eventDetail: CreateEventType;
+  eventDetail: getEventType;
 }
 
 // Define the initial state using that type
 
 const initialState: Ievent = {
-  eventDetail: {},
+  eventDetail: {
+    achievementBadgeImage: null,
+    availableSpots: 0,
+    cancellationPolicies: "",
+    courseCategory: [{ eventCategories: "", slugName: "" }],
+    courseUrl: "",
+    customQuestions: [
+      {
+        answerData: [{ description: "", id: 0, upgradeCost: 0 }],
+        answerRequired: false,
+        fieldType: "",
+        id: 0,
+        paidUpgrade: "",
+        questionPromptLabel: "",
+        upgradeCost: 0,
+        costPerGuest: "",
+        maxGuest: 0,
+      },
+    ],
+    customWaiverSettings: "",
+    defaultAvailability: null,
+    defaultWaiverSettings: "",
+    description: "",
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    eventCustomAvailability: [{}],
+    eventImage: null,
+    eventScheduledDateTime: [
+      {
+        eventEndDate: "",
+        eventEndTime: "",
+        eventStartDate: "",
+        eventStartTime: "",
+      },
+    ],
+    eventTypeAndScheduleId: "",
+    id: 0,
+    instructorDetails: {
+      bio: "",
+      email: "",
+      first_name: "",
+      id: 0,
+      last_name: "",
+      phone_number: null,
+      profile_image: null,
+      user_roles: "",
+      username: "",
+    },
+    isAddSalesTax: false,
+    isEventLive: false,
+    location: "",
+    name: "",
+    perSpotCost: 0,
+    publishStatus: false,
+    requirements: "",
+    salesTaxPercent: 0,
+  },
   allEventData: { count: 0, next: undefined, previous: undefined, results: [] },
   availableEventData: {
     count: 0,
@@ -31,7 +88,7 @@ const initialState: Ievent = {
   eventData: {
     id: "",
     name: "",
-    courseCategory: [{ slugName: "dummy", eventCategories: "dummy" }],
+    courseCategory: [{ event_categories: "", slug_name: "" }],
     description: "",
     location: "",
     courseUrl: "",
@@ -72,12 +129,22 @@ const initialState: Ievent = {
     achievementBadgeImage: "",
     publishStatus: true,
     isEventLive: false,
-    instructorDetails: { id: 0 },
+    instructorDetails: {
+      bio: "",
+      email: "",
+      firstName: "",
+      id: 0,
+      lastName: "",
+      phoneNumber: null,
+      profileImage: null,
+      userRoles: "",
+      username: "",
+    },
   },
 };
 
 export const createEventData = createAsyncThunk<
-  CreateEventType,
+  getEventType,
   EventPayload,
   { state: RootState; rejectValue: ServerError }
 >("createEventData", async (data, { rejectWithValue }) => {
@@ -91,7 +158,7 @@ export const createEventData = createAsyncThunk<
 });
 
 export const getEventData = createAsyncThunk<
-  GetListWithPagination<CreateEventType[]>,
+  GetListWithPagination<getEventType[]>,
   void,
   { state: RootState; rejectValue: ServerError }
 >("getEventData", async (_, { rejectWithValue }) => {
@@ -105,7 +172,7 @@ export const getEventData = createAsyncThunk<
 });
 
 export const getAllEventData = createAsyncThunk<
-  GetListWithPagination<CreateEventType[]>,
+  GetListWithPagination<getEventType[]>,
   void,
   { state: RootState; rejectValue: ServerError }
 >("getAllEventData", async (_, { rejectWithValue }) => {
@@ -118,7 +185,7 @@ export const getAllEventData = createAsyncThunk<
 });
 
 export const getEventDetail = createAsyncThunk<
-  CreateEventType,
+  getEventType,
   detailPayloadId,
   { state: RootState; rejectValue: ServerError }
 >("getEventDetail", async (id, { rejectWithValue }) => {
@@ -141,10 +208,14 @@ export const eventSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getEventData.fulfilled, (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       state.availableEventData = action.payload;
     });
 
     builder.addCase(getAllEventData.fulfilled, (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       state.allEventData = action.payload;
     });
 

@@ -12,7 +12,7 @@ import {
   transformGetEventAPIResponse,
   transformGetEventCategoriesAPIResponse,
 } from "./transform/event";
-import { CreateEventType, EventDataType } from "@/types/event";
+import { CreateEventType, EventDataType, getEventType } from "@/types/event";
 
 // fetch event categories  List
 export const eventCategoriesList = async (): Promise<
@@ -41,7 +41,7 @@ export const eventCategoriesList = async (): Promise<
 
 export const createEventApi = async (
   data: EventPayload
-): Promise<SuccessResult<CreateEventType> | ErrorResult> => {
+): Promise<SuccessResult<getEventType> | ErrorResult> => {
   const res = await axiosInstance.request<EventResponse>({
     url: "/events/user-event/",
     method: "post",
@@ -57,7 +57,7 @@ export const createEventApi = async (
 };
 
 export const getEventDataAPI = async (): Promise<
-  SuccessResult<GetListWithPagination<CreateEventType[]>> | ErrorResult
+  SuccessResult<GetListWithPagination<getEventType[]>> | ErrorResult
 > => {
   const res = await axiosInstance.request<GetEventResponse>({
     url: "/events/user-event/",
@@ -81,7 +81,7 @@ export const getEventDataAPI = async (): Promise<
 };
 
 export const getAllEventAPI = async (): Promise<
-  SuccessResult<GetListWithPagination<CreateEventType[]>> | ErrorResult
+  SuccessResult<GetListWithPagination<getEventType[]>> | ErrorResult
 > => {
   const res = await axiosInstance.request<GetEventResponse>({
     url: "/events/all/",
@@ -106,7 +106,7 @@ export const getAllEventAPI = async (): Promise<
 
 export const getEventDetailAPI = async (
   id: detailPayloadId
-): Promise<SuccessResult<CreateEventType> | ErrorResult> => {
+): Promise<SuccessResult<getEventType> | ErrorResult> => {
   const res = await axiosInstance.request<EventResponse>({
     url: `/events/details/${id.id}`,
     method: "GET",

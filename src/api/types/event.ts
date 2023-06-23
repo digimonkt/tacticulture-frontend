@@ -16,7 +16,7 @@ export type EventCategory = {
 };
 
 export type EventResponse = {
-  id: string;
+  id: number;
   name: string;
   course_category: { event_categories: string; slug_name: string }[];
   description: string;
@@ -34,33 +34,43 @@ export type EventResponse = {
     event_end_date: string;
     event_end_time: string;
   }[];
-  event_custom_availability?: {
-    weekdays_id: number;
+  event_custom_availability: {
+    weekdays: string;
+    specific_hours_date: string | null;
     event_custom_availability_details: { from_time: string; to_time: string }[];
-    specific_hours_date: string;
   }[];
   default_availability: number | null;
   requirements: string;
   cancellation_policies: string;
-  default_waiver_settings?: string;
+  default_waiver_settings: string;
   custom_waiver_settings: string;
   custom_questions: {
     id: number;
     fieldType: string;
-    questionPromptLabel?: string;
-    answerRequired?: boolean;
-    paidUpgrade?: string;
-    upgradeCost?: number;
-    answerData?: { id: number; description: string; upgradeCost: number }[];
-    costPerGuest?: string;
-    maxGuest?: number;
+    questionPromptLabel: string;
+    answerRequired: boolean;
+    paidUpgrade: string;
+    upgradeCost: number;
+    answerData: { id: number; description: string; upgradeCost: number }[];
+    costPerGuest: string;
+    maxGuest: number;
   }[];
-  event_image?: string;
-  achievement_badge_image?: string;
+  event_image: string | null;
+  achievement_badge_image: string | null;
   publish_status: boolean;
   is_event_live: boolean;
   salesTaxPercent: number;
-  instructor_details: { id: number };
+  instructor_details: {
+    id: number;
+    bio: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    phone_number: string | null;
+    profile_image: string | null;
+    user_roles: string;
+    username: string;
+  };
 };
 
 export type EventCustomeAvailabilityDetails = {

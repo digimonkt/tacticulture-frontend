@@ -10,27 +10,36 @@
   font-size: 15px;
   font-weight: bold;
 }
+.btnSchedule span {
+  color: #212121;
+}
 .btnSchedule {
+  background: #fff !important;
+  padding: 0 15px;
+  font-size: 15px !important;
+  margin-right: 12px;
+  font-weight: bold;
   width: auto !important;
-  border-radius: 4px !important;
-  border: 1px solid #212121 !important;
-  color: #212121 !important;
-  height: auto !important;
-  padding: 4px !important;
-  margin-top: 0 !important;
-  margin-right: 12px !important;
+  font-family: "Inter";
+  letter-spacing: 1px;
+  border-radius: 4px;
+  height: 33px;
+
+  margin-top: 0;
 }
 
 .btnAll {
   background: #212121 !important;
   padding: 0 15px;
-  font-size: 15px;
+  font-size: 15px !important;
   margin-right: 12px;
   font-weight: bold;
-  width: 52px !important;
+  width: auto !important;
   font-family: "Inter";
   letter-spacing: 1px;
   border-radius: 4px;
+  height: 33px;
+  margin-top: 0;
 }
 .mainBody h3 {
   color: #5c5c5c;

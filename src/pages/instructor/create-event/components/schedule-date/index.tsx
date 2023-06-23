@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../course.module.css";
-import { LabeledInput } from "@/component/input";
+import { LabeledInput, SelectInput } from "@/component/input";
 // import { FilledButton } from "@/component/buttons";
 
 interface IScheduleDate {
@@ -61,8 +61,21 @@ function ScheduleDateComponent({ eventData, getChildValue }: IScheduleDate) {
               }
             />
           </div>
+          <div className="text-start">
+            <label className="p-0">Set the event time span</label>
+            <div className="startDate">
+              <LabeledInput />
+              <SelectInput
+                options={[
+                  { value: "Hours", label: "Hours" },
+                  { value: "Time", label: "Time" },
+                ]}
+              />
+            </div>
+          </div>
         </div>
       </div>
+
       {/* <FilledButton
         style={{
           fontSize: " 17px",

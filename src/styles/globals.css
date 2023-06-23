@@ -2,8 +2,35 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.startDate {
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
+}
+.startDate input {
+  width: 102px !important;
+  height: 55px;
+  border-radius: 3px;
+}
+.startDate .ant-select-selection-item {
+  padding-top: 10px !important;
+}
+.startDate .span.ant-select-arrow {
+  position: relative;
+  top: 28px !important;
+  right: 16px !important;
+}
+.startDate .ant-select-selector {
+  width: 235px !important;
+  text-align: left !important;
+  height: 55px !important;
+  border-radius: 3px !important;
+}
 .courseModal {
   width: 734px !important;
+}
+.radioBtns {
+  margin-left: 16px;
 }
 .rdp-month.rdp-caption_start.rdp-caption_end {
   width: 370px !important;

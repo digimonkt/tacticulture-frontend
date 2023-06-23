@@ -8,6 +8,7 @@ import ScheduleEventComponent, {
 import { createEvent } from "@/redux/reducers/event";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { WEEKDAYS } from "@/utils/enum";
+import { LabeledInput, SelectInput } from "@/component/input";
 
 const scheduleEvents: IScheduleEvent[] = [
   {
@@ -187,9 +188,22 @@ function OpenAvailabilityComponent({ customAvailabilityData }: any) {
           </div>
         </div>
         <hr />
+        <div className="text-start">
+          <label className="p-0">Set the event time span</label>
+          <div className="startDate">
+            <LabeledInput />
+            <SelectInput
+              options={[
+                { value: "Hours", label: "Hours" },
+                { value: "Time", label: "Time" },
+              ]}
+            />
+          </div>
+        </div>
+        {/* </div> */}
         <div className="scheduleSection">
           {isComponent === "custom" && (
-            <>
+            <div>
               {" "}
               {availability.map((available, idx) => {
                 return (
@@ -204,7 +218,7 @@ function OpenAvailabilityComponent({ customAvailabilityData }: any) {
                   />
                 );
               })}
-            </>
+            </div>
           )}
           {/* <h1
             onClick={() =>

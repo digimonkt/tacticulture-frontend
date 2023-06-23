@@ -4,9 +4,10 @@ import "react-day-picker/dist/style.css";
 
 interface DatePickerProps {
   onDayClick: (dates: Date[]) => void;
+  defaultDate: string[];
 }
 
-const DatePicker: React.FC<DatePickerProps> = ({ onDayClick }) => {
+const DatePicker: React.FC<DatePickerProps> = ({ onDayClick, defaultDate }) => {
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
 
   const handleDateClick = (date: Date) => {
@@ -32,7 +33,9 @@ const DatePicker: React.FC<DatePickerProps> = ({ onDayClick }) => {
   return (
     <div>
       <DayPicker
-        selected={selectedDates}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        selected={defaultDate}
         onDayClick={handleDateClick}
         mode="multiple"
       />

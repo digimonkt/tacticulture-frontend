@@ -1,55 +1,22 @@
 import ApprenticeHeaderComponent from "@/component/header/user-header";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import type { MenuProps } from "antd";
 import { IMAGES } from "@/assets/images";
 import Image from "next/image";
 import { SVG } from "@/assets/svg";
-import { FilledButton, OutlinedButton } from "@/component/buttons";
-import { Col, Dropdown, Row, Space } from "antd";
+import { FilledButton } from "@/component/buttons";
+import { Col, Row } from "antd";
 import EmbedCardComponent from "./component/embed-card";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { getEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
-
-import ModalHeader from "@/component/model/modalHeader";
-import TimeZoneComponent from "@/component/timezone";
-import FilledButtonComponent from "@/component/buttons/filledButton";
-import DatePicker from "@/component/calendar";
-import Modal from "@/component/model";
+import CalendarModal from "./component/CalendarModal";
 
 interface IRouter {
   id: string;
 }
 
 function EmbedBody() {
-  const items: MenuProps["items"] = [
-    {
-      label: "Select Time",
-      key: "0",
-    },
-    {
-      label: "8:00 AM",
-      key: "1",
-    },
-
-    {
-      label: "9:00 AM",
-      key: "3",
-    },
-    {
-      label: "10:00 AM",
-      key: "3",
-    },
-  ];
-
-  const [timezoneData, setTimezoneData] = useState(
-    Intl.DateTimeFormat().resolvedOptions().timeZone
-  );
-
-  const handleDateClick = (dates: Date[]) => {
-    console.log(dates);
-  };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -71,7 +38,6 @@ function EmbedBody() {
     setIsModalOpen(false);
   };
 
-  console.log(eventDetail, "detail");
   return (
     <div>
       <ApprenticeHeaderComponent />
@@ -219,68 +185,11 @@ function EmbedBody() {
         </div>
       </div>
       {/* Event calendar modal start */}
-      <Modal
-        className="courseModal"
-        showModal={showModal}
-        handleOk={handleOk}
-        open={isModalOpen}
-        onCancel={handleCancel}
-      >
-        <ModalHeader />
-        <div className={`${styles.mainBody}`}>
-          <Row>
-            <Col md={12}>
-              <div style={{ background: "#fff", height: "100%" }}>
-                <h3>Schedule Your Training:</h3>
-                <div className="radioBtns">
-                  {/* <RadioButtonInput label="Schedule Events" />
-                  <RadioButtonInput label="Open Availiability" /> */}
-                </div>
-                <DatePicker onDayClick={handleDateClick} />
-                <div className="timezoneData">
-                  <TimeZoneComponent
-                    title=""
-                    value={timezoneData}
-                    onChange={(vl) => setTimezoneData(vl.value)}
-                  />
-                </div>
-              </div>
-            </Col>
-            <Col md={12} className="pt-3">
-              <div className="d-flex align-items-center ms-3 ps-1">
-                <FilledButtonComponent className={`${styles.btnAll}`}>
-                  All
-                </FilledButtonComponent>
-                <OutlinedButton className={`${styles.btnSchedule}`}>
-                  Scheduled
-                </OutlinedButton>
-                <OutlinedButton className={`${styles.btnSchedule}`}>
-                  Open
-                </OutlinedButton>
-              </div>
-              <div className={`${styles.registerCard}`}>
-                <div className="d-block">
-                  <h6>January 1, 2023</h6>
-                  <span>Open Availability</span>
-                </div>
-
-                <Dropdown
-                  menu={{ items }}
-                  className="timeDropdown"
-                  trigger={["click"]}
-                >
-                  <a className="menuList" onClick={(e) => e.preventDefault()}>
-                    <Space>
-                      Register
-                      <SVG.DownChevron width="12px" />
-                    </Space>
-                  </a>
-                </Dropdown>
-              </div>
-            </Col>
-          </Row>
-        </div>
-      </Modal>
+      <CalendarModal
+        eventDetail={eventDetail}
+        isModalOpen={isModalOpen}
+        handleCancel={handleCancel}
+      />
       {/* Event calendar modal end */}
     </div>
   );

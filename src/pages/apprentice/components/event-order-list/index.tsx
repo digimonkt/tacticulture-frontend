@@ -27,7 +27,11 @@ function EventOrderList() {
         >
           <div className={`${styles.listBox}`}>
             <h3>{res.name}</h3>
-            <p>{res.description}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: res.description,
+              }}
+            />
           </div>
         </span>
       ))}

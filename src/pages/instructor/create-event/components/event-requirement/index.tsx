@@ -80,7 +80,6 @@ function EventRequirement() {
           restrictions the user should consider when booking this event.
         </p>
         <TextareaComponent
-          title="Requirement"
           onChange={(e) => formik.setFieldValue("requirement", e)}
           onBlur={() => formik.setTouched({ requirement: true })}
           value={formik.values.requirement}
@@ -93,7 +92,7 @@ function EventRequirement() {
             // onChange={(value) =>
             //   dispatch(createEvent({ cancellationPolicies: value }))
             // }
-            title="Cancellation"
+
             onChange={(e) => formik.setFieldValue("cancellation", e)}
             onBlur={() => formik.setTouched({ cancellation: true })}
             value={formik.values.cancellation}

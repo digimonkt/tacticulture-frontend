@@ -7,7 +7,8 @@ import { EventCategory } from "@/api/types/event";
 
 export type IEventCategories = {
   id: number;
-  eventCategories: string;
+  slug_name: string;
+  event_categories: string;
 };
 
 interface IEventInterest {
@@ -46,7 +47,7 @@ function EventInterest({
       <div className={`${styles.eventInterestItemContainer}`}>
         {eventInterestValues.map((item) => (
           <span key={item.id} className={`${styles.Eventlist2}`}>
-            <label className="position-relative">{item.eventCategories}</label>
+            <label className="position-relative">{item.event_categories}</label>
             <MdCancel
               onClick={() => handleRemoveInterest(item)}
               color="#fff"
@@ -64,7 +65,8 @@ function EventInterest({
                 onClick={() => {
                   handleSetInterest({
                     id: item.id,
-                    eventCategories: item.eventCategory,
+                    slug_name: item.slugName,
+                    event_categories: item.eventCategory,
                   });
                   formikProps.onBlur({ target: { name: formikProps.name } });
                 }}

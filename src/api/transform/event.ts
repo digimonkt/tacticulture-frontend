@@ -1,4 +1,4 @@
-import { CreateEventType } from "@/types/event";
+import { CreateEventType, getEventType } from "@/types/event";
 import {
   EventCategoryResponse,
   EventCategory,
@@ -17,7 +17,7 @@ export const transformGetEventCategoriesAPIResponse = (
 
 export const transformGetEventAPIResponse = (
   data: EventResponse
-): CreateEventType => {
+): getEventType => {
   return {
     id: data.id,
     name: data.name,
@@ -42,7 +42,7 @@ export const transformGetEventAPIResponse = (
       eventEndTime: item.event_end_time,
     })),
     eventCustomAvailability: data.event_custom_availability?.map((item) => ({
-      weekdaysId: item.weekdays_id,
+      weekdays: item.weekdays,
       eventCustomAvailabilityDetails:
         item.event_custom_availability_details.map((i) => ({
           fromTime: i.from_time,

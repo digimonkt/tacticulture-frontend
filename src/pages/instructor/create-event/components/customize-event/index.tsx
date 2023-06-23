@@ -37,13 +37,12 @@ function CustomizeEventComponent() {
   // }, [addImages]);
 
   const submitEvent = () => {
-    console.log({ eventData });
     const data = eventData?.eventCustomAvailability?.filter((eve) => {
       return eve.isChecked;
     });
     const newData = data?.map((eve) => {
       return {
-        weekDays: eve.day,
+        weekdays: eve.day,
         event_custom_availability_details: eve.schedules?.map((schedule) => {
           return { from_time: schedule.startTime, to_time: schedule.endTime };
         }),
@@ -52,12 +51,7 @@ function CustomizeEventComponent() {
 
     const payload: EventPayload = {
       name: eventData.name,
-      course_category: [
-        {
-          event_categories: "dummy",
-          slug_name: "dummy",
-        },
-      ],
+      course_category: eventData.courseCategory,
       description: eventData.description,
       location: eventData.location,
       course_url: eventData.courseUrl,
@@ -79,7 +73,7 @@ function CustomizeEventComponent() {
           : [],
       event_custom_availability: !eventData.defaultAvailability
         ? newData?.map((el) => ({
-            weekDays: el.weekDays,
+            weekdays: el.weekdays,
             event_custom_availability_details:
               el.event_custom_availability_details,
             // specific_hours_date: undefined,
@@ -96,6 +90,7 @@ function CustomizeEventComponent() {
       publish_status: eventData.publishStatus,
       is_event_live: eventData.isEventLive,
     };
+    console.log({ payload });
     console.log(JSON.stringify(payload));
 
     // Object.keys(payload).forEach((key) => {

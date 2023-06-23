@@ -1,6 +1,6 @@
 export type Categories = {
-  eventCategories: string;
-  slugName: string;
+  event_categories: string;
+  slug_name: string;
 };
 
 // type EventScheduledDateTime = {
@@ -70,7 +70,17 @@ export type CreateEventType = {
   achievementBadgeImage?: string;
   publishStatus: boolean;
   isEventLive: boolean;
-  instructorDetails: { id: number };
+  instructorDetails: {
+    id: number;
+    bio: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string | null;
+    profileImage: string | null;
+    userRoles: string;
+    username: string;
+  };
 };
 
 // type CourseCategory = {
@@ -95,6 +105,64 @@ export type CreateEventType = {
 //   eventCustomAvailabilityDetails: [];
 //   specificHoursDate: null;
 // };
+
+export type getEventType = {
+  achievementBadgeImage: string | null;
+  availableSpots: number;
+  cancellationPolicies: string;
+  courseCategory: { eventCategories: string; slugName: string }[];
+  courseUrl: string;
+  isPrivateEvent: boolean;
+  customQuestions: {
+    id: number;
+    fieldType: string;
+    questionPromptLabel: string;
+    answerRequired: boolean;
+    paidUpgrade: string;
+    upgradeCost: number;
+    answerData: { id: number; description: string; upgradeCost: number }[];
+    costPerGuest: string;
+    maxGuest: number;
+  }[];
+  customWaiverSettings: string;
+  defaultAvailability: null | number;
+  defaultWaiverSettings: string;
+  description: string;
+  eventCustomAvailability: {
+    weekdays: string;
+    specificHoursDate: string | null;
+    eventCustomAvailabilityDetails: { fromTime: string; toTime: string }[];
+  }[];
+  eventImage: string | null;
+  eventScheduledDateTime: {
+    eventEndDate: string;
+    eventEndTime: string;
+    eventStartDate: string;
+    eventStartTime: string;
+  }[];
+  eventTypeAndScheduleId: string;
+  id: number;
+  instructorDetails: {
+    bio: string;
+    email: string;
+    first_name: string;
+    id: number;
+    last_name: string;
+    phone_number: string | null;
+    profile_image: string | null;
+    user_roles: string;
+    username: string;
+  };
+  isAddSalesTax: boolean;
+  isEventLive: boolean;
+  location: string;
+  name: string;
+  perSpotCost: number;
+  publishStatus: boolean;
+  requirements: string;
+  salesTaxPercent?: number;
+  isIncludeTransactionFeeInCost: boolean;
+};
 
 export type EventDataType = {
   name: string;
