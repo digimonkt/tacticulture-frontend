@@ -50,6 +50,11 @@ export type CreateEventType = {
     eventCustomAvailabilityDetails: { fromTime: string; toTime: string }[];
     specificHoursDate: string;
   }[];
+  eventScheduleSpan: {
+    scheduleEventPeriod: string;
+    scheduleEventPeriodUnit: string;
+  };
+  eventOpenSpan: { openEventPeriod: string; openEventPeriodUnit: string };
   defaultAvailability: number | null;
   requirements: string;
   cancellationPolicies: string;
@@ -113,6 +118,10 @@ export type getEventType = {
   courseCategory: { eventCategories: string; slugName: string }[];
   courseUrl: string;
   isPrivateEvent: boolean;
+  openAvailabilityPeriod: number | null;
+  openAvailabilityPeriodUnit: string | null;
+  scheduleEventPeriod: number | null;
+  scheduleEventPeriodUnit: string | null;
   customQuestions: {
     id: number;
     fieldType: string;

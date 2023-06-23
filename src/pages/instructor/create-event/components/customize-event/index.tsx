@@ -48,7 +48,7 @@ function CustomizeEventComponent() {
         }),
       };
     });
-
+    console.log(eventData, "event");
     const payload: EventPayload = {
       name: eventData.name,
       course_category: eventData.courseCategory,
@@ -89,6 +89,13 @@ function CustomizeEventComponent() {
       // achievement_badge_image: eventData.achievementBadgeImage,
       publish_status: eventData.publishStatus,
       is_event_live: eventData.isEventLive,
+      schedule_event_period:
+        eventData.eventScheduleSpan.scheduleAvailabilityPeriod,
+      schedule_event_period_unit:
+        eventData.eventScheduleSpan.scheduleAvailabilityPeriodUnit,
+      open_availability_period_unit:
+        eventData.eventOpenSpan.openAvailabilityPeriodUnit,
+      open_availability_period: eventData.eventOpenSpan.openAvailabilityPeriod,
     };
     console.log({ payload });
     console.log(JSON.stringify(payload));

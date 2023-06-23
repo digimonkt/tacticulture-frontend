@@ -37,7 +37,7 @@ function EmbedBody() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  console.log(eventDetail, "eventDetail");
   return (
     <div>
       <ApprenticeHeaderComponent />

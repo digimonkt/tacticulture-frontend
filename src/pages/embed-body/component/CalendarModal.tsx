@@ -113,6 +113,10 @@ const CalendarModal = ({
                   (schedule: any, index: any) => {
                     return (
                       <ScheduledCardComponent
+                        scheduleEventPeriod={eventDetail.scheduleEventPeriod}
+                        scheduleEventPeriodUnit={
+                          eventDetail.scheduleEventPeriodUnit
+                        }
                         key={index}
                         schedule={schedule}
                         index={index}

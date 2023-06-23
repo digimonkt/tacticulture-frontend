@@ -27,6 +27,7 @@ export type EventResponse = {
   cost_per_spot: number;
   is_include_transaction_fee_in_cost: boolean;
   is_add_sales_tax: boolean;
+
   event_type_and_schedule_id: string;
   event_scheduled_datetime: {
     event_start_date: string;
@@ -34,6 +35,10 @@ export type EventResponse = {
     event_end_date: string;
     event_end_time: string;
   }[];
+  open_availability_period: number | null;
+  open_availability_period_unit: string | null;
+  schedule_event_period: number | null;
+  schedule_event_period_unit: string | null;
   event_custom_availability: {
     weekdays: string;
     specific_hours_date: string | null;

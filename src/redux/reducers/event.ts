@@ -9,7 +9,6 @@ import {
   getEventDetailAPI,
 } from "@/api/event";
 import { detailPayloadId, EventPayload } from "@/api/types/event";
-import { string } from "yup";
 
 interface Ievent {
   eventData: CreateEventType;
@@ -25,6 +24,10 @@ const initialState: Ievent = {
     achievementBadgeImage: null,
     availableSpots: 0,
     cancellationPolicies: "",
+    openAvailabilityPeriod: null,
+    openAvailabilityPeriodUnit: null,
+    scheduleEventPeriod: null,
+    scheduleEventPeriodUnit: null,
     courseCategory: [{ eventCategories: "", slugName: "" }],
     courseUrl: "",
     customQuestions: [
@@ -99,6 +102,12 @@ const initialState: Ievent = {
     isAddSalesTax: false,
     salesTaxPercent: 0,
     eventTypeAndScheduleId: "schedule",
+    eventScheduleSpan: {
+      scheduleEventPeriod: "",
+      scheduleEventPeriodUnit: "",
+    },
+    eventOpenSpan: { openEventPeriod: "", openEventPeriodUnit: "" },
+
     eventScheduledDateTime: [
       {
         id: 1,

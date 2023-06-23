@@ -68,10 +68,12 @@ export type availabilityType = {
   value: string;
   isChecked: boolean;
   schedules: { startDate: string }[];
+  openSpan: (period: string, periodUnit: string) => void;
 };
 
-function OpenAvailabilityComponent({ customAvailabilityData }: any) {
+function OpenAvailabilityComponent({ customAvailabilityData, openSpan }: any) {
   const dispatch = useAppDispatch();
+  const [openTimeSpan, setOpenTimeSpan] = useState();
   const [isComponent, setIsComponent] = useState("default");
   const [availability, setAvailability] = useState(scheduleEvents);
   const [availabilityId, setAvailabilityId] = useState(0);
@@ -79,6 +81,10 @@ function OpenAvailabilityComponent({ customAvailabilityData }: any) {
   useEffect(() => {
     customAvailabilityData(availability);
   }, [availability]);
+
+  useEffect(() => {
+    openSpan(openTimeSpan);
+  }, [openTimeSpan]);
 
   useEffect(() => {
     getAvailabilityId();
@@ -156,7 +162,7 @@ function OpenAvailabilityComponent({ customAvailabilityData }: any) {
   const { currentUser, defaultAvailability } = useAppSelector(
     (state) => state.userReducer
   );
-  // console.log(defaultAvailability);
+
   return (
     <>
       <div className={`${styles.scheduleDate}`}>
@@ -191,10 +197,23 @@ function OpenAvailabilityComponent({ customAvailabilityData }: any) {
         <div className="text-start">
           <label className="p-0">Set the event time span</label>
           <div className="startDate">
-            <LabeledInput />
+            <LabeledInput
+              onChange={(e) =>
+                setOpenTimeSpan({
+                  ...openTimeSpan,
+                  openAvailabilityPeriod: e.target.value,
+                })
+              }
+            />
             <SelectInput
+              onChange={(value) =>
+                setOpenTimeSpan({
+                  ...openTimeSpan,
+                  openAvailabilityPeriodUnit: value,
+                })
+              }
               options={[
-                { value: "Hours", label: "Hours" },
+                { value: "hours", label: "Hours" },
                 { value: "Time", label: "Time" },
               ]}
             />
