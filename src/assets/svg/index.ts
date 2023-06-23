@@ -72,9 +72,11 @@ import Linked from "./linked.svg";
 import S from "./s.svg";
 import ZSIGN from "./zsign.svg";
 import Rightcheck from "./rightcheck.svg";
+import AngleArrow from "./doublearrow.svg";
 
 export const SVG = {
   SwitchIcon,
+  AngleArrow,
   EarthIcon,
   GoogleIcon,
   DownChevron,

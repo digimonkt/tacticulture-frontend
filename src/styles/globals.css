@@ -2,6 +2,79 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.steppers {
+  padding: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+.indicatorsStep {
+  width: 39px;
+  height: 10px;
+  background: #bfbfbf;
+  display: inline-grid;
+  margin: 0 2px;
+  border-radius: 3px;
+}
+.steppers span {
+  font-size: 12px;
+  cursor: pointer;
+  color: #cb2c2c;
+  font-weight: 500;
+}
+::placeholder {
+  font-family: "inter" !important;
+}
+.timeDropdown {
+  background: #333 !important;
+  color: #fff !important;
+  font-weight: bold;
+  padding: 4px 6px;
+  border-radius: 3px;
+}
+.timeDropdown .ant-space-item svg path {
+  fill: #fff !important;
+}
+.registerBody {
+  width: 472px;
+  margin: 0 auto;
+  text-align: center;
+}
+.registerBody h1 {
+  font-size: 32px;
+  color: #5c5c5c;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+.registerBody button {
+  width: 350px;
+  height: 48px;
+  background-color: #cb2c2c;
+  border-radius: 3px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.registerBody input {
+  width: 350px;
+  height: 48px;
+  border: 1px solid #bfbfbf;
+  border-radius: 3px;
+  margin-bottom: 16px;
+}
+.registerBody p {
+  color: #333333;
+  font-weight: 400;
+}
+.ant-dropdown-menu-item.ant-dropdown-menu-item-only-child:hover {
+  background-color: #cb2c2c !important;
+  color: #fff !important;
+}
+.ant-dropdown-menu-title-content:nth-child(1) {
+  font-size: 12px !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+}
 .ant-modal-content {
   padding: 0 !important;
 }

@@ -5,17 +5,39 @@ import { IMAGES } from "@/assets/images";
 import Image from "next/image";
 import { SVG } from "@/assets/svg";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
-import { Col, Row } from "antd";
+import { Col, Row, Dropdown, Space } from "antd";
 import EmbedCardComponent from "./component/embed-card";
 import Modal from "@/component/model";
-import ModalHeader from "@/modal/modalHeader";
+// import ModalHeader from "@/modal/modalHeader";
 import DatePicker from "@/component/calendar";
-import SelectInputComponent from "@/component/input/selectInput";
 import { RadioButtonInput } from "@/component/input";
 import FilledButtonComponent from "@/component/buttons/filledButton";
 import TimeZoneComponent from "@/component/timezone";
+import type { MenuProps } from "antd";
+import RegisterBodyComponent from "@/modal/component/registerBody";
+import ModalHeader from "@/component/model/modalHeader";
 
 function EmbedBody() {
+  const items: MenuProps["items"] = [
+    {
+      label: "Select Time",
+      key: "0",
+    },
+    {
+      label: "8:00 AM",
+      key: "1",
+    },
+
+    {
+      label: "9:00 AM",
+      key: "3",
+    },
+    {
+      label: "10:00 AM",
+      key: "3",
+    },
+  ];
+
   const [timezoneData, setTimezoneData] = useState(
     Intl.DateTimeFormat().resolvedOptions().timeZone
   );
@@ -24,14 +46,25 @@ function EmbedBody() {
     console.log(dates);
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [registerModal, setRegisterModal] = useState(false);
+
+  const [step, setStep] = useState(1);
+  const [next, setNext] = useState(false);
+  const [secondnext, setSecondnext] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+  const showRegisterModal = () => {
+    setRegisterModal(true);
+  };
   const handleOk = () => {
     setIsModalOpen(false);
+    setRegisterModal(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    setRegisterModal(false);
   };
 
   return (
@@ -143,11 +176,11 @@ function EmbedBody() {
                       letterSpacing: "1px",
                       height: "38px",
                     }}
-                    onClick={showModal}
+                    onClick={showRegisterModal}
                   >
                     Register Now
                   </FilledButton>
-                  <h6>Course Summary</h6>
+                  <h6 onClick={showModal}>Course Summary</h6>
                   <p className="pb-4">
                     Private pistol lessons are for individuals that want to
                     master concepts and skills in a private setting. Whether
@@ -193,6 +226,7 @@ function EmbedBody() {
           </div>
         </div>
       </div>
+      {/* Event calendar modal start */}
       <Modal
         className="courseModal"
         showModal={showModal}
@@ -237,18 +271,53 @@ function EmbedBody() {
                   <span>Open Availability</span>
                 </div>
 
-                <SelectInputComponent
-                  defaultValue="8:00 am"
-                  options={[
-                    { value: "8:00 am", label: "8:00 am" },
-                    { value: "9:00 am", label: "9:00 am" },
-                  ]}
-                />
+                <Dropdown
+                  menu={{ items }}
+                  className="timeDropdown"
+                  trigger={["click"]}
+                >
+                  <a className="menuList" onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      Register
+                      <SVG.DownChevron width="12px" />
+                    </Space>
+                  </a>
+                </Dropdown>
               </div>
             </Col>
           </Row>
         </div>
       </Modal>
+      {/* Event calendar modal end */}
+
+      {/* Event register modal start */}
+      <Modal
+        className="courseModal"
+        onCancel={handleCancel}
+        handleOk={handleOk}
+        open={registerModal}
+        showModal={showRegisterModal}
+      >
+        <ModalHeader />
+        <div className="modalBody">
+          <div className="steppers">
+            {/* {step === 1 ? "harsh" : "j"} */}
+            <span>
+              <SVG.AngleArrow width="16px" />
+              Back to Schedule
+            </span>
+            <div>
+              <span className="indicatorsStep"></span>
+              <span className="indicatorsStep"></span>
+              <span className="indicatorsStep"></span>
+              <span className="indicatorsStep"></span>
+            </div>
+          </div>
+          {step === 1 ? <RegisterBodyComponent /> : "null"}
+        </div>
+      </Modal>
+
+      {/* Event register modal end */}
     </div>
   );
 }
