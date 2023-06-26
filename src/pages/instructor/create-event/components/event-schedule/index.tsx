@@ -16,7 +16,8 @@ function EventScheduleComponent() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [scheduleType, setScheduleType] = useState("schedule");
-
+  const [openSpan, setOpenSpan] = useState();
+  const [scheduleSpan, setScheduleSpan] = useState();
   const { eventData } = useAppSelector((state) => state.EventReducer);
   // const { defaultAvailability } = useAppSelector((state) => state.userReducer);
   const [scheduleData, setScheduleData] = useState(
@@ -67,11 +68,13 @@ function EventScheduleComponent() {
         eventTypeAndScheduleId: scheduleType,
         eventScheduledDateTime: scheduleData,
         eventCustomAvailability: customeEvent,
+        eventOpenSpan: openSpan,
+        eventScheduleSpan: scheduleSpan,
       })
     );
     router.push(`../instructor/create-event?step=${3}`);
   };
-  console.log(eventData, "event-schedule page");
+  console.log(customeEvent, "event-schedule-data");
   return (
     <div className="schedule">
       <EventHeaderComponent heading="Event Details" onPress={nextPage} />
@@ -122,6 +125,7 @@ function EventScheduleComponent() {
                 <ScheduleDateComponent
                   key={el.id}
                   eventData={el}
+                  scheduleSpan={(value: any) => setScheduleSpan(value)}
                   getChildValue={(value: any) =>
                     updateScheduleEvent(el.id, value)
                   }
@@ -150,6 +154,7 @@ function EventScheduleComponent() {
         ) : null}
         {scheduleType === "open" || scheduleType === "combined" ? (
           <OpenAvailabilityComponent
+            openSpan={(value: any) => setOpenSpan(value)}
             customAvailabilityData={(value: any) => setCustomEvent(value)}
           />
         ) : null}

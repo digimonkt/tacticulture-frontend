@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../course.module.css";
 import { LabeledInput, SelectInput } from "@/component/input";
 // import { FilledButton } from "@/component/buttons";
@@ -11,10 +11,20 @@ interface IScheduleDate {
     eventEndDate: string;
     eventEndTime: string;
   };
+  scheduleSpan: (period: string, periodUnit: string) => void;
   getChildValue: (arg: { key: string; value: string }) => void;
 }
 
-function ScheduleDateComponent({ eventData, getChildValue }: IScheduleDate) {
+function ScheduleDateComponent({
+  eventData,
+  getChildValue,
+  scheduleSpan,
+}: IScheduleDate) {
+  const [scheduleTimeSpan, setScheduleTimeSpan] = useState();
+
+  useEffect(() => {
+    scheduleSpan(scheduleTimeSpan);
+  }, [scheduleTimeSpan]);
   return (
     <>
       <div className={`${styles.scheduleDate}`}>
@@ -64,10 +74,25 @@ function ScheduleDateComponent({ eventData, getChildValue }: IScheduleDate) {
           <div className="text-start">
             <label className="p-0">Set the event time span</label>
             <div className="startDate">
-              <LabeledInput />
+              <LabeledInput
+                type="number"
+                // value={}
+                onChange={(e) =>
+                  setScheduleTimeSpan({
+                    ...scheduleTimeSpan,
+                    scheduleAvailabilityPeriod: e.target.value,
+                  })
+                }
+              />
               <SelectInput
+                onChange={(value) =>
+                  setScheduleTimeSpan({
+                    ...scheduleTimeSpan,
+                    scheduleAvailabilityPeriodUnit: value,
+                  })
+                }
                 options={[
-                  { value: "Hours", label: "Hours" },
+                  { value: "hours", label: "Hours" },
                   { value: "Time", label: "Time" },
                 ]}
               />
@@ -75,22 +100,6 @@ function ScheduleDateComponent({ eventData, getChildValue }: IScheduleDate) {
           </div>
         </div>
       </div>
-
-      {/* <FilledButton
-        style={{
-          fontSize: " 17px",
-          color: "#fff",
-          fontWeight: "700",
-          letterSpacing: "1px",
-          width: "299px",
-          height: "37px",
-          borderRadius: "3px",
-          marginLeft: " 21px",
-          marginBottom: " 20px",
-        }}
-      >
-        + Add Another Scheduled Event
-      </FilledButton> */}
     </>
   );
 }
