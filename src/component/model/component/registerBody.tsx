@@ -2,10 +2,29 @@ import React, { useState } from "react";
 import { LabeledInput } from "@/component/input";
 import { FilledButton } from "@/component/buttons";
 
-function RegisterBodyComponent() {
+interface IRegistrationBody {
+  handleStepNext: () => void;
+  handleStepPrev: () => void;
+}
+
+function RegisterBodyComponent({
+  handleStepNext,
+  handleStepPrev,
+}: IRegistrationBody) {
   const [show, setShow] = useState(false);
   return (
     <div>
+      <div className="scheduleSteps">
+        <span style={{ color: "#CB2C2C", fontWeight: "500" }}>
+          Back to Schedule
+        </span>
+        <div className="counters">
+          <span style={{ background: "#CB2C2C" }}></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
       <div className="registerBody">
         {
           <h1>
@@ -38,7 +57,7 @@ function RegisterBodyComponent() {
         )}
         <div>
           <LabeledInput placeholder={show ? "000000" : "Email Address"} />
-          <FilledButton onClick={() => setShow(!show)}>
+          <FilledButton onClick={() => handleStepNext()}>
             Register Now
           </FilledButton>
           {show ? (

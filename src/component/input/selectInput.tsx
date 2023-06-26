@@ -11,7 +11,7 @@ interface ISelectInput extends SelectProps<any> {
 function SelectInputComponent({ label, ...rest }: ISelectInput) {
   return (
     <div>
-      <p className="mb-1 mt-3">{label}</p>
+      {label ? <p className="mb-1 mt-3">{label}</p> : ""}
       <Select
         suffixIcon={<SVG.DownChevron width="16px" />}
         style={{ width: 120 }}

@@ -6,8 +6,8 @@ import Image from "next/image";
 import { IMAGES } from "@/assets/images";
 import styles from "./event.module.css";
 import { SVG } from "@/assets/svg";
-import { FilledButton } from "@/component/buttons";
-import { OptionsInput } from "@/component/input";
+import { FilledButton, OutlinedButton } from "@/component/buttons";
+import { OptionsInput, SwitchInput } from "@/component/input";
 import ForumCardComponent from "@/pages/apprentice/components/forum-card";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks/hooks";
 import { currentUser } from "@/redux/reducers/user";
@@ -17,6 +17,7 @@ import event, {
   availableEventData,
   getEventData,
 } from "@/redux/reducers/event";
+import { Card } from "react-bootstrap";
 
 function ManageEvent() {
   const dispatch = useAppDispatch();
@@ -145,22 +146,8 @@ function ManageEvent() {
                 </div>
               </Col>
             </Row>
-            {/* <CardComponent>
-              <div className="text-center pt-3 pb-3">
-                <p
-                  className="mb-0"
-                  style={{
-                    color: "#fff",
-                    fontFamily: "Proxima Nova",
-                    fontWeight: "700",
-                    letterSpacing: "1px",
-                  }}
-                >
-                  You don’t have any events yet, let’s create one!
-                </p>
-              </div>
-            </CardComponent> */}
-            <Row>
+
+            {/* <Row>
               {eventData?.results?.map((Data) => (
                 <Col md={12} key={Data.id}>
                   <div className="manageCard">
@@ -172,6 +159,97 @@ function ManageEvent() {
                   </div>
                 </Col>
               ))}
+            </Row> */}
+            <Row>
+              <Col md={12}>
+                <Card className="position-relative cards white">
+                  <Image src={IMAGES.Card} alt="" className="w-100" />
+                  <OptionsInput title={<SVG.Setting className="settingIcon" />}>
+                    <div className={`${styles.dropdownBox}`}>
+                      <SVG.Edit width="20px" />
+                      <span
+                        style={{
+                          fontFamily: "Proxima Nova",
+                          color: "#444444",
+                          fontWeight: "700",
+                          letterSpacing: "1px",
+                          paddingLeft: "10px",
+                          position: "relative",
+                          top: "2px",
+                        }}
+                      >
+                        Edit
+                      </span>
+                    </div>
+                    <div className={`${styles.dropdownBox}`}>
+                      <SVG.Iframe width="20px" />
+                      <span
+                        style={{
+                          color: "#444444",
+                          fontWeight: "700",
+                          letterSpacing: "1px",
+                          paddingLeft: "10px",
+                          position: "relative",
+                          top: "2px",
+                        }}
+                      >
+                        Add to Website
+                      </span>
+                    </div>
+                    <div className={`${styles.dropdownBox}`}>
+                      <SVG.Clone width="20px" />
+                      <span
+                        style={{
+                          color: "#444444",
+                          fontWeight: "700",
+                          letterSpacing: "1px",
+                          paddingLeft: "10px",
+                          position: "relative",
+                          top: "2px",
+                        }}
+                      >
+                        Clone
+                      </span>
+                    </div>
+                    <div className={`${styles.dropdownBox}`}>
+                      <SVG.Delete width="20px" />
+                      <span
+                        style={{
+                          color: "#444444",
+                          fontWeight: "700",
+                          letterSpacing: "1px",
+                          paddingLeft: "10px",
+                          position: "relative",
+                          top: "2px",
+                        }}
+                      >
+                        Delete
+                      </span>
+                    </div>
+                    <div className="bottomButton">
+                      <span>On / Off</span>
+                      <SwitchInput />
+                    </div>
+                  </OptionsInput>
+                  <div className="eventTitle">
+                    <h5>Event Title Name Goes Here</h5>
+                    <p>[MM.DD.YYYY] + Open Availability</p>
+                  </div>
+                  <Card.Body>
+                    <div className="bodyLink">
+                      <div className="d-flex">
+                        <OutlinedButton className="outlineShare">
+                          <SVG.Share width="60px" />
+                        </OutlinedButton>
+                        <OutlinedButton className="copyShare">
+                          <SVG.CopyLink width="80px" />
+                        </OutlinedButton>
+                      </div>
+                      <span>View Course Page</span>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
             </Row>
           </div>
         </div>

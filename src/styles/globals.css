@@ -248,11 +248,349 @@ table.rdp-table {
   font-weight: 300;
   font-stretch: normal;
 } */
+::placeholder {
+  font-family: "Inter" !important;
+  color: #000 !important;
+}
+.bodyLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bodyLink span {
+  color: #cb2c2c;
+  font-weight: bold;
+}
+.cards.card .card-body {
+  padding: 10px !important;
+}
+.outlineShare {
+  width: auto !important;
+  margin: 0 !important;
+  height: auto !important;
+  padding: 8px !important;
+  border: 1px solid #333333 !important;
+  border-radius: 3px;
+}
+.cards.card .dropdown {
+  position: absolute;
+  right: 0;
+  top: 9px;
+}
+.settingIcon path {
+  fill: #fff !important;
+}
+.copyShare {
+  width: auto !important;
+  margin: 0 !important;
+  height: auto !important;
+  padding: 8px !important;
+  border-radius: 3px;
+}
+.cards.card {
+  height: 232px !important;
+  overflow: hidden;
+}
+.bottomButton {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding-top: 6px;
+  margin-top: 5px;
+}
+.bottomButton .ant-switch-inner {
+  background: #cb2c2c !important;
+}
+.bottomButton button {
+  margin-left: 10px;
+}
+.bottomButton span {
+  color: #444;
+  font-size: 16px;
+  font-weight: bold;
+}
+.eventTitle {
+  position: absolute;
+  bottom: 27%;
+  width: 100%;
+  color: #fff;
+}
+.eventTitle h5 {
+  font-size: 17px;
+  margin-bottom: 0;
+  padding-left: 12px;
+}
+.eventTitle p {
+  font-size: 13px;
+  margin-bottom: 0;
+  padding-left: 12px;
+  padding-bottom: 10px;
+}
+.cards.card img {
+  height: 170px;
+  object-fit: cover;
+}
+.guestBody {
+  background: #f3f3f3;
+  padding-bottom: 15px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.registerModal .bg-white {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.input-1 {
+  text-align: center;
+}
+.input-3 input {
+  width: 95% !important;
+}
+.billingDiv {
+  padding: 17px;
+}
+.paypal {
+  border: 1px solid #bfbfbf;
+  padding: 14px 14px 10px 14px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+.orderSummary p {
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.total {
+  color: #666;
+  font-weight: bold;
+  padding-top: 10px;
+}
+.orderBtn button {
+  height: 48px;
+  border-radius: 3px;
+}
+.orderBtn {
+  text-align: end;
+  margin-top: 16px;
+}
+.orderSummary h5 {
+  font-size: 14px;
+  font-weight: 300;
+  padding-top: 5px;
+  color: #000;
+}
+.orderSummary {
+  border-bottom: 1px solid #c9c9c9;
+}
+.summary {
+  font-weight: bold;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  color: #666 !important;
+  border-bottom: 1px solid #c9c9c9;
+}
+.orderSummary h6 {
+  color: #333333;
+  margin-right: 39px;
+  padding-top: 10px;
+}
+.orderSummary span {
+  font-size: 14px;
+  color: #666666;
+  font-weight: bold;
+}
+.cvvSection {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+.cvvSection input {
+  margin: 0 7px 0 0px !important;
+}
+.cvvSection input:nth-child(3) {
+  margin-right: 0 !important;
+}
+.creditSection input {
+  border: 1px solid #bfbfbf !important;
+  border-radius: 3px !important;
+  height: 48px !important;
+}
+.billingDiv h4 {
+  color: #5c5c5c;
+  font-size: 24px;
+  font-weight: bold;
+}
+.creditSection {
+  border: 1px solid #bfbfbf;
+  background: #f3f3f3;
+  padding: 15px;
+  border-radius: 3px;
+}
+.input-4 input {
+  width: 330px !important;
+}
+.input-6 {
+  text-align: start !important;
+}
+.input-6 input {
+  width: 164px !important;
+}
+.input-4 {
+  text-align: center !important;
+}
+.input-3 {
+  text-align: center !important;
+}
+.input-1 input {
+  width: 330px !important;
+}
+.publicView input {
+  height: auto !important;
+}
+.billingInformation button {
+  width: 342px !important;
+  background: #aeaeae !important;
+}
+.billingInformation {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.BillingBody .ant-select-selector {
+  height: 48px !important;
+}
+.BillingBody input {
+  height: 48px;
+  margin-bottom: 16px;
+  border-radius: 3px;
+}
+.BillingBody .ant-select {
+  width: 88% !important;
+}
+/* .appendSection {
+  display: flex;
+} */
+.appendSection input {
+  width: 307px !important;
+  margin-right: 6px;
+  margin-left: 4px;
+}
+.appendSection button {
+  background: #cb2c2c;
+  border: 0;
+  width: 30px !important;
+  height: 30px !important;
+  color: #fff;
+  position: absolute;
+  right: 18px;
+  top: 10px;
+}
 
+.guestBody h3 {
+  color: #5c5c5c;
+  font-size: 24px;
+  font-weight: bold;
+  padding-left: 5px;
+}
+.publicView {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding-left: 6px;
+}
+.publicView p span {
+  font-weight: 400;
+  font-style: italic;
+}
+.publicView p {
+  margin-bottom: 0;
+  color: #333;
+  font-weight: 500;
+  margin-left: 6px;
+}
+.guest button {
+  width: 97%;
+  height: 48px;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+.guest {
+  width: 702px;
+  margin: 0 auto;
+}
+.guest .ant-col.ant-col-md-12 {
+  margin: 0 0px;
+  text-align: center;
+}
+.guestBody input {
+  height: 48px;
+  border: 1px solid #bfbfbf;
+  border-radius: 3px;
+  width: 341px;
+  margin-bottom: 16px;
+}
+.registerBody {
+  width: 500px;
+  margin: 20px auto;
+  text-align: center;
+}
+.scheduleSteps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+.counters {
+  display: flex;
+}
+
+.counters span {
+  margin-right: 5px;
+  width: 39px !important;
+  display: block;
+  height: 10px;
+  background: #bfbfbf;
+}
+.registerBody input {
+  height: 48px;
+  border-radius: 3px;
+  border: 1px solid #bfbfbf;
+  width: 348px;
+  margin-bottom: 15px;
+}
+.registerBody button {
+  height: 48px;
+  width: 348px;
+  border-radius: 3px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+.registerBody h1 {
+  font-size: 32px;
+  color: #5c5c5c;
+  font-weight: bold;
+}
+.courseModal .ant-modal-content {
+  padding: 0 !important;
+}
+.courseModal .ant-modal-footer {
+  display: none !important;
+}
+.courseModal .ant-radio-wrapper .ant-radio-inner::after {
+  background-color: red !important;
+}
 * {
   margin: 0;
   padding: 0;
   font-family: "Inter";
+}
+h3 {
+  font-family: "Inter" !important;
+}
+button span {
+  font-family: "Inter" !important;
+}
+span {
+  font-family: "Inter" !important;
 }
 a {
   text-decoration: none !important;
@@ -653,7 +991,9 @@ textarea {
   padding-left: 0px !important;
   margin-top: 0 !important;
 }
-:where(.css-dev-only-do-not-override-1km3mtt).ant-btn-default:not(:disabled):hover {
+:where(.css-dev-only-do-not-override-1km3mtt).ant-btn-default:not(
+    :disabled
+  ):hover {
   color: #fff !important;
   border-color: #fff !important;
 }

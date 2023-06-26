@@ -35,7 +35,7 @@ function ApprenticeLayout() {
         <div
           style={{
             height: "100%",
-            width: "815px",
+            width: "818px",
             margin: "0 auto",
             paddingTop: "60px",
           }}

@@ -9,15 +9,27 @@ const { TextArea } = Input;
 //   console.log("Change:", e.target.value);
 // };
 interface ITextAreaComponents {
-  row: number;
+  row?: number;
   text?: string;
+  placeholder?: string;
 }
 
-function TextAreaComponents({ row, text, ...rest }: ITextAreaComponents) {
+function TextAreaComponents({
+  row,
+  placeholder,
+  text,
+  ...rest
+}: ITextAreaComponents) {
   return (
     <div>
       {text && <label>{text}</label>}
-      <TextArea showCount maxLength={100} rows={row} {...rest} />
+      <TextArea
+        showCount
+        maxLength={100}
+        placeholder={placeholder}
+        rows={row}
+        {...rest}
+      />
     </div>
   );
 }
