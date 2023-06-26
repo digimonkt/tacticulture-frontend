@@ -2,6 +2,24 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.loader {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 999;
+  background-color: #0000006e;
+  text-align: center;
+}
+.loader .spinner-border {
+  width: 100px;
+  height: 100px;
+
+  position: absolute;
+  top: 43%;
+  right: 50%;
+}
 .startDate {
   display: flex;
   align-items: center;

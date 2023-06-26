@@ -15,11 +15,15 @@ interface Ievent {
   availableEventData: GetListWithPagination<CreateEventType[]>;
   allEventData: GetListWithPagination<CreateEventType[]>;
   eventDetail: getEventType;
+  eventCreated: string;
+  eventCreatedError?: object;
 }
 
 // Define the initial state using that type
 
 const initialState: Ievent = {
+  eventCreated: "",
+  eventCreatedError: {},
   eventDetail: {
     achievementBadgeImage: null,
     availableSpots: 0,
@@ -91,7 +95,7 @@ const initialState: Ievent = {
   eventData: {
     id: "",
     name: "",
-    courseCategory: [{ event_categories: "", slug_name: "" }],
+    courseCategory: [],
     description: "",
     location: "",
     courseUrl: "",
@@ -103,10 +107,13 @@ const initialState: Ievent = {
     salesTaxPercent: 0,
     eventTypeAndScheduleId: "schedule",
     eventScheduleSpan: {
-      scheduleEventPeriod: "",
-      scheduleEventPeriodUnit: "",
+      scheduleAvailabilityPeriod: 1,
+      scheduleAvailabilityPeriodUnit: "hours",
     },
-    eventOpenSpan: { openEventPeriod: "", openEventPeriodUnit: "" },
+    eventOpenSpan: {
+      openAvailabilityPeriodUnit: "hours",
+      openAvailabilityPeriod: 1,
+    },
 
     eventScheduledDateTime: [
       {
@@ -210,6 +217,10 @@ export const eventSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
+    resetEventError: (state, action) => {
+      state.eventCreatedError = {};
+      state.eventCreated = "";
+    },
     createEvent: (state, action) => {
       state.eventData = { ...state.eventData, ...action.payload };
     },
@@ -231,10 +242,21 @@ export const eventSlice = createSlice({
     builder.addCase(getEventDetail.fulfilled, (state, action) => {
       state.eventDetail = action.payload;
     });
+
+    builder.addCase(createEventData.fulfilled, (state, action) => {
+      state.eventCreated = "success";
+    });
+    builder.addCase(createEventData.pending, (state, action) => {
+      state.eventCreated = "pending";
+    });
+    builder.addCase(createEventData.rejected, (state, action) => {
+      state.eventCreated = "rejected";
+      state.eventCreatedError = action.payload;
+    });
   },
 });
 
-export const { createEvent } = eventSlice.actions;
+export const { createEvent, resetEventError } = eventSlice.actions;
 
 export const availableEventData = (state: RootState) =>
   state.EventReducer.availableEventData;

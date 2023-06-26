@@ -44,26 +44,42 @@ function EventRequirement() {
   };
 
   const initialValues = {
-    requirement: "",
-    cancellation: "",
+    requirements: "",
+    cancellationPolicies: "",
+    customWaiverSettings: "",
   };
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues,
     validationSchema: Yup.object({
-      requirement: Yup.string().required("Requirement is required"),
-      cancellation: Yup.string().required("Cancellation is required"),
+      requirements: Yup.string().required("Requirement is required"),
+      cancellationPolicies: Yup.string().required("Cancellation is required"),
+      customWaiverSettings: Yup.string().required("Waiver is required"),
     }),
     onSubmit: (values) => {
-      // dispatch(createEvent(values));
-      console.log({ values });
+      dispatch(
+        createEvent({
+          customWaiverSettings: values.customWaiverSettings,
+          requirements: values.requirements,
+          cancellationPolicies: values.cancellationPolicies,
+        })
+      );
+
       router.push(`../instructor/create-event?step=${Number(4)}`);
     },
   });
 
   useEffect(() => {
-    console.log(eventData, "ell");
+    formik.setFieldValue("requirements", eventData.requirements);
+    formik.setFieldValue(
+      "cancellationPolicies",
+      eventData.cancellationPolicies
+    );
+    formik.setFieldValue(
+      "customWaiverSettings",
+      eventData.customWaiverSettings
+    );
   }, [eventData]);
 
   // console.log(eventData, "ef");
@@ -80,24 +96,21 @@ function EventRequirement() {
           restrictions the user should consider when booking this event.
         </p>
         <TextareaComponent
-          onChange={(e) => formik.setFieldValue("requirement", e)}
-          onBlur={() => formik.setTouched({ requirement: true })}
-          value={formik.values.requirement}
+          onChange={(e) => formik.setFieldValue("requirements", e)}
+          onBlur={() => formik.setTouched({ requirements: true })}
+          value={formik.values.requirements}
         />
-        <p style={{ color: "red" }}>{formik.errors.requirement}</p>
+        <p style={{ color: "red" }}>{formik.errors.requirements}</p>
         <div>
           <h5>Cancellation</h5>
 
           <TextareaComponent
-            // onChange={(value) =>
-            //   dispatch(createEvent({ cancellationPolicies: value }))
-            // }
-
-            onChange={(e) => formik.setFieldValue("cancellation", e)}
-            onBlur={() => formik.setTouched({ cancellation: true })}
-            value={formik.values.cancellation}
+            onChange={(e) => formik.setFieldValue("cancellationPolicies", e)}
+            onBlur={() => formik.setTouched({ cancellationPolicies: true })}
+            value={formik.values.cancellationPolicies}
           />
         </div>
+        <p style={{ color: "red" }}>{formik.errors.cancellationPolicies}</p>
       </div>
       <div className={`${styles.customEvents}`}>
         <h4>Custom Event Questions</h4>
@@ -123,6 +136,7 @@ function EventRequirement() {
               index={index}
               data={el}
               deleteQuestion={() => addEventQuestion("delete", el.id)}
+              addMoreQuestion={() => addEventQuestion("add")}
             />
           </div>
         );
@@ -161,14 +175,20 @@ function EventRequirement() {
           <TextareaComponent
             title="Set Your Custom Waiver Contents"
             className="mb-3"
-            onChange={(e) => dispatch(createEvent({ customWaiverSettings: e }))}
+            // onChange={(e) => dispatch(createEvent({ customWaiverSettings: e }))}
+            onChange={(e) => {
+              formik.setFieldValue("customWaiverSettings", e);
+            }}
+            value={formik.values.customWaiverSettings}
           />
+          <p style={{ color: "red" }}>{formik.errors.customWaiverSettings}</p>
           <p className="mb-0">
             By publishing this event utilizing this this waiver you agree to the
             Tacticulture<span style={{ color: "#FF3030" }}> Terms of Use</span>{" "}
             and assume all liability.
           </p>
         </div>
+        <EventHeaderComponent onPress={() => formik.handleSubmit()} />
       </div>
     </div>
   );

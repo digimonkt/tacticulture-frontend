@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../course.module.css";
 import { LabeledInput, SelectInput } from "@/component/input";
+import { SVG } from "@/assets/svg";
 // import { FilledButton } from "@/component/buttons";
 
 interface IScheduleDate {
@@ -11,7 +12,10 @@ interface IScheduleDate {
     eventEndDate: string;
     eventEndTime: string;
   };
-  scheduleSpan: (period: string, periodUnit: string) => void;
+  scheduleSpan: (scheduleTimeSpan: {
+    scheduleAvailabilityPeriod: number;
+    scheduleAvailabilityPeriodUnit: string;
+  }) => void;
   getChildValue: (arg: { key: string; value: string }) => void;
 }
 
@@ -20,11 +24,15 @@ function ScheduleDateComponent({
   getChildValue,
   scheduleSpan,
 }: IScheduleDate) {
-  const [scheduleTimeSpan, setScheduleTimeSpan] = useState();
+  const [scheduleTimeSpan, setScheduleTimeSpan] = useState({
+    scheduleAvailabilityPeriod: 1,
+    scheduleAvailabilityPeriodUnit: "hours",
+  });
 
   useEffect(() => {
     scheduleSpan(scheduleTimeSpan);
   }, [scheduleTimeSpan]);
+
   return (
     <>
       <div className={`${styles.scheduleDate}`}>
@@ -77,14 +85,16 @@ function ScheduleDateComponent({
               <LabeledInput
                 type="number"
                 // value={}
+                defaultValue={1}
                 onChange={(e) =>
                   setScheduleTimeSpan({
                     ...scheduleTimeSpan,
-                    scheduleAvailabilityPeriod: e.target.value,
+                    scheduleAvailabilityPeriod: parseInt(e.target.value),
                   })
                 }
               />
               <SelectInput
+                defaultValue="hours"
                 onChange={(value) =>
                   setScheduleTimeSpan({
                     ...scheduleTimeSpan,
@@ -93,7 +103,7 @@ function ScheduleDateComponent({
                 }
                 options={[
                   { value: "hours", label: "Hours" },
-                  { value: "Time", label: "Time" },
+                  { value: "day", label: "Day" },
                 ]}
               />
             </div>

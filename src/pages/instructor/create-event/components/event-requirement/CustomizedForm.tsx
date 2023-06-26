@@ -18,12 +18,14 @@ interface CustomizedFormProps {
   index: any;
   data: any;
   deleteQuestion: () => void;
+  addMoreQuestion: () => void;
 }
 
 const CustomizedForm = ({
   index,
   data,
   deleteQuestion,
+  addMoreQuestion,
 }: CustomizedFormProps) => {
   const dispatch = useAppDispatch();
   // const [fieldType, setFieldType] = useState("ShortText");
@@ -368,7 +370,7 @@ const CustomizedForm = ({
           <div className={`${styles.icon}`}>
             <SVG.Trash width="24px" onClick={deleteQuestion} />
             <SVG.File width="24px" />
-            <SVG.Plus width="24px" />
+            <SVG.Plus width="24px" onClick={addMoreQuestion} />
           </div>
         </Col>
       </Row>

@@ -105,6 +105,10 @@ export type EventPayload = {
     event_end_date: string;
     event_end_time: string;
   }[];
+  schedule_event_period: number;
+  schedule_event_period_unit: string;
+  open_availability_period_unit: string;
+  open_availability_period: number;
   event_custom_availability?: EventCustomeAvailabilityDetails[];
 
   default_availability: number | null;

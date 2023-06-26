@@ -8,8 +8,9 @@ import Image from "next/image";
 // import UploadProfileComponent from "@/component/upload-profile";
 import EventHeaderComponent from "../event-header";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { createEventData } from "@/redux/reducers/event";
+import { createEventData, resetEventError } from "@/redux/reducers/event";
 import { EventPayload } from "@/api/types/event";
+import { Spinner } from "react-bootstrap";
 
 function CustomizeEventComponent() {
   const dispatch = useAppDispatch();
@@ -18,7 +19,9 @@ function CustomizeEventComponent() {
   >("");
   const [addImages, setAddImages] = useState<File>();
 
-  const { eventData } = useAppSelector((state) => state.EventReducer);
+  const { eventData, eventCreated, eventCreatedError } = useAppSelector(
+    (state) => state.EventReducer
+  );
 
   const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -31,6 +34,29 @@ function CustomizeEventComponent() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+
+  useEffect(() => {
+    let errorData: any;
+    if (eventCreatedError?.status) {
+      errorData = Object.keys(eventCreatedError.errors).map(
+        (key) => (key = eventCreatedError.errors[key].join(", "))
+      );
+    }
+
+    // alert(errorData);
+    console.log(errorData, "errorData");
+    if (errorData) {
+      const userResponse = window.confirm(errorData);
+
+      dispatch(resetEventError());
+    }
+
+    // if (userResponse) {
+    //   dispatch(resetEventError());
+    // } else {
+    //   dispatch(resetEventError());
+    // }
+  }, [eventCreatedError]);
 
   // useEffect(() => {
   //   console.log(addImages);
@@ -48,13 +74,16 @@ function CustomizeEventComponent() {
         }),
       };
     });
-    console.log(eventData, "event");
+
     const payload: EventPayload = {
       name: eventData.name,
       course_category: eventData.courseCategory,
       description: eventData.description,
       location: eventData.location,
-      course_url: eventData.courseUrl,
+      course_url: `https://tacticulture.com/${eventData.name.replace(
+        /\s/g,
+        ""
+      )}/}/`,
       is_private_event: eventData.isPrivateEvent,
       available_spots: eventData.availableSpots,
       cost_per_spot: eventData.perSpotCost,
@@ -90,112 +119,119 @@ function CustomizeEventComponent() {
       publish_status: eventData.publishStatus,
       is_event_live: eventData.isEventLive,
       schedule_event_period:
-        eventData.eventScheduleSpan.scheduleAvailabilityPeriod,
+        eventData.eventScheduleSpan.scheduleAvailabilityPeriod * 60,
       schedule_event_period_unit:
         eventData.eventScheduleSpan.scheduleAvailabilityPeriodUnit,
       open_availability_period_unit:
         eventData.eventOpenSpan.openAvailabilityPeriodUnit,
-      open_availability_period: eventData.eventOpenSpan.openAvailabilityPeriod,
+      open_availability_period:
+        eventData.eventOpenSpan.openAvailabilityPeriod * 60,
     };
     console.log({ payload });
     console.log(JSON.stringify(payload));
 
-    // Object.keys(payload).forEach((key) => {
-    //   if (
-    //     payload[key] === null ||
-    //     payload[key] === undefined ||
-    //     payload[key] === ""
-    //   ) {
-    //     delete payload[key];
-    //   }
-    // });
-
     dispatch(createEventData(payload));
   };
 
-  return (
-    <div>
-      <EventHeaderComponent
-        heading="Customize Event Style"
-        onPress={submitEvent}
-      />
-      <h6
-        style={{
-          fontSize: "16px",
-          fontFamily: "Proxima Nova",
-          fontWeight: "700",
-          letterSpacing: "1px",
-          marginLeft: "20px",
-        }}
-      >
-        Event Image <span style={{ fontStyle: "italic" }}>(optional)</span>
-      </h6>
-      <div className={`${styles.eventImg}`}>
-        {fileSelect ? (
-          <>
-            <div
-              style={{ backgroundImage: `url(${fileSelect})` }}
-              className={`${styles.preview}`}
-            ></div>
-          </>
-        ) : (
-          <>
-            <h6>
-              <SVG.Faupload width="16px" /> Drag and Drop Your Image Here to
-              Upload
-            </h6>
-            <p>recommended image size 1200x628px</p>
-          </>
-        )}
-        <OutlinedButton>or Choose a File</OutlinedButton>
+  useEffect(() => {
+    if (eventCreated === "success") {
+      window.confirm("Event is created successfully.");
+    }
+    dispatch(resetEventError());
+  }, [eventCreated]);
 
-        <input type="file" onChange={fileUpload} />
+  return (
+    <>
+      <div className="position-relative">
+        {eventCreated === "loading" && (
+          <div className="loader">
+            <Spinner animation="border" variant="danger" />
+          </div>
+        )}
       </div>
-      <h6
-        style={{
-          fontSize: "16px",
-          fontFamily: "Proxima Nova",
-          fontWeight: "700",
-          letterSpacing: "1px",
-          marginLeft: "20px",
-        }}
-      >
-        Event Achievement Badge{" "}
-        <span style={{ fontStyle: "italic" }}>(optional)</span>
-      </h6>
-      <div className={`${styles.achievementBadge}`}>
-        <Row>
-          <Col md={12}>
-            <div className="d-flex align-items-center ps-3">
-              <Image src={IMAGES.Badge} alt="" className="me-3 pe-1" />
-              <p className="mb-0">
-                Event Badges are collectable achievement tokens unique to your
-                event that your users can share on their profile.{" "}
-                <span
-                  style={{
-                    color: "#FF3030",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    letterSpacing: "1px",
-                    fontFamily: "Proxima Nova",
-                  }}
-                >
-                  Learn More
-                </span>
-              </p>
-            </div>
-            <div className="text-start mt-4 ms-4">
-              <FilledButton className={`${styles.filledbtn}`}>
-                Browse Our Badge Library{" "}
-              </FilledButton>
-            </div>
-          </Col>
-          <Col md={12} className="hideProfile">
-            {/* <UploadProfileComponent /> */}
-          </Col>
-        </Row>
+      <div>
+        <EventHeaderComponent
+          heading="Customize Event Style"
+          onPress={submitEvent}
+        />
+        <h6
+          style={{
+            fontSize: "16px",
+            fontFamily: "Proxima Nova",
+            fontWeight: "700",
+            letterSpacing: "1px",
+            marginLeft: "20px",
+          }}
+        >
+          Event Image <span style={{ fontStyle: "italic" }}>(optional)</span>
+        </h6>
+        <div className={`${styles.eventImg}`}>
+          {fileSelect ? (
+            <>
+              <div
+                style={{ backgroundImage: `url(${fileSelect})` }}
+                className={`${styles.preview}`}
+              ></div>
+            </>
+          ) : (
+            <>
+              <h6>
+                <SVG.Faupload width="16px" /> Drag and Drop Your Image Here to
+                Upload
+              </h6>
+              <p>recommended image size 1200x628px</p>
+            </>
+          )}
+          <OutlinedButton>or Choose a File</OutlinedButton>
+
+          <input type="file" onChange={fileUpload} />
+        </div>
+        <h6
+          style={{
+            fontSize: "16px",
+            fontFamily: "Proxima Nova",
+            fontWeight: "700",
+            letterSpacing: "1px",
+            marginLeft: "20px",
+          }}
+        >
+          Event Achievement Badge{" "}
+          <span style={{ fontStyle: "italic" }}>(optional)</span>
+        </h6>
+        <div className={`${styles.achievementBadge}`}>
+          <Row>
+            <Col md={12}>
+              <div className="d-flex align-items-center ps-3">
+                <Image src={IMAGES.Badge} alt="" className="me-3 pe-1" />
+                <p className="mb-0">
+                  Event Badges are collectable achievement tokens unique to your
+                  event that your users can share on their profile.{" "}
+                  <span
+                    style={{
+                      color: "#FF3030",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      letterSpacing: "1px",
+                      fontFamily: "Proxima Nova",
+                    }}
+                  >
+                    Learn More
+                  </span>
+                </p>
+              </div>
+              <div className="text-start mt-4 ms-4">
+                <FilledButton className={`${styles.filledbtn}`}>
+                  Browse Our Badge Library{" "}
+                </FilledButton>
+              </div>
+            </Col>
+            <Col md={12} className="hideProfile">
+              {/* <UploadProfileComponent /> */}
+            </Col>
+          </Row>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

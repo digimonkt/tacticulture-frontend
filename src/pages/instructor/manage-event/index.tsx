@@ -161,17 +161,20 @@ function ManageEvent() {
               </div>
             </CardComponent> */}
             <Row>
-              {eventData?.results?.map((Data) => (
-                <Col md={12} key={Data.id}>
-                  <div className="manageCard">
-                    <ForumCardComponent
-                      Description={Data.description}
-                      Heading={Data.name}
-                      Content="[MM.DD.YYYY] + Open Availability"
-                    />
-                  </div>
-                </Col>
-              ))}
+              {eventData?.results?.map((Data) => {
+                console.log(Data, "data");
+                return (
+                  <Col md={12} key={Data.id}>
+                    <div className="manageCard">
+                      <ForumCardComponent
+                        Description={Data.description}
+                        Heading={Data.name}
+                        Content="[MM.DD.YYYY] + Open Availability"
+                      />
+                    </div>
+                  </Col>
+                );
+              })}
             </Row>
           </div>
         </div>

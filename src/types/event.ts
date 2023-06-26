@@ -51,10 +51,13 @@ export type CreateEventType = {
     specificHoursDate: string;
   }[];
   eventScheduleSpan: {
-    scheduleEventPeriod: string;
-    scheduleEventPeriodUnit: string;
+    scheduleAvailabilityPeriod: number;
+    scheduleAvailabilityPeriodUnit: string;
   };
-  eventOpenSpan: { openEventPeriod: string; openEventPeriodUnit: string };
+  eventOpenSpan: {
+    openAvailabilityPeriodUnit: string;
+    openAvailabilityPeriod: number;
+  };
   defaultAvailability: number | null;
   requirements: string;
   cancellationPolicies: string;

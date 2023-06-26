@@ -10,13 +10,17 @@ import { FilledButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { createEvent } from "@/redux/reducers/event";
 import { getUserDefaultAvailability } from "@/redux/reducers/user";
+import { SVG } from "@/assets/svg";
 // import EventHeaderComponent from "../event-header";
 
 function EventScheduleComponent() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [scheduleType, setScheduleType] = useState("schedule");
-  const [openSpan, setOpenSpan] = useState();
+  const [openSpan, setOpenSpan] = useState({
+    scheduleAvailabilityPeriod: 1,
+    scheduleAvailabilityPeriodUnit: "hours",
+  });
   const [scheduleSpan, setScheduleSpan] = useState();
   const { eventData } = useAppSelector((state) => state.EventReducer);
   // const { defaultAvailability } = useAppSelector((state) => state.userReducer);
@@ -74,10 +78,14 @@ function EventScheduleComponent() {
     );
     router.push(`../instructor/create-event?step=${3}`);
   };
-  console.log(customeEvent, "event-schedule-data");
+  console.log(openSpan, "event-schedule-span");
+
+  const deleteItem = (id: any) => {
+    setScheduleData(scheduleData?.filter((el) => el.id !== id));
+  };
   return (
     <div className="schedule">
-      <EventHeaderComponent heading="Event Details" onPress={nextPage} />
+      <EventHeaderComponent heading="Event Detail" onPress={nextPage} />
       <div className={`${styles.headerComponent}`}>
         <Row className="userBoxed">
           <Col md={8}>
@@ -122,14 +130,19 @@ function EventScheduleComponent() {
         {scheduleType === "schedule" || scheduleType === "combined"
           ? scheduleData?.map((el) => {
               return (
-                <ScheduleDateComponent
-                  key={el.id}
-                  eventData={el}
-                  scheduleSpan={(value: any) => setScheduleSpan(value)}
-                  getChildValue={(value: any) =>
-                    updateScheduleEvent(el.id, value)
-                  }
-                />
+                <div key={el.id}>
+                  <ScheduleDateComponent
+                    key={el.id}
+                    eventData={el}
+                    scheduleSpan={(value: any) => setScheduleSpan(value)}
+                    getChildValue={(value: any) =>
+                      updateScheduleEvent(el.id, value)
+                    }
+                  />
+                  {scheduleData.length > 1 && (
+                    <SVG.Trash onClick={() => deleteItem(el.id)} width="24px" />
+                  )}
+                </div>
               );
             })
           : null}
@@ -142,7 +155,7 @@ function EventScheduleComponent() {
               color: "#fff",
               fontWeight: "700",
               letterSpacing: "1px",
-              width: "299px",
+              width: "auto",
               height: "37px",
               borderRadius: "3px",
               marginLeft: " 21px",
@@ -158,7 +171,7 @@ function EventScheduleComponent() {
             customAvailabilityData={(value: any) => setCustomEvent(value)}
           />
         ) : null}
-        <EventHeaderComponent heading="Event Details" onPress={nextPage} />
+        <EventHeaderComponent onPress={nextPage} />
       </div>
     </div>
   );

@@ -73,7 +73,7 @@ export type availabilityType = {
 
 function OpenAvailabilityComponent({ customAvailabilityData, openSpan }: any) {
   const dispatch = useAppDispatch();
-  const [openTimeSpan, setOpenTimeSpan] = useState();
+  const [openTimeSpan, setOpenTimeSpan] = useState({});
   const [isComponent, setIsComponent] = useState("default");
   const [availability, setAvailability] = useState(scheduleEvents);
   const [availabilityId, setAvailabilityId] = useState(0);

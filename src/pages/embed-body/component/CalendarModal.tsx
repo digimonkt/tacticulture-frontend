@@ -25,6 +25,7 @@ const CalendarModal = ({
   const [timezoneData, setTimezoneData] = useState(
     Intl.DateTimeFormat().resolvedOptions().timeZone
   );
+  const [testingData, setTestingData] = useState([]);
   const handleDateClick = (dates: Date[]) => {
     console.log(dates);
   };
@@ -34,7 +35,6 @@ const CalendarModal = ({
   };
 
   useEffect(() => {
-    console.log(eventDetail, "asdf");
     const date = eventDetail.eventScheduledDateTime.map(
       (el: any) => new Date(el.eventStartDate)
     );
@@ -50,7 +50,52 @@ const CalendarModal = ({
     // @ts-ignore
     setDefaultDate([...date, ...customDate]);
   }, [schedule, eventDetail.id]);
+  // console.log(eventDetail, "eventdea");
 
+  useEffect(() => {
+    const newData: any = [];
+    // console.log(eventDetail.eventScheduledDateTime, "orhitdaf");
+    eventDetail.eventScheduledDateTime.forEach((item: any) => {
+      const startDate = new Date(item.eventStartDate);
+      const endDate = new Date(item.eventEndDate);
+      const currentDate = new Date(startDate);
+
+      // eslint-disable-next-line no-unmodified-loop-condition
+      while (currentDate <= endDate) {
+        newData.push({
+          eventStartDate: currentDate.toISOString().split("T")[0],
+          eventEndDate: currentDate.toISOString().split("T")[0],
+          eventStartTime: item.eventStartTime,
+          eventEndTime: item.eventEndTime,
+        });
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+    });
+    setTestingData(newData);
+    // const formData =eventDetail.eventScheduledDateTime.map(schd=>)
+  }, [eventDetail.eventScheduledDateTime]);
+
+  // const formatData = [
+  //   {
+  //     eventEndDate: "2023-06-27",
+  //     eventEndTime: "11:00:00",
+  //     eventStartDate: "2023-06-27",
+  //     eventStartTime: "10:00:00",
+  //   },
+  //   {
+  //     eventEndDate: "2023-06-28",
+  //     eventEndTime: "11:00:00",
+  //     eventStartDate: "2023-06-28",
+  //     eventStartTime: "10:00:00",
+  //   },
+  //   {
+  //     eventEndDate: "2023-06-29",
+  //     eventEndTime: "11:00:00",
+  //     eventStartDate: "2023-06-29",
+  //     eventStartTime: "10:00:00",
+  //   },
+  // ];
+  console.log(testingData, "testingData");
   return (
     <Modal
       className="courseModal"
@@ -109,7 +154,8 @@ const CalendarModal = ({
               </OutlinedButton>
             </div>
             {schedule === "all" || schedule === "scheduled"
-              ? eventDetail.eventScheduledDateTime.map(
+              ? testingData.map(
+                  // ? eventDetail.eventScheduledDateTime.map(
                   (schedule: any, index: any) => {
                     return (
                       <ScheduledCardComponent

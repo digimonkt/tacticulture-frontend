@@ -68,6 +68,13 @@ function ForumCardComponent({
           <p>{Heading}</p>
           <span>{Content}</span>
         </div>
+        {/* <p className="description">
+          <span
+            dangerouslySetInnerHTML={{
+              __html: Description,
+            }}
+          ></span>{" "}
+        </p> */}
         <p className={`${styles.decriptionText}`}>{Description}</p>
       </Card>
     </div>

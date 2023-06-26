@@ -58,7 +58,7 @@ function ScheduledCardComponent({
     }
     setItems(array);
   }, []);
-  console.log(items, "timre");
+  // console.log(items, "timre");
   return (
     <div key={index} className={`${styles.registerCard}`}>
       <div className="d-block">

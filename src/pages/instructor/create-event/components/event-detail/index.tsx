@@ -50,7 +50,7 @@ const EventDetailComponent = () => {
       name: Yup.string().required("Event name is required!"),
       // description: Yup.string().required("Please Enter Event Description"),
       location: Yup.string().required("Please Enter Event Location"),
-      courseUrl: Yup.string().required("Please Enter Course Link"),
+      // courseUrl: Yup.string().required("Please Enter Course Link"),
       availableSpots: Yup.number().required("Please Enter Available Spots No."),
       courseCategory: Yup.array()
         .min(1)
@@ -58,7 +58,6 @@ const EventDetailComponent = () => {
       // perSpotCost: Yup.string().required("Please Enter Sport Cost"),
     }),
     onSubmit: (values) => {
-      console.log(values, "vaues");
       // handleSubmit(values);
       // console.log(values, "value");
       dispatch(createEvent(values));
@@ -110,8 +109,9 @@ const EventDetailComponent = () => {
     );
     formik.setFieldValue("isAddSalesTax", data.isAddSalesTax);
     formik.setFieldValue("salesTaxPercent", data.salesTaxPercent);
+    formik.setFieldValue("courseCategory", data.courseCategory);
   }, []);
-
+  console.log(formik.values, "valuasdf");
   return (
     <div>
       <EventHeaderComponent
@@ -148,13 +148,28 @@ const EventDetailComponent = () => {
       </div>
       <div className={`${styles.customInput}`}>
         <LabeledInput label="Location*" {...formik.getFieldProps("location")} />
-        <p style={{ color: "red" }}>{formik.errors.location}</p>
+        <p style={{ color: "red", marginLeft: "18px" }}>
+          {formik.errors.location}
+        </p>
       </div>
       <div className={`${styles.customInput}`}>
         <label>Course Link*</label>
         <p className="mb-0 ps-3 ms-1">tacticulture.com/eddiegallagher/</p>
-        <LabeledInput className="mb-0" {...formik.getFieldProps("courseUrl")} />
+        <LabeledInput
+          disabled={true}
+          className="mb-0"
+          {...formik.getFieldProps("courseUrl")}
+          value={`tacticulture.com${formik
+            .getFieldProps("name")
+            .value.replace(/\s/g, "")}/`}
+        />
         <span
+          onClick={() =>
+            formik.setFieldValue(
+              "isPrivateEvent",
+              !formik.values.isPrivateEvent
+            )
+          }
           style={{ position: "relative", top: "6px" }}
           className="ps-3 ms-1 mb-3 d-block"
         >
@@ -232,10 +247,7 @@ const EventDetailComponent = () => {
           </div>
         </div>
       </div>
-      <EventHeaderComponent
-        heading="Event Detail"
-        onPress={() => formik.handleSubmit()}
-      />
+      <EventHeaderComponent onPress={() => formik.handleSubmit()} />
     </div>
   );
 };
