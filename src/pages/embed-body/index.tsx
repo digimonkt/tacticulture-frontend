@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { getEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
 import CalendarModal from "./component/CalendarModal";
+import RegistrationModal from "./component/RegistrationModal";
 
 interface IRouter {
   id: string;
@@ -18,6 +19,7 @@ interface IRouter {
 
 function EmbedBody() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [registerModal, setRegisterModal] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -30,12 +32,17 @@ function EmbedBody() {
   const showModal = () => {
     setIsModalOpen(true);
   };
+  const registerModalOpen = () => {
+    setRegisterModal(true);
+  };
 
   const handleOk = () => {
     setIsModalOpen(false);
+    setRegisterModal(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    setRegisterModal(false);
   };
 
   return (
@@ -170,6 +177,7 @@ function EmbedBody() {
                       fontWeight: "700",
                       textDecoration: "underline",
                     }}
+                    onClick={registerModalOpen}
                   >
                     Read the Full Course Description
                   </span>
@@ -189,6 +197,12 @@ function EmbedBody() {
         eventDetail={eventDetail}
         isModalOpen={isModalOpen}
         handleCancel={handleCancel}
+      />
+      <RegistrationModal
+        registerModalOpen={registerModalOpen}
+        registerModal={registerModal}
+        handleCancel={handleCancel}
+        handleOk={handleOk}
       />
       {/* Event calendar modal end */}
     </div>

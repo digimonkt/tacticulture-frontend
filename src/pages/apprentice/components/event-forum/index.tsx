@@ -62,7 +62,7 @@ function EventForumComponent({ heading, text }: IEventForum) {
                 style={{
                   color: "#fff",
                   fontWeight: "700",
-                  fontFamily: "Proxima Nova",
+                  fontFamily: "Inter",
                   fontSize: "15px",
                   letterSpacing: "1px",
                 }}
@@ -74,7 +74,7 @@ function EventForumComponent({ heading, text }: IEventForum) {
                 style={{
                   color: "#fff",
                   fontWeight: "700",
-                  fontFamily: "Proxima Nova",
+                  fontFamily: "Inter",
                   fontSize: "14px",
                   letterSpacing: "1px",
                 }}
@@ -108,7 +108,7 @@ function EventForumComponent({ heading, text }: IEventForum) {
                     fontWeight: "700",
                     color: "#fff",
                     letterSpacing: "1px",
-                    fontFamily: "Proxima Nova",
+                    fontFamily: "Inter",
                     marginLeft: "10px",
                   }}
                 >
@@ -130,7 +130,7 @@ function EventForumComponent({ heading, text }: IEventForum) {
                   style={{
                     background: "#CB2C2C",
                     fontWeight: "700",
-                    fontFamily: "Proxima Nova",
+                    fontFamily: "Inter",
                     color: "#fff",
                     border: "0",
                     height: "37px",
@@ -161,7 +161,7 @@ function EventForumComponent({ heading, text }: IEventForum) {
                       fontSize: "13px",
                       fontWeight: "700",
                       letterSpacing: "1px",
-                      fontFamily: "Proxima Nova",
+                      fontFamily: "Inter",
                     }}
                   >
                     <Image src={data.image} alt="" className="me-2" />

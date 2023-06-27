@@ -58,7 +58,7 @@ function EventCardComponent({
               style={{
                 background: "#CB2C2C",
                 fontWeight: "700",
-                fontFamily: "Proxima Nova",
+                fontFamily: "Inter",
                 color: "#fff",
                 border: "0",
                 height: "37px",
