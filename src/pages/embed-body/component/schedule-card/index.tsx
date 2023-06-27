@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles.module.css";
 import moment from "moment";
-import { Dropdown, Space } from "antd";
+import { Dropdown, Space, Menu } from "antd";
 import type { MenuProps } from "antd";
 import { SVG } from "@/assets/svg";
+import RegistrationModal from "../RegistrationModal";
 
-// const items: MenuProps["items"] = [
-//   {
-//     label: "8:00 AM",
-//     key: 1,
-//   },
-// ];
-// console.log(items, "ppppp");
 interface IScheduledCardComponent {
   schedule: {
     eventStartDate: string;
@@ -23,6 +17,9 @@ interface IScheduledCardComponent {
   scheduleEventPeriodUnit: string;
   index?: number;
 }
+interface ISelectedItem {
+  dateTime: any;
+}
 
 function ScheduledCardComponent({
   schedule,
@@ -31,7 +28,11 @@ function ScheduledCardComponent({
   scheduleEventPeriodUnit,
 }: IScheduledCardComponent) {
   const [items, setItems] = useState<MenuProps["items"]>([]);
-  console.log(scheduleEventPeriod, "nu", schedule);
+  const [registerModal, setRegisterModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTime, setSelectedTime] = useState<ISelectedItem>({
+    dateTime: new Date(),
+  });
 
   useEffect(() => {
     const startDate = new Date(
@@ -45,7 +46,7 @@ function ScheduledCardComponent({
 
     let currentTime = startDate;
     let key = 1;
-    while (currentTime <= endDate) {
+    while (currentTime < endDate) {
       const label = currentTime.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
@@ -58,7 +59,26 @@ function ScheduledCardComponent({
     }
     setItems(array);
   }, []);
-  // console.log(items, "timre");
+
+  function handleMenuItemClick(item: { label: string }, date: string) {
+    const datee = new Date(date + " " + item.label);
+    if (!isNaN(datee)) {
+      setSelectedTime({ dateTime: datee });
+      setRegisterModal(true);
+    } else {
+      console.log("Invalid date");
+    }
+  }
+
+  const handleOk = () => {
+    // setIsModalOpen(false);
+    setRegisterModal(false);
+  };
+  const handleCancel = () => {
+    // setIsModalOpen(false);
+    setRegisterModal(false);
+  };
+  console.log(registerModal);
   return (
     <div key={index} className={`${styles.registerCard}`}>
       <div className="d-block">
@@ -68,14 +88,44 @@ function ScheduledCardComponent({
         </span>
       </div>
 
-      <Dropdown menu={{ items }} className="timeDropdown" trigger={["click"]}>
-        <a className="menuList" onClick={(e) => e.preventDefault()}>
+      <Dropdown
+        overlay={
+          <Menu>
+            {items?.map((item: any) => (
+              <Menu.Item
+                style={{
+                  backgroundColor:
+                    item.key === selectedTime?.key &&
+                    item.label === selectedTime?.lable
+                      ? "red"
+                      : "#FFF",
+                }}
+                onClick={() =>
+                  handleMenuItemClick(item, schedule.eventStartDate)
+                }
+                key={(item.key, item.label)}
+              >
+                {item.label}
+              </Menu.Item>
+            ))}
+          </Menu>
+        }
+        className="timeDropdown"
+        trigger={["click"]}
+      >
+        <a className="menuList">
           <Space>
             Register
             <SVG.DownChevron width="12px" />
           </Space>
         </a>
       </Dropdown>
+      <RegistrationModal
+        // registerModalOpen={registerModal}
+        registerModal={registerModal}
+        handleCancel={() => setRegisterModal(false)}
+        handleOk={handleOk}
+      />
     </div>
   );
 }

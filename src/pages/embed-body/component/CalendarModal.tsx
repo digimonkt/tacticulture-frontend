@@ -42,12 +42,9 @@ const CalendarModal = ({
     const currentDate = moment();
     const customDate = eventDetail.eventCustomAvailability.map(
       (el: any) =>
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         new Date(currentDate.clone().startOf("isoWeek").isoWeekday(el.weekdays))
     );
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     setDefaultDate([...date, ...customDate]);
   }, [schedule, eventDetail.id]);
   // console.log(eventDetail, "eventdea");
@@ -75,27 +72,6 @@ const CalendarModal = ({
     // const formData =eventDetail.eventScheduledDateTime.map(schd=>)
   }, [eventDetail.eventScheduledDateTime]);
 
-  // const formatData = [
-  //   {
-  //     eventEndDate: "2023-06-27",
-  //     eventEndTime: "11:00:00",
-  //     eventStartDate: "2023-06-27",
-  //     eventStartTime: "10:00:00",
-  //   },
-  //   {
-  //     eventEndDate: "2023-06-28",
-  //     eventEndTime: "11:00:00",
-  //     eventStartDate: "2023-06-28",
-  //     eventStartTime: "10:00:00",
-  //   },
-  //   {
-  //     eventEndDate: "2023-06-29",
-  //     eventEndTime: "11:00:00",
-  //     eventStartDate: "2023-06-29",
-  //     eventStartTime: "10:00:00",
-  //   },
-  // ];
-  console.log(testingData, "testingData");
   return (
     <Modal
       className="courseModal"

@@ -4,6 +4,7 @@ import PreLoaderReducer from "../reducers/preLoader";
 import ModalsToogleReducer from "../reducers/modalsToggle";
 import userReducer from "../reducers/user";
 import EventReducer from "../reducers/event";
+import BookingReducer from "../reducers/booking";
 export const store = configureStore({
   reducer: {
     UserRoleReducer,
@@ -11,6 +12,7 @@ export const store = configureStore({
     ModalsToogleReducer,
     userReducer,
     EventReducer,
+    BookingReducer,
   },
 });
 

@@ -18,6 +18,8 @@ import event, {
   getEventData,
 } from "@/redux/reducers/event";
 import { Card } from "react-bootstrap";
+import OpenCard from "@/pages/apprentice/components/latest-card/OpenCard";
+import ScheduleCard from "@/pages/apprentice/components/latest-card/ScheduleCard";
 
 function ManageEvent() {
   const dispatch = useAppDispatch();
@@ -147,109 +149,22 @@ function ManageEvent() {
               </Col>
             </Row>
 
-            {/* <Row>
-              {eventData?.results?.map((Data) => (
-                <Col md={12} key={Data.id}>
-                  <div className="manageCard">
-                    <ForumCardComponent
-                      Description={Data.description}
-                      Heading={Data.name}
-                      Content="[MM.DD.YYYY] + Open Availability"
-                    />
-                  </div>
-                </Col>
-              ))}
-            </Row> */}
             <Row>
-              <Col md={12}>
-                <Card className="position-relative cards white">
-                  <Image src={IMAGES.Card} alt="" className="w-100" />
-                  <OptionsInput title={<SVG.Setting className="settingIcon" />}>
-                    <div className={`${styles.dropdownBox}`}>
-                      <SVG.Edit width="20px" />
-                      <span
-                        style={{
-                          fontFamily: "Proxima Nova",
-                          color: "#444444",
-                          fontWeight: "700",
-                          letterSpacing: "1px",
-                          paddingLeft: "10px",
-                          position: "relative",
-                          top: "2px",
-                        }}
-                      >
-                        Edit
-                      </span>
+              {eventData?.results?.map((Data) => {
+                return Data.eventTypeAndScheduleId === "scheduled" ? (
+                  <Col md={12} key={Data.id}>
+                    <div className="manageCard">
+                      <OpenCard data={Data} />
                     </div>
-                    <div className={`${styles.dropdownBox}`}>
-                      <SVG.Iframe width="20px" />
-                      <span
-                        style={{
-                          color: "#444444",
-                          fontWeight: "700",
-                          letterSpacing: "1px",
-                          paddingLeft: "10px",
-                          position: "relative",
-                          top: "2px",
-                        }}
-                      >
-                        Add to Website
-                      </span>
+                  </Col>
+                ) : (
+                  <Col md={12} key={Data.id}>
+                    <div className="manageCard">
+                      <ScheduleCard data={Data} />
                     </div>
-                    <div className={`${styles.dropdownBox}`}>
-                      <SVG.Clone width="20px" />
-                      <span
-                        style={{
-                          color: "#444444",
-                          fontWeight: "700",
-                          letterSpacing: "1px",
-                          paddingLeft: "10px",
-                          position: "relative",
-                          top: "2px",
-                        }}
-                      >
-                        Clone
-                      </span>
-                    </div>
-                    <div className={`${styles.dropdownBox}`}>
-                      <SVG.Delete width="20px" />
-                      <span
-                        style={{
-                          color: "#444444",
-                          fontWeight: "700",
-                          letterSpacing: "1px",
-                          paddingLeft: "10px",
-                          position: "relative",
-                          top: "2px",
-                        }}
-                      >
-                        Delete
-                      </span>
-                    </div>
-                    <div className="bottomButton">
-                      <span>On / Off</span>
-                      <SwitchInput />
-                    </div>
-                  </OptionsInput>
-                  <div className="eventTitle">
-                    <h5>Event Title Name Goes Here</h5>
-                    <p>[MM.DD.YYYY] + Open Availability</p>
-                  </div>
-                  <Card.Body>
-                    <div className="bodyLink">
-                      <div className="d-flex">
-                        <OutlinedButton className="outlineShare">
-                          <SVG.Share width="60px" />
-                        </OutlinedButton>
-                        <OutlinedButton className="copyShare">
-                          <SVG.CopyLink width="80px" />
-                        </OutlinedButton>
-                      </div>
-                      <span>View Course Page</span>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
+                  </Col>
+                );
+              })}
             </Row>
           </div>
         </div>

@@ -36,28 +36,22 @@ function CustomizeEventComponent() {
   };
 
   useEffect(() => {
-    let errorData: any;
-    if (eventCreatedError?.status) {
-      errorData = Object.keys(eventCreatedError.errors).map(
-        (key) => (key = eventCreatedError.errors[key].join(", "))
-      );
-    }
+    // let errorData: any;
+    // if (eventCreatedError?.status) {
+    //   errorData = Object.keys(eventCreatedError.errors).map(
+    //     (key) => (key = eventCreatedError.errors[key].join(", "))
+    //   );
+    // }
 
     // alert(errorData);
-    console.log(errorData, "errorData");
-    if (errorData) {
-      const userResponse = window.confirm(errorData);
-
+    const objectLength = Object.keys(eventCreatedError).length;
+    if (objectLength > 0) {
+      alert(Object.values(eventCreatedError.errors));
+    } else {
       dispatch(resetEventError());
     }
-
-    // if (userResponse) {
-    //   dispatch(resetEventError());
-    // } else {
-    //   dispatch(resetEventError());
-    // }
-  }, [eventCreatedError]);
-
+  }, [Object.keys(eventCreatedError).length]);
+  console.log(eventCreatedError);
   // useEffect(() => {
   //   console.log(addImages);
   // }, [addImages]);

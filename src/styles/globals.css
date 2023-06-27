@@ -2,6 +2,19 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.white.card #dropdown-basic {
+  border: 1px solid #fff !important;
+}
+.cards.black.card .settingIcon path {
+  fill: #333 !important;
+}
+.cards.black.card .eventTitle h5 {
+  color: #000;
+  font-weight: bold;
+}
+.cards.black.card .eventTitle p {
+  color: #000;
+}
 .loader {
   position: fixed;
   width: 100%;
@@ -308,6 +321,7 @@ table.rdp-table {
 .cards.card {
   height: 232px !important;
   overflow: hidden;
+  margin: 14px 10px 10px;
 }
 .bottomButton {
   display: flex;
@@ -1009,9 +1023,7 @@ textarea {
   padding-left: 0px !important;
   margin-top: 0 !important;
 }
-:where(.css-dev-only-do-not-override-1km3mtt).ant-btn-default:not(
-    :disabled
-  ):hover {
+:where(.css-dev-only-do-not-override-1km3mtt).ant-btn-default:not(:disabled):hover {
   color: #fff !important;
   border-color: #fff !important;
 }
@@ -1310,7 +1322,7 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
   top: 4px;
 }
 .manageCard {
-  margin: 16px 4px;
+  margin: 4px 0px;
 }
 .manageCard .ant-card {
   width: 100% !important;

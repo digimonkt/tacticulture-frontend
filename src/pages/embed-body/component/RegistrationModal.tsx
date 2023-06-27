@@ -1,11 +1,12 @@
 import Modal from "@/component/model";
 import ModalHeader from "@/component/model/modalHeader";
-import React, { useState } from "react";
-import { Button, message } from "antd";
+import React, { useState, useEffect } from "react";
 import RegisterBodyComponent from "@/component/model/component/registerBody";
 import RegisterGuestComponent from "@/component/model/component/registerGuest";
 import CourseRequirementComponent from "@/component/model/component/courseRequirement";
 import BillingInformationComponent from "@/component/model/component/billingInformation";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { guestRegistration } from "@/redux/reducers/booking";
 
 interface IRegistrationModal {
   registerModalOpen: () => void;
@@ -22,20 +23,53 @@ function RegistrationModal({
 }: IRegistrationModal) {
   //   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
-
-  const next = () => {
-    setCurrent(current + 1);
-  };
+  // const dispatch = useAppDispatch();
+  // const { guestRegistrationStatus } = useAppSelector(
+  //   (state) => state.BookingReducer
+  // );
 
   const prev = () => {
     setCurrent(current - 1);
+  };
+  // useEffect(() => {
+  //   if (guestRegistrationStatus === "success") {
+  //     setCurrent(current + 1);
+  //   }
+  // }, [guestRegistrationStatus]);
+
+  const next = (value: any) => {
+    // setCurrent(current + 1);
+    console.log(value, "asdf");
+    switch (current) {
+      case 0:
+        // dispatch(guestRegistration(value));
+        break;
+      case 1:
+        alert(current);
+        break;
+      case 2:
+        alert(current);
+
+        break;
+      case 3:
+        alert(current);
+        setCurrent(0);
+        break;
+
+        break;
+      default:
+        break;
+    }
   };
 
   const steps = [
     {
       title: "First",
       content: (
-        <RegisterBodyComponent handleStepNext={next} handleStepPrev={prev} />
+        <RegisterBodyComponent
+          handleStepNext={(value) => next(value)}
+          handleStepPrev={prev}
+        />
       ),
     },
     {

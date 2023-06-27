@@ -48,7 +48,7 @@ const EventDetailComponent = () => {
     initialValues,
     validationSchema: Yup.object({
       name: Yup.string().required("Event name is required!"),
-      // description: Yup.string().required("Please Enter Event Description"),
+      description: Yup.string().required("Please Enter Event Description"),
       location: Yup.string().required("Please Enter Event Location"),
       // courseUrl: Yup.string().required("Please Enter Course Link"),
       availableSpots: Yup.number().required("Please Enter Available Spots No."),
@@ -111,7 +111,7 @@ const EventDetailComponent = () => {
     formik.setFieldValue("salesTaxPercent", data.salesTaxPercent);
     formik.setFieldValue("courseCategory", data.courseCategory);
   }, []);
-  console.log(formik.values, "valuasdf");
+
   return (
     <div>
       <EventHeaderComponent
@@ -159,7 +159,7 @@ const EventDetailComponent = () => {
           disabled={true}
           className="mb-0"
           {...formik.getFieldProps("courseUrl")}
-          value={`tacticulture.com${formik
+          value={`tacticulture.com/${formik
             .getFieldProps("name")
             .value.replace(/\s/g, "")}/`}
         />

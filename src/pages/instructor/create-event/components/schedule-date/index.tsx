@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "../../course.module.css";
 import { LabeledInput, SelectInput } from "@/component/input";
 import { SVG } from "@/assets/svg";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 // import { FilledButton } from "@/component/buttons";
 
 interface IScheduleDate {
@@ -12,6 +14,7 @@ interface IScheduleDate {
     eventEndDate: string;
     eventEndTime: string;
   };
+  nextPress: () => void;
   scheduleSpan: (scheduleTimeSpan: {
     scheduleAvailabilityPeriod: number;
     scheduleAvailabilityPeriodUnit: string;
@@ -23,10 +26,23 @@ function ScheduleDateComponent({
   eventData,
   getChildValue,
   scheduleSpan,
+  nextPress,
 }: IScheduleDate) {
+  const initialValues = { eventStartDate: "" };
   const [scheduleTimeSpan, setScheduleTimeSpan] = useState({
     scheduleAvailabilityPeriod: 1,
     scheduleAvailabilityPeriodUnit: "hours",
+  });
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues,
+    validationSchema: Yup.object({
+      eventStartDate: Yup.string().required("Start date is required"),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+    },
   });
 
   useEffect(() => {
@@ -47,10 +63,12 @@ function ScheduleDateComponent({
               type="date"
               className="me-3"
               value={eventData.eventStartDate}
-              onChange={(e) =>
-                getChildValue({ key: "eventStartDate", value: e.target.value })
-              }
+              onChange={(e) => {
+                formik.setFieldValue("eventStartDate", e.target.value);
+                getChildValue({ key: "eventStartDate", value: e.target.value });
+              }}
             />
+            <p style={{ color: "red" }}>{formik.errors.eventStartDate}</p>
             <LabeledInput
               type="time"
               value={eventData.eventStartTime}

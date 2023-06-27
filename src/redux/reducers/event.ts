@@ -222,6 +222,7 @@ export const eventSlice = createSlice({
       state.eventCreated = "";
     },
     createEvent: (state, action) => {
+      console.log(action.payload, "payload");
       state.eventData = { ...state.eventData, ...action.payload };
     },
   },

@@ -78,7 +78,6 @@ function EventScheduleComponent() {
     );
     router.push(`../instructor/create-event?step=${3}`);
   };
-  console.log(openSpan, "event-schedule-span");
 
   const deleteItem = (id: any) => {
     setScheduleData(scheduleData?.filter((el) => el.id !== id));

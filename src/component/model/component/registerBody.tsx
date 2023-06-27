@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LabeledInput } from "@/component/input";
 import { FilledButton } from "@/component/buttons";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { ErrorMessage } from "@/component/caption";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { guestOtpSubmit, guestRegistration } from "@/redux/reducers/booking";
 
 interface IRegistrationBody {
-  handleStepNext: () => void;
+  handleStepNext: (guestEmail: string) => void;
   handleStepPrev: () => void;
 }
 
@@ -11,7 +16,30 @@ function RegisterBodyComponent({
   handleStepNext,
   handleStepPrev,
 }: IRegistrationBody) {
+  const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
+
+  const { guestRegistrationStatus, registrationData } = useAppSelector(
+    (state) => state.BookingReducer
+  );
+
+  const formik = useFormik({
+    initialValues: { guestEmail: "", guestOtp: "" },
+    validationSchema: Yup.object({
+      guestEmail: Yup.string().required("email is required"),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+      dispatch(guestRegistration(values.guestEmail));
+    },
+  });
+
+  useEffect(() => {
+    if (guestRegistrationStatus === "success") {
+      setShow(true);
+    }
+  }, [guestRegistrationStatus]);
+  console.log(registrationData, "adsf");
   return (
     <div>
       <div className="scheduleSteps">
@@ -56,10 +84,36 @@ function RegisterBodyComponent({
           </p>
         )}
         <div>
-          <LabeledInput placeholder={show ? "000000" : "Email Address"} />
-          <FilledButton onClick={() => handleStepNext()}>
+          {!show ? (
+            <LabeledInput
+              {...formik.getFieldProps("guestEmail")}
+              placeholder={"Email Address"}
+            />
+          ) : (
+            <LabeledInput
+              {...formik.getFieldProps("guestOtp")}
+              placeholder={"000000"}
+            />
+          )}
+          {!show && <p style={{ color: "red" }}>{formik.errors.guestEmail}</p>}
+          {show && (
+            <p style={{ color: "red" }}>{registrationData.verification_code}</p>
+          )}
+          <FilledButton
+            onClick={() =>
+              show
+                ? dispatch(
+                    guestOtpSubmit({
+                      email: formik.values.guestEmail,
+                      verification_code: formik.values.guestOtp,
+                    })
+                  )
+                : formik.handleSubmit()
+            }
+          >
             Register Now
           </FilledButton>
+
           {show ? (
             ""
           ) : (

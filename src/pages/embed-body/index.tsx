@@ -36,13 +36,13 @@ function EmbedBody() {
     setRegisterModal(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-    setRegisterModal(false);
-  };
+  // const handleOk = () => {
+  //   setIsModalOpen(false);
+  //   setRegisterModal(false);
+  // };
   const handleCancel = () => {
     setIsModalOpen(false);
-    setRegisterModal(false);
+    // setRegisterModal(false);
   };
 
   return (
@@ -198,12 +198,12 @@ function EmbedBody() {
         isModalOpen={isModalOpen}
         handleCancel={handleCancel}
       />
-      <RegistrationModal
+      {/* <RegistrationModal
         registerModalOpen={registerModalOpen}
         registerModal={registerModal}
         handleCancel={handleCancel}
         handleOk={handleOk}
-      />
+      /> */}
       {/* Event calendar modal end */}
     </div>
   );
