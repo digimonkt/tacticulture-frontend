@@ -99,9 +99,15 @@ function RegisterBodyComponent({
               placeholder={"000000"}
             />
           )}
-          {!show && <p style={{ color: "red" }}>{formik.errors.guestEmail}</p>}
+          {!show && (
+            <p style={{ color: "red" }} className="verificationError">
+              {formik.errors.guestEmail}
+            </p>
+          )}
           {show && (
-            <p style={{ color: "red" }}>{registrationData.verification_code}</p>
+            <p style={{ color: "red" }} className="verificationError">
+              {registrationData.verification_code}
+            </p>
           )}
           <FilledButton
             onClick={() =>

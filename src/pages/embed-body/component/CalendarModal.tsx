@@ -88,7 +88,17 @@ const CalendarModal = ({
             <div style={{ background: "#fff", height: "100%" }}>
               <h3>Schedule Your Training:</h3>
               <div className="radioBtns">
-                <RadioButtonInput />
+                {/* <RadioButtonInput /> */}
+                <div className="d-flex me-2">
+                  <span className={`${styles.redDots}`}></span>
+                  &nbsp;
+                  <h6>Schedule Events</h6>
+                </div>
+                <div className="d-flex">
+                  <span className={`${styles.whiteDots}`}></span>
+                  &nbsp;
+                  <h6>Open Availiability</h6>
+                </div>
               </div>
               <DatePicker
                 onDayClick={handleDateClick}

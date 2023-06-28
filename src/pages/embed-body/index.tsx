@@ -65,7 +65,10 @@ function EmbedBody() {
                 </p>
               </div>
 
-              <FilledButton icon={<SVG.Arrow width="20px" />}>
+              <FilledButton
+                className={`${styles.svgBtn}`}
+                icon={<SVG.Arrow width="20px" className={`${styles.svg}`} />}
+              >
                 Share This Event
               </FilledButton>
             </div>
