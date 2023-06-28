@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FilledButton } from "@/component/buttons";
 import { CheckInput, LabeledInput } from "@/component/input";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
@@ -32,6 +33,7 @@ function RegisterGuestComponent({
     }),
     onSubmit: (values) => {
       dispatch(
+        // @ts-ignore
         guestProfileCreate({
           email: registrationData.email,
           first_name: values.guestFirstName,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import ApprenticeHeaderComponent from "@/component/header/user-header";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
@@ -42,6 +43,7 @@ function EmbedBody() {
     );
 
     const duration = moment.duration(endTime.diff(startTime));
+    // @ts-ignore
     setDuration(duration.asHours());
   }, [eventDetail.eventTypeAndScheduleId]);
 

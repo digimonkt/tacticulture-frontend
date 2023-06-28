@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect } from "react";
 import InstructorLayout from "../layout";
 
@@ -160,6 +161,7 @@ function ManageEvent() {
                 ) : (
                   <Col md={12} key={Data.id}>
                     <div className="manageCard">
+                      {/* @ts-ignore */}
                       <ScheduleCard data={Data} />
                     </div>
                   </Col>

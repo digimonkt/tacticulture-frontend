@@ -35,7 +35,7 @@ export const guestProfileCreateAPI = async (data: any) => {
 export const guestBookingAPI = async (
   data: bookingPayload
 ): Promise<SuccessResult<getBookingType> | ErrorResult> => {
-  JSON.stringify({ data });
+  // JSON.stringify({ data });
   const res = await axiosInstance.request({
     url: "events/event-booking",
     method: "POST",
@@ -45,7 +45,7 @@ export const guestBookingAPI = async (
   if (res.remote === "success") {
     return {
       remote: "success",
-      data: res.data,
+      data: res.data as getBookingType,
     };
   }
   return res;
