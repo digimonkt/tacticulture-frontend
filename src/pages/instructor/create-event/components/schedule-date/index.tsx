@@ -41,7 +41,7 @@ function ScheduleDateComponent({
       eventStartDate: Yup.string().required("Start date is required"),
     }),
     onSubmit: (values) => {
-      // console.log("values");
+      console.log(values);
     },
   });
 

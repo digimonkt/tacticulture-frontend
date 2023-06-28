@@ -12,6 +12,7 @@ import { getEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
 import CalendarModal from "./component/CalendarModal";
 import RegistrationModal from "./component/RegistrationModal";
+import moment from "moment";
 
 interface IRouter {
   id: string;
@@ -19,6 +20,7 @@ interface IRouter {
 
 function EmbedBody() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [duration, setDuration] = useState("");
   const [registerModal, setRegisterModal] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -28,6 +30,20 @@ function EmbedBody() {
     const { id } = router.query as unknown as IRouter;
     dispatch(getEventDetail({ id }));
   }, []);
+
+  useEffect(() => {
+    const startTime = moment(
+      eventDetail.eventScheduledDateTime[0].eventStartTime,
+      "HH:mm:ss"
+    );
+    const endTime = moment(
+      eventDetail.eventScheduledDateTime[0].eventEndTime,
+      "HH:mm:ss"
+    );
+
+    const duration = moment.duration(endTime.diff(startTime));
+    setDuration(duration.asHours());
+  }, [eventDetail.eventTypeAndScheduleId]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -44,7 +60,7 @@ function EmbedBody() {
     setIsModalOpen(false);
     // setRegisterModal(false);
   };
-
+  console.log({ eventDetail });
   return (
     <div>
       <ApprenticeHeaderComponent />
@@ -60,8 +76,11 @@ function EmbedBody() {
                     width="16px"
                     style={{ position: "relative", bottom: "3px" }}
                   />
-                  <span> Next Event:</span> January 28th, 2023 + Open
-                  Availability
+                  <span> Next Event:</span>
+                  {moment(
+                    eventDetail.eventScheduledDateTime[0].eventStartDate
+                  ).format("MMMM MM, YYYY")}{" "}
+                  {eventDetail.eventTypeAndScheduleId} Availability
                 </p>
               </div>
 
@@ -111,7 +130,7 @@ function EmbedBody() {
                 />
                 <EmbedCardComponent
                   icon={<SVG.Timer width="16px" />}
-                  text="[Event Duration]"
+                  text={duration + " hours"}
                 />
                 <EmbedCardComponent
                   icon={<SVG.Risk width="16px" />}
@@ -120,7 +139,7 @@ function EmbedBody() {
                 />
                 <EmbedCardComponent
                   icon={<SVG.Fee width="16px" />}
-                  text="Course Fee"
+                  text={eventDetail.perSpotCost + "$"}
                 />
                 <EmbedCardComponent
                   heading="Completion Badge"

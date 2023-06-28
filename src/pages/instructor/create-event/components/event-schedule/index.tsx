@@ -82,6 +82,7 @@ function EventScheduleComponent() {
   const deleteItem = (id: any) => {
     setScheduleData(scheduleData?.filter((el) => el.id !== id));
   };
+  console.log(scheduleData, "data");
   return (
     <div className="schedule">
       <EventHeaderComponent heading="Event Detail" onPress={nextPage} />
