@@ -1,6 +1,7 @@
 import { FilledButton } from "@/component/buttons";
 import { LabeledInput, SelectInput } from "@/component/input";
 import { Col, Radio, Row } from "antd";
+import swal from "sweetalert";
 import React from "react";
 
 function BillingInformationComponent() {
@@ -63,7 +64,17 @@ function BillingInformationComponent() {
               </div>
             </div>
             <div className="orderBtn">
-              <FilledButton>Place Order</FilledButton>
+              <FilledButton
+                onClick={() => {
+                  swal({
+                    title: "Congratulation",
+                    // text: "You clicked the button!",
+                    icon: "success",
+                  });
+                }}
+              >
+                Place Order
+              </FilledButton>
             </div>
           </Col>
           <Col md={8}>

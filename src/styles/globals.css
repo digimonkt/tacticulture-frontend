@@ -290,6 +290,7 @@ table.rdp-table {
 .cards.card {
   height: 232px !important;
   overflow: hidden;
+  margin: 14px 10px 14px;
 }
 .bottomButton {
   display: flex;
@@ -297,7 +298,20 @@ table.rdp-table {
   padding-top: 6px;
   margin-top: 5px;
 }
-.bottomButton .ant-switch-inner {
+.white.card #dropdown-basic {
+  border: 1px solid #fff !important;
+}
+.cards.black.card .settingIcon path {
+  fill: #333 !important;
+}
+.cards.black.card .eventTitle h5 {
+  color: #000;
+  font-weight: bold;
+}
+.cards.black.card .eventTitle p {
+  color: #000;
+}
+.bottomButton .ant-switch-checked .ant-switch-inner {
   background: #cb2c2c !important;
 }
 .bottomButton button {
