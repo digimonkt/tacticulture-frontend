@@ -37,15 +37,15 @@ function RegistrationModal({
   //   }
   // }, [guestRegistrationStatus]);
 
-  const next = (value: any) => {
-    // setCurrent(current + 1);
-    console.log(value, "asdf");
+  const next = () => {
+    //
+
     switch (current) {
       case 0:
-        // dispatch(guestRegistration(value));
+        setCurrent(current + 1);
         break;
       case 1:
-        alert(current);
+        setCurrent(current + 1);
         break;
       case 2:
         alert(current);
@@ -66,10 +66,7 @@ function RegistrationModal({
     {
       title: "First",
       content: (
-        <RegisterBodyComponent
-          handleStepNext={(value) => next(value)}
-          handleStepPrev={prev}
-        />
+        <RegisterBodyComponent handleStepNext={next} handleStepPrev={prev} />
       ),
     },
     {

@@ -19,9 +19,8 @@ function RegisterBodyComponent({
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
 
-  const { guestRegistrationStatus, registrationData } = useAppSelector(
-    (state) => state.BookingReducer
-  );
+  const { guestRegistrationStatus, registrationData, guestOtpStatus } =
+    useAppSelector((state) => state.BookingReducer);
 
   const formik = useFormik({
     initialValues: { guestEmail: "", guestOtp: "" },
@@ -29,7 +28,6 @@ function RegisterBodyComponent({
       guestEmail: Yup.string().required("email is required"),
     }),
     onSubmit: (values) => {
-      console.log(values);
       dispatch(guestRegistration(values.guestEmail));
     },
   });
@@ -39,7 +37,13 @@ function RegisterBodyComponent({
       setShow(true);
     }
   }, [guestRegistrationStatus]);
-  console.log(registrationData, "adsf");
+
+  useEffect(() => {
+    if (guestOtpStatus === "success") {
+      handleStepNext();
+    }
+  }, [guestOtpStatus]);
+
   return (
     <div>
       <div className="scheduleSteps">
@@ -66,7 +70,7 @@ function RegisterBodyComponent({
               We’ve sent an email to{" "}
               <span style={{ color: "#CB2C2C" }}>
                 {" "}
-                Kris@kristopherray.com{" "}
+                {registrationData.email}{" "}
               </span>{" "}
               This private code confirms your email and allows you to complete
               your registration for this event.

@@ -1,13 +1,11 @@
 import React from "react";
 import { Switch } from "antd";
 
-const onChange = (checked: boolean) => {
-  console.log(`switch to ${checked}`);
-};
+// const onChange = (checked: boolean) => {};
 function SwitchInputComponent() {
   return (
     <div>
-      <Switch defaultChecked onChange={onChange} />
+      <Switch defaultChecked />
     </div>
   );
 }

@@ -59,7 +59,6 @@ const Step4 = forwardRef(function Step4(
       if (updateUserStatus === REQUEST_STATUS_TYPE.fulfilled) {
         router.push("/instructor/home");
       } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
-        console.log("rejected error -- ", errroList);
         dispatch(
           setAlertMessage({
             error: true,

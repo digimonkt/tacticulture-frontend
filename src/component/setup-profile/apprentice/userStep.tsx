@@ -86,7 +86,6 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
         query: { ...router.query, step: role === "apprentice" ? 2 : 4 },
       });
     } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
-      console.log("rejected error -- ", errroList);
       dispatch(
         setAlertMessage({
           error: true,

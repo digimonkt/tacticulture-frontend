@@ -81,7 +81,7 @@ function ScheduleEventComponent({
                       className="ps-2"
                       onClick={() => handleRemoveSchedule(idx)}
                     >
-                      <SVG.Trash width="24px" />
+                      <SVG.Trash width="24px" color="white" />
                     </span>
                   </>
                 );

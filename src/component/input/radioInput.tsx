@@ -9,7 +9,6 @@ interface IRadioInput {
 export default function RadioButtons({ label }: IRadioInput) {
   const [value, setValue] = React.useState();
   const onChange = (e: RadioChangeEvent) => {
-    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
   return (

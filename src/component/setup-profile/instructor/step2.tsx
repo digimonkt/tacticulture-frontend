@@ -65,7 +65,6 @@ const Step2 = forwardRef(function Step2(props, ref: Ref<InstructorStepTwoRef>) {
         query: { ...router.query, step: 3 },
       });
     } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
-      console.log("rejected error -- ", errroList);
       dispatch(
         setAlertMessage({
           error: true,

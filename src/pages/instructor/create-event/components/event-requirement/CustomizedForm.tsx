@@ -324,6 +324,7 @@ const CustomizedForm = ({
                             <div className={`${styles.icon}`}>
                               <SVG.Trash
                                 width="24px"
+                                color="white"
                                 onClick={() => addSelectAnswer(el.id, "delete")}
                               />
                               <SVG.File width="24px" />
@@ -368,7 +369,7 @@ const CustomizedForm = ({
         </Col>
         <Col md={7}>
           <div className={`${styles.icon}`}>
-            <SVG.Trash width="24px" onClick={deleteQuestion} />
+            <SVG.Trash width="24px" onClick={deleteQuestion} color="white" />
             <SVG.File width="24px" />
             <SVG.Plus width="24px" onClick={addMoreQuestion} />
           </div>

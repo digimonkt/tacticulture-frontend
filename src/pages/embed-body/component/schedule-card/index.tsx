@@ -5,6 +5,8 @@ import { Dropdown, Space, Menu } from "antd";
 import type { MenuProps } from "antd";
 import { SVG } from "@/assets/svg";
 import RegistrationModal from "../RegistrationModal";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { setBookingData } from "@/redux/reducers/booking";
 
 interface IScheduledCardComponent {
   schedule: {
@@ -16,6 +18,7 @@ interface IScheduledCardComponent {
   scheduleEventPeriod: number;
   scheduleEventPeriodUnit: string;
   index?: number;
+  eventId: number;
 }
 interface ISelectedItem {
   dateTime: any;
@@ -26,7 +29,9 @@ function ScheduledCardComponent({
   index,
   scheduleEventPeriod,
   scheduleEventPeriodUnit,
+  eventId,
 }: IScheduledCardComponent) {
+  const dispatch = useAppDispatch();
   const [items, setItems] = useState<MenuProps["items"]>([]);
   const [registerModal, setRegisterModal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,6 +66,7 @@ function ScheduledCardComponent({
   }, []);
 
   function handleMenuItemClick(item: { label: string }, date: string) {
+    dispatch(setBookingData({ eventId, date, item, type: "schedule" }));
     const datee = new Date(date + " " + item.label);
     if (!isNaN(datee)) {
       setSelectedTime({ dateTime: datee });
@@ -78,7 +84,7 @@ function ScheduledCardComponent({
     // setIsModalOpen(false);
     setRegisterModal(false);
   };
-  console.log(registerModal);
+
   return (
     <div key={index} className={`${styles.registerCard}`}>
       <div className="d-block">

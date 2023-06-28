@@ -82,7 +82,6 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
           query: { ...router.query, step: 2 },
         });
     } else if (updateUserStatus === REQUEST_STATUS_TYPE.rejected) {
-      console.log("rejected error -- ", errroList);
       dispatch(
         setAlertMessage({
           error: true,
@@ -100,8 +99,6 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   useImperativeHandle(ref, () => ({
     handleSubmitAccountDetail: formik.handleSubmit,
   }));
-
-  console.log({ formik });
 
   useEffect(() => {
     formik.setFieldValue("username", currentUser.username);

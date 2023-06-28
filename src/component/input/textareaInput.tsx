@@ -3,11 +3,6 @@ import { Input } from "antd";
 
 const { TextArea } = Input;
 
-// const onChange = (
-//   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-// ) => {
-//   console.log("Change:", e.target.value);
-// };
 interface ITextAreaComponents {
   row?: number;
   text?: string;

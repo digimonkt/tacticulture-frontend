@@ -1,7 +1,11 @@
 import { FilledButton } from "@/component/buttons";
 import { CheckInput, LabeledInput } from "@/component/input";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { guestProfileCreate } from "@/redux/reducers/booking";
 import { Col, Row } from "antd";
-import React from "react";
+import { useFormik } from "formik";
+import React, { useState, useEffect } from "react";
+import * as Yup from "yup";
 
 interface IRegisterGuest {
   handleStepNext: () => void;
@@ -12,11 +16,44 @@ function RegisterGuestComponent({
   handleStepNext,
   handleStepPrev,
 }: IRegisterGuest) {
+  const dispatch = useAppDispatch();
+  const [publicProfile, setPublicProfile] = useState(false);
+
+  const { registrationData, guestProfileStatus } = useAppSelector(
+    (state) => state.BookingReducer
+  );
+
+  const formik = useFormik({
+    initialValues: { guestFirstName: "", guestLastName: "", guestPhone: "" },
+    validationSchema: Yup.object({
+      guestFirstName: Yup.string().required("first name is required"),
+      guestLastName: Yup.string().required("last name is required"),
+      guestPhone: Yup.string().required("phone is required"),
+    }),
+    onSubmit: (values) => {
+      dispatch(
+        guestProfileCreate({
+          email: registrationData.email,
+          first_name: values.guestFirstName,
+          last_name: values.guestLastName,
+          phone_number: values.guestPhone,
+          is_public_profile: publicProfile,
+        })
+      );
+    },
+  });
+
+  useEffect(() => {
+    if (guestProfileStatus === "success") {
+      handleStepNext();
+    }
+  }, [guestProfileStatus]);
+
   return (
     <div className="guestBody ">
       <div className="scheduleSteps pb-2">
         <span style={{ color: "#5C5C5C", fontWeight: "500" }}>
-          kris@kristopherray.com
+          {registrationData.email}
         </span>
         <div className="counters">
           <span style={{ background: "#CB2C2C" }}></span>
@@ -29,22 +66,38 @@ function RegisterGuestComponent({
         <h3>Your Profile Information</h3>
         <Row>
           <Col md={12}>
-            <LabeledInput placeholder="First Name*" />
+            <LabeledInput
+              {...formik.getFieldProps("guestFirstName")}
+              placeholder="First Name*"
+            />
+            <p style={{ color: "red" }}>{formik.errors.guestFirstName}</p>
+          </Col>
+
+          <Col md={12}>
+            <LabeledInput
+              {...formik.getFieldProps("guestLastName")}
+              placeholder="Last Name*"
+            />
+            <p style={{ color: "red" }}>{formik.errors.guestLastName}</p>
+          </Col>
+
+          <Col md={12}>
+            <LabeledInput
+              {...formik.getFieldProps("guestPhone")}
+              placeholder="Phone Number*"
+            />
+            <p style={{ color: "red" }}>{formik.errors.guestPhone}</p>
           </Col>
           <Col md={12}>
-            <LabeledInput placeholder="Last Name*" />
-          </Col>
-          <Col md={12}>
-            <LabeledInput placeholder="Phone Number*" />
-          </Col>
-          <Col md={12}>
-            <FilledButton onClick={() => handleStepNext()}>
+            <FilledButton onClick={() => formik.handleSubmit()}>
               Continue to Event Information
             </FilledButton>
           </Col>
 
           <div className="publicView">
-            <CheckInput />
+            <CheckInput
+              onClick={(e: any) => setPublicProfile(e.target.checked)}
+            />
             <p>
               Create a Tacticulture public profile to display my completed
               achievements <span>(uncheck for private)</span>

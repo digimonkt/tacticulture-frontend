@@ -26,9 +26,8 @@ const CalendarModal = ({
     Intl.DateTimeFormat().resolvedOptions().timeZone
   );
   const [testingData, setTestingData] = useState([]);
-  const handleDateClick = (dates: Date[]) => {
-    console.log(dates);
-  };
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const handleDateClick = (dates: Date[]) => {};
 
   const selectSchedule = (value: string) => {
     setSchedule(value);
@@ -42,16 +41,18 @@ const CalendarModal = ({
     const currentDate = moment();
     const customDate = eventDetail.eventCustomAvailability.map(
       (el: any) =>
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         new Date(currentDate.clone().startOf("isoWeek").isoWeekday(el.weekdays))
     );
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     setDefaultDate([...date, ...customDate]);
   }, [schedule, eventDetail.id]);
-  // console.log(eventDetail, "eventdea");
 
   useEffect(() => {
     const newData: any = [];
-    // console.log(eventDetail.eventScheduledDateTime, "orhitdaf");
+
     eventDetail.eventScheduledDateTime.forEach((item: any) => {
       const startDate = new Date(item.eventStartDate);
       const endDate = new Date(item.eventEndDate);
@@ -135,6 +136,7 @@ const CalendarModal = ({
                   (schedule: any, index: any) => {
                     return (
                       <ScheduledCardComponent
+                        eventId={eventDetail.id}
                         scheduleEventPeriod={eventDetail.scheduleEventPeriod}
                         scheduleEventPeriodUnit={
                           eventDetail.scheduleEventPeriodUnit

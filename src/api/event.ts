@@ -111,7 +111,7 @@ export const getEventDetailAPI = async (
     url: `/events/details/${id.id}`,
     method: "GET",
   });
-  console.log(res, "detail res");
+
   if (res.remote === "success") {
     return {
       remote: "success",

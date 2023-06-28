@@ -42,7 +42,7 @@ function OpenCardComponent({ schedule, index }: IOpenCardComponent) {
     // @ts-ignore
     .startOf("isoweek")
     .isoWeekday(schedule.weekdays);
-  console.log(targetDate, "target");
+
   return (
     <div key={index} className={`${styles.registerCard}`}>
       <div className="d-block">

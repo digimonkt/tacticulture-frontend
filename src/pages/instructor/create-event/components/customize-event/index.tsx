@@ -51,7 +51,7 @@ function CustomizeEventComponent() {
       dispatch(resetEventError());
     }
   }, [Object.keys(eventCreatedError).length]);
-  console.log(eventCreatedError);
+
   // useEffect(() => {
   //   console.log(addImages);
   // }, [addImages]);
@@ -121,8 +121,8 @@ function CustomizeEventComponent() {
       open_availability_period:
         eventData.eventOpenSpan.openAvailabilityPeriod * 60,
     };
-    console.log({ payload });
-    console.log(JSON.stringify(payload));
+    // console.log({ payload });
+    // console.log(JSON.stringify(payload));
 
     dispatch(createEventData(payload));
   };
