@@ -70,7 +70,9 @@ function RegisterGuestComponent({
               {...formik.getFieldProps("guestFirstName")}
               placeholder="First Name*"
             />
-            <p style={{ color: "red" }}>{formik.errors.guestFirstName}</p>
+            <p style={{ color: "red" }} className="verificationErrors">
+              {formik.errors.guestFirstName}
+            </p>
           </Col>
 
           <Col md={12}>
@@ -78,7 +80,9 @@ function RegisterGuestComponent({
               {...formik.getFieldProps("guestLastName")}
               placeholder="Last Name*"
             />
-            <p style={{ color: "red" }}>{formik.errors.guestLastName}</p>
+            <p style={{ color: "red" }} className="verificationErrors">
+              {formik.errors.guestLastName}
+            </p>
           </Col>
 
           <Col md={12}>
@@ -86,7 +90,9 @@ function RegisterGuestComponent({
               {...formik.getFieldProps("guestPhone")}
               placeholder="Phone Number*"
             />
-            <p style={{ color: "red" }}>{formik.errors.guestPhone}</p>
+            <p style={{ color: "red" }} className="verificationErrors">
+              {formik.errors.guestPhone}
+            </p>
           </Col>
           <Col md={12}>
             <FilledButton onClick={() => formik.handleSubmit()}>

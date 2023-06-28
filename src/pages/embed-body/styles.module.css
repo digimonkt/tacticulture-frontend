@@ -56,6 +56,29 @@
 .registerCard p {
   display: none;
 }
+.svg {
+  margin-right: 0 !important;
+}
+.svgBtn {
+  width: auto !important;
+}
+.redDots {
+  background: #ff3030;
+  padding: 6px;
+  display: block;
+  width: 17px;
+  height: 17px;
+  border-radius: 100%;
+}
+.whiteDots {
+  background: #fff;
+  padding: 6px;
+  border: 1px solid #000;
+  display: block;
+  width: 17px;
+  height: 17px;
+  border-radius: 100%;
+}
 .registerCard span {
   color: #5c5c5c;
   font-size: 12px;
