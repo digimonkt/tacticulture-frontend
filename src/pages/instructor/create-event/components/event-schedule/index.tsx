@@ -18,6 +18,7 @@ function EventScheduleComponent() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [scheduleType, setScheduleType] = useState("schedule");
+  const [errors, setErrors] = useState([]);
   const [openSpan, setOpenSpan] = useState({
     scheduleAvailabilityPeriod: 1,
     scheduleAvailabilityPeriodUnit: "hours",
@@ -68,20 +69,53 @@ function EventScheduleComponent() {
   };
 
   const nextPage = () => {
-    dispatch(
-      createEvent({
-        eventTypeAndScheduleId: scheduleType,
-        eventScheduledDateTime: scheduleData,
-        eventCustomAvailability: customeEvent,
-        eventOpenSpan: openSpan,
-        eventScheduleSpan: scheduleSpan,
-      })
-    );
-    router.push(`../instructor/create-event?step=${3}`);
+    const errors: any = [];
+
+    scheduleData?.forEach((item, index) => {
+      const itemErrors: any = {};
+
+      if (item.eventStartDate === "") {
+        itemErrors.eventStartDate = "this field should not be blank";
+      }
+      if (item.eventStartTime === "") {
+        itemErrors.eventStartTime = "this field should not be blank";
+      }
+      if (item.eventEndDate === "") {
+        itemErrors.eventEndDate = "this field should not be blank";
+      }
+      if (item.eventEndTime === "") {
+        itemErrors.eventEndTime = "this field should not be blank";
+      }
+
+      if (Object.keys(itemErrors).length > 0) {
+        errors[index] = itemErrors;
+      }
+    });
+
+    if (errors.length > 0 && scheduleType !== "open") {
+      console.log(errors, "eroro");
+      setErrors(errors);
+      // Handle the errors as needed
+    } else {
+      dispatch(
+        createEvent({
+          eventTypeAndScheduleId: scheduleType,
+          eventScheduledDateTime: scheduleData,
+          eventCustomAvailability: customeEvent,
+          eventOpenSpan: openSpan,
+          eventScheduleSpan: scheduleSpan,
+        })
+      );
+      router.push(`../instructor/create-event?step=${3}`);
+    }
   };
 
   const deleteItem = (id: any) => {
     setScheduleData(scheduleData?.filter((el) => el.id !== id));
+  };
+  const handleFormError = () => {
+    // Handle form errors here
+    // console.log(errors, "error");
   };
   console.log(scheduleData, "data");
   return (
@@ -129,13 +163,16 @@ function EventScheduleComponent() {
           </Col>
         </Row>
         {scheduleType === "schedule" || scheduleType === "combined"
-          ? scheduleData?.map((el) => {
+          ? scheduleData?.map((el, index) => {
               return (
                 <div key={el.id}>
                   {/* @ts-ignore */}
                   <ScheduleDateComponent
+                    index={index}
                     key={el.id}
                     eventData={el}
+                    errorsData={errors}
+                    // formError={handleFormError}
                     scheduleSpan={(value: any) => setScheduleSpan(value)}
                     getChildValue={(value: any) =>
                       updateScheduleEvent(el.id, value)

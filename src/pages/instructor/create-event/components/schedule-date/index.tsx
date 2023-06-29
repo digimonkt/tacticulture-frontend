@@ -7,13 +7,16 @@ import * as Yup from "yup";
 // import { FilledButton } from "@/component/buttons";
 
 interface IScheduleDate {
+  errorsData: any;
   eventData: {
     id?: number;
+    index: number;
     eventStartDate: string;
     eventStartTime: string;
     eventEndDate: string;
     eventEndTime: string;
   };
+  // formError: (errors: any) => void;
   nextPress: () => void;
   scheduleSpan: (scheduleTimeSpan: {
     scheduleAvailabilityPeriod: number;
@@ -24,6 +27,8 @@ interface IScheduleDate {
 
 function ScheduleDateComponent({
   eventData,
+  index,
+  errorsData,
   getChildValue,
   scheduleSpan,
   nextPress,
@@ -39,6 +44,9 @@ function ScheduleDateComponent({
     initialValues,
     validationSchema: Yup.object({
       eventStartDate: Yup.string().required("Start date is required"),
+      eventStartTime: Yup.string().required("Start time is required"),
+      eventEndDate: Yup.string().required("End date is required"),
+      eventEndTime: Yup.string().required("End time is required"),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -49,6 +57,11 @@ function ScheduleDateComponent({
     scheduleSpan(scheduleTimeSpan);
   }, [scheduleTimeSpan]);
 
+  // useEffect(() => {
+  //   formError(formik?.errors);
+  // }, [formik?.errors]);
+  // console.log(formik.errors, "errors");
+  console.log(errorsData, "asfd");
   return (
     <>
       <div className={`${styles.scheduleDate}`}>
@@ -68,14 +81,22 @@ function ScheduleDateComponent({
                 getChildValue({ key: "eventStartDate", value: e.target.value });
               }}
             />
-            <p style={{ color: "red" }}>{formik.errors.eventStartDate}</p>
+            <p style={{ color: "red" }}>
+              {errorsData[index]?.eventStartDate &&
+                errorsData[index].eventStartDate}
+            </p>
             <LabeledInput
               type="time"
               value={eventData.eventStartTime}
-              onChange={(e) =>
-                getChildValue({ key: "eventStartTime", value: e.target.value })
-              }
+              onChange={(e) => {
+                formik.setFieldValue("eventStartTime", e.target.value);
+                getChildValue({ key: "eventStartTime", value: e.target.value });
+              }}
             />
+            <p style={{ color: "red" }}>
+              {errorsData[index]?.eventStartTime &&
+                errorsData[index].eventStartTime}
+            </p>
           </div>
         </div>
         <div className={`${styles.startTime}`}>
@@ -85,17 +106,27 @@ function ScheduleDateComponent({
               type="date"
               className="me-3"
               value={eventData.eventEndDate}
-              onChange={(e) =>
-                getChildValue({ key: "eventEndDate", value: e.target.value })
-              }
+              onChange={(e) => {
+                formik.setFieldValue("eventEndDate", e.target.value);
+                getChildValue({ key: "eventEndDate", value: e.target.value });
+              }}
             />
+            <p style={{ color: "red" }}>
+              {errorsData[index]?.eventEndDate &&
+                errorsData[index].eventEndDate}
+            </p>
             <LabeledInput
               type="time"
               value={eventData.eventEndTime}
-              onChange={(e) =>
-                getChildValue({ key: "eventEndTime", value: e.target.value })
-              }
+              onChange={(e) => {
+                formik.setFieldValue("eventEndTime", e.target.value);
+                getChildValue({ key: "eventEndTime", value: e.target.value });
+              }}
             />
+            <p style={{ color: "red" }}>
+              {errorsData[index]?.eventEndTime &&
+                errorsData[index].eventEndTime}
+            </p>
           </div>
           <div className="text-start">
             <label className="p-0">Set the event time span</label>
