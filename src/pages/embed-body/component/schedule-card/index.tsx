@@ -16,7 +16,6 @@ interface IScheduledCardComponent {
     eventEndTime: string;
   };
   scheduleEventPeriod: number;
-  scheduleEventPeriodUnit: string;
   index?: number;
   eventId: number;
 }
@@ -30,13 +29,12 @@ function ScheduledCardComponent({
   schedule,
   index,
   scheduleEventPeriod,
-  scheduleEventPeriodUnit,
   eventId,
 }: IScheduledCardComponent) {
   const dispatch = useAppDispatch();
   const [items, setItems] = useState<MenuProps["items"]>([]);
   const [registerModal, setRegisterModal] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState<ISelectedItem>({
     dateTime: new Date(),
   });
@@ -88,13 +86,11 @@ function ScheduledCardComponent({
   }
 
   const handleOk = () => {
-    // setIsModalOpen(false);
     setRegisterModal(false);
   };
-  const handleCancel = () => {
-    // setIsModalOpen(false);
-    setRegisterModal(false);
-  };
+  // const handleCancel = () => {
+  //   setRegisterModal(false);
+  // };
 
   return (
     <div key={index} className={`${styles.registerCard}`}>

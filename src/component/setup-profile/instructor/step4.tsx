@@ -38,9 +38,7 @@ const Step4 = forwardRef(function Step4(
   const [selectedPlanType, setSelectedPlanType] = useState("");
 
   const dispatch = useAppDispatch();
-  const { updateUserStatus, errroList } = useAppSelector(
-    (state) => state.userReducer
-  );
+  const { updateUserStatus } = useAppSelector((state) => state.userReducer);
   // router
   const router = useRouter();
   // reset AlertMessage

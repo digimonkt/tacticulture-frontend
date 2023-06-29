@@ -3,7 +3,7 @@ import { SVG } from "@/assets/svg";
 import { LabeledInput, TextInput } from "@/component/input";
 import TextareaComponent from "@/component/textarea";
 import { Checkbox } from "antd";
-import React, { Ref, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../course.module.css";
 
 import EventHeaderComponent from "../event-header";
@@ -21,10 +21,23 @@ import EventInterest, { IEventCategories } from "@/component/eventInterest";
 //   handleSubmitEventStepOne: () => void;
 // }
 
-const EventDetailComponent = () => {
+const EventDetailComponent = ({ mode }: { mode: string }) => {
+  const [data, setData] = useState({ name: "", courseCategory: [] });
+  // console.log(mode, "mode");
   const router = useRouter();
   const dispatch = useDispatch();
-  const data = useAppSelector(eventData);
+  const { eventData }: any = useAppSelector((state) => state.EventReducer);
+  const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
+  // console.log(ownEventDetail, "own");
+  useEffect(() => {
+    if (mode === "update") {
+      setData(ownEventDetail);
+    } else {
+      setData(eventData);
+    }
+  }, []);
+
+  // console.log(data);
   // formik
   const initialValues = {
     name: "",
@@ -67,6 +80,7 @@ const EventDetailComponent = () => {
   });
   // add event interest list
   const handleAddEventInterestList = (item: IEventCategories) => {
+    console.log(item, "item");
     if (formik.values.courseCategory.length < 3) {
       // @ts-ignore
       const isExist = formik.values.courseCategory?.includes(item);
@@ -97,6 +111,7 @@ const EventDetailComponent = () => {
   };
 
   useEffect(() => {
+    // console.log(data, "current data");
     formik.setFieldValue("name", data.name);
     formik.setFieldValue("description", data.description);
     formik.setFieldValue("location", data.location);
@@ -110,14 +125,16 @@ const EventDetailComponent = () => {
     formik.setFieldValue("isAddSalesTax", data.isAddSalesTax);
     formik.setFieldValue("salesTaxPercent", data.salesTaxPercent);
     formik.setFieldValue("courseCategory", data.courseCategory);
-  }, []);
-
+  }, [data]);
+  console.log(formik.values.courseCategory);
   return (
     <div>
-      <EventHeaderComponent
-        heading="Event Detail"
-        onPress={() => formik.handleSubmit()}
-      />
+      {mode === "update" ? null : (
+        <EventHeaderComponent
+          heading="Event Detail"
+          onPress={() => formik.handleSubmit()}
+        />
+      )}
       <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
         <TextInput
           {...formik.getFieldProps("name")}
@@ -247,7 +264,12 @@ const EventDetailComponent = () => {
           </div>
         </div>
       </div>
-      <EventHeaderComponent onPress={() => formik.handleSubmit()} />
+      {mode === "update" ? null : (
+        <EventHeaderComponent
+          heading="Event Detail"
+          onPress={() => formik.handleSubmit()}
+        />
+      )}
     </div>
   );
 };

@@ -39,7 +39,7 @@ const Step1 = forwardRef(function Step1(props, ref: Ref<InstructorStepOneRef>) {
   const dispatch = useAppDispatch();
   // router
   const router = useRouter();
-  const { currentUser, updateUserStatus, errroList } = useAppSelector(
+  const { currentUser, updateUserStatus } = useAppSelector(
     (state) => state.userReducer
   );
 

@@ -120,3 +120,20 @@ export const getEventDetailAPI = async (
   }
   return res;
 };
+
+export const getOwnEventDetailAPI = async (
+  id: detailPayloadId
+): Promise<SuccessResult<getEventType> | ErrorResult> => {
+  const res = await axiosInstance.request<EventResponse>({
+    url: `/events/user-event/${id.id}`,
+    method: "GET",
+  });
+
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: transformGetEventAPIResponse(res.data),
+    };
+  }
+  return res;
+};

@@ -1,4 +1,4 @@
-import { CreateEventType, getEventType } from "@/types/event";
+import { getEventType } from "@/types/event";
 import {
   EventCategoryResponse,
   EventCategory,
