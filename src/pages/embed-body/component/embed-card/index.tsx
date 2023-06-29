@@ -14,6 +14,7 @@ interface IEmbedCardComponent {
   text?: string;
   label?: string;
   classname?: string;
+  onClick?: () => void;
 }
 
 function EmbedCardComponent({
@@ -24,9 +25,10 @@ function EmbedCardComponent({
   label,
   classname,
   images,
+  ...rest
 }: IEmbedCardComponent) {
   return (
-    <div className={`${styles.locationbox}`}>
+    <div className={`${styles.locationbox}`} {...rest}>
       <Row>
         {icon && (
           <Col md={2}>

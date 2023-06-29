@@ -2,6 +2,42 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.viewBtn {
+  width: auto !important;
+  height: 22px !important;
+  padding: 0px 6px !important;
+  margin: 0 !important;
+  border-radius: 3px !important;
+}
+.courseBtn {
+  display: flex;
+  flex-flow: wrap;
+}
+.viewBtn span {
+  font-size: 12px !important;
+}
+.timeDropdown {
+  background: #333333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.timeDropdown .ant-space-item svg path {
+  fill: #fff !important;
+}
+.error-message {
+  margin-bottom: 0;
+  color: red;
+  position: relative;
+  left: 4px;
+  bottom: 8px;
+}
+svg.deleted {
+  position: relative;
+  bottom: 9px;
+  cursor: pointer;
+  left: 17px;
+}
 .white.card #dropdown-basic {
   border: 1px solid #fff !important;
 }
