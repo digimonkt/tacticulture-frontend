@@ -2,9 +2,9 @@ import { IMAGES } from "@/assets/images";
 import { Row, Col } from "antd";
 import Image from "next/image";
 import React from "react";
-import styles from "./latest.module.css";
+import styles from "../latest.module.css";
 import { SVG } from "@/assets/svg";
-import { FilledButton, OutlinedButton } from "@/component/buttons";
+import { OutlinedButton } from "@/component/buttons";
 import { OptionsInput, SwitchInput } from "@/component/input";
 import { Card } from "react-bootstrap";
 
@@ -86,7 +86,7 @@ function OpenCard({ data }: IOpenCard) {
             </div>
           </OptionsInput>
           <div className="eventTitle">
-            <h5>{data.name}</h5>
+            <h5>{data?.name}</h5>
             <p>[MM.DD.YYYY] + Open Availability</p>
           </div>
           <Card.Body>

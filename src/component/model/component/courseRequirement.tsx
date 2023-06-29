@@ -10,15 +10,12 @@ import { SVG } from "@/assets/svg";
 import { guestBooking } from "@/redux/reducers/booking";
 import moment from "moment";
 import Swal from "sweetalert";
-interface ICourseRequirement {
-  handleStepNext: () => void;
-  handleStepPrev: () => void;
-}
+// interface ICourseRequirement {
+//   handleStepNext: () => void;
+//   handleStepPrev: () => void;
+// }
 
-function CourseRequirementComponent({
-  handleStepNext,
-  handleStepPrev,
-}: ICourseRequirement) {
+function CourseRequirementComponent() {
   const dispatch = useAppDispatch();
   const [waiverChecked, setWaiverChecked] = useState(false);
   const [contactDetails, setContactDetails] = useState([

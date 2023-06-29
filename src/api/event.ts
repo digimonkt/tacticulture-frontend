@@ -12,7 +12,7 @@ import {
   transformGetEventAPIResponse,
   transformGetEventCategoriesAPIResponse,
 } from "./transform/event";
-import { CreateEventType, EventDataType, getEventType } from "@/types/event";
+import { getEventType } from "@/types/event";
 
 // fetch event categories  List
 export const eventCategoriesList = async (): Promise<

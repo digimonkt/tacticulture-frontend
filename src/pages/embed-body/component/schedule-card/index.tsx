@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from "react";
 import styles from "../../styles.module.css";
 import moment from "moment";
@@ -23,6 +22,8 @@ interface IScheduledCardComponent {
 }
 interface ISelectedItem {
   dateTime: any;
+  key?: string;
+  lable?: string;
 }
 
 function ScheduledCardComponent({
@@ -41,34 +42,42 @@ function ScheduledCardComponent({
   });
 
   useEffect(() => {
-    const startDate = new Date(
-      schedule.eventStartDate + "T" + schedule.eventStartTime
-    );
-    const endDate = new Date(
-      schedule.eventEndDate + "T" + schedule.eventEndTime
-    );
+    if (
+      schedule.eventStartDate &&
+      schedule.eventEndDate &&
+      schedule.eventEndTime &&
+      schedule.eventStartTime
+    ) {
+      const startDate = new Date(
+        schedule.eventStartDate + "T" + schedule.eventStartTime
+      );
+      const endDate = new Date(
+        schedule.eventEndDate + "T" + schedule.eventEndTime
+      );
 
-    const array = [];
+      const array = [];
 
-    let currentTime = startDate;
-    let key = 1;
-    while (currentTime < endDate) {
-      const label = currentTime.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      array.push({ label, key });
-      currentTime = new Date(
-        currentTime.getTime() + scheduleEventPeriod * 60000
-      ); // Add duration in milliseconds
-      key++;
+      let currentTime = startDate;
+      let key = 1;
+      while (currentTime < endDate) {
+        const label = currentTime.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        array.push({ label, key });
+        currentTime = new Date(
+          currentTime.getTime() + scheduleEventPeriod * 60000
+        ); // Add duration in milliseconds
+        key++;
+      }
+      setItems(array);
     }
-    setItems(array);
   }, []);
 
   function handleMenuItemClick(item: { label: string }, date: string) {
     dispatch(setBookingData({ eventId, date, item, type: "schedule" }));
     const datee = new Date(date + " " + item.label);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (!isNaN(datee)) {
       setSelectedTime({ dateTime: datee });
@@ -90,9 +99,9 @@ function ScheduledCardComponent({
   return (
     <div key={index} className={`${styles.registerCard}`}>
       <div className="d-block">
-        <h6>{moment(schedule.eventStartDate).format("MMMM DD, yyyy")}</h6>
+        <h6>{moment(schedule?.eventStartDate).format("MMMM DD, yyyy")}</h6>
         <span>
-          {moment(schedule.eventStartTime, "HH:mm:ss").format("hh:mm A")}
+          {moment(schedule?.eventStartTime, "HH:mm:ss").format("hh:mm A")}
         </span>
       </div>
 
@@ -103,15 +112,13 @@ function ScheduledCardComponent({
               <Menu.Item
                 style={{
                   backgroundColor:
-                    // @ts-ignore
                     item.key === selectedTime?.key &&
-                    // @ts-ignore
                     item.label === selectedTime?.lable
                       ? "red"
                       : "#FFF",
                 }}
                 onClick={() =>
-                  handleMenuItemClick(item, schedule.eventStartDate)
+                  handleMenuItemClick(item, schedule?.eventStartDate)
                 }
                 key={(item.key, item.label)}
               >
@@ -130,9 +137,9 @@ function ScheduledCardComponent({
           </Space>
         </a>
       </Dropdown>
-      {/* @ts-ignore */}
+
       <RegistrationModal
-        // registerModalOpen={registerModal}
+        registerModalOpen={() => console.log("sd")}
         registerModal={registerModal}
         handleCancel={() => setRegisterModal(false)}
         handleOk={handleOk}

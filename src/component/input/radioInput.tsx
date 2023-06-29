@@ -2,11 +2,11 @@ import React from "react";
 import { Radio } from "antd";
 import type { RadioChangeEvent } from "antd";
 
-interface IRadioInput {
-  label?: React.ReactNode;
-}
+// interface IRadioInput {
+//   label?: React.ReactNode;
+// }
 
-export default function RadioButtons({ label }: IRadioInput) {
+export default function RadioButtons() {
   const [value, setValue] = React.useState();
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
