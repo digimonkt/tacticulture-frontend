@@ -21,7 +21,9 @@ interface IRouter {
 
 function EmbedBody() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showmap, setShowmap] = useState(false);
   const [duration, setDuration] = useState("");
+  const [requirement, setRequirement] = useState(false);
   const [registerModal, setRegisterModal] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -127,21 +129,43 @@ function EmbedBody() {
                     </FilledButton>
                   </div>
                 </div>
-                <EmbedCardComponent
-                  icon={<SVG.Location width="16px" />}
-                  heading={eventDetail.location}
-                  // address="12345 Address Ave Georgetown, TX 78628"
-                  label="View Map"
-                />
+                <div style={{ background: "#f3f3f3" }}>
+                  <EmbedCardComponent
+                    icon={<SVG.Location width="16px" />}
+                    heading={eventDetail.location}
+                    // address="12345 Address Ave Georgetown, TX 78628"
+                    label="View Map"
+                    onClick={() => setShowmap(!showmap)}
+                  />
+                  {showmap && (
+                    <div style={{ position: "relative", bottom: "13px" }}>
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14311.222880382164!2d78.14503004999999!3d26.267968099999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1688014954545!5m2!1sen!2sin"
+                        width="100%"
+                        height="300"
+                        loading="lazy"
+                      ></iframe>
+                    </div>
+                  )}
+                </div>
                 <EmbedCardComponent
                   icon={<SVG.Timer width="16px" />}
                   text={duration + " hours"}
                 />
-                <EmbedCardComponent
-                  icon={<SVG.Risk width="16px" />}
-                  text="Requirements"
-                  label="View Details"
-                />
+                <div style={{ background: "#f3f3f3" }}>
+                  <EmbedCardComponent
+                    icon={<SVG.Risk width="16px" />}
+                    text="Requirements"
+                    label="View Details"
+                    onClick={() => setRequirement(!requirement)}
+                  />
+                  {requirement && (
+                    <div className="text-center">
+                      <h3>No Data</h3>
+                    </div>
+                  )}
+                </div>
+
                 <EmbedCardComponent
                   icon={<SVG.Fee width="16px" />}
                   text={eventDetail.perSpotCost + "$"}
@@ -153,16 +177,17 @@ function EmbedBody() {
                 />
                 <div className={`${styles.coursecategory}`}>
                   <h5>Course Categories</h5>
-
-                  {eventDetail.courseCategory?.map((el: any) => {
-                    return (
-                      <div key={el.slugName}>
-                        <FilledButton style={{ color: "#000" }}>
-                          {el.eventCategories}
-                        </FilledButton>
-                      </div>
-                    );
-                  })}
+                  <div className="courseBtn">
+                    {eventDetail.courseCategory?.map((el: any) => {
+                      return (
+                        <div key={el.slugName}>
+                          <FilledButton style={{ color: "#000" }}>
+                            {el.eventCategories}
+                          </FilledButton>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </Col>
               <Col md={12}>

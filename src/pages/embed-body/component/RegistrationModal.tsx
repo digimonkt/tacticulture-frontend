@@ -111,7 +111,7 @@ function RegistrationModal({
         onCancel={handleCancel}
         handleOk={handleOk}
       >
-        <ModalHeader />
+        <ModalHeader text="January 07, 2023 - 8:00am" content="View Details" />
         <div className="registerModal">
           <div>{steps[current].content}</div>
           {/* <div style={{ marginTop: 24 }}>

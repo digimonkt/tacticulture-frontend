@@ -141,6 +141,7 @@ function CourseRequirementComponent() {
                 </Col>
                 {index > 0 && (
                   <SVG.Trash
+                    className="deleted"
                     onClick={() => deleteItem(index)}
                     width="20px"
                     color={"red"}
@@ -174,7 +175,7 @@ function CourseRequirementComponent() {
           <button onClick={handleAddParagraph}>+</button>
         </div>
         <Row>
-          <Col md={24}>
+          <Col md={24} className="ms-1">
             <LabeledInput
               {...formik.getFieldProps("answerShortText")}
               placeholder="Placeholder possible..."
@@ -182,7 +183,7 @@ function CourseRequirementComponent() {
               className="w-100"
             />
           </Col>
-          <Col md={24}>
+          <Col md={24} className="ms-1">
             <TextInput
               {...formik.getFieldProps("answerLongText")}
               text="Custom Question Long Text*"
@@ -193,7 +194,7 @@ function CourseRequirementComponent() {
               <p className="mb-0">Additional Custom Question Checkbox (+$50)</p>
             </div>
           </Col>
-          <Col md={24}>
+          <Col md={24} className="ms-1">
             <SelectInputComponent
               label="Custom Question Dropdown Question*"
               className="w-100"

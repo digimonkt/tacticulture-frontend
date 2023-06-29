@@ -79,7 +79,10 @@ const CalendarModal = ({
       open={isModalOpen}
       onCancel={handleCancel}
     >
-      <ModalHeader title={eventDetail?.name || ""} />
+      <ModalHeader
+        title={eventDetail?.name || ""}
+        text="Upcoming Events + Open Availability"
+      />
       <div className={`${styles.mainBody}`}>
         <Row>
           <Col md={12}>
