@@ -29,5 +29,6 @@ jobs:
           script: |
             cd /home/user/tecticulture/frontend_tecticulture-next/ 
             git pull origin main
-            npm install --force
-            pm2 restart 68
+            /home/user/.yarn/bin/yarn install
+            /home/user/.yarn/bin/yarn build
+            pm2 restart 55
