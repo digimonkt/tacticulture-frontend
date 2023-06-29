@@ -9,12 +9,14 @@ import { OptionsInput, SwitchInput } from "@/component/input";
 import { Card } from "react-bootstrap";
 import moment from "moment";
 import { CreateEventType } from "@/types/event";
+import { useRouter } from "next/router";
 
 interface IScheduleCard {
   data: CreateEventType;
 }
 
 const ScheduleCard = ({ data }: IScheduleCard) => {
+  const router = useRouter();
   return (
     <Col md={24}>
       <Card className="position-relative cards black">
@@ -39,6 +41,11 @@ const ScheduleCard = ({ data }: IScheduleCard) => {
           <div className={`${styles.dropdownBox}`}>
             <SVG.Iframe width="20px" />
             <span
+              onClick={() =>
+                router.push({
+                  pathname: "/event-summary",
+                })
+              }
               style={{
                 color: "#444444",
                 fontWeight: "700",

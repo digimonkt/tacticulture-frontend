@@ -1,0 +1,355 @@
+.accountSetup span {
+  color: #ff3030;
+}
+.eventImg {
+  width: 556px;
+  height: 154px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  text-align: center;
+  margin-left: 19px;
+}
+.eventImg button {
+  margin: 0 auto !important;
+  font-size: 17px !important;
+}
+.eventImg h6 {
+  font-size: 16px;
+  font-weight: 900;
+  font-family: "Inter", sans-serif;
+  padding-top: 3%;
+  letter-spacing: 1px;
+}
+.eventImg p {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  letter-spacing: 1px;
+}
+.achievementBadge p {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.filledbtn {
+  width: 251px;
+  height: 38px;
+  border: 0;
+  background: #cb2c2c;
+  color: #fff;
+  box-shadow: 0px 1px 4px 0px #00000033;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  border-radius: 4px;
+}
+.achievementBadge {
+  border: 1px solid #dddddd;
+  margin: 0 20px 20px;
+  border-radius: 3px;
+
+  padding-top: 28px;
+  padding-bottom: 28px;
+  margin-bottom: 22px;
+}
+.eventsummary {
+  display: flex;
+  width: 800px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  color: #fff;
+  align-items: center;
+  padding: 10px;
+}
+.eventImg {
+  position: relative;
+  margin-bottom: 18px;
+}
+.eventImg button {
+  box-shadow: 0px 1px 4px 0px #00000033;
+  width: 167px;
+  height: 37px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: "Inter", sans-serif;
+  color: #fff;
+}
+.eventImg input {
+  opacity: 0;
+  position: absolute;
+  left: 88px;
+  bottom: 26px;
+}
+.preview {
+  height: 100px;
+  background-repeat: no-repeat;
+  margin-bottom: 6px;
+}
+.accountSetup h1 {
+  font-size: 37px;
+  font-weight: 800;
+  font-family: "Inter", sans-serif;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.BtnCancel {
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  font-size: 15px !important;
+  font-family: "proxima-nova";
+  letter-spacing: 1px !important;
+  border: 0 !important;
+  margin-top: 0 !important;
+  margin-right: 12px !important;
+}
+.BtnNext {
+  font-size: 17px;
+  color: #fff;
+  height: 37px;
+  width: 67px;
+  letter-spacing: 1px;
+  font-family: "proxima-nova";
+  border-radius: 4px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 19px 15px;
+  border-bottom: 1px solid #555555;
+  margin-bottom: 24px;
+}
+.header h1 {
+  font-size: 24px;
+  font-family: "proxima-nova";
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin: 0;
+}
+.customInput {
+  width: 555px;
+  position: relative;
+}
+.customInput input {
+  height: 55px;
+  border-radius: 3px;
+  margin-left: 18px;
+
+  margin-bottom: 3px;
+}
+.customInput label {
+  padding-left: 18px;
+}
+.sales {
+  margin-top: 31px;
+  position: relative;
+  top: 8px;
+}
+.dollarIcon svg {
+  position: absolute;
+  top: 40px;
+  left: 25px;
+}
+.headerComponent div {
+  text-align: center;
+  padding: 0px 7px 7px;
+  width: auto !important;
+  height: auto !important;
+  margin-top: 0 !important;
+}
+.headerComponent div h4 {
+  font-size: 18px !important;
+  padding-top: 14px !important;
+}
+.headerComponent div p {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+.eventDate h3 {
+  text-align: initial;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: "proxima-nova";
+  margin: 0;
+  padding-top: 16px;
+}
+.eventDate {
+  padding: 2px 15px 0 !important;
+}
+.scheduleDate {
+  text-align: left !important;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 0 0 14px !important;
+  margin: 20px !important;
+}
+.startTime {
+  text-align: start !important;
+}
+.startTime input {
+  height: 55px !important;
+  border-radius: 3px !important;
+  width: 298px !important;
+}
+.startTime label {
+  padding-left: 8px;
+}
+.eventImg p {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  letter-spacing: 1px;
+}
+.achievementBadge p {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.filledbtn {
+  width: 251px;
+  height: 38px;
+  border: 0;
+  background: #cb2c2c;
+  color: #fff;
+  box-shadow: 0px 1px 4px 0px #00000033;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  border-radius: 4px;
+}
+.achievementBadge {
+  border: 1px solid #dddddd;
+  margin: 0 20px 20px;
+  border-radius: 3px;
+
+  padding-top: 28px;
+  padding-bottom: 28px;
+  margin-bottom: 22px;
+}
+.eventsummary {
+  display: flex;
+  width: 800px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  color: #fff;
+  align-items: center;
+  padding: 10px;
+}
+.eventDetails h3 {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-family: "Inter", sans-serif;
+  padding: 13px 20px 0;
+}
+.eventDetails p {
+  padding-left: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+}
+.nodata {
+  text-align: center;
+}
+.nodata p {
+  font-size: 16px;
+  font-weight: 800;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 1px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.nodata span {
+  color: #ff3030;
+}
+.manageSection {
+  display: flex;
+  align-items: center;
+  padding: 17px;
+}
+.manageSection h6 {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.manageSection button {
+  width: 138px !important;
+  background-color: transparent !important;
+  height: 22px !important;
+  padding: 0 !important;
+  border-radius: 3px !important;
+  border: 1px solid #fff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  font-family: "Inter", sans-serif;
+  white-space: nowrap !important;
+}
+.manageSection button span {
+  color: #fff !important;
+}
+.icons svg path {
+  fill: #fff !important;
+}
+.icons svg {
+  width: 24px;
+  height: 24px;
+}
+.row {
+  border-bottom: 1px solid #414141;
+}
+
+.row :nth-child(3) {
+  border: 0 !important;
+}
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.eventHeader {
+  display: flex;
+  width: 800px;
+  justify-content: space-between;
+  color: #fff;
+  margin-top: 24px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.eventHeader h3 {
+  font-size: 37px;
+  font-weight: 800;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.eventHeader span {
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-family: "Inter", sans-serif;
+}
+.eventHeader button {
+  box-shadow: 0px 1px 4px 0px #00000033 !important;
+  border: 1px solid #fff !important;
+  background-color: transparent !important;
+  font-size: 12px !important;
+  color: #fff !important;
+  padding: 0 6px !important;
+  height: 23px !important;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  margin-left: 10px;
+}

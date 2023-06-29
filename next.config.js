@@ -62,6 +62,10 @@ const nextConfig = {
         source: "/verify-email",
         destination: "/auth/verify-email",
       },
+      {
+        source: "/event-summary",
+        destination: "/event-summary/",
+      },
     ];
   },
 };

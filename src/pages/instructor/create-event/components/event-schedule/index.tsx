@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import UserCardComponent from "@/component/card/user-card";
 import { Col, Row } from "antd";
 import React, { useState, useEffect } from "react";
@@ -18,7 +17,7 @@ function EventScheduleComponent() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [scheduleType, setScheduleType] = useState("schedule");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [openSpan, setOpenSpan] = useState({
     scheduleAvailabilityPeriod: 1,
     scheduleAvailabilityPeriodUnit: "hours",
@@ -117,7 +116,7 @@ function EventScheduleComponent() {
     // Handle form errors here
     // console.log(errors, "error");
   };
-  console.log(scheduleData, "data");
+
   return (
     <div className="schedule">
       <EventHeaderComponent heading="Event Detail" onPress={nextPage} />
@@ -166,13 +165,11 @@ function EventScheduleComponent() {
           ? scheduleData?.map((el, index) => {
               return (
                 <div key={el.id}>
-                  {/* @ts-ignore */}
                   <ScheduleDateComponent
                     index={index}
                     key={el.id}
                     eventData={el}
                     errorsData={errors}
-                    // formError={handleFormError}
                     scheduleSpan={(value: any) => setScheduleSpan(value)}
                     getChildValue={(value: any) =>
                       updateScheduleEvent(el.id, value)

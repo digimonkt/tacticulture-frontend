@@ -1,12 +1,14 @@
 import { SVG } from "@/assets/svg";
 import React, { useState } from "react";
-import styles from "../course.module.css";
+// import styles from "../course.module.css";
 import { FilledButton } from "@/component/buttons";
 import { Col, Row } from "antd";
-import InstructorLayout from "../../layout";
+import styles from "./summary.module.css";
 import { OptionsInput } from "@/component/input";
-import EventRosterComponent from "../components/event-roster";
+
 import EventForumComponent from "@/pages/apprentice/components/event-forum";
+import InstructorLayout from "../instructor/layout";
+import EventRosterComponent from "../instructor/create-event/components/event-roster";
 
 function EventSummaryComponent() {
   const [eventroster, setEventroster] = useState("");
@@ -74,7 +76,7 @@ function EventSummaryComponent() {
             <div className="ListPublish">
               <OptionsInput title={<SVG.Setting />}>
                 <div className={`${styles.dropdownBox}`}>
-                  <SVG.UserIcon width="20px" />
+                  <SVG.Iframe width="20px" />
                   <span
                     style={{
                       fontFamily: "Proxima Nova",
@@ -86,11 +88,11 @@ function EventSummaryComponent() {
                       top: "2px",
                     }}
                   >
-                    Edit Profile
+                    Add to Website
                   </span>
                 </div>
                 <div className={`${styles.dropdownBox}`}>
-                  <SVG.Clip width="20px" />
+                  <SVG.Clone width="20px" />
                   <span
                     style={{
                       fontFamily: "Proxima Nova",
@@ -102,7 +104,23 @@ function EventSummaryComponent() {
                       top: "2px",
                     }}
                   >
-                    Copy Link
+                    Clone
+                  </span>
+                </div>
+                <div className={`${styles.dropdownBox}`}>
+                  <SVG.Delete width="20px" />
+                  <span
+                    style={{
+                      fontFamily: "Proxima Nova",
+                      color: "#444444",
+                      fontWeight: "700",
+                      letterSpacing: "1px",
+                      paddingLeft: "10px",
+                      position: "relative",
+                      top: "2px",
+                    }}
+                  >
+                    Delete
                   </span>
                 </div>
               </OptionsInput>
