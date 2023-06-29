@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
 import styles from "../../styles.module.css";
 import moment from "moment";
@@ -39,9 +38,8 @@ function OpenCardComponent({ schedule, index }: IOpenCardComponent) {
 
   const targetDate = currentDate
     .clone()
-    // @ts-ignore
-    .startOf("isoweek")
-    .isoWeekday(schedule.weekdays);
+    .startOf("week")
+    .isoWeekday(schedule?.weekdays);
 
   return (
     <div key={index} className={`${styles.registerCard}`}>

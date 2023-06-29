@@ -4,7 +4,6 @@ import { LabeledInput } from "@/component/input";
 import { FilledButton } from "@/component/buttons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ErrorMessage } from "@/component/caption";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { guestOtpSubmit, guestRegistration } from "@/redux/reducers/booking";
 

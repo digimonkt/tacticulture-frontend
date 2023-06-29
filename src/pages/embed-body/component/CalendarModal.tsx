@@ -33,45 +33,43 @@ const CalendarModal = ({
     setSchedule(value);
   };
 
-  useEffect(() => {
-    const date = eventDetail.eventScheduledDateTime.map(
-      (el: any) => new Date(el.eventStartDate)
-    );
+  // useEffect(() => {
+  //   const date = eventDetail.eventScheduledDateTime.map(
+  //     (el: any) => new Date(el.eventStartDate)
+  //   );
 
-    const currentDate = moment();
-    const customDate = eventDetail.eventCustomAvailability.map(
-      (el: any) =>
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        new Date(currentDate.clone().startOf("isoWeek").isoWeekday(el.weekdays))
-    );
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setDefaultDate([...date, ...customDate]);
-  }, [schedule, eventDetail.id]);
+  //   const currentDate: Date[] = moment().toDate();
+  //   const customDate = eventDetail.eventCustomAvailability.map(
+  //     (el: any) =>
+  //       new Date(currentDate.clone().startOf("isoWeek").isoWeekday(el.weekdays))
+  //   );
+
+  //   setDefaultDate([...date, ...customDate]);
+  // }, [schedule, eventDetail.id]);
 
   useEffect(() => {
-    const newData: any = [];
+    if (eventDetail && eventDetail.eventScheduledDateTime) {
+      const newData: any = [];
 
-    eventDetail.eventScheduledDateTime.forEach((item: any) => {
-      const startDate = new Date(item.eventStartDate);
-      const endDate = new Date(item.eventEndDate);
-      const currentDate = new Date(startDate);
+      eventDetail.eventScheduledDateTime.forEach((item: any) => {
+        const startDate = new Date(item.eventStartDate);
+        const endDate = new Date(item.eventEndDate);
+        const currentDate = new Date(startDate);
 
-      // eslint-disable-next-line no-unmodified-loop-condition
-      while (currentDate <= endDate) {
-        newData.push({
-          eventStartDate: currentDate.toISOString().split("T")[0],
-          eventEndDate: currentDate.toISOString().split("T")[0],
-          eventStartTime: item.eventStartTime,
-          eventEndTime: item.eventEndTime,
-        });
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-    });
-    setTestingData(newData);
-    // const formData =eventDetail.eventScheduledDateTime.map(schd=>)
-  }, [eventDetail.eventScheduledDateTime]);
+        // eslint-disable-next-line no-unmodified-loop-condition
+        while (currentDate <= endDate) {
+          newData.push({
+            eventStartDate: currentDate.toISOString().split("T")[0],
+            eventEndDate: currentDate.toISOString().split("T")[0],
+            eventStartTime: item.eventStartTime,
+            eventEndTime: item.eventEndTime,
+          });
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+      });
+      setTestingData(newData);
+    }
+  }, [eventDetail?.eventScheduledDateTime]);
 
   return (
     <Modal
@@ -81,7 +79,7 @@ const CalendarModal = ({
       open={isModalOpen}
       onCancel={handleCancel}
     >
-      <ModalHeader title={eventDetail.name} />
+      <ModalHeader title={eventDetail?.name || ""} />
       <div className={`${styles.mainBody}`}>
         <Row>
           <Col md={12}>
@@ -102,7 +100,7 @@ const CalendarModal = ({
               </div>
               <DatePicker
                 onDayClick={handleDateClick}
-                defaultDate={defaultDate}
+                // defaultDate={defaultDate}
               />
               <div className="timezoneData">
                 <TimeZoneComponent
@@ -161,7 +159,7 @@ const CalendarModal = ({
               : null}
 
             {schedule === "all" || schedule === "open"
-              ? eventDetail.eventCustomAvailability.map(
+              ? eventDetail?.eventCustomAvailability?.map(
                   (schedule: any, index: any) => {
                     return (
                       <OpenCardComponent

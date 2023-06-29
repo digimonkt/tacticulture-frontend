@@ -62,7 +62,7 @@ function EmbedBody() {
     setIsModalOpen(false);
     // setRegisterModal(false);
   };
-  console.log({ eventDetail });
+
   return (
     <div>
       <ApprenticeHeaderComponent />

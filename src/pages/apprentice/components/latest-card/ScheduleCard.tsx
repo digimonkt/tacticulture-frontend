@@ -8,12 +8,10 @@ import { OutlinedButton } from "@/component/buttons";
 import { OptionsInput, SwitchInput } from "@/component/input";
 import { Card } from "react-bootstrap";
 import moment from "moment";
+import { CreateEventType } from "@/types/event";
 
 interface IScheduleCard {
-  data: {
-    name: string;
-    eventScheduledDateTime: { eventStartDate: string }[];
-  };
+  data: CreateEventType;
 }
 
 const ScheduleCard = ({ data }: IScheduleCard) => {
@@ -89,10 +87,10 @@ const ScheduleCard = ({ data }: IScheduleCard) => {
           </div>
         </OptionsInput>
         <div className="eventTitle">
-          <h5>{data.name}</h5>
+          <h5>{data?.name}</h5>
           <p>
             Scheduled Event{" "}
-            {data.eventScheduledDateTime.map((el) => {
+            {data?.eventScheduledDateTime?.map((el) => {
               return moment(el.eventStartDate).format("MM-DD-YYYY");
             })}
           </p>
