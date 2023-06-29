@@ -2,6 +2,16 @@
 const nextConfig = {
   webpack(config) {
     config.module.rules.push({
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: "babel-loader",
+        options: {
+          presets: ["next/babel"], // Use the preset for Next.js
+        },
+      },
+    });
+    config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       use: ["@svgr/webpack"],
@@ -9,7 +19,7 @@ const nextConfig = {
     return config;
   },
   reactStrictMode: true,
-  transpilePackages: ["react-timezone-select"],
+  transpileModules: ["react-timezone-select"], // Use 'transpileModules' instead of 'transpilePackages'
   async rewrites() {
     return [
       {
