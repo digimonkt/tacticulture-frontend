@@ -137,4 +137,74 @@ export type detailPayloadId = {
   id: string;
 };
 
+export type updateEventDetailPayload = {
+  id: string;
+  data: {
+    availableSpots: number;
+    courseCategory: { eventCategories: string; slugName: string }[];
+    courseUrl: string;
+    description: string;
+    eventIds: [];
+    isAddSalesTax: boolean;
+    isIncludeTransactionFeeInCost: boolean;
+    isPrivateEvent: boolean;
+    location: string;
+    name: string;
+    perSpotCost: number;
+  };
+};
+
+export type updateEventTypeScheduleType = {
+  id: string;
+  customeEvent: [];
+  openSpan: {
+    scheduleAvailabilityPeriod: number;
+    scheduleAvailabilityPeriodUnit: string;
+  };
+  scheduleData: {
+    eventEndDate: string;
+    eventEndTime: string;
+    eventStartDate: string;
+    eventStartTime: string;
+  }[];
+  scheduleSpan: {
+    scheduleAvailabilityPeriod: number;
+    scheduleAvailabilityPeriodUnit: string;
+  };
+  scheduleType: string;
+};
+
+export type updateEventTypeSchedulePayload = {
+  id: string;
+  data: {
+    availableSpots: number;
+    courseCategory: { eventCategories: string; slugName: string }[];
+    courseUrl: string;
+    description: string;
+    eventIds: [];
+    isAddSalesTax: boolean;
+    isIncludeTransactionFeeInCost: boolean;
+    isPrivateEvent: boolean;
+    location: string;
+    name: string;
+    perSpotCost: number;
+  };
+};
+
+export type updateEventDetailPayloadBackend = {
+  name: string;
+  course_category: {
+    event_categories: string;
+    slug_name: string;
+  }[];
+  description: string;
+  location: string;
+  course_url: string;
+  is_private_event: boolean;
+  available_spots: number;
+  cost_per_spot: number;
+  is_include_transaction_fee_in_cost: boolean;
+  is_add_sales_tax: boolean;
+};
+
 export type GetEventResponse = GetListWithPagination<EventResponse[]>;

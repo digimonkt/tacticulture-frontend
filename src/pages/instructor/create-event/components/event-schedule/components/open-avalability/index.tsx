@@ -71,7 +71,11 @@ export type availabilityType = {
   openSpan: (period: string, periodUnit: string) => void;
 };
 
-function OpenAvailabilityComponent({ customAvailabilityData, openSpan }: any) {
+function OpenAvailabilityComponent({
+  customAvailabilityData,
+  openSpan,
+  value,
+}: any) {
   const dispatch = useAppDispatch();
   const [openTimeSpan, setOpenTimeSpan] = useState({});
   const [isComponent, setIsComponent] = useState("default");

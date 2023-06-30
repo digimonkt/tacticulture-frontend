@@ -8,10 +8,19 @@ import {
   getEventDataAPI,
   getEventDetailAPI,
   getOwnEventDetailAPI,
+  updateOwnEventDetailAPI,
+  updateOwnEventTypeScheduleAPI,
 } from "@/api/event";
-import { detailPayloadId, EventPayload } from "@/api/types/event";
+import {
+  detailPayloadId,
+  EventPayload,
+  updateEventDetailPayload,
+  updateEventTypeScheduleType,
+  updatePayload,
+} from "@/api/types/event";
 
 interface Ievent {
+  eventId: string;
   eventData: CreateEventType;
   availableEventData: GetListWithPagination<CreateEventType[]>;
   allEventData: GetListWithPagination<CreateEventType[]>;
@@ -86,6 +95,7 @@ export const initialEventDetail: getEventType = {
 
 const initialState: Ievent = {
   eventCreated: "",
+  eventId: "0",
   ownEventDetail: initialEventDetail,
   eventCreatedError: {},
   eventDetail: initialEventDetail,
@@ -224,6 +234,36 @@ export const getOwnEventDetail = createAsyncThunk<
 >("getOwnEventDetail", async (id, { rejectWithValue }) => {
   const res = await getOwnEventDetailAPI(id);
   if (res.remote === "success") {
+    console.log(res.data, "update response");
+    return res.data;
+  } else {
+    console.log(res.error);
+    return rejectWithValue(res.error);
+  }
+});
+
+export const updateOwnEventDetail = createAsyncThunk<
+  getEventType,
+  updateEventDetailPayload,
+  { state: RootState; rejectValue: ServerError }
+>("updateOwnEventDetail", async (payload, { rejectWithValue }) => {
+  const res = await updateOwnEventDetailAPI(payload);
+  if (res.remote === "success") {
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+
+export const updateOwnEventTypeSchedule = createAsyncThunk<
+  getEventType,
+  updateEventTypeScheduleType,
+  { state: RootState; rejectValue: ServerError }
+>("updateOwnEventDetail", async (payload, { rejectWithValue }) => {
+  console.log(payload, "payload schedule");
+  const res = await updateOwnEventTypeScheduleAPI(payload);
+  if (res.remote === "success") {
+    console.log(res.data, "update response");
     return res.data;
   } else {
     console.log(res.error);

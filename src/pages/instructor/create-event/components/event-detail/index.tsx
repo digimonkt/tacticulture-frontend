@@ -12,23 +12,40 @@ import { FaEyeSlash } from "react-icons/fa";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { createEvent, eventData } from "@/redux/reducers/event";
+import {
+  createEvent,
+  eventData,
+  getOwnEventDetail,
+  updateOwnEventDetail,
+} from "@/redux/reducers/event";
 import { useAppSelector } from "@/redux/hooks/hooks";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import EventInterest, { IEventCategories } from "@/component/eventInterest";
+import { updateOwnEventDetailAPI } from "@/api/event";
 
 // export interface IEventStepOne {
 //   handleSubmitEventStepOne: () => void;
 // }
 
 const EventDetailComponent = ({ mode }: { mode: string }) => {
-  const [data, setData] = useState({ name: "", courseCategory: [] });
-  // console.log(mode, "mode");
+  const [data, setData] = useState({
+    name: "",
+    description: "",
+    location: "",
+    courseUrl: "",
+    availableSpots: "",
+    perSpotCost: "",
+    isIncludeTransactionFeeInCost: "",
+    isAddSalesTax: "",
+    salesTaxPercent: "",
+    courseCategory: [],
+  });
+
   const router = useRouter();
   const dispatch = useDispatch();
   const { eventData }: any = useAppSelector((state) => state.EventReducer);
   const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
-  // console.log(ownEventDetail, "own");
+
   useEffect(() => {
     if (mode === "update") {
       setData(ownEventDetail);
@@ -37,7 +54,6 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
     }
   }, []);
 
-  // console.log(data);
   // formik
   const initialValues = {
     name: "",
@@ -63,7 +79,6 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
       name: Yup.string().required("Event name is required!"),
       description: Yup.string().required("Please Enter Event Description"),
       location: Yup.string().required("Please Enter Event Location"),
-      // courseUrl: Yup.string().required("Please Enter Course Link"),
       availableSpots: Yup.number().required("Please Enter Available Spots No."),
       courseCategory: Yup.array()
         .min(1)
@@ -71,16 +86,16 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
       // perSpotCost: Yup.string().required("Please Enter Sport Cost"),
     }),
     onSubmit: (values) => {
-      // handleSubmit(values);
-      // console.log(values, "value");
-      dispatch(createEvent(values));
-      router.push(`../instructor/create-event?step=${2}`);
-      // router.push(`../instructor/create-event?step=${2}`);
+      if (mode === "update") {
+        dispatch(updateOwnEventDetail({ id: ownEventDetail.id, data: values }));
+      } else {
+        dispatch(createEvent(values));
+        router.push(`../instructor/create-event?step=${2}`);
+      }
     },
   });
   // add event interest list
   const handleAddEventInterestList = (item: IEventCategories) => {
-    console.log(item, "item");
     if (formik.values.courseCategory.length < 3) {
       // @ts-ignore
       const isExist = formik.values.courseCategory?.includes(item);
@@ -111,7 +126,6 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
   };
 
   useEffect(() => {
-    // console.log(data, "current data");
     formik.setFieldValue("name", data.name);
     formik.setFieldValue("description", data.description);
     formik.setFieldValue("location", data.location);
@@ -126,7 +140,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
     formik.setFieldValue("salesTaxPercent", data.salesTaxPercent);
     formik.setFieldValue("courseCategory", data.courseCategory);
   }, [data]);
-  console.log(formik.values.courseCategory);
+
   return (
     <div>
       {mode === "update" ? null : (
@@ -262,6 +276,9 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
               <SVG.Percent width="24px" />
             </span>
           </div>
+          <p onClick={() => formik.handleSubmit()} style={{ left: "0px" }}>
+            update
+          </p>
         </div>
       </div>
       {mode === "update" ? null : (

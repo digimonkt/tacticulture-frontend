@@ -3,6 +3,8 @@ import {
   EventCategoryResponse,
   EventCategory,
   EventResponse,
+  updateEventDetailPayload,
+  updateEventDetailPayloadBackend,
 } from "../types/event";
 
 export const transformGetEventCategoriesAPIResponse = (
@@ -12,6 +14,42 @@ export const transformGetEventCategoriesAPIResponse = (
     id: data.id,
     eventCategory: data.event_categories,
     slugName: data.slug_name,
+  };
+};
+// updateEventDetailPayloadBackend
+// updateEventDetailPayload -- this two types which we create for this transform use this instead of any
+export const transformUpdateEventDetailPayload = (data: any) => {
+  return {
+    name: data.name,
+    course_category: data.courseCategory.map((course: any) => ({
+      event_categories: course.eventCategories,
+      slug_name: course.slugName,
+    })),
+    description: data.description,
+    location: data.location,
+    course_url: data.courseUrl,
+    is_private_event: data.isPrivateEvent,
+    available_spots: data.availableSpots,
+    cost_per_spot: data.perSpotCost,
+    is_include_transaction_fee_in_cost: data.isIncludeTransactionFeeInCost,
+    is_add_sales_tax: data.isAddSalesTax,
+  };
+};
+
+export const transformUpdateEventTypeSchedulePayload = (data: any) => {
+  console.log(data, "data");
+  return {
+    event_type_and_schedule_id: data.scheduleType,
+    event_scheduled_datetime: data.scheduleData.map((item) => ({
+      event_start_date: item.eventStartDate,
+      event_start_time: item.eventStartTime,
+      event_end_date: item.eventEndDate,
+      event_end_time: item.eventEndTime,
+    })),
+    schedule_event_period: data.scheduleSpan.scheduleAvailabilityPeriod,
+    schedule_event_period_unit:
+      data.scheduleSpan.scheduleAvailabilityPeriodUnit,
+    event_custom_availability: [],
   };
 };
 

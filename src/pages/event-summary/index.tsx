@@ -12,7 +12,7 @@ import EventRosterComponent from "../instructor/create-event/components/event-ro
 import EventDetailComponent from "../instructor/create-event/components/event-detail";
 import EventScheduleComponent from "../instructor/create-event/components/event-schedule";
 import EventRequirement from "../instructor/create-event/components/event-requirement";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { useAppDispatch } from "@/redux/hooks/hooks";
 import { getOwnEventDetail } from "@/redux/reducers/event";
 
 function EventSummaryComponent() {
@@ -41,7 +41,7 @@ function EventSummaryComponent() {
       heading: "Event Type and Schedule",
       content: "Customize your event-specific availability",
       children: "Edit",
-      component: <EventScheduleComponent />,
+      component: <EventScheduleComponent mode="update" />,
     },
     {
       id: "3",
