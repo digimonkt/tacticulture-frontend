@@ -148,8 +148,11 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   return (
     <div className="schedule">
       {mode === "update" ? (
-        <p onClick={nextPage}>update</p>
+        <div className="btnUpdates">
+          <FilledButton onClick={nextPage}>Update</FilledButton>
+        </div>
       ) : (
+        // <p onClick={nextPage}>update</p>
         <EventHeaderComponent heading="Event Detail" onPress={nextPage} />
       )}
       <div className={`${styles.headerComponent}`}>
@@ -245,9 +248,8 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             customAvailabilityData={(value: any) => setCustomEvent(value)}
           />
         ) : null}
-        {mode === "update" ? (
-          <p onClick={nextPage}>update</p>
-        ) : (
+        {mode === "update" ? null : (
+          // <p onClick={nextPage}>update</p>
           <EventHeaderComponent onPress={nextPage} />
         )}
       </div>

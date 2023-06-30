@@ -2,6 +2,138 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.btnUpdates {
+  text-align: end;
+  margin-bottom: 35px;
+}
+.eventForms .text-start label {
+  padding-left: 11px !important;
+}
+.eventForms .scheduleSection p {
+  padding: 0 !important;
+}
+.btn.filleds {
+  width: auto !important;
+  padding: 0 10px !important;
+}
+.dataErrors {
+  padding-left: 18px;
+}
+.btnPublish {
+  width: auto !important;
+}
+.eventForms .requirements p {
+  padding: 0 18px !important;
+}
+.apprenticeText {
+  text-align: center;
+}
+.eventForms .requirements1 p {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.eventForms .waiverSetting p {
+  padding-left: 31px !important;
+  padding-top: 4px !important;
+  font-weight: 400 !important;
+}
+
+.eventForms .startDate {
+  padding-left: 11px !important;
+}
+.btnUpdate {
+  text-align: end;
+}
+.eventForms .boxed-user {
+  margin-top: 34px !important;
+}
+.eventForms .ql-picker-label {
+  color: #000 !important;
+}
+.eventForms .multiField h3 {
+  padding-left: 18px !important;
+}
+.eventForms .questionBox p {
+  padding-left: 0 !important;
+}
+.eventForms .customText {
+  padding-left: 0 !important;
+}
+.eventForms .eventError {
+  font-weight: 400 !important;
+  position: relative;
+  bottom: 10px;
+}
+.eventForms h3 {
+  padding-left: 0 !important;
+}
+.eventForms button span {
+  color: #fff;
+}
+.eventForms .boxed-user .selected span {
+  color: #fff !important;
+}
+.eventForms .ant-select-selection-item {
+  color: #000 !important;
+}
+.eventForms .boxed-user .unselect span {
+  color: #cb2c2c !important;
+}
+.eventForms .boxed-user p {
+  padding: 0 !important;
+}
+.eventForms .boxed-user h4 {
+  text-align: center !important;
+}
+.btnUpdates button {
+  border-radius: 3px;
+  position: relative;
+  top: 17px;
+  right: 20px;
+  height: 38px;
+  padding: 0 15px !important;
+}
+.btnUpdates button span {
+  color: #fff !important;
+}
+.btnUpdate button {
+  border-radius: 3px;
+  position: relative;
+  top: 17px;
+  right: 20px;
+  height: 38px;
+  padding: 0 15px !important;
+}
+.btnUpdate button span {
+  color: #fff !important;
+}
+
+.eventForms .eventForem {
+  text-align: left !important;
+}
+.eventForms .lastStep div:nth-child(2) {
+  margin-top: 0 !important;
+}
+.eventForms .dataError {
+  display: none;
+}
+.eventForms .Transaction {
+  padding-left: 0 !important;
+  padding-top: 0px !important;
+  padding-bottom: 0 !important;
+}
+.eventForms .alertText {
+  color: #fff !important;
+}
+.eventForms .formik {
+  display: none !important;
+}
+.eventForms h4 {
+  text-align: left !important;
+}
+.eventForms .textArea_section {
+  text-align: left;
+}
 .waiverSetting:nth-child(3) {
   padding-left: 21px !important;
 }

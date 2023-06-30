@@ -89,44 +89,52 @@ function EventRequirement() {
         heading="Policies, Questions and Waiver"
         onPress={() => formik.handleSubmit()}
       />
-      <div className="eventRequirement">
-        <h5>Requirements</h5>
-        <p className="mb-0">
-          ex. Necessary equipment, physical requirements or any additional event
-          restrictions the user should consider when booking this event.
-        </p>
-        <TextareaComponent
-          onChange={(e) => formik.setFieldValue("requirements", e)}
-          onBlur={() => formik.setTouched({ requirements: true })}
-          value={formik.values.requirements}
-        />
-        <p style={{ color: "red" }}>{formik.errors.requirements}</p>
-        <div>
-          <h5>Cancellation</h5>
-
+      <div className="requirements">
+        <div className="eventRequirement">
+          <h5>Requirements</h5>
+          <p className="mb-0">
+            ex. Necessary equipment, physical requirements or any additional
+            event restrictions the user should consider when booking this event.
+          </p>
           <TextareaComponent
-            onChange={(e) => formik.setFieldValue("cancellationPolicies", e)}
-            onBlur={() => formik.setTouched({ cancellationPolicies: true })}
-            value={formik.values.cancellationPolicies}
+            onChange={(e) => formik.setFieldValue("requirements", e)}
+            onBlur={() => formik.setTouched({ requirements: true })}
+            value={formik.values.requirements}
           />
-        </div>
-        <p style={{ color: "red" }}>{formik.errors.cancellationPolicies}</p>
-      </div>
-      <div className={`${styles.customEvents}`}>
-        <h4>Custom Event Questions</h4>
+          <p style={{ color: "red" }} className="eventError">
+            {formik.errors.requirements}
+          </p>
+          <div>
+            <h5>Cancellation</h5>
 
-        <p>
-          Configure the information you’d like to collect. We automatically
-          collect each users personal profile information in addition to
-          requiring Emergency Contact Name and Phone information, but you can
-          add additional questions, including paid additions.
-        </p>
-        <FilledButton
-          onClick={() => addEventQuestion("add")}
-          className={`${styles.btnAdd}`}
-        >
-          + Add Questions
-        </FilledButton>
+            <TextareaComponent
+              onChange={(e) => formik.setFieldValue("cancellationPolicies", e)}
+              onBlur={() => formik.setTouched({ cancellationPolicies: true })}
+              value={formik.values.cancellationPolicies}
+            />
+          </div>
+          <p style={{ color: "red" }} className="eventError">
+            {formik.errors.cancellationPolicies}
+          </p>
+        </div>
+      </div>
+      <div className="requirements1">
+        <div className={`${styles.customEvents}`}>
+          <h4>Custom Event Questions</h4>
+
+          <p className="customText">
+            Configure the information you’d like to collect. We automatically
+            collect each users personal profile information in addition to
+            requiring Emergency Contact Name and Phone information, but you can
+            add additional questions, including paid additions.
+          </p>
+          <FilledButton
+            onClick={() => addEventQuestion("add")}
+            className={`${styles.btnAdd}`}
+          >
+            + Add Questions
+          </FilledButton>
+        </div>
       </div>
 
       {eventData.customQuestions.map((el, index) => {

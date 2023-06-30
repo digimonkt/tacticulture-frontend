@@ -203,178 +203,184 @@ const CustomizedForm = ({
   };
 
   return (
-    <div className={`${styles.question}`}>
-      <h3 className={`${styles.titles}`}>Custom Question #:{index + 1}</h3>
-      <Row>
-        <Col md={17}>
-          <div className="questionBox">
-            <Row>
-              <Col md={12}>
-                <div style={{ marginLeft: "22px", marginBottom: "20px" }}>
-                  <SelectInputComponent
-                    label="Field Type"
-                    className="antSelectDropdown"
-                    options={eventQuestionList}
-                    onChange={(value) => addFieldType(value)}
-                    value={data?.fieldType}
-                  />
-                </div>
-              </Col>
-              {data?.fieldType === "CheckBox" ||
-              data?.fieldType === "Select/Dropdown" ||
-              data?.fieldType === "OptionalGuest" ? (
+    <div className="multiField">
+      <div className={`${styles.question}`}>
+        <h3 className={`${styles.titles}`}>Custom Question #:{index + 1}</h3>
+        <Row>
+          <Col md={17}>
+            <div className="questionBox">
+              <Row>
                 <Col md={12}>
-                  <div style={{ marginLeft: "10px", marginBottom: "20px" }}>
+                  <div style={{ marginLeft: "22px", marginBottom: "20px" }}>
                     <SelectInputComponent
-                      label="Paid Upgrade?"
+                      label="Field Type"
                       className="antSelectDropdown"
-                      options={paidUpgradeList}
-                      value={data.paidUpgrade}
-                      onChange={(value) => addPaidUpgrade(value)}
+                      options={eventQuestionList}
+                      onChange={(value) => addFieldType(value)}
+                      value={data?.fieldType}
                     />
                   </div>
                 </Col>
-              ) : null}
-              <span
-                style={{
-                  fontSize: "13px",
-                  width: "498px",
-                  margin: "0 auto 16px",
-                }}
-              >
-                We’ll prompt the user registering to invite guests via email to
-                complete required waivers and basic profile information.{" "}
-              </span>
-
-              {data?.fieldType !== "OptionalGuest" ? (
-                <Col md={24}>
-                  <div className={`${styles.labelInput}`}>
-                    <LabeledInput
-                      label="Question Prompt / Label"
-                      onChange={(e) => addQuestionPromptData(e.target.value)}
-                      value={data?.questionPromptLabel}
-                    />
-                  </div>
-                </Col>
-              ) : (
-                <Row
-                  className="mb-3 pt-3"
-                  style={{ borderTop: "1px solid #454545" }}
-                >
-                  <Col md={12}>
-                    <div className={`${styles.upgradeCosts}`}>
-                      <div style={{ width: "237px" }}>
-                        <SVG.Dollar width="24px" />
-                        <LabeledInput
-                          label="Cost Per Guest"
-                          onChange={(e) =>
-                            addCostPerGuest(parseInt(e.target.value))
-                          }
-                          value={data.costPerGuest}
-                        />
-                      </div>
-                    </div>
-                  </Col>
+                {data?.fieldType === "CheckBox" ||
+                data?.fieldType === "Select/Dropdown" ||
+                data?.fieldType === "OptionalGuest" ? (
                   <Col md={12}>
                     <div style={{ marginLeft: "10px", marginBottom: "20px" }}>
                       <SelectInputComponent
-                        label="Max Guests?"
+                        label="Paid Upgrade?"
                         className="antSelectDropdown"
-                        options={eventGuestList}
-                        onChange={(e) => addMaxGuests(parseInt(e))}
-                        value={data.maxGuest}
+                        options={paidUpgradeList}
+                        value={data.paidUpgrade}
+                        onChange={(value) => addPaidUpgrade(value)}
                       />
                     </div>
                   </Col>
-                </Row>
-              )}
-
-              {data?.fieldType === "Select/Dropdown" && (
-                <Row
-                  className="mb-3 pt-3"
-                  style={{ borderTop: "1px solid #454545" }}
+                ) : null}
+                <span
+                  style={{
+                    fontSize: "13px",
+                    width: "498px",
+                    margin: "0 auto 16px",
+                  }}
                 >
-                  {answerData.map((el, idx) => {
-                    return (
-                      <Row key={el.id}>
-                        <Col md={14}>
-                          <div className={`${styles.selectionInput}`}>
-                            <LabeledInput
-                              label={`Selection Answer #${idx + 1}`}
-                              onChange={(e) =>
-                                addAnswerForDropDown(e.target.value, el.id)
-                              }
-                            />
-                          </div>
-                        </Col>
-                        <Col md={10}>
-                          <div className={`${styles.priceSection}`}>
-                            <div className={`${styles.cost}`}>
-                              <SVG.Dollar width="24px" />
+                  We’ll prompt the user registering to invite guests via email
+                  to complete required waivers and basic profile information.{" "}
+                </span>
+
+                {data?.fieldType !== "OptionalGuest" ? (
+                  <Col md={24}>
+                    <div className={`${styles.labelInput}`}>
+                      <LabeledInput
+                        label="Question Prompt / Label"
+                        onChange={(e) => addQuestionPromptData(e.target.value)}
+                        value={data?.questionPromptLabel}
+                      />
+                    </div>
+                  </Col>
+                ) : (
+                  <Row
+                    className="mb-3 pt-3"
+                    style={{ borderTop: "1px solid #454545" }}
+                  >
+                    <Col md={12}>
+                      <div className={`${styles.upgradeCosts}`}>
+                        <div style={{ width: "237px" }}>
+                          <SVG.Dollar width="24px" />
+                          <LabeledInput
+                            label="Cost Per Guest"
+                            onChange={(e) =>
+                              addCostPerGuest(parseInt(e.target.value))
+                            }
+                            value={data.costPerGuest}
+                          />
+                        </div>
+                      </div>
+                    </Col>
+                    <Col md={12}>
+                      <div style={{ marginLeft: "10px", marginBottom: "20px" }}>
+                        <SelectInputComponent
+                          label="Max Guests?"
+                          className="antSelectDropdown"
+                          options={eventGuestList}
+                          onChange={(e) => addMaxGuests(parseInt(e))}
+                          value={data.maxGuest}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                )}
+
+                {data?.fieldType === "Select/Dropdown" && (
+                  <Row
+                    className="mb-3 pt-3"
+                    style={{ borderTop: "1px solid #454545" }}
+                  >
+                    {answerData.map((el, idx) => {
+                      return (
+                        <Row key={el.id}>
+                          <Col md={14}>
+                            <div className={`${styles.selectionInput}`}>
                               <LabeledInput
-                                label="Upgrade Cost"
+                                label={`Selection Answer #${idx + 1}`}
                                 onChange={(e) =>
-                                  addUpgradeCostForDropdown(
-                                    parseInt(e.target.value),
-                                    el.id
-                                  )
+                                  addAnswerForDropDown(e.target.value, el.id)
                                 }
                               />
                             </div>
-                            <div className={`${styles.icon}`}>
-                              <SVG.Trash
-                                width="24px"
-                                color="white"
-                                onClick={() => addSelectAnswer(el.id, "delete")}
-                              />
-                              <SVG.File width="24px" />
-                              <SVG.Plus
-                                width="24px"
-                                onClick={() => addSelectAnswer(el.id, "add")}
-                              />
+                          </Col>
+                          <Col md={10}>
+                            <div className={`${styles.priceSection}`}>
+                              <div className={`${styles.cost}`}>
+                                <SVG.Dollar width="24px" />
+                                <LabeledInput
+                                  label="Upgrade Cost"
+                                  onChange={(e) =>
+                                    addUpgradeCostForDropdown(
+                                      parseInt(e.target.value),
+                                      el.id
+                                    )
+                                  }
+                                />
+                              </div>
+                              <div className={`${styles.icon}`}>
+                                <SVG.Trash
+                                  width="24px"
+                                  color="white"
+                                  onClick={() =>
+                                    addSelectAnswer(el.id, "delete")
+                                  }
+                                />
+                                <SVG.File width="24px" />
+                                <SVG.Plus
+                                  width="24px"
+                                  onClick={() => addSelectAnswer(el.id, "add")}
+                                />
+                              </div>
                             </div>
-                          </div>
-                        </Col>
-                      </Row>
-                    );
-                  })}
-                </Row>
-              )}
+                          </Col>
+                        </Row>
+                      );
+                    })}
+                  </Row>
+                )}
 
-              {data?.fieldType === "ShortText" ||
-              data?.fieldType === "LongText" ? (
-                <div className={`${styles.requiredCheckbox}`}>
-                  <CheckInput
-                    checked={data.answerRequired}
-                    onChange={() => setAnswerRequired(!data.answerRequired)}
-                  />
-                  <p>Is an answer required?</p>
-                </div>
-              ) : null}
-
-              {data?.fieldType === "CheckBox" ? (
-                <div className={`${styles.upgradeCost}`}>
-                  <div style={{ width: "237px" }}>
-                    <SVG.Dollar width="24px" />
-                    <LabeledInput
-                      label="Upgrade Cost"
-                      onChange={(e) => addUpgradeCost(parseInt(e.target.value))}
-                      value={data.upgradeCost}
+                {data?.fieldType === "ShortText" ||
+                data?.fieldType === "LongText" ? (
+                  <div className={`${styles.requiredCheckbox}`}>
+                    <CheckInput
+                      checked={data.answerRequired}
+                      onChange={() => setAnswerRequired(!data.answerRequired)}
                     />
+                    <p>Is an answer required?</p>
                   </div>
-                </div>
-              ) : null}
-            </Row>
-          </div>
-        </Col>
-        <Col md={7}>
-          <div className={`${styles.icon}`}>
-            <SVG.Trash width="24px" onClick={deleteQuestion} color="white" />
-            <SVG.File width="24px" />
-            <SVG.Plus width="24px" onClick={addMoreQuestion} />
-          </div>
-        </Col>
-      </Row>
+                ) : null}
+
+                {data?.fieldType === "CheckBox" ? (
+                  <div className={`${styles.upgradeCost}`}>
+                    <div style={{ width: "237px" }}>
+                      <SVG.Dollar width="24px" />
+                      <LabeledInput
+                        label="Upgrade Cost"
+                        onChange={(e) =>
+                          addUpgradeCost(parseInt(e.target.value))
+                        }
+                        value={data.upgradeCost}
+                      />
+                    </div>
+                  </div>
+                ) : null}
+              </Row>
+            </div>
+          </Col>
+          <Col md={7}>
+            <div className={`${styles.icon}`}>
+              <SVG.Trash width="24px" onClick={deleteQuestion} color="white" />
+              <SVG.File width="24px" />
+              <SVG.Plus width="24px" onClick={addMoreQuestion} />
+            </div>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

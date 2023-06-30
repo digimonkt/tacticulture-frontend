@@ -47,7 +47,7 @@ function Home() {
               style={{
                 background: "#000000",
                 borderRadius: "8px",
-                width: "810px",
+                width: "820px",
                 padding: "14px",
               }}
             >

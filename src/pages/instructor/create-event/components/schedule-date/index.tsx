@@ -143,7 +143,7 @@ function ScheduleDateComponent({
             <div className="startDate">
               <LabeledInput
                 type="number"
-                value={scheduleTimeSpan.scheduleAvailabilityPeriod}
+                value={scheduleTimeSpan?.scheduleAvailabilityPeriod}
                 defaultValue={1}
                 onChange={(e) =>
                   setScheduleTimeSpan({
@@ -160,7 +160,7 @@ function ScheduleDateComponent({
                     scheduleAvailabilityPeriodUnit: value,
                   })
                 }
-                value={scheduleTimeSpan.scheduleAvailabilityPeriodUnit}
+                value={scheduleTimeSpan?.scheduleAvailabilityPeriodUnit}
                 options={[
                   { value: "hours", label: "Hours" },
                   { value: "day", label: "Day" },
