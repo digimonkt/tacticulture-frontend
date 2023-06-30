@@ -128,21 +128,13 @@ function EventRequirement({ mode }: { mode: string }) {
           onPress={() => formik.handleSubmit()}
         />
       )}
-      <div className="eventRequirement">
-        <h5>Requirements</h5>
-        <p className="mb-0">
-          ex. Necessary equipment, physical requirements or any additional event
-          restrictions the user should consider when booking this event.
-        </p>
-        <TextareaComponent
-          onChange={(e) => formik.setFieldValue("requirements", e)}
-          onBlur={() => formik.setTouched({ requirements: true })}
-          value={formik.values.requirements}
-        />
-        <p style={{ color: "red" }}>{formik.errors.requirements}</p>
-        <div>
-          <h5>Cancellation</h5>
-
+      <div className="requirements">
+        <div className="eventRequirement">
+          <h5>Requirements</h5>
+          <p className="mb-0">
+            ex. Necessary equipment, physical requirements or any additional
+            event restrictions the user should consider when booking this event.
+          </p>
           <TextareaComponent
             onChange={(e) => formik.setFieldValue("requirements", e)}
             onBlur={() => formik.setTouched({ requirements: true })}
@@ -183,7 +175,6 @@ function EventRequirement({ mode }: { mode: string }) {
           </FilledButton>
         </div>
       </div>
-
       {eventData.customQuestions.map((el, index) => {
         return (
           <div key={el.id}>

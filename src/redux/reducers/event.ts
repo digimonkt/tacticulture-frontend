@@ -17,7 +17,6 @@ import {
   updateEventDetailPayload,
   updateEventTypeScheduleType,
   updateOwnEventQuestionAndRequirementType,
-  updatePayload,
 } from "@/api/types/event";
 
 interface Ievent {
@@ -261,6 +260,8 @@ export const updateOwnEventTypeSchedule = createAsyncThunk<
   updateEventTypeScheduleType,
   { state: RootState; rejectValue: ServerError }
 >("updateOwnEventTypeSchedule", async (payload, { rejectWithValue }) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const res = await updateOwnEventTypeScheduleAPI(payload);
   if (res.remote === "success") {
     return res.data;

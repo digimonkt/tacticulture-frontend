@@ -16,10 +16,14 @@ import { useAppDispatch } from "@/redux/hooks/hooks";
 import { getOwnEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
 
+interface IEventIdQuery {
+  eventId?: string;
+}
+
 function EventSummaryComponent() {
   const router = useRouter();
 
-  const { eventId } = router.query;
+  const { eventId } = router.query as unknown as IEventIdQuery;
 
   const dispatch = useAppDispatch();
 
@@ -58,7 +62,7 @@ function EventSummaryComponent() {
       heading: "Customize Event Style",
       content: "What event is this, location, and basic overview",
       children: "Edit",
-      component: <EventRequirement />,
+      // component: <EventRequirement />,
     },
     {
       id: "5",

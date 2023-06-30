@@ -20,11 +20,11 @@ function CreateEvent() {
   const getComponents = () => {
     switch (step) {
       case "1":
-        return <EventDetailComponent />;
+        return <EventDetailComponent mode="create" />;
       case "2":
-        return <EventScheduleComponent />;
+        return <EventScheduleComponent mode="create" />;
       case "3":
-        return <EventRequirement />;
+        return <EventRequirement mode="create" />;
       case "4":
         return <CustomizeEventComponent />;
       // case "4":
