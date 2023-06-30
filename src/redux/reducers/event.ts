@@ -7,84 +7,98 @@ import {
   getAllEventAPI,
   getEventDataAPI,
   getEventDetailAPI,
+  getOwnEventDetailAPI,
+  updateOwnEventDetailAPI,
+  updateOwnEventTypeScheduleAPI,
 } from "@/api/event";
-import { detailPayloadId, EventPayload } from "@/api/types/event";
+import {
+  detailPayloadId,
+  EventPayload,
+  updateEventDetailPayload,
+  updateEventTypeScheduleType,
+  updatePayload,
+} from "@/api/types/event";
 
 interface Ievent {
+  eventId: string;
   eventData: CreateEventType;
   availableEventData: GetListWithPagination<CreateEventType[]>;
   allEventData: GetListWithPagination<CreateEventType[]>;
   eventDetail: getEventType;
   eventCreated: string;
   eventCreatedError?: object;
+  ownEventDetail: getEventType;
 }
+export const initialEventDetail: getEventType = {
+  achievementBadgeImage: null,
+  availableSpots: 0,
+  cancellationPolicies: "",
+  openAvailabilityPeriod: null,
+  openAvailabilityPeriodUnit: null,
+  scheduleEventPeriod: null,
+  scheduleEventPeriodUnit: null,
+  courseCategory: [{ eventCategories: "", slugName: "" }],
+  courseUrl: "",
+  customQuestions: [
+    {
+      answerData: [{ description: "", id: 0, upgradeCost: 0 }],
+      answerRequired: false,
+      fieldType: "",
+      id: 0,
+      paidUpgrade: "",
+      questionPromptLabel: "",
+      upgradeCost: 0,
+      costPerGuest: "",
+      maxGuest: 0,
+    },
+  ],
+  customWaiverSettings: "",
+  defaultAvailability: null,
+  defaultWaiverSettings: "",
+  description: "",
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  eventCustomAvailability: [{}],
+  eventImage: null,
+  eventScheduledDateTime: [
+    {
+      eventEndDate: "",
+      eventEndTime: "",
+      eventStartDate: "",
+      eventStartTime: "",
+    },
+  ],
+  eventTypeAndScheduleId: "",
+  id: 0,
+  instructorDetails: {
+    bio: "",
+    email: "",
+    first_name: "",
+    id: 0,
+    last_name: "",
+    phone_number: null,
+    profile_image: null,
+    user_roles: "",
+    username: "",
+  },
+  isAddSalesTax: false,
+  isEventLive: false,
+  location: "",
+  name: "",
+  perSpotCost: 0,
+  publishStatus: false,
+  requirements: "",
+  salesTaxPercent: 0,
+};
 
 // Define the initial state using that type
 
 const initialState: Ievent = {
   eventCreated: "",
+  eventId: "0",
+  ownEventDetail: initialEventDetail,
   eventCreatedError: {},
-  eventDetail: {
-    achievementBadgeImage: null,
-    availableSpots: 0,
-    cancellationPolicies: "",
-    openAvailabilityPeriod: null,
-    openAvailabilityPeriodUnit: null,
-    scheduleEventPeriod: null,
-    scheduleEventPeriodUnit: null,
-    courseCategory: [{ eventCategories: "", slugName: "" }],
-    courseUrl: "",
-    customQuestions: [
-      {
-        answerData: [{ description: "", id: 0, upgradeCost: 0 }],
-        answerRequired: false,
-        fieldType: "",
-        id: 0,
-        paidUpgrade: "",
-        questionPromptLabel: "",
-        upgradeCost: 0,
-        costPerGuest: "",
-        maxGuest: 0,
-      },
-    ],
-    customWaiverSettings: "",
-    defaultAvailability: null,
-    defaultWaiverSettings: "",
-    description: "",
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    eventCustomAvailability: [{}],
-    eventImage: null,
-    eventScheduledDateTime: [
-      {
-        eventEndDate: "",
-        eventEndTime: "",
-        eventStartDate: "",
-        eventStartTime: "",
-      },
-    ],
-    eventTypeAndScheduleId: "",
-    id: 0,
-    instructorDetails: {
-      bio: "",
-      email: "",
-      first_name: "",
-      id: 0,
-      last_name: "",
-      phone_number: null,
-      profile_image: null,
-      user_roles: "",
-      username: "",
-    },
-    isAddSalesTax: false,
-    isEventLive: false,
-    location: "",
-    name: "",
-    perSpotCost: 0,
-    publishStatus: false,
-    requirements: "",
-    salesTaxPercent: 0,
-  },
+  eventDetail: initialEventDetail,
   allEventData: { count: 0, next: undefined, previous: undefined, results: [] },
   availableEventData: {
     count: 0,
@@ -213,6 +227,50 @@ export const getEventDetail = createAsyncThunk<
   }
 });
 
+export const getOwnEventDetail = createAsyncThunk<
+  getEventType,
+  detailPayloadId,
+  { state: RootState; rejectValue: ServerError }
+>("getOwnEventDetail", async (id, { rejectWithValue }) => {
+  const res = await getOwnEventDetailAPI(id);
+  if (res.remote === "success") {
+    console.log(res.data, "update response");
+    return res.data;
+  } else {
+    console.log(res.error);
+    return rejectWithValue(res.error);
+  }
+});
+
+export const updateOwnEventDetail = createAsyncThunk<
+  getEventType,
+  updateEventDetailPayload,
+  { state: RootState; rejectValue: ServerError }
+>("updateOwnEventDetail", async (payload, { rejectWithValue }) => {
+  const res = await updateOwnEventDetailAPI(payload);
+  if (res.remote === "success") {
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+
+export const updateOwnEventTypeSchedule = createAsyncThunk<
+  getEventType,
+  updateEventTypeScheduleType,
+  { state: RootState; rejectValue: ServerError }
+>("updateOwnEventDetail", async (payload, { rejectWithValue }) => {
+  console.log(payload, "payload schedule");
+  const res = await updateOwnEventTypeScheduleAPI(payload);
+  if (res.remote === "success") {
+    console.log(res.data, "update response");
+    return res.data;
+  } else {
+    console.log(res.error);
+    return rejectWithValue(res.error);
+  }
+});
+
 export const eventSlice = createSlice({
   name: "event",
   initialState,
@@ -252,6 +310,13 @@ export const eventSlice = createSlice({
     builder.addCase(createEventData.rejected, (state, action) => {
       state.eventCreated = "rejected";
       state.eventCreatedError = action.payload;
+    });
+
+    builder.addCase(getOwnEventDetail.fulfilled, (state, action) => {
+      state.ownEventDetail = action.payload;
+    });
+    builder.addCase(getOwnEventDetail.rejected, (state, action) => {
+      state.eventCreated = "rejected";
     });
   },
 });

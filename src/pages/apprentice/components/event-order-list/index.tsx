@@ -10,7 +10,7 @@ function EventOrderList() {
   const { allEventData } = useAppSelector((state) => state.EventReducer);
   useEffect(() => {
     dispatch(getAllEventData());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

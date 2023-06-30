@@ -10,8 +10,6 @@ import { OutlinedButton } from "@/component/buttons";
 
 import ScheduledCardComponent from "./schedule-card";
 import OpenCardComponent from "./open-card";
-import moment from "moment";
-import { RadioButtonInput } from "@/component/input";
 
 const CalendarModal = ({
   isModalOpen,
@@ -21,7 +19,7 @@ const CalendarModal = ({
   handleOk,
 }: any) => {
   const [schedule, setSchedule] = useState("all");
-  const [defaultDate, setDefaultDate] = useState([]);
+  // const [defaultDate, setDefaultDate] = useState([]);
   const [timezoneData, setTimezoneData] = useState(
     Intl.DateTimeFormat().resolvedOptions().timeZone
   );
@@ -149,9 +147,9 @@ const CalendarModal = ({
                       <ScheduledCardComponent
                         eventId={eventDetail.id}
                         scheduleEventPeriod={eventDetail.scheduleEventPeriod}
-                        scheduleEventPeriodUnit={
-                          eventDetail.scheduleEventPeriodUnit
-                        }
+                        // scheduleEventPeriodUnit={
+                        //   eventDetail.scheduleEventPeriodUnit
+                        // }
                         key={index}
                         schedule={schedule}
                         index={index}

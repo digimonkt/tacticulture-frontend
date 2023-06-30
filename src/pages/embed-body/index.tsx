@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { getEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
 import CalendarModal from "./component/CalendarModal";
-import RegistrationModal from "./component/RegistrationModal";
+// import RegistrationModal from "./component/RegistrationModal";
 import moment from "moment";
 
 interface IRouter {
@@ -32,7 +32,7 @@ function EmbedBody() {
   useEffect(() => {
     const { id } = router.query as unknown as IRouter;
     dispatch(getEventDetail({ id }));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const startTime = moment(

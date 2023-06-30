@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { guestOtpSubmit, guestRegistration } from "@/redux/reducers/booking";
 
 interface IRegistrationBody {
-  handleStepNext: (guestEmail: string) => void;
+  handleStepNext: () => void;
   handleStepPrev: () => void;
 }
 
@@ -41,7 +41,6 @@ function RegisterBodyComponent({
 
   useEffect(() => {
     if (guestOtpStatus === "success") {
-      // @ts-ignore
       handleStepNext();
     }
   }, [guestOtpStatus]);

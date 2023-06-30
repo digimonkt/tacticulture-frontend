@@ -1,5 +1,5 @@
 import { SVG } from "@/assets/svg";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import styles from "../course.module.css";
 import { FilledButton } from "@/component/buttons";
 import { Col, Row } from "antd";
@@ -9,9 +9,24 @@ import { OptionsInput } from "@/component/input";
 import EventForumComponent from "@/pages/apprentice/components/event-forum";
 import InstructorLayout from "../instructor/layout";
 import EventRosterComponent from "../instructor/create-event/components/event-roster";
+import EventDetailComponent from "../instructor/create-event/components/event-detail";
+import EventScheduleComponent from "../instructor/create-event/components/event-schedule";
+import EventRequirement from "../instructor/create-event/components/event-requirement";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { getOwnEventDetail } from "@/redux/reducers/event";
 
 function EventSummaryComponent() {
+  const searchParams = new URLSearchParams(window.location.search);
+  const eventId = searchParams.get("eventId");
+  const dispatch = useAppDispatch();
+
   const [eventroster, setEventroster] = useState("");
+
+  useEffect(() => {
+    if (eventId) {
+      dispatch(getOwnEventDetail({ id: eventId }));
+    }
+  }, [eventId, dispatch]);
 
   const Plan = [
     {
@@ -19,24 +34,31 @@ function EventSummaryComponent() {
       heading: "Event Details",
       content: "What event is this, location, and basic overview",
       children: "Edit",
-      component: "event details",
+      component: <EventDetailComponent mode="update" />,
     },
     {
       id: "2",
-      heading: "Event Questions and Waiver",
-      content: "Event questions, requirements and waiver",
+      heading: "Event Type and Schedule",
+      content: "Customize your event-specific availability",
       children: "Edit",
-      component: "event details 2",
+      component: <EventScheduleComponent mode="update" />,
     },
     {
       id: "3",
-      heading: "Customize Event Style",
+      heading: "Event Questions and Waiver",
       content: "What event is this, location, and basic overview",
       children: "Edit",
-      component: "event details 3",
+      component: <EventRequirement />,
     },
     {
       id: "4",
+      heading: "Customize Event Style",
+      content: "What event is this, location, and basic overview",
+      children: "Edit",
+      component: <EventRequirement />,
+    },
+    {
+      id: "5",
       heading: "Event Roster",
       content: "What event is this, location, and basic overview",
       children: "View",
@@ -44,14 +66,14 @@ function EventSummaryComponent() {
       component: <EventRosterComponent />,
     },
     {
-      id: "5",
+      id: "6",
       heading: "Event Community Forum",
       content: "What event is this, location, and basic overview",
       children: "View",
       component: <EventForumComponent />,
     },
   ];
-
+  // console.log(ownEventDetail, "owndata");
   return (
     <>
       <InstructorLayout>
