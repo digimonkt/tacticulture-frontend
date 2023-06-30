@@ -31,4 +31,4 @@ jobs:
             git pull origin main
             /home/user/.yarn/bin/yarn install
             /home/user/.yarn/bin/yarn build
-            pm2 restart 55
+            pm2 restart 43

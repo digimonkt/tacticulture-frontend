@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 // import styles from "../course.module.css";
 import { FilledButton } from "@/component/buttons";
 import { Col, Row } from "antd";
-import styles from "./summary.module.css";
+// import styles from "./summary.module.css";
 import { OptionsInput } from "@/component/input";
+import styles from "../../pages/instructor/create-event/course.module.css";
 import EventForumComponent from "@/pages/apprentice/components/event-forum";
 import InstructorLayout from "../instructor/layout";
 import EventRosterComponent from "../instructor/create-event/components/event-roster";
@@ -91,7 +92,7 @@ function EventSummaryComponent() {
             className={`${styles.eventsummary}`}
             style={{ border: "1px solid #FF3030" }}
           >
-            <SVG.CheckIcon className="me-3 ms-2" width="24px" />
+            <SVG.CheckIcon className="me-3 ms-2" width="44px" />
             <p className="mb-0 me-5 pe-3">
               <span style={{ color: "#FF3030" }}>Event Live:</span>{" "}
               <b>Your Event Page is ready to accept registrants.</b> Share your
@@ -187,6 +188,7 @@ function EventSummaryComponent() {
                             background: "transparent",
                             border: "1px solid #fff",
                           }}
+                          className={`${styles.editBtn}`}
                         >
                           {Plan.children}
                         </FilledButton>
@@ -194,7 +196,9 @@ function EventSummaryComponent() {
                     </Col>
                   </Row>
                   {eventroster === Plan.id && (
-                    <div className={`${styles.nodata}`}>{Plan.component}</div>
+                    <div className="eventForms">
+                      <div className={`${styles.nodata}`}>{Plan.component}</div>
+                    </div>
                   )}
                 </div>
               </div>

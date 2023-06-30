@@ -47,7 +47,7 @@ function Home() {
               style={{
                 background: "#000000",
                 borderRadius: "8px",
-                width: "810px",
+                width: "820px",
                 padding: "14px",
               }}
             >
@@ -158,7 +158,7 @@ function Home() {
                             fontSize: "14px",
                             color: "#fff",
                             fontWeight: "700",
-                            fontFamily: "Proxima Nova",
+
                             letterSpacing: "1px",
                             marginBottom: "0",
                             whiteSpace: "nowrap",

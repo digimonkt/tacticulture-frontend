@@ -22,6 +22,7 @@ import { useAppSelector } from "@/redux/hooks/hooks";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import EventInterest, { IEventCategories } from "@/component/eventInterest";
 import { updateOwnEventDetailAPI } from "@/api/event";
+import { FilledButton } from "@/component/buttons";
 
 // export interface IEventStepOne {
 //   handleSubmitEventStepOne: () => void;
@@ -143,21 +144,29 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
 
   return (
     <div>
-      {mode === "update" ? null : (
+      {mode === "update" ? (
+        <div className="btnUpdate">
+          <FilledButton onClick={() => formik.handleSubmit()}>
+            Update
+          </FilledButton>
+        </div>
+      ) : (
         <EventHeaderComponent
           heading="Event Detail"
           onPress={() => formik.handleSubmit()}
         />
       )}
-      <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
+      <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4 eventForem">
         <TextInput
           {...formik.getFieldProps("name")}
           row={3}
           text="Event Name*"
         />
-        <p style={{ color: "red" }}>{formik.errors.name}</p>
+        <p style={{ color: "red" }} className="formik">
+          {formik.errors.name}
+        </p>
       </div>
-      <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
+      <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4 eventInter">
         <EventInterest
           eventInterestValues={formik.values.courseCategory}
           handleSetInterest={(vl) => handleAddEventInterestList(vl)}
@@ -166,26 +175,50 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
           formikProps={formik.getFieldProps("courseCategory")}
         />
       </div>
-      <p style={{ color: "red" }}>{formik.errors.courseCategory}</p>
+      <p
+        style={{
+          color: "red",
+          paddingLeft: "15px",
+          textTransform: "capitalize",
+          marginBottom: "0",
+          position: "relative",
+          bottom: "24px",
+        }}
+        className="formik"
+      >
+        {formik.errors.courseCategory}
+      </p>
       <div className="textArea_section mb-4">
-        <label className="ps-3 ms-1">Description*</label>
+        <label className="ps-3 ms-0">Description*</label>
         <TextareaComponent
           title="Description"
           onChange={(e) => formik.setFieldValue("description", e)}
           onBlur={() => formik.setTouched({ description: true })}
           value={formik.values.description}
         />
-        <p style={{ color: "red" }}>{formik.errors.description}</p>
+        <p
+          style={{
+            color: "red",
+            paddingLeft: "15px",
+            textTransform: "capitalize",
+            marginBottom: "0",
+          }}
+          className="formik"
+        >
+          {formik.errors.description}
+        </p>
       </div>
       <div className={`${styles.customInput}`}>
         <LabeledInput label="Location*" {...formik.getFieldProps("location")} />
-        <p style={{ color: "red", marginLeft: "18px" }}>
+        <p style={{ color: "red", marginLeft: "18px" }} className="dataError">
           {formik.errors.location}
         </p>
       </div>
       <div className={`${styles.customInput}`}>
         <label>Course Link*</label>
-        <p className="mb-0 ps-3 ms-1">tacticulture.com/eddiegallagher/</p>
+        <p className="mb-0 ps-3 ms-1 guestCount">
+          tacticulture.com/eddiegallagher/
+        </p>
         <LabeledInput
           disabled={true}
           className="mb-0"
@@ -202,7 +235,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
             )
           }
           style={{ position: "relative", top: "6px" }}
-          className="ps-3 ms-1 mb-3 d-block"
+          className="ps-3 ms-1 mb-3 d-block alertText"
         >
           {formik.values.isPrivateEvent ? (
             <FaEyeSlash className="me-2" width="20px" />
@@ -212,7 +245,9 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
           <b>Make this a Private Event?</b> (Event Not Displayed on Your
           Profile)
         </span>
-        <p style={{ color: "red" }}>{formik.errors.courseUrl}</p>
+        <p style={{ color: "red" }} className="dataError">
+          {formik.errors.courseUrl}
+        </p>
       </div>
       <div className={`${styles.customInput}`}>
         <LabeledInput
@@ -221,8 +256,10 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
           style={{ width: "235px" }}
           {...formik.getFieldProps("availableSpots")}
         />
-        <p className="ps-3 ms-1">Does not include guest count</p>
-        <p style={{ color: "red" }}>{formik.errors.availableSpots}</p>
+        <p className="ps-3 ms-1 guestCount">Does not include guest count</p>
+        <p style={{ color: "red" }} className="dataErrors">
+          {formik.errors.availableSpots}
+        </p>
       </div>
       <div className={`${styles.customInput}`}>
         <label>
@@ -247,12 +284,12 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
               )
             }
           />
-          <p className="mb-0">
+          <p className="mb-0 Transaction">
             Include Transaction Fee in my Defined Event Cost{" "}
             <SVG.InfoIcon width="16px" className={`${styles.info}`} />
           </p>
         </div>
-        <div className="d-flex align-items-center mb-4">
+        <div className="d-flex align-items-center mb-4 lastStep">
           <div className="d-flex mt-3" style={{ whiteSpace: "nowrap" }}>
             <Checkbox
               className="me-3 mt-4"
@@ -276,9 +313,9 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
               <SVG.Percent width="24px" />
             </span>
           </div>
-          <p onClick={() => formik.handleSubmit()} style={{ left: "0px" }}>
+          {/* <p onClick={() => formik.handleSubmit()} style={{ left: "0px" }}>
             update
-          </p>
+          </p> */}
         </div>
       </div>
       {mode === "update" ? null : (
