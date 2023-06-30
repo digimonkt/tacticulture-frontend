@@ -124,9 +124,11 @@ const EventDetailComponent = () => {
           row={3}
           text="Event Name*"
         />
-        <p style={{ color: "red" }}>{formik.errors.name}</p>
+        <p style={{ color: "red" }} className="formik">
+          {formik.errors.name}
+        </p>
       </div>
-      <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
+      <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4 eventInter">
         <EventInterest
           eventInterestValues={formik.values.courseCategory}
           handleSetInterest={(vl) => handleAddEventInterestList(vl)}
@@ -135,16 +137,38 @@ const EventDetailComponent = () => {
           formikProps={formik.getFieldProps("courseCategory")}
         />
       </div>
-      <p style={{ color: "red" }}>{formik.errors.courseCategory}</p>
+      <p
+        style={{
+          color: "red",
+          paddingLeft: "15px",
+          textTransform: "capitalize",
+          marginBottom: "0",
+          position: "relative",
+          bottom: "24px",
+        }}
+        className="formik"
+      >
+        {formik.errors.courseCategory}
+      </p>
       <div className="textArea_section mb-4">
-        <label className="ps-3 ms-1">Description*</label>
+        <label className="ps-3 ms-0">Description*</label>
         <TextareaComponent
           title="Description"
           onChange={(e) => formik.setFieldValue("description", e)}
           onBlur={() => formik.setTouched({ description: true })}
           value={formik.values.description}
         />
-        <p style={{ color: "red" }}>{formik.errors.description}</p>
+        <p
+          style={{
+            color: "red",
+            paddingLeft: "15px",
+            textTransform: "capitalize",
+            marginBottom: "0",
+          }}
+          className="formik"
+        >
+          {formik.errors.description}
+        </p>
       </div>
       <div className={`${styles.customInput}`}>
         <LabeledInput label="Location*" {...formik.getFieldProps("location")} />

@@ -81,9 +81,7 @@ function ScheduleDateComponent({
                   {errorsData[index].eventStartDate}
                 </p>
               )} */}
-            <p style={{ color: "red" }}>
-              {errorsData?.[index]?.eventStartDate || ""}
-            </p>
+
             <LabeledInput
               type="time"
               value={eventData?.eventStartTime}
@@ -92,6 +90,11 @@ function ScheduleDateComponent({
                 getChildValue({ key: "eventStartTime", value: e.target.value });
               }}
             />
+          </div>
+          <div className="alerts">
+            <p style={{ color: "red" }}>
+              {errorsData?.[index]?.eventStartDate || ""}
+            </p>
             <p style={{ color: "red" }}>
               {errorsData?.[index]?.eventStartTime || ""}
             </p>
@@ -109,9 +112,7 @@ function ScheduleDateComponent({
                 getChildValue({ key: "eventEndDate", value: e.target.value });
               }}
             />
-            <p style={{ color: "red" }}>
-              {errorsData?.[index]?.eventEndDate || ""}
-            </p>
+
             <LabeledInput
               type="time"
               value={eventData?.eventEndTime}
@@ -120,6 +121,11 @@ function ScheduleDateComponent({
                 getChildValue({ key: "eventEndTime", value: e.target.value });
               }}
             />
+          </div>
+          <div className="alerts">
+            <p style={{ color: "red" }}>
+              {errorsData?.[index]?.eventEndDate || ""}
+            </p>
             <p style={{ color: "red" }}>
               {errorsData?.[index]?.eventEndTime || ""}
             </p>

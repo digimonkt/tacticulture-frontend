@@ -181,7 +181,17 @@ function EventRequirement() {
             }}
             value={formik.values.customWaiverSettings}
           />
-          <p style={{ color: "red" }}>{formik.errors.customWaiverSettings}</p>
+          <p
+            className="pb-0 mb-0"
+            style={{
+              color: "red",
+              fontSize: "16px",
+              position: "relative",
+              bottom: "16px",
+            }}
+          >
+            {formik.errors.customWaiverSettings}
+          </p>
           <p className="mb-0">
             By publishing this event utilizing this this waiver you agree to the
             Tacticulture<span style={{ color: "#FF3030" }}> Terms of Use</span>{" "}

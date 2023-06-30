@@ -177,7 +177,8 @@ function EventScheduleComponent() {
                   />
                   {scheduleData.length > 1 && (
                     <SVG.Trash
-                      color="white"
+                      color="white "
+                      className="whiteTrash"
                       onClick={() => deleteItem(el.id)}
                       width="24px"
                     />

@@ -21,7 +21,7 @@ function UserCardComponent({
       <div className={`${styles.apprenticeCard}`}>
         <h4>{heading}</h4>
         <p>{content}</p>
-        <div className={`${selected ? styles.SelectBtn : ""}`}>
+        <div className={`${selected ? styles.SelectBtn : "btnes"}`}>
           <FilledButton
             style={{
               display: "flex",
