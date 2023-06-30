@@ -3,7 +3,7 @@ import { SVG } from "@/assets/svg";
 import { LabeledInput, TextInput } from "@/component/input";
 import TextareaComponent from "@/component/textarea";
 import { Checkbox } from "antd";
-import React, { Ref, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../course.module.css";
 
 import EventHeaderComponent from "../event-header";
@@ -12,19 +12,48 @@ import { FaEyeSlash } from "react-icons/fa";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { createEvent, eventData } from "@/redux/reducers/event";
+import {
+  createEvent,
+  eventData,
+  getOwnEventDetail,
+  updateOwnEventDetail,
+} from "@/redux/reducers/event";
 import { useAppSelector } from "@/redux/hooks/hooks";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import EventInterest, { IEventCategories } from "@/component/eventInterest";
+import { updateOwnEventDetailAPI } from "@/api/event";
 
 // export interface IEventStepOne {
 //   handleSubmitEventStepOne: () => void;
 // }
 
-const EventDetailComponent = () => {
+const EventDetailComponent = ({ mode }: { mode: string }) => {
+  const [data, setData] = useState({
+    name: "",
+    description: "",
+    location: "",
+    courseUrl: "",
+    availableSpots: "",
+    perSpotCost: "",
+    isIncludeTransactionFeeInCost: "",
+    isAddSalesTax: "",
+    salesTaxPercent: "",
+    courseCategory: [],
+  });
+
   const router = useRouter();
   const dispatch = useDispatch();
-  const data = useAppSelector(eventData);
+  const { eventData }: any = useAppSelector((state) => state.EventReducer);
+  const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
+
+  useEffect(() => {
+    if (mode === "update") {
+      setData(ownEventDetail);
+    } else {
+      setData(eventData);
+    }
+  }, []);
+
   // formik
   const initialValues = {
     name: "",
@@ -50,7 +79,6 @@ const EventDetailComponent = () => {
       name: Yup.string().required("Event name is required!"),
       description: Yup.string().required("Please Enter Event Description"),
       location: Yup.string().required("Please Enter Event Location"),
-      // courseUrl: Yup.string().required("Please Enter Course Link"),
       availableSpots: Yup.number().required("Please Enter Available Spots No."),
       courseCategory: Yup.array()
         .min(1)
@@ -58,11 +86,12 @@ const EventDetailComponent = () => {
       // perSpotCost: Yup.string().required("Please Enter Sport Cost"),
     }),
     onSubmit: (values) => {
-      // handleSubmit(values);
-      // console.log(values, "value");
-      dispatch(createEvent(values));
-      router.push(`../instructor/create-event?step=${2}`);
-      // router.push(`../instructor/create-event?step=${2}`);
+      if (mode === "update") {
+        dispatch(updateOwnEventDetail({ id: ownEventDetail.id, data: values }));
+      } else {
+        dispatch(createEvent(values));
+        router.push(`../instructor/create-event?step=${2}`);
+      }
     },
   });
   // add event interest list
@@ -110,14 +139,16 @@ const EventDetailComponent = () => {
     formik.setFieldValue("isAddSalesTax", data.isAddSalesTax);
     formik.setFieldValue("salesTaxPercent", data.salesTaxPercent);
     formik.setFieldValue("courseCategory", data.courseCategory);
-  }, []);
+  }, [data]);
 
   return (
     <div>
-      <EventHeaderComponent
-        heading="Event Detail"
-        onPress={() => formik.handleSubmit()}
-      />
+      {mode === "update" ? null : (
+        <EventHeaderComponent
+          heading="Event Detail"
+          onPress={() => formik.handleSubmit()}
+        />
+      )}
       <div style={{ width: "570px" }} className="pe-0 ps-3 mb-4">
         <TextInput
           {...formik.getFieldProps("name")}
@@ -245,9 +276,17 @@ const EventDetailComponent = () => {
               <SVG.Percent width="24px" />
             </span>
           </div>
+          <p onClick={() => formik.handleSubmit()} style={{ left: "0px" }}>
+            update
+          </p>
         </div>
       </div>
-      <EventHeaderComponent onPress={() => formik.handleSubmit()} />
+      {mode === "update" ? null : (
+        <EventHeaderComponent
+          heading="Event Detail"
+          onPress={() => formik.handleSubmit()}
+        />
+      )}
     </div>
   );
 };

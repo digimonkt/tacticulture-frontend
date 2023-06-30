@@ -7,10 +7,14 @@ import {
   EventResponse,
   GetEventCategoryResponse,
   GetEventResponse,
+  updateEventDetailPayload,
+  updateEventTypeSchedulePayload,
 } from "./types/event";
 import {
   transformGetEventAPIResponse,
   transformGetEventCategoriesAPIResponse,
+  transformUpdateEventDetailPayload,
+  transformUpdateEventTypeSchedulePayload,
 } from "./transform/event";
 import { getEventType } from "@/types/event";
 
@@ -112,6 +116,61 @@ export const getEventDetailAPI = async (
     method: "GET",
   });
 
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: transformGetEventAPIResponse(res.data),
+    };
+  }
+  return res;
+};
+
+export const getOwnEventDetailAPI = async (
+  id: detailPayloadId
+): Promise<SuccessResult<getEventType> | ErrorResult> => {
+  const res = await axiosInstance.request<EventResponse>({
+    url: `/events/user-event/${id.id}`,
+    method: "GET",
+  });
+
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: transformGetEventAPIResponse(res.data),
+    };
+  }
+  return res;
+};
+
+export const updateOwnEventDetailAPI = async (
+  payload: updateEventDetailPayload
+): Promise<SuccessResult<getEventType> | ErrorResult> => {
+  const res = await axiosInstance.request<EventResponse>({
+    url: `/events/user-event/${payload.id}/`,
+    method: "PATCH",
+    data: transformUpdateEventDetailPayload(payload.data),
+  });
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: transformGetEventAPIResponse(res.data),
+    };
+  }
+  return res;
+};
+
+export const updateOwnEventTypeScheduleAPI = async (
+  payload: updateEventTypeSchedulePayload
+): Promise<SuccessResult<getEventType> | ErrorResult> => {
+  console.log(
+    JSON.stringify(transformUpdateEventTypeSchedulePayload(payload.data))
+  );
+  const res = await axiosInstance.request<EventResponse>({
+    url: `/events/user-event/${payload.id}/`,
+    method: "PATCH",
+    data: transformUpdateEventTypeSchedulePayload(payload.data),
+  });
+  console.log(res, "my res");
   if (res.remote === "success") {
     return {
       remote: "success",

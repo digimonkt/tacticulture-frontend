@@ -16,7 +16,10 @@ interface IScheduleDate {
     eventEndTime?: string;
   };
   // formError: (errors: any) => void;
-
+  spanDefaultValue: {
+    scheduleAvailabilityPeriod: number;
+    scheduleAvailabilityPeriodUnit: string;
+  };
   scheduleSpan: (scheduleTimeSpan: {
     scheduleAvailabilityPeriod: number;
     scheduleAvailabilityPeriodUnit: string;
@@ -29,6 +32,7 @@ function ScheduleDateComponent({
   index,
   errorsData,
   getChildValue,
+  spanDefaultValue,
   scheduleSpan,
 }: IScheduleDate) {
   const initialValues = { eventStartDate: "" };
@@ -50,6 +54,10 @@ function ScheduleDateComponent({
       console.log(values);
     },
   });
+
+  useEffect(() => {
+    setScheduleTimeSpan(spanDefaultValue);
+  }, []);
 
   useEffect(() => {
     scheduleSpan(scheduleTimeSpan);
@@ -129,7 +137,7 @@ function ScheduleDateComponent({
             <div className="startDate">
               <LabeledInput
                 type="number"
-                // value={}
+                value={scheduleTimeSpan.scheduleAvailabilityPeriod}
                 defaultValue={1}
                 onChange={(e) =>
                   setScheduleTimeSpan({
@@ -146,6 +154,7 @@ function ScheduleDateComponent({
                     scheduleAvailabilityPeriodUnit: value,
                   })
                 }
+                value={scheduleTimeSpan.scheduleAvailabilityPeriodUnit}
                 options={[
                   { value: "hours", label: "Hours" },
                   { value: "day", label: "Day" },

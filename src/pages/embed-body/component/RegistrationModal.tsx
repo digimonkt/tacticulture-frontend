@@ -1,12 +1,12 @@
 import Modal from "@/component/model";
 import ModalHeader from "@/component/model/modalHeader";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import RegisterBodyComponent from "@/component/model/component/registerBody";
 import RegisterGuestComponent from "@/component/model/component/registerGuest";
 import CourseRequirementComponent from "@/component/model/component/courseRequirement";
 import BillingInformationComponent from "@/component/model/component/billingInformation";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { guestRegistration } from "@/redux/reducers/booking";
+// import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+// import { guestRegistration } from "@/redux/reducers/booking";
 
 interface IRegistrationModal {
   registerModalOpen: () => void;

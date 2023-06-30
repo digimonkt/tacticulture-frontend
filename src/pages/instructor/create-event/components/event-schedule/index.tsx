@@ -8,12 +8,15 @@ import ScheduleDateComponent from "../schedule-date";
 import OpenAvailabilityComponent from "./components/open-avalability";
 import { FilledButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { createEvent } from "@/redux/reducers/event";
+import {
+  createEvent,
+  updateOwnEventTypeSchedule,
+} from "@/redux/reducers/event";
 import { getUserDefaultAvailability } from "@/redux/reducers/user";
 import { SVG } from "@/assets/svg";
 // import EventHeaderComponent from "../event-header";
 
-function EventScheduleComponent() {
+function EventScheduleComponent({ mode }: { mode: string }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [scheduleType, setScheduleType] = useState("schedule");
@@ -24,7 +27,9 @@ function EventScheduleComponent() {
   });
   const [scheduleSpan, setScheduleSpan] = useState();
   const { eventData } = useAppSelector((state) => state.EventReducer);
-  // const { defaultAvailability } = useAppSelector((state) => state.userReducer);
+  const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
+
+  // console.log(ownEventDetail, "ownEventDetail");
   const [scheduleData, setScheduleData] = useState(
     eventData.eventScheduledDateTime
   );
@@ -33,13 +38,23 @@ function EventScheduleComponent() {
   );
 
   useEffect(() => {
-    // console.log("hihiihhihihi");
-    setScheduleType(eventData.eventTypeAndScheduleId);
-    setScheduleData(eventData.eventScheduledDateTime);
-    setCustomEvent(eventData.eventCustomAvailability);
+    if (mode === "update") {
+      setScheduleType(ownEventDetail.eventTypeAndScheduleId);
+      setScheduleData(ownEventDetail.eventScheduledDateTime);
+      setCustomEvent(ownEventDetail.eventCustomAvailability);
+      setScheduleSpan({
+        scheduleAvailabilityPeriod: ownEventDetail.scheduleEventPeriod,
+        scheduleAvailabilityPeriodUnit: ownEventDetail.scheduleEventPeriodUnit,
+      });
+    } else {
+      setScheduleType(eventData.eventTypeAndScheduleId);
+      setScheduleData(eventData.eventScheduledDateTime);
+      setCustomEvent(eventData.eventCustomAvailability);
+    }
   }, []);
 
-  // console.log(scheduleData, "asldkjf");
+  console.log(mode, "mode", scheduleSpan, "scheSpan");
+
   const addScheduleEvent = () => {
     if (scheduleData) {
       setScheduleData([
@@ -92,34 +107,51 @@ function EventScheduleComponent() {
     });
 
     if (errors.length > 0 && scheduleType !== "open") {
-      console.log(errors, "eroro");
       setErrors(errors);
-      // Handle the errors as needed
     } else {
-      dispatch(
-        createEvent({
-          eventTypeAndScheduleId: scheduleType,
-          eventScheduledDateTime: scheduleData,
-          eventCustomAvailability: customeEvent,
-          eventOpenSpan: openSpan,
-          eventScheduleSpan: scheduleSpan,
-        })
-      );
-      router.push(`../instructor/create-event?step=${3}`);
+      if (mode === "update") {
+        dispatch(
+          updateOwnEventTypeSchedule({
+            id: ownEventDetail.id,
+            data: {
+              scheduleType,
+              scheduleData,
+              customeEvent,
+              openSpan,
+              scheduleSpan,
+            },
+          })
+        );
+      } else {
+        dispatch(
+          createEvent({
+            eventTypeAndScheduleId: scheduleType,
+            eventScheduledDateTime: scheduleData,
+            eventCustomAvailability: customeEvent,
+            eventOpenSpan: openSpan,
+            eventScheduleSpan: scheduleSpan,
+          })
+        );
+        router.push(`../instructor/create-event?step=${3}`);
+      }
     }
   };
 
   const deleteItem = (id: any) => {
     setScheduleData(scheduleData?.filter((el) => el.id !== id));
   };
-  const handleFormError = () => {
-    // Handle form errors here
-    // console.log(errors, "error");
-  };
+  // const handleFormError = () => {
+  //   // Handle form errors here
+  //   // console.log(errors, "error");
+  // };
 
   return (
     <div className="schedule">
-      <EventHeaderComponent heading="Event Detail" onPress={nextPage} />
+      {mode === "update" ? (
+        <p onClick={nextPage}>update</p>
+      ) : (
+        <EventHeaderComponent heading="Event Detail" onPress={nextPage} />
+      )}
       <div className={`${styles.headerComponent}`}>
         <Row className="userBoxed">
           <Col md={8}>
@@ -170,6 +202,7 @@ function EventScheduleComponent() {
                     key={el.id}
                     eventData={el}
                     errorsData={errors}
+                    spanDefaultValue={scheduleSpan}
                     scheduleSpan={(value: any) => setScheduleSpan(value)}
                     getChildValue={(value: any) =>
                       updateScheduleEvent(el.id, value)
@@ -211,7 +244,11 @@ function EventScheduleComponent() {
             customAvailabilityData={(value: any) => setCustomEvent(value)}
           />
         ) : null}
-        <EventHeaderComponent onPress={nextPage} />
+        {mode === "update" ? (
+          <p onClick={nextPage}>update</p>
+        ) : (
+          <EventHeaderComponent onPress={nextPage} />
+        )}
       </div>
     </div>
   );

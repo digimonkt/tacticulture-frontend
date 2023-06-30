@@ -17,6 +17,7 @@ interface IScheduleCard {
 
 const ScheduleCard = ({ data }: IScheduleCard) => {
   const router = useRouter();
+  console.log(data);
   return (
     <Col md={24}>
       <Card className="position-relative cards black">
@@ -25,6 +26,12 @@ const ScheduleCard = ({ data }: IScheduleCard) => {
           <div className={`${styles.dropdownBox}`}>
             <SVG.Edit width="20px" />
             <span
+              onClick={() =>
+                router.push({
+                  pathname: "/event-summary",
+                  query: { eventId: data.id },
+                })
+              }
               style={{
                 fontFamily: "Proxima Nova",
                 color: "#444444",
@@ -41,11 +48,6 @@ const ScheduleCard = ({ data }: IScheduleCard) => {
           <div className={`${styles.dropdownBox}`}>
             <SVG.Iframe width="20px" />
             <span
-              onClick={() =>
-                router.push({
-                  pathname: "/event-summary",
-                })
-              }
               style={{
                 color: "#444444",
                 fontWeight: "700",

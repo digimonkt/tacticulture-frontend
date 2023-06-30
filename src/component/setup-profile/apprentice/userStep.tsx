@@ -49,7 +49,7 @@ const UserStep = forwardRef(function UserStep(props: IProps, ref: Ref<IRef>) {
 
   // redux
   const dispatch = useAppDispatch();
-  const { updateUserStatus, errroList, currentUser } = useAppSelector(
+  const { updateUserStatus, currentUser } = useAppSelector(
     (state) => state.userReducer
   );
 
