@@ -5,7 +5,6 @@ import { FilledButton } from "@/component/buttons";
 import { Col, Row } from "antd";
 import styles from "./summary.module.css";
 import { OptionsInput } from "@/component/input";
-
 import EventForumComponent from "@/pages/apprentice/components/event-forum";
 import InstructorLayout from "../instructor/layout";
 import EventRosterComponent from "../instructor/create-event/components/event-roster";
@@ -14,10 +13,13 @@ import EventScheduleComponent from "../instructor/create-event/components/event-
 import EventRequirement from "../instructor/create-event/components/event-requirement";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { getOwnEventDetail } from "@/redux/reducers/event";
+import { useRouter } from "next/router";
 
 function EventSummaryComponent() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const eventId = searchParams.get("eventId");
+  const router = useRouter();
+
+  const { eventId } = router.query;
+
   const dispatch = useAppDispatch();
 
   const [eventroster, setEventroster] = useState("");
@@ -48,7 +50,7 @@ function EventSummaryComponent() {
       heading: "Event Questions and Waiver",
       content: "What event is this, location, and basic overview",
       children: "Edit",
-      component: <EventRequirement />,
+      component: <EventRequirement mode="update" />,
     },
     {
       id: "4",

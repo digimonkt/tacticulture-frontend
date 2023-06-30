@@ -25,7 +25,10 @@ function EventScheduleComponent({ mode }: { mode: string }) {
     scheduleAvailabilityPeriod: 1,
     scheduleAvailabilityPeriodUnit: "hours",
   });
-  const [scheduleSpan, setScheduleSpan] = useState();
+  const [scheduleSpan, setScheduleSpan] = useState({
+    scheduleAvailabilityPeriod: 0,
+    scheduleAvailabilityPeriodUnit: "",
+  });
   const { eventData } = useAppSelector((state) => state.EventReducer);
   const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
 

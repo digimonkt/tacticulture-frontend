@@ -17,7 +17,6 @@ interface IScheduleCard {
 
 const ScheduleCard = ({ data }: IScheduleCard) => {
   const router = useRouter();
-  console.log(data);
   return (
     <Col md={24}>
       <Card className="position-relative cards black">

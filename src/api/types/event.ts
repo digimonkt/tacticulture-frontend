@@ -174,6 +174,16 @@ export type updateEventTypeScheduleType = {
   scheduleType: string;
 };
 
+export type updateOwnEventQuestionAndRequirementType = {
+  id: string;
+  values: {
+    cancellationPolicies: string;
+    customWaiverSettings: string;
+    requirements: string;
+  };
+  customQuestions: any;
+};
+
 export type updateEventTypeSchedulePayload = {
   id: string;
   data: {

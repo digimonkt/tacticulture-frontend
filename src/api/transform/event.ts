@@ -37,10 +37,9 @@ export const transformUpdateEventDetailPayload = (data: any) => {
 };
 
 export const transformUpdateEventTypeSchedulePayload = (data: any) => {
-  console.log(data, "data");
   return {
     event_type_and_schedule_id: data.scheduleType,
-    event_scheduled_datetime: data.scheduleData.map((item) => ({
+    event_scheduled_datetime: data.scheduleData.map((item: any) => ({
       event_start_date: item.eventStartDate,
       event_start_time: item.eventStartTime,
       event_end_date: item.eventEndDate,
@@ -50,6 +49,17 @@ export const transformUpdateEventTypeSchedulePayload = (data: any) => {
     schedule_event_period_unit:
       data.scheduleSpan.scheduleAvailabilityPeriodUnit,
     event_custom_availability: [],
+  };
+};
+
+export const transformUpdateEventQuestionAndRequirementPayload = (
+  data: any
+) => {
+  return {
+    requirements: data.values.requirements,
+    cancellation_policies: data.values.cancellationPolicies,
+    custom_waiver_settings: data.values.customWaiverSettings,
+    custom_questions: data.customQuestions,
   };
 };
 
