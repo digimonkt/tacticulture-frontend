@@ -89,9 +89,7 @@ function ScheduleDateComponent({
                   {errorsData[index].eventStartDate}
                 </p>
               )} */}
-            <p style={{ color: "red" }}>
-              {errorsData?.[index]?.eventStartDate || ""}
-            </p>
+
             <LabeledInput
               type="time"
               value={eventData?.eventStartTime}
@@ -100,6 +98,11 @@ function ScheduleDateComponent({
                 getChildValue({ key: "eventStartTime", value: e.target.value });
               }}
             />
+          </div>
+          <div className="alerts">
+            <p style={{ color: "red" }}>
+              {errorsData?.[index]?.eventStartDate || ""}
+            </p>
             <p style={{ color: "red" }}>
               {errorsData?.[index]?.eventStartTime || ""}
             </p>
@@ -117,9 +120,7 @@ function ScheduleDateComponent({
                 getChildValue({ key: "eventEndDate", value: e.target.value });
               }}
             />
-            <p style={{ color: "red" }}>
-              {errorsData?.[index]?.eventEndDate || ""}
-            </p>
+
             <LabeledInput
               type="time"
               value={eventData?.eventEndTime}
@@ -128,6 +129,11 @@ function ScheduleDateComponent({
                 getChildValue({ key: "eventEndTime", value: e.target.value });
               }}
             />
+          </div>
+          <div className="alerts">
+            <p style={{ color: "red" }}>
+              {errorsData?.[index]?.eventEndDate || ""}
+            </p>
             <p style={{ color: "red" }}>
               {errorsData?.[index]?.eventEndTime || ""}
             </p>
@@ -137,7 +143,7 @@ function ScheduleDateComponent({
             <div className="startDate">
               <LabeledInput
                 type="number"
-                value={scheduleTimeSpan.scheduleAvailabilityPeriod}
+                value={scheduleTimeSpan?.scheduleAvailabilityPeriod}
                 defaultValue={1}
                 onChange={(e) =>
                   setScheduleTimeSpan({
@@ -154,7 +160,7 @@ function ScheduleDateComponent({
                     scheduleAvailabilityPeriodUnit: value,
                   })
                 }
-                value={scheduleTimeSpan.scheduleAvailabilityPeriodUnit}
+                value={scheduleTimeSpan?.scheduleAvailabilityPeriodUnit}
                 options={[
                   { value: "hours", label: "Hours" },
                   { value: "day", label: "Day" },

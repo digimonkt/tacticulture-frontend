@@ -31,6 +31,9 @@
 .SelectBtn {
   position: relative;
   top: 15px;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
 }
 .apprenticeCard .SelectBtn button {
   background: #cb2c2c !important;

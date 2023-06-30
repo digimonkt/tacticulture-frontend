@@ -127,6 +127,7 @@ function EventForumComponent({ heading, text }: IEventForum) {
                   <Image src={IMAGES.Gif} alt="" className="me-2" />
                 </div>
                 <FilledButton
+                  className="btnPublish"
                   style={{
                     background: "#CB2C2C",
                     fontWeight: "700",

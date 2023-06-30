@@ -44,7 +44,9 @@ function EventRosterComponent() {
                     <Image src={IMAGES.ProfilePic} alt="" className="me-3" />
                     <div className="d-block text-start">
                       <h6>{Data.heading}</h6>
-                      <FilledButton>{Data.children}</FilledButton>
+                      <FilledButton className="btn filleds">
+                        {Data.children}
+                      </FilledButton>
                     </div>
                   </div>
                 </Col>
@@ -58,7 +60,7 @@ function EventRosterComponent() {
             ))}
           </>
         ) : (
-          <p onClick={() => setManageregister(true)}>
+          <p className="apprenticeText" onClick={() => setManageregister(true)}>
             You don’t have any registered apprentices yet,{" "}
             <span>Share this event</span>{" "}
           </p>

@@ -1,4 +1,4 @@
-.accountSetup span {
+/* .accountSetup span {
   color: #ff3030;
 }
 .eventImg {
@@ -352,4 +352,8 @@
   letter-spacing: 1px;
   border-radius: 3px;
   margin-left: 10px;
+} */
+
+.nodata {
+  text-align: start !important;
 }

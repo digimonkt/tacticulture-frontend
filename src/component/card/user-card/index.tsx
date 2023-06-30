@@ -21,7 +21,7 @@ function UserCardComponent({
       <div className={`${styles.apprenticeCard}`}>
         <h4>{heading}</h4>
         <p>{content}</p>
-        <div className={`${selected ? styles.SelectBtn : ""}`}>
+        <div className={`${selected ? styles.SelectBtn : "btnes"}`}>
           <FilledButton
             style={{
               display: "flex",
@@ -32,7 +32,10 @@ function UserCardComponent({
               background: selected ? "#CB2C2C" : "#fff",
             }}
             icon={selected ? <SVG.TickIcon width="16px" /> : ""}
-            className="btn selected mt-3"
+            // className="btn selected mt-3"
+            className={
+              selected ? "btn selected mt-3" : "btn selected mt-3 unselect"
+            }
             {...rest}
           >
             {selected ? "Selected" : "Select"}
