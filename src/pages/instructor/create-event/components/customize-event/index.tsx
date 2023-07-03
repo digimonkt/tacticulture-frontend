@@ -73,7 +73,7 @@ function CustomizeEventComponent() {
         }),
       };
     });
-
+    // console.log(eventData, "pyaload");
     const payload: EventPayload = {
       name: eventData.name,
       course_category: eventData.courseCategory,
@@ -127,7 +127,7 @@ function CustomizeEventComponent() {
         eventData.eventOpenSpan.openAvailabilityPeriod * 60,
     };
     // console.log({ payload });
-    console.log(JSON.stringify(payload));
+    // console.log(JSON.stringify(payload));
 
     dispatch(createEventData(payload));
   };

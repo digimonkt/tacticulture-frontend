@@ -22,8 +22,8 @@ export const transformUpdateEventDetailPayload = (data: any) => {
   return {
     name: data.name,
     course_category: data.courseCategory.map((course: any) => ({
-      event_categories: course.eventCategories,
-      slug_name: course.slugName,
+      event_categories: course.event_categories,
+      slug_name: course.slug_name,
     })),
     description: data.description,
     location: data.location,
@@ -70,8 +70,8 @@ export const transformGetEventAPIResponse = (
     id: data.id,
     name: data.name,
     courseCategory: data.course_category.map((course) => ({
-      eventCategories: course.event_categories,
-      slugName: course.slug_name,
+      event_categories: course.event_categories,
+      slug_name: course.slug_name,
     })),
     description: data.description,
     location: data.location,

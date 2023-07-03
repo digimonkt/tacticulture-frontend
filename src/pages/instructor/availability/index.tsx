@@ -207,6 +207,7 @@ function Availability() {
             {availability.map((available, idx) => {
               return (
                 <ScheduleEventComponent
+                  errors={[]}
                   key={idx}
                   {...available}
                   handleAddSchedule={handleAddSchedule(idx)}

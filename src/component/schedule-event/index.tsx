@@ -25,14 +25,17 @@ export interface ISpecificData {
 
 interface IScheduleEventComponent extends IScheduleEvent {
   handleAddSchedule: () => void;
+
   handleUpdateStart: (idx: number, value: string) => void;
   handleUpdateEnd: (idx: number, value: string) => void;
   handleRemoveSchedule: (idx: number) => void;
   handleChangeChecked: (value: boolean) => void;
+  errors: { day: string; error: string }[];
 }
 
 function ScheduleEventComponent({
   day,
+
   isChecked,
   schedules,
   handleAddSchedule,
@@ -40,6 +43,7 @@ function ScheduleEventComponent({
   handleUpdateStart,
   handleUpdateEnd,
   handleRemoveSchedule,
+  errors,
 }: IScheduleEventComponent) {
   return (
     <div>
@@ -62,8 +66,8 @@ function ScheduleEventComponent({
         </Col>
         <Col md={12}>
           <div className={`${styles.box}`}>
-            {schedules.length ? (
-              schedules.map((schedule, idx) => {
+            {schedules?.length ? (
+              schedules?.map((schedule, idx) => {
                 return (
                   <>
                     <LabeledInput
@@ -83,6 +87,11 @@ function ScheduleEventComponent({
                     >
                       <SVG.Trash width="24px" color="white" />
                     </span>
+                    <p>
+                      {errors.map((el) =>
+                        el.day === day ? "start & end time are required" : ""
+                      )}
+                    </p>
                   </>
                 );
               })

@@ -91,6 +91,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
         // @ts-ignore
         dispatch(updateOwnEventDetail({ id: ownEventDetail.id, data: values }));
       } else {
+        console.log(values, "values");
         dispatch(createEvent(values));
         router.push(`../instructor/create-event?step=${2}`);
       }

@@ -7,12 +7,14 @@ import { SVG } from "@/assets/svg";
 import { OutlinedButton } from "@/component/buttons";
 import { OptionsInput, SwitchInput } from "@/component/input";
 import { Card } from "react-bootstrap";
-
+import { useRouter } from "next/router";
+import { CreateEventType } from "@/types/event";
 interface IOpenCard {
-  data: { name: string };
+  data: CreateEventType;
 }
 
 function OpenCard({ data }: IOpenCard) {
+  const router = useRouter();
   return (
     <Row>
       <Col md={24}>
@@ -22,6 +24,12 @@ function OpenCard({ data }: IOpenCard) {
             <div className={`${styles.dropdownBox}`}>
               <SVG.Edit width="20px" />
               <span
+                onClick={() =>
+                  router.push({
+                    pathname: "/event-summary",
+                    query: { eventId: data.id },
+                  })
+                }
                 style={{
                   fontFamily: "Proxima Nova",
                   color: "#444444",
