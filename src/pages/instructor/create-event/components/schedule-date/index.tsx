@@ -138,36 +138,6 @@ function ScheduleDateComponent({
               {errorsData?.[index]?.eventEndTime || ""}
             </p>
           </div>
-          <div className="text-start">
-            <label className="p-0">Set the event time span</label>
-            <div className="startDate">
-              <LabeledInput
-                type="number"
-                value={scheduleTimeSpan?.scheduleAvailabilityPeriod}
-                defaultValue={1}
-                onChange={(e) =>
-                  setScheduleTimeSpan({
-                    ...scheduleTimeSpan,
-                    scheduleAvailabilityPeriod: parseInt(e.target.value),
-                  })
-                }
-              />
-              <SelectInput
-                defaultValue="hours"
-                onChange={(value) =>
-                  setScheduleTimeSpan({
-                    ...scheduleTimeSpan,
-                    scheduleAvailabilityPeriodUnit: value,
-                  })
-                }
-                value={scheduleTimeSpan?.scheduleAvailabilityPeriodUnit}
-                options={[
-                  { value: "hours", label: "Hours" },
-                  { value: "day", label: "Day" },
-                ]}
-              />
-            </div>
-          </div>
         </div>
       </div>
     </>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { SVG } from "@/assets/svg";
 import { LabeledInput, TextInput } from "@/component/input";
 import TextareaComponent from "@/component/textarea";
@@ -88,8 +87,11 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
     }),
     onSubmit: (values) => {
       if (mode === "update") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         dispatch(updateOwnEventDetail({ id: ownEventDetail.id, data: values }));
       } else {
+        console.log(values, "values");
         dispatch(createEvent(values));
         router.push(`../instructor/create-event?step=${2}`);
       }
@@ -98,6 +100,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
   // add event interest list
   const handleAddEventInterestList = (item: IEventCategories) => {
     if (formik.values.courseCategory.length < 3) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const isExist = formik.values.courseCategory?.includes(item);
 
@@ -105,6 +108,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
         formik.setValues({
           ...formik.values,
 
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           courseCategory: [...formik.values.courseCategory, item],
           // eventIds: [...formik.courseCategory.eventIds, item.id],

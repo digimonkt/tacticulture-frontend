@@ -16,7 +16,7 @@ import {
   EventPayload,
   updateEventDetailPayload,
   updateEventTypeScheduleType,
-  updatePayload,
+  updateOwnEventQuestionAndRequirementType,
 } from "@/api/types/event";
 
 interface Ievent {
@@ -37,7 +37,7 @@ export const initialEventDetail: getEventType = {
   openAvailabilityPeriodUnit: null,
   scheduleEventPeriod: null,
   scheduleEventPeriodUnit: null,
-  courseCategory: [{ eventCategories: "", slugName: "" }],
+  courseCategory: [{ event_categories: "", slug_name: "" }],
   courseUrl: "",
   customQuestions: [
     {
@@ -234,10 +234,10 @@ export const getOwnEventDetail = createAsyncThunk<
 >("getOwnEventDetail", async (id, { rejectWithValue }) => {
   const res = await getOwnEventDetailAPI(id);
   if (res.remote === "success") {
-    console.log(res.data, "update response");
+    // console.log(res.data, "update response");
     return res.data;
   } else {
-    console.log(res.error);
+    // console.log(res.error);
     return rejectWithValue(res.error);
   }
 });
@@ -247,8 +247,10 @@ export const updateOwnEventDetail = createAsyncThunk<
   updateEventDetailPayload,
   { state: RootState; rejectValue: ServerError }
 >("updateOwnEventDetail", async (payload, { rejectWithValue }) => {
+  console.log(payload, "payloadd");
   const res = await updateOwnEventDetailAPI(payload);
   if (res.remote === "success") {
+    console.log(res, "response upate");
     return res.data;
   } else {
     return rejectWithValue(res.error);
@@ -259,17 +261,33 @@ export const updateOwnEventTypeSchedule = createAsyncThunk<
   getEventType,
   updateEventTypeScheduleType,
   { state: RootState; rejectValue: ServerError }
->("updateOwnEventDetail", async (payload, { rejectWithValue }) => {
-  console.log(payload, "payload schedule");
+>("updateOwnEventTypeSchedule", async (payload, { rejectWithValue }) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const res = await updateOwnEventTypeScheduleAPI(payload);
   if (res.remote === "success") {
-    console.log(res.data, "update response");
     return res.data;
   } else {
-    console.log(res.error);
     return rejectWithValue(res.error);
   }
 });
+
+export const updateOwnEventQuestionAndRequirement = createAsyncThunk<
+  getEventType,
+  updateOwnEventQuestionAndRequirementType,
+  { state: RootState; rejectValue: ServerError }
+>(
+  "updateOwnEventQuestionAndRequirement",
+  async (payload, { rejectWithValue }) => {
+    console.log(payload, "my payload");
+    const res = await updateOwnEventTypeScheduleAPI(payload);
+    if (res.remote === "success") {
+      return res.data;
+    } else {
+      return rejectWithValue(res.error);
+    }
+  }
+);
 
 export const eventSlice = createSlice({
   name: "event",

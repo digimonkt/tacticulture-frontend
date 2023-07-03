@@ -9,11 +9,13 @@ import {
   GetEventResponse,
   updateEventDetailPayload,
   updateEventTypeSchedulePayload,
+  updateOwnEventQuestionAndRequirementType,
 } from "./types/event";
 import {
   transformGetEventAPIResponse,
   transformGetEventCategoriesAPIResponse,
   transformUpdateEventDetailPayload,
+  transformUpdateEventQuestionAndRequirementPayload,
   transformUpdateEventTypeSchedulePayload,
 } from "./transform/event";
 import { getEventType } from "@/types/event";
@@ -160,17 +162,14 @@ export const updateOwnEventDetailAPI = async (
 };
 
 export const updateOwnEventTypeScheduleAPI = async (
-  payload: updateEventTypeSchedulePayload
+  payload: updateOwnEventQuestionAndRequirementType
 ): Promise<SuccessResult<getEventType> | ErrorResult> => {
-  console.log(
-    JSON.stringify(transformUpdateEventTypeSchedulePayload(payload.data))
-  );
   const res = await axiosInstance.request<EventResponse>({
     url: `/events/user-event/${payload.id}/`,
     method: "PATCH",
-    data: transformUpdateEventTypeSchedulePayload(payload.data),
+    data: transformUpdateEventQuestionAndRequirementPayload(payload),
   });
-  console.log(res, "my res");
+  console.log(res, "ye hai response");
   if (res.remote === "success") {
     return {
       remote: "success",

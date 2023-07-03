@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import EventHeaderComponent from "../event-header";
 import TextareaComponent from "@/component/textarea";
 import styles from "../course.module.css";
@@ -7,18 +7,24 @@ import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 
 import CustomizedForm from "./CustomizedForm";
-import { createEvent } from "@/redux/reducers/event";
+import {
+  createEvent,
+  updateOwnEventQuestionAndRequirement,
+} from "@/redux/reducers/event";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import EventHeaderComponent from "../event-header";
 import { useRouter } from "next/router";
 
-function EventRequirement() {
+function EventRequirement({ mode }: { mode: string }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
   const { eventData } = useAppSelector((state) => state.EventReducer);
+  const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
+
   const addEventQuestion = (type: string, id?: number) => {
+    console.log(type, id);
     if (type === "add") {
       dispatch(
         createEvent({
@@ -58,15 +64,25 @@ function EventRequirement() {
       customWaiverSettings: Yup.string().required("Waiver is required"),
     }),
     onSubmit: (values) => {
-      dispatch(
-        createEvent({
-          customWaiverSettings: values.customWaiverSettings,
-          requirements: values.requirements,
-          cancellationPolicies: values.cancellationPolicies,
-        })
-      );
-
-      router.push(`../instructor/create-event?step=${Number(4)}`);
+      if (mode === "update") {
+        // console.log(values, "values", eventData.customQuestions);
+        dispatch(
+          updateOwnEventQuestionAndRequirement({
+            id: ownEventDetail.id,
+            values,
+            customQuestions: eventData.customQuestions,
+          })
+        );
+      } else {
+        dispatch(
+          createEvent({
+            customWaiverSettings: values.customWaiverSettings,
+            requirements: values.requirements,
+            cancellationPolicies: values.cancellationPolicies,
+          })
+        );
+        router.push(`../instructor/create-event?step=${Number(4)}`);
+      }
     },
   });
 
@@ -82,13 +98,36 @@ function EventRequirement() {
     );
   }, [eventData]);
 
+  useEffect(() => {
+    if (mode === "update") {
+      formik.setFieldValue("requirements", ownEventDetail.requirements);
+      formik.setFieldValue(
+        "cancellationPolicies",
+        ownEventDetail.cancellationPolicies
+      );
+      formik.setFieldValue(
+        "customWaiverSettings",
+        ownEventDetail.customWaiverSettings
+      );
+      dispatch(
+        createEvent({
+          customQuestions: [...ownEventDetail.customQuestions],
+        })
+      );
+    }
+  }, []);
+
   // console.log(eventData, "ef");
   return (
     <div>
-      <EventHeaderComponent
-        heading="Policies, Questions and Waiver"
-        onPress={() => formik.handleSubmit()}
-      />
+      {mode === "update" ? (
+        <p onClick={() => formik.handleSubmit()}>update</p>
+      ) : (
+        <EventHeaderComponent
+          heading="Policies, Questions and Waiver"
+          onPress={() => formik.handleSubmit()}
+        />
+      )}
       <div className="requirements">
         <div className="eventRequirement">
           <h5>Requirements</h5>
@@ -136,7 +175,6 @@ function EventRequirement() {
           </FilledButton>
         </div>
       </div>
-
       {eventData.customQuestions.map((el, index) => {
         return (
           <div key={el.id}>
@@ -206,7 +244,11 @@ function EventRequirement() {
             and assume all liability.
           </p>
         </div>
-        <EventHeaderComponent onPress={() => formik.handleSubmit()} />
+        {mode === "update" ? (
+          <p onClick={() => formik.handleSubmit()}>update</p>
+        ) : (
+          <EventHeaderComponent onPress={() => formik.handleSubmit()} />
+        )}
       </div>
     </div>
   );

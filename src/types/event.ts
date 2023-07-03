@@ -118,7 +118,7 @@ export type getEventType = {
   achievementBadgeImage: string | null;
   availableSpots: number;
   cancellationPolicies: string;
-  courseCategory: { eventCategories: string; slugName: string }[];
+  courseCategory: { event_categories: string; slug_name: string }[];
   courseUrl: string;
   isPrivateEvent: boolean;
   openAvailabilityPeriod: number | null;

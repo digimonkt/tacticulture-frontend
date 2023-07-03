@@ -68,6 +68,7 @@ export type availabilityType = {
   value: string;
   isChecked: boolean;
   schedules: { startDate: string }[];
+  errors: { day: string; error: string }[];
   openSpan: (period: string, periodUnit: string) => void;
 };
 
@@ -75,6 +76,8 @@ function OpenAvailabilityComponent({
   customAvailabilityData,
   openSpan,
   value,
+  errors,
+  defaultEvent,
 }: any) {
   const dispatch = useAppDispatch();
   const [openTimeSpan, setOpenTimeSpan] = useState({});
@@ -82,10 +85,42 @@ function OpenAvailabilityComponent({
   const [availability, setAvailability] = useState(scheduleEvents);
   const [availabilityId, setAvailabilityId] = useState(0);
 
+  // useEffect(() => {
+  //   setAvailability(defaultEvent);
+  // }, []);
+
   useEffect(() => {
     customAvailabilityData(availability);
   }, [availability]);
 
+  useEffect(() => {
+    // setAvailability(defaultEvent);
+    const updatedAvailability = availability.map((avail) => {
+      const matchingEvent = defaultEvent.find(
+        (event: any) => event.weekdays === avail.day
+      );
+
+      if (matchingEvent) {
+        return {
+          ...avail,
+          schedules: matchingEvent.eventCustomAvailabilityDetails.map(
+            (detail: any) => ({
+              startTime: detail.fromTime,
+              endTime: detail.toTime,
+            })
+          ),
+          isChecked: true,
+        };
+      }
+
+      return avail;
+    });
+
+    setAvailability(updatedAvailability);
+    // console.log(JSON.stringify(defaultEvent), "default");
+    // console.log(JSON.stringify(availability), "avai");
+  }, []);
+  console.log(availability, "vaia");
   useEffect(() => {
     openSpan(openTimeSpan);
   }, [openTimeSpan]);
@@ -123,25 +158,30 @@ function OpenAvailabilityComponent({
       const newAvailability = [...availability];
       const at = { ...newAvailability[idx] };
       const scheduleAt = at.schedules[scheduleIndex];
-      scheduleAt.startTime = value;
-
-      newAvailability[idx] = at;
-      setAvailability(newAvailability);
+      if (scheduleAt) {
+        scheduleAt.startTime = value;
+        newAvailability[idx] = at;
+        setAvailability(newAvailability);
+      }
     };
   const handleUpdateEnd =
     (idx: number) => async (scheduleIndex: number, value: string) => {
       const newAvailability = [...availability];
       const at = { ...newAvailability[idx] };
       const scheduleAt = at.schedules[scheduleIndex];
-      scheduleAt.endTime = value;
-
-      newAvailability[idx] = at;
-      setAvailability(newAvailability);
+      if (scheduleAt) {
+        scheduleAt.endTime = value;
+        newAvailability[idx] = at;
+        setAvailability(newAvailability);
+      }
     };
 
   const handleAddSchedule = (idx: number) => () => {
     const newAvailability = [...availability];
     const at = { ...newAvailability[idx] };
+    if (!at.schedules) {
+      at.schedules = [];
+    }
     // console.log(at, "atttt");
     at?.schedules?.push({
       startTime: "",
@@ -157,15 +197,16 @@ function OpenAvailabilityComponent({
   const handleChangeChecked = (idx: number) => (value: boolean) => {
     const newAvailability = [...availability];
     const at = { ...newAvailability[idx] };
+    const newSchedules = at.schedules ? [...at.schedules] : [];
+    newSchedules.push({
+      startTime: "",
+      endTime: "",
+    });
+    at.schedules = newSchedules;
     at.isChecked = value;
     newAvailability[idx] = at;
     setAvailability(newAvailability);
   };
-
-  const { eventData } = useAppSelector((state) => state.EventReducer);
-  const { currentUser, defaultAvailability } = useAppSelector(
-    (state) => state.userReducer
-  );
 
   return (
     <>
@@ -198,32 +239,7 @@ function OpenAvailabilityComponent({
           </div>
         </div>
         <hr />
-        <div className="text-start">
-          <label className="p-0">Set the event time span</label>
-          <div className="startDate">
-            <LabeledInput
-              onChange={(e) =>
-                setOpenTimeSpan({
-                  ...openTimeSpan,
-                  openAvailabilityPeriod: e.target.value,
-                })
-              }
-            />
-            <SelectInput
-              onChange={(value) =>
-                setOpenTimeSpan({
-                  ...openTimeSpan,
-                  openAvailabilityPeriodUnit: value,
-                })
-              }
-              options={[
-                { value: "hours", label: "Hours" },
-                { value: "Time", label: "Time" },
-              ]}
-            />
-          </div>
-        </div>
-        {/* </div> */}
+
         <div className="scheduleSection">
           {isComponent === "custom" && (
             <div>
@@ -238,6 +254,7 @@ function OpenAvailabilityComponent({
                     handleUpdateStart={handleUpdateStart(idx)}
                     handleUpdateEnd={handleUpdateEnd(idx)}
                     handleRemoveSchedule={handleRemoveSchedule(idx)}
+                    errors={errors}
                   />
                 );
               })}

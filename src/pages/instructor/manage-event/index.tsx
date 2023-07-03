@@ -151,17 +151,17 @@ function ManageEvent() {
 
             <Row>
               {eventData?.results?.map((Data) => {
-                return Data.eventTypeAndScheduleId === "scheduled" &&
+                return Data.eventTypeAndScheduleId === "schedule" &&
                   Data.name ? (
                   <Col md={12} key={Data.id}>
                     <div className="manageCard">
-                      <OpenCard data={Data} />
+                      <ScheduleCard data={Data} />
                     </div>
                   </Col>
                 ) : (
                   <Col md={12} key={Data.id}>
                     <div className="manageCard">
-                      <ScheduleCard data={Data} />
+                      <OpenCard data={Data} />
                     </div>
                   </Col>
                 );

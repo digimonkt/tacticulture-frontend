@@ -14,6 +14,7 @@ import {
 } from "@/redux/reducers/event";
 import { getUserDefaultAvailability } from "@/redux/reducers/user";
 import { SVG } from "@/assets/svg";
+import { LabeledInput, SelectInput } from "@/component/input";
 // import EventHeaderComponent from "../event-header";
 
 function EventScheduleComponent({ mode }: { mode: string }) {
@@ -21,11 +22,15 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const dispatch = useAppDispatch();
   const [scheduleType, setScheduleType] = useState("schedule");
   const [errors, setErrors] = useState({});
+  const [openCustomErrors, setOpenCustomErrors] = useState([]);
   const [openSpan, setOpenSpan] = useState({
     scheduleAvailabilityPeriod: 1,
     scheduleAvailabilityPeriodUnit: "hours",
   });
-  const [scheduleSpan, setScheduleSpan] = useState();
+  const [scheduleSpan, setScheduleSpan] = useState({
+    scheduleAvailabilityPeriod: 1,
+    scheduleAvailabilityPeriodUnit: "hours",
+  });
   const { eventData } = useAppSelector((state) => state.EventReducer);
   const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
 
@@ -36,7 +41,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const [customeEvent, setCustomEvent] = useState(
     eventData.eventCustomAvailability
   );
-
+  // console.log(ownEventDetail, "owneven");
   useEffect(() => {
     if (mode === "update") {
       setScheduleType(ownEventDetail.eventTypeAndScheduleId);
@@ -52,8 +57,6 @@ function EventScheduleComponent({ mode }: { mode: string }) {
       setCustomEvent(eventData.eventCustomAvailability);
     }
   }, []);
-
-  console.log(mode, "mode", scheduleSpan, "scheSpan");
 
   const addScheduleEvent = () => {
     if (scheduleData) {
@@ -84,23 +87,40 @@ function EventScheduleComponent({ mode }: { mode: string }) {
 
   const nextPage = () => {
     const errors: any = [];
-
+    let customErrors: any = [];
     scheduleData?.forEach((item, index) => {
       const itemErrors: any = {};
 
-      if (item.eventStartDate === "") {
-        itemErrors.eventStartDate = "this field should not be blank";
+      if (scheduleType === "schedule" || scheduleType === "combined") {
+        if (item.eventStartDate === "") {
+          itemErrors.eventStartDate = "this field should not be blank";
+        }
+        if (item.eventStartTime === "") {
+          itemErrors.eventStartTime = "this field should not be blank";
+        }
+        if (item.eventEndDate === "") {
+          itemErrors.eventEndDate = "this field should not be blank";
+        }
+        if (item.eventEndTime === "") {
+          itemErrors.eventEndTime = "this field should not be blank";
+        }
       }
-      if (item.eventStartTime === "") {
-        itemErrors.eventStartTime = "this field should not be blank";
+      if (scheduleType === "open" || scheduleType === "combined") {
+        customErrors = customeEvent
+          ?.filter(
+            (item) =>
+              item.isChecked &&
+              item.schedules?.some(
+                (schedule) => !schedule.startTime || !schedule.endTime
+              )
+          )
+          .map((item) => ({
+            day: item.day,
+            error: "this field may not be blank",
+          }));
       }
-      if (item.eventEndDate === "") {
-        itemErrors.eventEndDate = "this field should not be blank";
-      }
-      if (item.eventEndTime === "") {
-        itemErrors.eventEndTime = "this field should not be blank";
-      }
-
+      // console.log(openCustomErrors, "customError", customeEvent, scheduleType);
+      // console.log(customErrors, "customeerror");
       if (Object.keys(itemErrors).length > 0) {
         errors[index] = itemErrors;
       }
@@ -108,11 +128,16 @@ function EventScheduleComponent({ mode }: { mode: string }) {
 
     if (errors.length > 0 && scheduleType !== "open") {
       setErrors(errors);
+    }
+    if (customErrors.length > 0 && scheduleType !== "shcedule") {
+      setOpenCustomErrors(customErrors);
     } else {
       if (mode === "update") {
         dispatch(
           updateOwnEventTypeSchedule({
             id: ownEventDetail.id,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             data: {
               scheduleType,
               scheduleData,
@@ -196,6 +221,36 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             />
           </Col>
         </Row>
+        <div className="text-start">
+          <label className="p-0">Set the event time span</label>
+          <div className="startDate">
+            <LabeledInput
+              type="number"
+              value={scheduleSpan?.scheduleAvailabilityPeriod}
+              defaultValue={1}
+              onChange={(e) =>
+                setScheduleSpan({
+                  ...scheduleSpan,
+                  scheduleAvailabilityPeriod: parseInt(e.target.value),
+                })
+              }
+            />
+            <SelectInput
+              defaultValue="hours"
+              onChange={(value) =>
+                setScheduleSpan({
+                  ...scheduleSpan,
+                  scheduleAvailabilityPeriodUnit: value,
+                })
+              }
+              value={scheduleSpan?.scheduleAvailabilityPeriodUnit}
+              options={[
+                { value: "hours", label: "Hours" },
+                { value: "day", label: "Day" },
+              ]}
+            />
+          </div>
+        </div>
         {scheduleType === "schedule" || scheduleType === "combined"
           ? scheduleData?.map((el, index) => {
               return (
@@ -245,7 +300,9 @@ function EventScheduleComponent({ mode }: { mode: string }) {
         {scheduleType === "open" || scheduleType === "combined" ? (
           <OpenAvailabilityComponent
             openSpan={(value: any) => setOpenSpan(value)}
+            defaultEvent={customeEvent}
             customAvailabilityData={(value: any) => setCustomEvent(value)}
+            errors={openCustomErrors}
           />
         ) : null}
         {mode === "update" ? null : (

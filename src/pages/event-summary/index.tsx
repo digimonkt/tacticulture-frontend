@@ -14,10 +14,17 @@ import EventScheduleComponent from "../instructor/create-event/components/event-
 import EventRequirement from "../instructor/create-event/components/event-requirement";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { getOwnEventDetail } from "@/redux/reducers/event";
+import { useRouter } from "next/router";
+
+interface IEventIdQuery {
+  eventId?: string;
+}
 
 function EventSummaryComponent() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const eventId = searchParams.get("eventId");
+  const router = useRouter();
+
+  const { eventId } = router.query as unknown as IEventIdQuery;
+
   const dispatch = useAppDispatch();
 
   const [eventroster, setEventroster] = useState("");
@@ -48,14 +55,14 @@ function EventSummaryComponent() {
       heading: "Event Questions and Waiver",
       content: "What event is this, location, and basic overview",
       children: "Edit",
-      component: <EventRequirement />,
+      component: <EventRequirement mode="update" />,
     },
     {
       id: "4",
       heading: "Customize Event Style",
       content: "What event is this, location, and basic overview",
       children: "Edit",
-      component: <EventRequirement />,
+      // component: <EventRequirement />,
     },
     {
       id: "5",
