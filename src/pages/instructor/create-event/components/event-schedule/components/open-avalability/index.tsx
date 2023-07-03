@@ -70,6 +70,7 @@ export type availabilityType = {
   schedules: { startDate: string }[];
   errors: { day: string; error: string }[];
   openSpan: (period: string, periodUnit: string) => void;
+  openValue: (value: string) => void;
 };
 
 function OpenAvailabilityComponent({
@@ -78,6 +79,7 @@ function OpenAvailabilityComponent({
   value,
   errors,
   defaultEvent,
+  openValue,
 }: any) {
   const dispatch = useAppDispatch();
   const [openTimeSpan, setOpenTimeSpan] = useState({});
@@ -120,13 +122,14 @@ function OpenAvailabilityComponent({
     // console.log(JSON.stringify(defaultEvent), "default");
     // console.log(JSON.stringify(availability), "avai");
   }, []);
-  console.log(availability, "vaia");
+
   useEffect(() => {
     openSpan(openTimeSpan);
   }, [openTimeSpan]);
 
   useEffect(() => {
     getAvailabilityId();
+    openValue(isComponent);
   }, [isComponent]);
 
   useEffect(() => {
@@ -197,11 +200,16 @@ function OpenAvailabilityComponent({
   const handleChangeChecked = (idx: number) => (value: boolean) => {
     const newAvailability = [...availability];
     const at = { ...newAvailability[idx] };
-    const newSchedules = at.schedules ? [...at.schedules] : [];
-    newSchedules.push({
-      startTime: "",
-      endTime: "",
-    });
+    let newSchedules = at.schedules ? [...at.schedules] : [];
+    if (value === true) {
+      newSchedules.push({
+        startTime: "",
+        endTime: "",
+      });
+    } else if (value === false) {
+      newSchedules = [];
+    }
+
     at.schedules = newSchedules;
     at.isChecked = value;
     newAvailability[idx] = at;
