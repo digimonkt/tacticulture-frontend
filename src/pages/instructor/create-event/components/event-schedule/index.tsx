@@ -20,6 +20,7 @@ import { LabeledInput, SelectInput } from "@/component/input";
 function EventScheduleComponent({ mode }: { mode: string }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [openComponent, setOpenComopnent] = useState("");
   const [scheduleType, setScheduleType] = useState("schedule");
   const [errors, setErrors] = useState({});
   const [openCustomErrors, setOpenCustomErrors] = useState([]);
@@ -41,7 +42,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const [customeEvent, setCustomEvent] = useState(
     eventData.eventCustomAvailability
   );
-  // console.log(ownEventDetail, "owneven");
+  console.log(customeEvent, "custom event");
   useEffect(() => {
     if (mode === "update") {
       setScheduleType(ownEventDetail.eventTypeAndScheduleId);
@@ -86,9 +87,15 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   };
 
   const nextPage = () => {
+    interface Iitem {
+      eventStartDate: string;
+      eventStartTime: string;
+      eventEndDate: string;
+      eventEndTime: string;
+    }
     const errors: any = [];
     let customErrors: any = [];
-    scheduleData?.forEach((item, index) => {
+    scheduleData?.forEach((item: Iitem, index) => {
       const itemErrors: any = {};
 
       if (scheduleType === "schedule" || scheduleType === "combined") {
@@ -119,8 +126,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             error: "this field may not be blank",
           }));
       }
-      // console.log(openCustomErrors, "customError", customeEvent, scheduleType);
-      // console.log(customErrors, "customeerror");
+
       if (Object.keys(itemErrors).length > 0) {
         errors[index] = itemErrors;
       }
@@ -129,35 +135,46 @@ function EventScheduleComponent({ mode }: { mode: string }) {
     if (errors.length > 0 && scheduleType !== "open") {
       setErrors(errors);
     }
-    if (customErrors.length > 0 && scheduleType !== "shcedule") {
+    if (customErrors.length > 0 && scheduleType !== "schedule") {
       setOpenCustomErrors(customErrors);
+    }
+    console.log(JSON.stringify(customeEvent), "myevent");
+    if (
+      scheduleType === "open" &&
+      openComponent === "custom" &&
+      customeEvent?.every((el) => el.isChecked === false)
+    ) {
+      alert("hi");
     } else {
-      if (mode === "update") {
-        dispatch(
-          updateOwnEventTypeSchedule({
-            id: ownEventDetail.id,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            data: {
-              scheduleType,
-              scheduleData,
-              customeEvent,
-              openSpan,
-              scheduleSpan,
-            },
-          })
-        );
-      } else {
-        dispatch(
-          createEvent({
-            eventTypeAndScheduleId: scheduleType,
-            eventScheduledDateTime: scheduleData,
-            eventCustomAvailability: customeEvent,
-            eventOpenSpan: openSpan,
-            eventScheduleSpan: scheduleSpan,
-          })
-        );
-        router.push(`../instructor/create-event?step=${3}`);
+      if (errors.length === 0 && customErrors.length === 0) {
+        // Check if both lengths are 0
+        if (mode === "update") {
+          dispatch(
+            updateOwnEventTypeSchedule({
+              id: ownEventDetail.id,
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              data: {
+                scheduleType,
+                scheduleData,
+                customeEvent,
+                openSpan,
+                scheduleSpan,
+              },
+            })
+          );
+        } else {
+          dispatch(
+            createEvent({
+              eventTypeAndScheduleId: scheduleType,
+              eventScheduledDateTime: scheduleData,
+              eventCustomAvailability: customeEvent,
+              eventOpenSpan: openSpan,
+              eventScheduleSpan: scheduleSpan,
+            })
+          );
+          router.push(`../instructor/create-event?step=${3}`);
+        }
       }
     }
   };
@@ -165,11 +182,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const deleteItem = (id: any) => {
     setScheduleData(scheduleData?.filter((el) => el.id !== id));
   };
-  // const handleFormError = () => {
-  //   // Handle form errors here
-  //   // console.log(errors, "error");
-  // };
-
+  console.log(customeEvent, "custome");
   return (
     <div className="schedule">
       {mode === "update" ? (
@@ -177,7 +190,6 @@ function EventScheduleComponent({ mode }: { mode: string }) {
           <FilledButton onClick={nextPage}>Update</FilledButton>
         </div>
       ) : (
-        // <p onClick={nextPage}>update</p>
         <EventHeaderComponent heading="Event Detail" onPress={nextPage} />
       )}
       <div className={`${styles.headerComponent}`}>
@@ -196,9 +208,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
               content="A user can schedule an event based on your availability."
               onClick={() => {
                 setScheduleType("open");
-
                 dispatch(getUserDefaultAvailability());
-
                 setScheduleData([
                   {
                     id: 1,
@@ -303,6 +313,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             defaultEvent={customeEvent}
             customAvailabilityData={(value: any) => setCustomEvent(value)}
             errors={openCustomErrors}
+            openValue={(value: string) => setOpenComopnent(value)}
           />
         ) : null}
         {mode === "update" ? null : (
