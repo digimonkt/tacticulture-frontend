@@ -5,6 +5,24 @@
 button.ql-link {
   display: none !important;
 }
+.ql-editorp {
+  color: #000 !important;
+}
+.ql-editor h1 {
+  color: #000 !important;
+}
+.ql-editor ul li {
+  color: #000 !important;
+}
+.ql-editor ol li {
+  color: #000 !important;
+}
+.ql-snow .ql-editor h3 {
+  color: #000 !important;
+}
+.ql-snow .ql-editor h2 {
+  color: #000 !important;
+}
 .ql-container.ql-snow {
   height: 100% !important;
   max-height: 100% !important;
@@ -1400,7 +1418,7 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
 }
 #dropdown-basic:after {
   content: "";
-  background-image: url(../assets/images/down.svg) !important;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='9' viewBox='0 0 15 9' fill='none'%3E %3Cpath d='M1.45312 0.969727C0.609375 0.969727 0.1875 2.00098 0.796875 2.61035L6.79688 8.61035C7.17188 8.98535 7.78125 8.98535 8.15625 8.61035L14.1562 2.61035C14.7656 2.00098 14.3438 0.969727 13.5 0.969727H1.45312Z' fill='%23CB2C2C'/%3E %3C/svg%3E") !important;
   position: relative;
   width: 14px;
   height: 10px;
@@ -1983,7 +2001,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   color: rgba(0, 0, 0, 0);
   opacity: 1;
   display: block;
-  background: url(../assets/images/down.svg) no-repeat !important;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='9' viewBox='0 0 15 9' fill='none'%3E %3Cpath d='M1.45312 0.969727C0.609375 0.969727 0.1875 2.00098 0.796875 2.61035L6.79688 8.61035C7.17188 8.98535 7.78125 8.98535 8.15625 8.61035L14.1562 2.61035C14.7656 2.00098 14.3438 0.969727 13.5 0.969727H1.45312Z' fill='%23CB2C2C'/%3E %3C/svg%3E")
+    no-repeat !important;
+  /* background: url(../assets/images/down.svg) no-repeat !important; */
   width: 20px;
   position: relative;
   top: 10px;
