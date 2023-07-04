@@ -3,6 +3,8 @@
   border-radius: 6px;
   margin-bottom: 14px;
   padding: 12px;
+  height: 126px;
+  overflow: hidden;
 }
 .listBox h3 {
   font-size: 24px;

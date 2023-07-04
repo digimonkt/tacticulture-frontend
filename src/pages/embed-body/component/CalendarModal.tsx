@@ -153,6 +153,7 @@ const CalendarModal = ({
                         key={index}
                         schedule={schedule}
                         index={index}
+                        closeModal={handleCancel}
                       />
                     );
                   }
@@ -164,9 +165,12 @@ const CalendarModal = ({
                   (schedule: any, index: any) => {
                     return (
                       <OpenCardComponent
+                        eventId={eventDetail.id}
                         key={index}
                         schedule={schedule}
+                        scheduleEventPeriod={eventDetail.scheduleEventPeriod}
                         index={index}
+                        closeModal={handleCancel}
                       />
                     );
                   }

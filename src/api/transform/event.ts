@@ -3,8 +3,6 @@ import {
   EventCategoryResponse,
   EventCategory,
   EventResponse,
-  updateEventDetailPayload,
-  updateEventDetailPayloadBackend,
 } from "../types/event";
 
 export const transformGetEventCategoriesAPIResponse = (
@@ -36,7 +34,7 @@ export const transformUpdateEventDetailPayload = (data: any) => {
   };
 };
 
-export const transformUpdateEventTypeSchedulePayload = (data: any) => {
+export const transformUpdateEventTypeSchedulePayload = ({ data }: any) => {
   return {
     event_type_and_schedule_id: data.scheduleType,
     event_scheduled_datetime: data.scheduleData.map((item: any) => ({
@@ -45,7 +43,7 @@ export const transformUpdateEventTypeSchedulePayload = (data: any) => {
       event_end_date: item.eventEndDate,
       event_end_time: item.eventEndTime,
     })),
-    schedule_event_period: data.scheduleSpan.scheduleAvailabilityPeriod,
+    schedule_event_period: data.scheduleSpan.scheduleAvailabilityPeriod * 60,
     schedule_event_period_unit:
       data.scheduleSpan.scheduleAvailabilityPeriodUnit,
     event_custom_availability: [],

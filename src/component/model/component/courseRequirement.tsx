@@ -7,23 +7,25 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { SVG } from "@/assets/svg";
-import { guestBooking } from "@/redux/reducers/booking";
+import { resetBookingData } from "@/redux/reducers/booking";
 import moment from "moment";
 import Swal from "sweetalert";
-// interface ICourseRequirement {
-//   handleStepNext: () => void;
-//   handleStepPrev: () => void;
-// }
+import { guestBookingAPI } from "@/api/booking";
+interface ICourseRequirement {
+  handleStepNext: () => void;
+  handleStepPrev: () => void;
+}
 
-function CourseRequirementComponent() {
+function CourseRequirementComponent({ handleStepNext }: ICourseRequirement) {
   const dispatch = useAppDispatch();
   const [waiverChecked, setWaiverChecked] = useState(false);
   const [contactDetails, setContactDetails] = useState([
     { name: "", phone: "" },
   ]);
-  const { registrationData, bookingData, bookingConfirm } = useAppSelector(
+  const { registrationData, bookingData } = useAppSelector(
     (state) => state.BookingReducer
   );
+  const { eventDetail } = useAppSelector((state) => state.EventReducer);
 
   const formik = useFormik({
     initialValues: {
@@ -32,8 +34,8 @@ function CourseRequirementComponent() {
       contactDetails: [{ name: "", phone: "" }],
     },
     validationSchema: Yup.object({
-      answerShortText: Yup.string().required("short text is required"),
-      answerLongText: Yup.string().required("long text is required"),
+      // answerShortText: Yup.string().required("short text is required"),
+      // answerLongText: Yup.string().required("long text is required"),
       contactDetails: Yup.array().of(
         Yup.object({
           name: Yup.string().required("Emergency Contact Name  is required"),
@@ -41,23 +43,51 @@ function CourseRequirementComponent() {
         })
       ),
     }),
-    onSubmit: (values) => {
-      dispatch(
-        guestBooking({
-          email: registrationData.email,
-          event_id: bookingData.eventId,
-          booking_date: bookingData.date,
-          booking_time: moment(bookingData.item.label, "hh:mm A").format(
-            "HH:mm"
-          ),
-          booking_type: bookingData.type,
-          custom_questions_answers: {
-            answerLongText: values.answerLongText,
-            answerShortText: values.answerShortText,
-          },
-          contact_details: values.contactDetails,
-        })
-      );
+    onSubmit: async (values) => {
+      console.log(values, "values");
+      // dispatch(
+      //   guestBooking({
+      //     email: registrationData.email,
+      //     event_id: bookingData.eventId,
+      //     booking_date: bookingData.date,
+      //     booking_time: moment(bookingData.item.label, "hh:mm A").format(
+      //       "HH:mm"
+      //     ),
+      //     booking_type: bookingData.type,
+      //     custom_questions_answers: {
+      //       answerLongText: values.answerLongText,
+      //       answerShortText: values.answerShortText,
+      //     },
+      //     contact_details: values.contactDetails,
+      //   })
+      // );
+      const payload = {
+        email: registrationData.email,
+        event_id: bookingData.eventId,
+        booking_date: bookingData.date,
+        booking_time: moment(bookingData.item.label, "hh:mm A").format("HH:mm"),
+        booking_type: bookingData.type,
+        custom_questions_answers: {
+          answerLongText: values.answerLongText,
+          answerShortText: values.answerShortText,
+        },
+        contact_details: values.contactDetails,
+      };
+      const resp = await guestBookingAPI(payload);
+
+      if (resp.remote === "success") {
+        Swal({
+          title: "Congratulation",
+
+          icon: "success",
+        }).then((value) => {
+          handleStepNext();
+          const payload = {};
+          dispatch(resetBookingData(payload));
+        });
+      } else {
+        Swal("Oops!", "Something went wrong!", "error");
+      }
     },
   });
   const handleAddParagraph = () => {
@@ -78,15 +108,6 @@ function CourseRequirementComponent() {
       return updatedContactDetails;
     });
   };
-  useEffect(() => {
-    if (bookingConfirm === "success") {
-      Swal({
-        title: "Congratulation",
-
-        icon: "success",
-      });
-    }
-  }, [bookingConfirm]);
 
   return (
     <div className="guestBody ">
@@ -176,19 +197,24 @@ function CourseRequirementComponent() {
         </div>
         <Row>
           <Col md={24} className="ms-1">
-            <LabeledInput
-              {...formik.getFieldProps("answerShortText")}
-              placeholder="Placeholder possible..."
-              label="Custom Question Short Text*"
-              className="w-100"
-            />
+            {eventDetail.customQuestions.map((el) => {
+              return el.fieldType === "ShortText" ? (
+                <LabeledInput
+                  {...formik.getFieldProps("answerShortText")}
+                  placeholder="Placeholder possible..."
+                  label={`${el.questionPromptLabel}`}
+                  className="w-100"
+                />
+              ) : el.fieldType === "LongText" ? (
+                <TextInput
+                  {...formik.getFieldProps("answerLongText")}
+                  text={`${el.questionPromptLabel}`}
+                  placeholder="Placeholder possible..."
+                />
+              ) : null;
+            })}
           </Col>
           <Col md={24} className="ms-1">
-            <TextInput
-              {...formik.getFieldProps("answerLongText")}
-              text="Custom Question Long Text*"
-              placeholder="Placeholder possible..."
-            />
             <div className="publicView mt-3 mb-0">
               <CheckInput />
               <p className="mb-0">Additional Custom Question Checkbox (+$50)</p>

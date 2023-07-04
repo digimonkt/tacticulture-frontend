@@ -162,7 +162,25 @@ export const updateOwnEventDetailAPI = async (
 };
 
 export const updateOwnEventTypeScheduleAPI = async (
-  payload: updateOwnEventQuestionAndRequirementType
+  payload: any
+): Promise<SuccessResult<getEventType> | ErrorResult> => {
+  const res = await axiosInstance.request<EventResponse>({
+    url: `/events/user-event/${payload.id}/`,
+    method: "PATCH",
+    data: transformUpdateEventTypeSchedulePayload(payload),
+  });
+  console.log(res, "ye hai response");
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: transformGetEventAPIResponse(res.data),
+    };
+  }
+  return res;
+};
+
+export const updateOwnEventRequirementAPI = async (
+  payload: any
 ): Promise<SuccessResult<getEventType> | ErrorResult> => {
   const res = await axiosInstance.request<EventResponse>({
     url: `/events/user-event/${payload.id}/`,

@@ -21,6 +21,7 @@ interface IRouter {
 
 function EmbedBody() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showcontent, setShowcontent] = useState(false);
   const [showmap, setShowmap] = useState(false);
   const [duration, setDuration] = useState("");
   const [requirement, setRequirement] = useState(false);
@@ -35,18 +36,20 @@ function EmbedBody() {
   }, [dispatch]);
 
   useEffect(() => {
-    const startTime = moment(
-      eventDetail.eventScheduledDateTime[0].eventStartTime,
-      "HH:mm:ss"
-    );
-    const endTime = moment(
-      eventDetail.eventScheduledDateTime[0].eventEndTime,
-      "HH:mm:ss"
-    );
+    if (eventDetail.eventScheduledDateTime.length > 0) {
+      const startTime = moment(
+        eventDetail.eventScheduledDateTime[0].eventStartTime,
+        "HH:mm:ss"
+      );
+      const endTime = moment(
+        eventDetail.eventScheduledDateTime[0].eventEndTime,
+        "HH:mm:ss"
+      );
 
-    const duration = moment.duration(endTime.diff(startTime));
-    // @ts-ignore
-    setDuration(duration.asHours());
+      const duration = moment.duration(endTime.diff(startTime));
+      // @ts-ignore
+      setDuration(duration.asHours());
+    }
   }, [eventDetail.eventTypeAndScheduleId]);
 
   const showModal = () => {
@@ -81,9 +84,10 @@ function EmbedBody() {
                     style={{ position: "relative", bottom: "3px" }}
                   />
                   <span> Next Event:</span>
-                  {moment(
-                    eventDetail.eventScheduledDateTime[0].eventStartDate
-                  ).format("MMMM MM, YYYY")}{" "}
+                  {eventDetail.eventScheduledDateTime.length > 0 &&
+                    moment(
+                      eventDetail.eventScheduledDateTime[0].eventStartDate
+                    ).format("MMMM MM, YYYY")}{" "}
                   {eventDetail.eventTypeAndScheduleId} Availability
                 </p>
               </div>
@@ -161,7 +165,11 @@ function EmbedBody() {
                   />
                   {requirement && (
                     <div className="text-center">
-                      <h3>No Data</h3>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: eventDetail.requirements,
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -180,9 +188,9 @@ function EmbedBody() {
                   <div className="courseBtn">
                     {eventDetail.courseCategory?.map((el: any) => {
                       return (
-                        <div key={el.slugName}>
+                        <div key={el.slug_name}>
                           <FilledButton style={{ color: "#000" }}>
-                            {el.eventCategories}
+                            {el.event_categories}
                           </FilledButton>
                         </div>
                       );
@@ -210,7 +218,13 @@ function EmbedBody() {
                     Register Now{" "}
                   </FilledButton>
                   <h6>Course Summary</h6>
-                  <p className="pb-4">
+                  <p
+                    className={
+                      showcontent
+                        ? "pb-4 courseContent show"
+                        : "pb-4 courseContent"
+                    }
+                  >
                     {
                       <div
                         dangerouslySetInnerHTML={{
@@ -226,10 +240,13 @@ function EmbedBody() {
                       fontWeight: "700",
                       textDecoration: "underline",
                     }}
-                    onClick={registerModalOpen}
+                    onClick={() => setShowcontent(!showcontent)}
                   >
-                    Read the Full Course Description
+                    {!showcontent
+                      ? "Read the Full Course Description"
+                      : "Short Course Description"}
                   </span>
+
                   <div className={`${styles.question}`}>
                     <FilledButton icon={<SVG.Question />}>
                       Ask a question{" "}

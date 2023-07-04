@@ -5,7 +5,7 @@ import { Dropdown, Space, Menu } from "antd";
 import type { MenuProps } from "antd";
 import { SVG } from "@/assets/svg";
 import RegistrationModal from "../RegistrationModal";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { setBookingData } from "@/redux/reducers/booking";
 
 interface IScheduledCardComponent {
@@ -18,6 +18,7 @@ interface IScheduledCardComponent {
   scheduleEventPeriod: number;
   index?: number;
   eventId: number;
+  closeModal: () => void;
 }
 interface ISelectedItem {
   dateTime: any;
@@ -30,8 +31,12 @@ function ScheduledCardComponent({
   index,
   scheduleEventPeriod,
   eventId,
+  closeModal,
 }: IScheduledCardComponent) {
   const dispatch = useAppDispatch();
+  // const { registerModalValue } = useAppSelector(
+  //   (state) => state.BookingReducer
+  // );
   const [items, setItems] = useState<MenuProps["items"]>([]);
   const [registerModal, setRegisterModal] = useState(false);
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -91,7 +96,7 @@ function ScheduledCardComponent({
   // const handleCancel = () => {
   //   setRegisterModal(false);
   // };
-
+  console.log(schedule?.eventStartDate, "start");
   return (
     <div key={index} className={`${styles.registerCard}`}>
       <div className="d-block">
@@ -137,7 +142,10 @@ function ScheduledCardComponent({
       <RegistrationModal
         registerModalOpen={() => console.log("sd")}
         registerModal={registerModal}
-        handleCancel={() => setRegisterModal(false)}
+        handleCancel={() => {
+          setRegisterModal(false);
+          closeModal();
+        }}
         handleOk={handleOk}
       />
     </div>

@@ -10,18 +10,15 @@ import { useFormik } from "formik";
 import { FaEyeSlash } from "react-icons/fa";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-import {
-  createEvent,
-  eventData,
-  getOwnEventDetail,
-  updateOwnEventDetail,
-} from "@/redux/reducers/event";
-import { useAppSelector } from "@/redux/hooks/hooks";
+
+import { createEvent, getEventData } from "@/redux/reducers/event";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import EventInterest, { IEventCategories } from "@/component/eventInterest";
 import { updateOwnEventDetailAPI } from "@/api/event";
 import { FilledButton } from "@/component/buttons";
+import Swal from "sweetalert";
+import { updateEventDetailPayload } from "@/api/types/event";
 
 // export interface IEventStepOne {
 //   handleSubmitEventStepOne: () => void;
@@ -42,7 +39,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
   });
 
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { eventData }: any = useAppSelector((state) => state.EventReducer);
   const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
 
@@ -85,13 +82,24 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
         .required("Please select minimum 1 category"),
       // perSpotCost: Yup.string().required("Please Enter Sport Cost"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (mode === "update") {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        dispatch(updateOwnEventDetail({ id: ownEventDetail.id, data: values }));
+        const payload: any = {
+          id: ownEventDetail.id,
+          data: values,
+        };
+
+        const resp = await updateOwnEventDetailAPI(payload);
+
+        if (resp.remote === "success") {
+          Swal({
+            title: "Event update successfully",
+            icon: "success",
+          });
+
+          dispatch(getEventData());
+        }
       } else {
-        console.log(values, "values");
         dispatch(createEvent(values));
         router.push(`../instructor/create-event?step=${2}`);
       }

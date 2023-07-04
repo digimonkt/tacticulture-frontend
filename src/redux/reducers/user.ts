@@ -124,7 +124,7 @@ export const updateUserAvailability = createAsyncThunk<
   AvailabilityGetDataType,
   AvailabilityPayloadType,
   { state: RootState; rejectValue: ServerError }
->("updateUserAvailability", async (data, { getState, rejectWithValue }) => {
+>("updateUserAvailability", async (data, { rejectWithValue }) => {
   const res = await updateUserAvailabilityAPI(data);
   if (res.remote === "success") {
     return res.data;

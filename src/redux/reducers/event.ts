@@ -9,6 +9,7 @@ import {
   getEventDetailAPI,
   getOwnEventDetailAPI,
   updateOwnEventDetailAPI,
+  updateOwnEventRequirementAPI,
   updateOwnEventTypeScheduleAPI,
 } from "@/api/event";
 import {
@@ -242,20 +243,18 @@ export const getOwnEventDetail = createAsyncThunk<
   }
 });
 
-export const updateOwnEventDetail = createAsyncThunk<
-  getEventType,
-  updateEventDetailPayload,
-  { state: RootState; rejectValue: ServerError }
->("updateOwnEventDetail", async (payload, { rejectWithValue }) => {
-  console.log(payload, "payloadd");
-  const res = await updateOwnEventDetailAPI(payload);
-  if (res.remote === "success") {
-    console.log(res, "response upate");
-    return res.data;
-  } else {
-    return rejectWithValue(res.error);
-  }
-});
+// export const updateOwnEventDetail = createAsyncThunk<
+//   getEventType,
+//   updateEventDetailPayload,
+//   { state: RootState; rejectValue: ServerError }
+// >("updateOwnEventDetail", async (payload, { rejectWithValue }) => {
+//   const res = await updateOwnEventDetailAPI(payload);
+//   if (res.remote === "success") {
+//     return res.data;
+//   } else {
+//     return rejectWithValue(res.error);
+//   }
+// });
 
 export const updateOwnEventTypeSchedule = createAsyncThunk<
   getEventType,
@@ -272,22 +271,22 @@ export const updateOwnEventTypeSchedule = createAsyncThunk<
   }
 });
 
-export const updateOwnEventQuestionAndRequirement = createAsyncThunk<
-  getEventType,
-  updateOwnEventQuestionAndRequirementType,
-  { state: RootState; rejectValue: ServerError }
->(
-  "updateOwnEventQuestionAndRequirement",
-  async (payload, { rejectWithValue }) => {
-    console.log(payload, "my payload");
-    const res = await updateOwnEventTypeScheduleAPI(payload);
-    if (res.remote === "success") {
-      return res.data;
-    } else {
-      return rejectWithValue(res.error);
-    }
-  }
-);
+// export const updateOwnEventQuestionAndRequirement = createAsyncThunk<
+//   getEventType,
+//   updateOwnEventQuestionAndRequirementType,
+//   { state: RootState; rejectValue: ServerError }
+// >(
+//   "updateOwnEventQuestionAndRequirement",
+//   async (payload, { rejectWithValue }) => {
+//     console.log(payload, "my payload");
+//     const res = await updateOwnEventRequirementAPI(payload);
+//     if (res.remote === "success") {
+//       return res.data;
+//     } else {
+//       return rejectWithValue(res.error);
+//     }
+//   }
+// );
 
 export const eventSlice = createSlice({
   name: "event",

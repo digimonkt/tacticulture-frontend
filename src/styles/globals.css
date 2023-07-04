@@ -2,31 +2,12 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
-button.ql-link {
-  display: none !important;
+.courseContent {
+  height: 290px;
+  overflow: hidden;
 }
-.ql-editorp {
-  color: #000 !important;
-}
-.ql-editor h1 {
-  color: #000 !important;
-}
-.ql-editor ul li {
-  color: #000 !important;
-}
-.ql-editor ol li {
-  color: #000 !important;
-}
-.ql-snow .ql-editor h3 {
-  color: #000 !important;
-}
-.ql-snow .ql-editor h2 {
-  color: #000 !important;
-}
-.ql-container.ql-snow {
-  height: 100% !important;
-  max-height: 100% !important;
-  min-height: 40vh !important;
+.courseContent.show {
+  height: auto !important;
 }
 .btnUpdates {
   text-align: end;
@@ -1291,9 +1272,7 @@ textarea {
   padding-left: 0px !important;
   margin-top: 0 !important;
 }
-:where(.css-dev-only-do-not-override-1km3mtt).ant-btn-default:not(
-    :disabled
-  ):hover {
+:where(.css-dev-only-do-not-override-1km3mtt).ant-btn-default:not(:disabled):hover {
   color: #fff !important;
   border-color: #fff !important;
 }

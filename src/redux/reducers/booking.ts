@@ -66,26 +66,36 @@ export const guestProfileCreate = createAsyncThunk<{
   }
 );
 
-export const guestBooking = createAsyncThunk<
-  getBookingType,
-  bookingPayload,
-  {
-    state: RootState;
-    rejectValue: ServerError;
-  }
->("booking/guestBooking", async (data, { rejectWithValue }) => {
-  const res = await guestBookingAPI(data);
-  if (res.remote === "success") {
-    return res.data;
-  } else {
-    return rejectWithValue(res?.error);
-  }
-});
+// export const guestBooking = createAsyncThunk<
+//   getBookingType,
+//   bookingPayload,
+//   {
+//     state: RootState;
+//     rejectValue: ServerError;
+//   }
+// >("booking/guestBooking", async (data, { rejectWithValue }) => {
+//   const res = await guestBookingAPI(data);
+
+//   if (res.remote === "success") {
+//     return res.data;
+//   } else {
+//     return rejectWithValue(res?.error);
+//   }
+// });
 
 export const bookingSlice = createSlice({
   name: "booking",
   initialState,
   reducers: {
+    resetBookingData: (state, action) => {
+      state.registrationData = { email: "", verification_code: "" };
+      state.bookingData = {
+        eventId: 0,
+        date: "",
+        type: "",
+        item: { label: "" },
+      };
+    },
     setBookingData: (state, action) => {
       state.bookingData = action.payload;
     },
@@ -114,13 +124,13 @@ export const bookingSlice = createSlice({
       state.guestProfileStatus = "fail";
     });
 
-    builder.addCase(guestBooking.fulfilled, (state, action) => {
-      state.bookingConfirm = "success";
-    });
-    builder.addCase(guestBooking.rejected, (state, action) => {
-      state.bookingConfirm = "fail";
-    });
+    // builder.addCase(guestBooking.fulfilled, (state, action) => {
+    //   state.bookingConfirm = "success";
+    // });
+    // builder.addCase(guestBooking.rejected, (state, action) => {
+    //   state.bookingConfirm = "fail";
+    // });
   },
 });
-export const { setBookingData } = bookingSlice.actions;
+export const { setBookingData, resetBookingData } = bookingSlice.actions;
 export default bookingSlice.reducer;

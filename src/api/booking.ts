@@ -35,7 +35,7 @@ export const guestProfileCreateAPI = async (data: any) => {
 export const guestBookingAPI = async (
   data: bookingPayload
 ): Promise<SuccessResult<getBookingType> | ErrorResult> => {
-  // JSON.stringify({ data });
+  console.log(JSON.stringify(data));
   const res = await axiosInstance.request({
     url: "events/event-booking",
     method: "POST",
