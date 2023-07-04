@@ -2,12 +2,31 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
-.courseContent {
-  height: 290px;
-  overflow: hidden;
+button.ql-link {
+  display: none !important;
 }
-.courseContent.show {
-  height: auto !important;
+.ql-editorp {
+  color: #000 !important;
+}
+.ql-editor h1 {
+  color: #000 !important;
+}
+.ql-editor ul li {
+  color: #000 !important;
+}
+.ql-editor ol li {
+  color: #000 !important;
+}
+.ql-snow .ql-editor h3 {
+  color: #000 !important;
+}
+.ql-snow .ql-editor h2 {
+  color: #000 !important;
+}
+.ql-container.ql-snow {
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 40vh !important;
 }
 .btnUpdates {
   text-align: end;
@@ -1051,7 +1070,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   border: 1px solid #dddddd;
   border-radius: 8px;
   color: #fff;
-  width: 800px;
+  width: 830px;
   font-family: "Inter", sans-serif;
 }
 .bottomdiv .btnheding {
@@ -1091,7 +1110,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   background: #fff !important;
   width: 550px;
   border-radius: 4px !important;
-  height: 300px !important;
+  /* height: 300px !important; */
   margin-top: 20px !important;
 }
 .ql-container.ql-snow {
@@ -1395,9 +1414,20 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
   justify-content: space-between;
   margin: 0 auto;
 }
+#dropdown-basic:after {
+  content: "";
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='9' viewBox='0 0 15 9' fill='none'%3E %3Cpath d='M1.45312 0.969727C0.609375 0.969727 0.1875 2.00098 0.796875 2.61035L6.79688 8.61035C7.17188 8.98535 7.78125 8.98535 8.15625 8.61035L14.1562 2.61035C14.7656 2.00098 14.3438 0.969727 13.5 0.969727H1.45312Z' fill='%23CB2C2C'/%3E %3C/svg%3E") !important;
+  position: relative;
+  width: 14px;
+  height: 10px;
+  background-repeat: no-repeat;
+  top: 5px;
+  left: 3px;
+  border: 0 !important;
+}
 .dropdown-toggle::after {
   content: "";
-  background-image: url(../assets/images/down.svg);
+  background-image: url(../assets/images/down.svg) !important;
   position: relative;
   width: 14px;
   height: 10px;
@@ -1954,11 +1984,24 @@ span.ant-input-data-count {
 .btn-box span {
   margin: 0 0px 0 22px !important;
 }
-input[type="time"]::-webkit-calendar-picker-indicator {
+/* input[type="time"]::-webkit-calendar-picker-indicator {
   color: rgba(0, 0, 0, 0);
   opacity: 1;
   display: block;
   background: url(../assets/images/down.svg) no-repeat !important;
+  width: 20px;
+  position: relative;
+  top: 10px;
+  height: 20px;
+  border-width: thin;
+} */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='9' viewBox='0 0 15 9' fill='none'%3E %3Cpath d='M1.45312 0.969727C0.609375 0.969727 0.1875 2.00098 0.796875 2.61035L6.79688 8.61035C7.17188 8.98535 7.78125 8.98535 8.15625 8.61035L14.1562 2.61035C14.7656 2.00098 14.3438 0.969727 13.5 0.969727H1.45312Z' fill='%23CB2C2C'/%3E %3C/svg%3E")
+    no-repeat !important;
+  /* background: url(../assets/images/down.svg) no-repeat !important; */
   width: 20px;
   position: relative;
   top: 10px;
