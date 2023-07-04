@@ -36,18 +36,20 @@ function EmbedBody() {
   }, [dispatch]);
 
   useEffect(() => {
-    const startTime = moment(
-      eventDetail.eventScheduledDateTime[0].eventStartTime,
-      "HH:mm:ss"
-    );
-    const endTime = moment(
-      eventDetail.eventScheduledDateTime[0].eventEndTime,
-      "HH:mm:ss"
-    );
+    if (eventDetail.eventScheduledDateTime.length > 0) {
+      const startTime = moment(
+        eventDetail.eventScheduledDateTime[0].eventStartTime,
+        "HH:mm:ss"
+      );
+      const endTime = moment(
+        eventDetail.eventScheduledDateTime[0].eventEndTime,
+        "HH:mm:ss"
+      );
 
-    const duration = moment.duration(endTime.diff(startTime));
-    // @ts-ignore
-    setDuration(duration.asHours());
+      const duration = moment.duration(endTime.diff(startTime));
+      // @ts-ignore
+      setDuration(duration.asHours());
+    }
   }, [eventDetail.eventTypeAndScheduleId]);
 
   const showModal = () => {
@@ -82,9 +84,10 @@ function EmbedBody() {
                     style={{ position: "relative", bottom: "3px" }}
                   />
                   <span> Next Event:</span>
-                  {moment(
-                    eventDetail.eventScheduledDateTime[0].eventStartDate
-                  ).format("MMMM MM, YYYY")}{" "}
+                  {eventDetail.eventScheduledDateTime.length > 0 &&
+                    moment(
+                      eventDetail.eventScheduledDateTime[0].eventStartDate
+                    ).format("MMMM MM, YYYY")}{" "}
                   {eventDetail.eventTypeAndScheduleId} Availability
                 </p>
               </div>
@@ -162,7 +165,11 @@ function EmbedBody() {
                   />
                   {requirement && (
                     <div className="text-center">
-                      <h3>No Data</h3>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: eventDetail.requirements,
+                        }}
+                      />
                     </div>
                   )}
                 </div>

@@ -8,11 +8,7 @@ import ScheduleDateComponent from "../schedule-date";
 import OpenAvailabilityComponent from "./components/open-avalability";
 import { FilledButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import {
-  createEvent,
-  getEventData,
-  updateOwnEventTypeSchedule,
-} from "@/redux/reducers/event";
+import { createEvent, getEventData } from "@/redux/reducers/event";
 import { getUserDefaultAvailability } from "@/redux/reducers/user";
 import { SVG } from "@/assets/svg";
 import { LabeledInput, SelectInput } from "@/component/input";
@@ -26,6 +22,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const [openComponent, setOpenComopnent] = useState("");
   const [scheduleType, setScheduleType] = useState("schedule");
   const [errors, setErrors] = useState({});
+  const [openNeedInCustom, setOpenNeedInCustom] = useState("");
   const [openCustomErrors, setOpenCustomErrors] = useState([]);
   const [openSpan, setOpenSpan] = useState({
     scheduleAvailabilityPeriod: 1,
@@ -141,13 +138,13 @@ function EventScheduleComponent({ mode }: { mode: string }) {
     if (customErrors.length > 0 && scheduleType !== "schedule") {
       setOpenCustomErrors(customErrors);
     }
-    console.log(JSON.stringify(customeEvent), "myevent");
+
     if (
       scheduleType === "open" &&
       openComponent === "custom" &&
       customeEvent?.every((el) => el.isChecked === false)
     ) {
-      alert("hi");
+      setOpenNeedInCustom("One day is required");
     } else {
       if (errors.length === 0 && customErrors.length === 0) {
         // Check if both lengths are 0
@@ -163,7 +160,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             },
           };
           const resp = await updateOwnEventTypeScheduleAPI(payload);
-          console.log(resp, "hai ha");
+
           if (resp.remote === "success") {
             swal({
               title: "Event update successfully",
@@ -190,7 +187,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const deleteItem = (id: any) => {
     setScheduleData(scheduleData?.filter((el) => el.id !== id));
   };
-  console.log(customeEvent, "custome");
+
   return (
     <div className="schedule">
       {mode === "update" ? (
@@ -241,6 +238,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
         </Row>
         <div className="text-start ms-3">
           <label className="p-0">Set the event time span</label>
+
           <div className="startDate">
             <LabeledInput
               type="number"
@@ -269,6 +267,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             />
           </div>
         </div>
+        <p style={{ color: "red" }}>{openNeedInCustom}</p>
         {scheduleType === "schedule" || scheduleType === "combined"
           ? scheduleData?.map((el, index) => {
               return (

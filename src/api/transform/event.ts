@@ -3,8 +3,6 @@ import {
   EventCategoryResponse,
   EventCategory,
   EventResponse,
-  updateEventDetailPayload,
-  updateEventDetailPayloadBackend,
 } from "../types/event";
 
 export const transformGetEventCategoriesAPIResponse = (

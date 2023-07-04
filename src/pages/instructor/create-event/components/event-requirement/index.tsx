@@ -7,10 +7,7 @@ import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 
 import CustomizedForm from "./CustomizedForm";
-import {
-  createEvent,
-  updateOwnEventQuestionAndRequirement,
-} from "@/redux/reducers/event";
+import { createEvent } from "@/redux/reducers/event";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import EventHeaderComponent from "../event-header";

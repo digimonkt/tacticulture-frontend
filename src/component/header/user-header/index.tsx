@@ -216,7 +216,7 @@ function UserHeaderComponent() {
                   <Dropdown className={`${styles.headerDropdown}`}>
                     <Dropdown.Toggle>
                       <AvatarComponent
-                        src={currentUserDetail.profileImage}
+                        src={currentUserDetail.profileImage || null}
                         title={currentUserDetail.firstName[0] || ""}
                       />
                     </Dropdown.Toggle>
@@ -243,7 +243,10 @@ function UserHeaderComponent() {
                           ))}
 
                       <Dropdown.Item
-                        onClick={() => handleLogout()}
+                        onClick={() => {
+                          handleLogout();
+                          router.push("/login");
+                        }}
                         className={`${styles.listDropdown}`}
                       >
                         <SVG.Logout /> Logout

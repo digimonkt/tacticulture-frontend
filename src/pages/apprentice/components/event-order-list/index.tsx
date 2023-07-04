@@ -11,7 +11,7 @@ function EventOrderList() {
   useEffect(() => {
     dispatch(getAllEventData());
   }, [dispatch]);
-
+  console.log(allEventData, "all");
   return (
     <div>
       {allEventData.results.map((res) => (

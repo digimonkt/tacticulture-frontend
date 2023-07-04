@@ -49,19 +49,19 @@ function RegistrationModal({
         break;
       case 2:
         alert(current);
-
+        setCurrent(0);
+        handleCancel();
         break;
       case 3:
         alert(current);
         setCurrent(0);
         break;
 
-        break;
       default:
         break;
     }
   };
-
+  console.log(current, "current");
   const steps = [
     {
       title: "First",
