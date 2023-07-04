@@ -21,6 +21,7 @@ interface IRouter {
 
 function EmbedBody() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showcontent, setShowcontent] = useState(false);
   const [showmap, setShowmap] = useState(false);
   const [duration, setDuration] = useState("");
   const [requirement, setRequirement] = useState(false);
@@ -210,7 +211,13 @@ function EmbedBody() {
                     Register Now{" "}
                   </FilledButton>
                   <h6>Course Summary</h6>
-                  <p className="pb-4">
+                  <p
+                    className={
+                      showcontent
+                        ? "pb-4 courseContent show"
+                        : "pb-4 courseContent"
+                    }
+                  >
                     {
                       <div
                         dangerouslySetInnerHTML={{
@@ -226,10 +233,13 @@ function EmbedBody() {
                       fontWeight: "700",
                       textDecoration: "underline",
                     }}
-                    onClick={registerModalOpen}
+                    onClick={() => setShowcontent(!showcontent)}
                   >
-                    Read the Full Course Description
+                    {!showcontent
+                      ? "Read the Full Course Description"
+                      : "Short Course Description"}
                   </span>
+
                   <div className={`${styles.question}`}>
                     <FilledButton icon={<SVG.Question />}>
                       Ask a question{" "}
