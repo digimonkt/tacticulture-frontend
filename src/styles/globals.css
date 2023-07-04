@@ -2,6 +2,14 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+button.ql-link {
+  display: none !important;
+}
+.ql-container.ql-snow {
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 40vh !important;
+}
 .btnUpdates {
   text-align: end;
   margin-bottom: 35px;
@@ -1044,7 +1052,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   border: 1px solid #dddddd;
   border-radius: 8px;
   color: #fff;
-  width: 800px;
+  width: 830px;
   font-family: "Inter", sans-serif;
 }
 .bottomdiv .btnheding {
@@ -1084,7 +1092,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   background: #fff !important;
   width: 550px;
   border-radius: 4px !important;
-  height: 300px !important;
+  /* height: 300px !important; */
   margin-top: 20px !important;
 }
 .ql-container.ql-snow {
@@ -1390,9 +1398,20 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
   justify-content: space-between;
   margin: 0 auto;
 }
+#dropdown-basic:after {
+  content: "";
+  background-image: url(../assets/images/down.svg) !important;
+  position: relative;
+  width: 14px;
+  height: 10px;
+  background-repeat: no-repeat;
+  top: 5px;
+  left: 3px;
+  border: 0 !important;
+}
 .dropdown-toggle::after {
   content: "";
-  background-image: url(../assets/images/down.svg);
+  background-image: url(../assets/images/down.svg) !important;
   position: relative;
   width: 14px;
   height: 10px;
@@ -1949,6 +1968,17 @@ span.ant-input-data-count {
 .btn-box span {
   margin: 0 0px 0 22px !important;
 }
+/* input[type="time"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background: url(../assets/images/down.svg) no-repeat !important;
+  width: 20px;
+  position: relative;
+  top: 10px;
+  height: 20px;
+  border-width: thin;
+} */
 input[type="time"]::-webkit-calendar-picker-indicator {
   color: rgba(0, 0, 0, 0);
   opacity: 1;

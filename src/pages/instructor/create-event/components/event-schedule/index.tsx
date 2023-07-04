@@ -231,7 +231,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             />
           </Col>
         </Row>
-        <div className="text-start">
+        <div className="text-start ms-3">
           <label className="p-0">Set the event time span</label>
           <div className="startDate">
             <LabeledInput
