@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import {
   createEvent,
   eventData,
+  getEventData,
   getOwnEventDetail,
   updateOwnEventDetail,
 } from "@/redux/reducers/event";
@@ -22,6 +23,7 @@ import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import EventInterest, { IEventCategories } from "@/component/eventInterest";
 import { updateOwnEventDetailAPI } from "@/api/event";
 import { FilledButton } from "@/component/buttons";
+import Swal from "sweetalert";
 
 // export interface IEventStepOne {
 //   handleSubmitEventStepOne: () => void;
@@ -85,13 +87,25 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
         .required("Please select minimum 1 category"),
       // perSpotCost: Yup.string().required("Please Enter Sport Cost"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (mode === "update") {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        dispatch(updateOwnEventDetail({ id: ownEventDetail.id, data: values }));
+        // dispatch(updateOwnEventDetail({ id: ownEventDetail.id, data: values }));
+        const payload = {
+          id: ownEventDetail.id,
+          data: values,
+        };
+        const resp = await updateOwnEventDetailAPI(payload);
+
+        if (resp.remote === "success") {
+          Swal({
+            title: "Event update successfully",
+            icon: "success",
+          });
+          dispatch(getEventData());
+        }
       } else {
-        console.log(values, "values");
         dispatch(createEvent(values));
         router.push(`../instructor/create-event?step=${2}`);
       }

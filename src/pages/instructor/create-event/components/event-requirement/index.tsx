@@ -15,6 +15,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import EventHeaderComponent from "../event-header";
 import { useRouter } from "next/router";
+import { updateOwnEventRequirementAPI } from "@/api/event";
+import Swal from "sweetalert";
 
 function EventRequirement({ mode }: { mode: string }) {
   const dispatch = useAppDispatch();
@@ -63,16 +65,28 @@ function EventRequirement({ mode }: { mode: string }) {
       cancellationPolicies: Yup.string().required("Cancellation is required"),
       customWaiverSettings: Yup.string().required("Waiver is required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (mode === "update") {
         // console.log(values, "values", eventData.customQuestions);
-        dispatch(
-          updateOwnEventQuestionAndRequirement({
-            id: ownEventDetail.id,
-            values,
-            customQuestions: eventData.customQuestions,
-          })
-        );
+        // dispatch(
+        //   updateOwnEventQuestionAndRequirement({
+        //     id: ownEventDetail.id,
+        //     values,
+        //     customQuestions: eventData.customQuestions,
+        //   })
+        // );
+        const payload = {
+          id: ownEventDetail.id,
+          values,
+          customQuestions: eventData.customQuestions,
+        };
+        const resp = await updateOwnEventRequirementAPI(payload);
+        if (resp.remote === "success") {
+          Swal({
+            title: "Event is updated successfully",
+            icon: "success",
+          });
+        }
       } else {
         dispatch(
           createEvent({
@@ -121,7 +135,11 @@ function EventRequirement({ mode }: { mode: string }) {
   return (
     <div>
       {mode === "update" ? (
-        <p onClick={() => formik.handleSubmit()}>update</p>
+        <div className="btnUpdate">
+          <FilledButton onClick={() => formik.handleSubmit()}>
+            Update
+          </FilledButton>
+        </div>
       ) : (
         <EventHeaderComponent
           heading="Policies, Questions and Waiver"
@@ -136,7 +154,14 @@ function EventRequirement({ mode }: { mode: string }) {
             event restrictions the user should consider when booking this event.
           </p>
           <TextareaComponent
-            onChange={(e) => formik.setFieldValue("requirements", e)}
+            onChange={(e) => {
+              formik.setFieldValue("requirements", e);
+              dispatch(
+                createEvent({
+                  requirements: e,
+                })
+              );
+            }}
             onBlur={() => formik.setTouched({ requirements: true })}
             value={formik.values.requirements}
           />
@@ -147,7 +172,14 @@ function EventRequirement({ mode }: { mode: string }) {
             <h5>Cancellation</h5>
 
             <TextareaComponent
-              onChange={(e) => formik.setFieldValue("cancellationPolicies", e)}
+              onChange={(e) => {
+                formik.setFieldValue("cancellationPolicies", e);
+                dispatch(
+                  createEvent({
+                    cancellationPolicies: e,
+                  })
+                );
+              }}
               onBlur={() => formik.setTouched({ cancellationPolicies: true })}
               value={formik.values.cancellationPolicies}
             />
@@ -224,6 +256,11 @@ function EventRequirement({ mode }: { mode: string }) {
             // onChange={(e) => dispatch(createEvent({ customWaiverSettings: e }))}
             onChange={(e) => {
               formik.setFieldValue("customWaiverSettings", e);
+              dispatch(
+                createEvent({
+                  customWaiverSettings: e,
+                })
+              );
             }}
             value={formik.values.customWaiverSettings}
           />
@@ -244,9 +281,7 @@ function EventRequirement({ mode }: { mode: string }) {
             and assume all liability.
           </p>
         </div>
-        {mode === "update" ? (
-          <p onClick={() => formik.handleSubmit()}>update</p>
-        ) : (
+        {mode === "update" ? null : (
           <EventHeaderComponent onPress={() => formik.handleSubmit()} />
         )}
       </div>

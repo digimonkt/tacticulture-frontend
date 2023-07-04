@@ -180,9 +180,9 @@ function EmbedBody() {
                   <div className="courseBtn">
                     {eventDetail.courseCategory?.map((el: any) => {
                       return (
-                        <div key={el.slugName}>
+                        <div key={el.slug_name}>
                           <FilledButton style={{ color: "#000" }}>
-                            {el.eventCategories}
+                            {el.event_categories}
                           </FilledButton>
                         </div>
                       );

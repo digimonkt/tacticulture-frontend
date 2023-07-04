@@ -10,11 +10,14 @@ import { FilledButton } from "@/component/buttons";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import {
   createEvent,
+  getEventData,
   updateOwnEventTypeSchedule,
 } from "@/redux/reducers/event";
 import { getUserDefaultAvailability } from "@/redux/reducers/user";
 import { SVG } from "@/assets/svg";
 import { LabeledInput, SelectInput } from "@/component/input";
+import { updateOwnEventTypeScheduleAPI } from "@/api/event";
+import swal from "sweetalert";
 // import EventHeaderComponent from "../event-header";
 
 function EventScheduleComponent({ mode }: { mode: string }) {
@@ -49,7 +52,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
       setScheduleData(ownEventDetail.eventScheduledDateTime);
       setCustomEvent(ownEventDetail.eventCustomAvailability);
       setScheduleSpan({
-        scheduleAvailabilityPeriod: ownEventDetail.scheduleEventPeriod,
+        scheduleAvailabilityPeriod: ownEventDetail.scheduleEventPeriod / 60,
         scheduleAvailabilityPeriodUnit: ownEventDetail.scheduleEventPeriodUnit,
       });
     } else {
@@ -86,7 +89,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
     }
   };
 
-  const nextPage = () => {
+  const nextPage = async () => {
     interface Iitem {
       eventStartDate: string;
       eventStartTime: string;
@@ -149,20 +152,25 @@ function EventScheduleComponent({ mode }: { mode: string }) {
       if (errors.length === 0 && customErrors.length === 0) {
         // Check if both lengths are 0
         if (mode === "update") {
-          dispatch(
-            updateOwnEventTypeSchedule({
-              id: ownEventDetail.id,
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              data: {
-                scheduleType,
-                scheduleData,
-                customeEvent,
-                openSpan,
-                scheduleSpan,
-              },
-            })
-          );
+          const payload = {
+            id: ownEventDetail.id,
+            data: {
+              scheduleType,
+              scheduleData,
+              customeEvent,
+              openSpan,
+              scheduleSpan,
+            },
+          };
+          const resp = await updateOwnEventTypeScheduleAPI(payload);
+          console.log(resp, "hai ha");
+          if (resp.remote === "success") {
+            swal({
+              title: "Event update successfully",
+              icon: "success",
+            });
+            dispatch(getEventData());
+          }
         } else {
           dispatch(
             createEvent({

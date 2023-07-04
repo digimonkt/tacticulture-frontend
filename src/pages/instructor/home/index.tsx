@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { Data } from "@/utils/constant";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { currentUser, getUserDefaultAvailability } from "@/redux/reducers/user";
+import { availableEventData, getEventData } from "@/redux/reducers/event";
 
 function Home() {
   const dispatch = useAppDispatch();
@@ -21,9 +22,11 @@ function Home() {
 
   // redux
   const currentUserDetails = useAppSelector(currentUser);
+  const eventData = useAppSelector(availableEventData);
 
   useEffect(() => {
     dispatch(getUserDefaultAvailability());
+    dispatch(getEventData());
   }, []);
 
   return (
@@ -54,7 +57,7 @@ function Home() {
               <CommunityInfoComponent
                 name={`${currentUserDetails.firstName} ${currentUserDetails.lastName}`}
                 imageURL={currentUserDetails.profileImage}
-                eventCount={0}
+                eventCount={eventData.count}
                 eventName="Events"
                 followingCount={0}
                 following="Following"
