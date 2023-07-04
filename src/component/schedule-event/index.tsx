@@ -87,7 +87,10 @@ function ScheduleEventComponent({
                     >
                       <SVG.Trash width="24px" color="white" />
                     </span>
-                    <p>
+                    <p
+                      className="m-0"
+                      style={{ color: "red", textTransform: "capitalize" }}
+                    >
                       {errors.map((el) =>
                         el.day === day ? "start & end time are required" : ""
                       )}
