@@ -11,7 +11,7 @@ function EventOrderList() {
   useEffect(() => {
     dispatch(getAllEventData());
   }, [dispatch]);
-  console.log(allEventData, "all");
+
   return (
     <div>
       {allEventData.results.map((res) => (
@@ -19,7 +19,7 @@ function EventOrderList() {
           onClick={() =>
             router.push({
               pathname: "/embed-body",
-              query: { ...router.query, id: res.id },
+              query: { id: res.id },
             })
           }
           key={res.id}

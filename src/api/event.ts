@@ -86,6 +86,22 @@ export const getEventDataAPI = async (): Promise<
   return res;
 };
 
+export const getGoogleLocation = async (query: any) => {
+  // console.log(query, "quer");
+  const res = await axiosInstance.request({
+    url: `/events/location?location=${query}/`,
+    method: "GET",
+  });
+  console.log(res, "location adsf");
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+    };
+  }
+
+  return res;
+};
+
 export const getAllEventAPI = async (): Promise<
   SuccessResult<GetListWithPagination<getEventType[]>> | ErrorResult
 > => {
@@ -164,12 +180,14 @@ export const updateOwnEventDetailAPI = async (
 export const updateOwnEventTypeScheduleAPI = async (
   payload: any
 ): Promise<SuccessResult<getEventType> | ErrorResult> => {
+  console.log(payload, "payload");
+  console.log(JSON.stringify(transformUpdateEventTypeSchedulePayload(payload)));
   const res = await axiosInstance.request<EventResponse>({
     url: `/events/user-event/${payload.id}/`,
     method: "PATCH",
     data: transformUpdateEventTypeSchedulePayload(payload),
   });
-  console.log(res, "ye hai response");
+
   if (res.remote === "success") {
     return {
       remote: "success",

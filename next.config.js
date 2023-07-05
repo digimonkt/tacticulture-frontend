@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["203.190.153.23"],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.js$/,
@@ -65,6 +68,10 @@ const nextConfig = {
       {
         source: "/event-summary",
         destination: "/event-summary/",
+      },
+      {
+        source: "/embed-body",
+        destination: "/embed-body/",
       },
     ];
   },

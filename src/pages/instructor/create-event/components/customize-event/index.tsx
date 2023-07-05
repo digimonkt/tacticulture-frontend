@@ -35,7 +35,7 @@ function CustomizeEventComponent() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-
+  console.log(fileSelect, "images");
   useEffect(() => {
     // let errorData: any;
     // if (eventCreatedError?.status) {
@@ -113,7 +113,7 @@ function CustomizeEventComponent() {
       default_waiver_settings: eventData.defaultWaiverSettings,
       custom_waiver_settings: eventData.customWaiverSettings,
       custom_questions: eventData.customQuestions,
-      // event_image: eventData.eventImage,
+      event_image: fileSelect?.toString() || null,
       // achievement_badge_image: eventData.achievementBadgeImage,
       publish_status: eventData.publishStatus,
       is_event_live: eventData.isEventLive,

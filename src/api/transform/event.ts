@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { getEventType } from "@/types/event";
 import {
   EventCategoryResponse,
@@ -46,7 +47,24 @@ export const transformUpdateEventTypeSchedulePayload = ({ data }: any) => {
     schedule_event_period: data.scheduleSpan.scheduleAvailabilityPeriod * 60,
     schedule_event_period_unit:
       data.scheduleSpan.scheduleAvailabilityPeriodUnit,
-    event_custom_availability: [],
+    event_custom_availability: data.customeEvent?.reduce(
+      (result: any, item: any) => {
+        if (item.isChecked) {
+          const event_custom_availability_details = item.schedules.map(
+            (i: any) => ({
+              from_time: i.startTime,
+              to_time: i.endTime,
+            })
+          );
+          result.push({
+            weekdays: item.day,
+            event_custom_availability_details,
+          });
+        }
+        return result;
+      },
+      []
+    ),
   };
 };
 

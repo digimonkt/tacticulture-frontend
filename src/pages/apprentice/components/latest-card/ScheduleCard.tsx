@@ -20,7 +20,13 @@ const ScheduleCard = ({ data }: IScheduleCard) => {
   return (
     <Col md={24}>
       <Card className="position-relative cards black">
-        <Image src={IMAGES.Dummypic} alt="" className="w-100" />
+        <Image
+          src={data?.eventImage || IMAGES.Dummypic}
+          width={300}
+          height={200}
+          alt=""
+          className="w-100"
+        />
         <OptionsInput title={<SVG.Setting className="settingIcon" />}>
           <div className={`${styles.dropdownBox}`}>
             <SVG.Edit width="20px" />
