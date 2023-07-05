@@ -15,7 +15,7 @@ import { createEvent, getEventData } from "@/redux/reducers/event";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import EventInterest, { IEventCategories } from "@/component/eventInterest";
-import { updateOwnEventDetailAPI } from "@/api/event";
+import { getGoogleLocation, updateOwnEventDetailAPI } from "@/api/event";
 import { FilledButton } from "@/component/buttons";
 import Swal from "sweetalert";
 import { updateEventDetailPayload } from "@/api/types/event";
@@ -153,6 +153,11 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
     formik.setFieldValue("salesTaxPercent", data.salesTaxPercent);
     formik.setFieldValue("courseCategory", data.courseCategory);
   }, [data]);
+
+  // const findLocation = async (e: any) => {
+  //   const resp = await getGoogleLocation(e.target.value);
+  //   console.log(resp);
+  // };
 
   return (
     <div>

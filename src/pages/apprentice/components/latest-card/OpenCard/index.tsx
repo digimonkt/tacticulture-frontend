@@ -19,7 +19,13 @@ function OpenCard({ data }: IOpenCard) {
     <Row>
       <Col md={24}>
         <Card className="position-relative cards white">
-          <Image src={IMAGES.Card} alt="" className="w-100" />
+          <Image
+            src={data?.eventImage || IMAGES.Card}
+            width={300}
+            height={200}
+            alt=""
+            className="w-100"
+          />
           <OptionsInput title={<SVG.Setting className="settingIcon" />}>
             <div className={`${styles.dropdownBox}`}>
               <SVG.Edit width="20px" />

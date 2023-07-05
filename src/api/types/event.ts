@@ -127,7 +127,7 @@ export type EventPayload = {
     costPerGuest?: string;
     maxGuest?: number;
   }[];
-  event_image?: string;
+  event_image: string | null;
   achievement_badge_image?: string;
   publish_status: boolean;
   is_event_live: boolean;

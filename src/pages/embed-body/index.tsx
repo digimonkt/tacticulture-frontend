@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import ApprenticeHeaderComponent from "@/component/header/user-header";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
@@ -13,30 +12,35 @@ import { getEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
 import CalendarModal from "./component/CalendarModal";
 // import RegistrationModal from "./component/RegistrationModal";
-import moment from "moment";
+import moment, { Duration } from "moment";
 
 interface IRouter {
   id: string;
 }
 
 function EmbedBody() {
+  const router = useRouter();
+  const { id } = router.query as unknown as IRouter;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showcontent, setShowcontent] = useState(false);
   const [showmap, setShowmap] = useState(false);
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState<undefined | number>(undefined);
   const [requirement, setRequirement] = useState(false);
   const [registerModal, setRegisterModal] = useState<boolean>(false);
-  const router = useRouter();
+
   const dispatch = useAppDispatch();
 
   const { eventDetail } = useAppSelector((state) => state.EventReducer);
   useEffect(() => {
-    const { id } = router.query as unknown as IRouter;
     dispatch(getEventDetail({ id }));
-  }, [dispatch]);
+  }, [id]);
 
   useEffect(() => {
-    if (eventDetail.eventScheduledDateTime.length > 0) {
+    console.log(eventDetail, "detail");
+    if (
+      eventDetail.eventScheduledDateTime &&
+      eventDetail.eventScheduledDateTime.length > 0
+    ) {
       const startTime = moment(
         eventDetail.eventScheduledDateTime[0].eventStartTime,
         "HH:mm:ss"
@@ -46,11 +50,26 @@ function EmbedBody() {
         "HH:mm:ss"
       );
 
-      const duration = moment.duration(endTime.diff(startTime));
-      // @ts-ignore
-      setDuration(duration.asHours());
+      const duration = moment.duration(endTime.diff(startTime)).asHours();
+      setDuration(duration);
+    } else if (eventDetail.eventCustomAvailability) {
+      const startTime = moment(
+        eventDetail.eventCustomAvailability[0].eventCustomAvailabilityDetails[0]
+          .fromTime,
+        "HH:mm:ss"
+      );
+
+      const endTime = moment(
+        eventDetail.eventCustomAvailability[0].eventCustomAvailabilityDetails[0]
+          .toTime,
+        "HH:mm:ss"
+      );
+
+      const duration = moment.duration(endTime.diff(startTime)).asHours();
+
+      setDuration(duration);
     }
-  }, [eventDetail.eventTypeAndScheduleId]);
+  }, [eventDetail.eventScheduledDateTime]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -67,14 +86,19 @@ function EmbedBody() {
     setIsModalOpen(false);
     // setRegisterModal(false);
   };
-
+  console.log(eventDetail.description);
   return (
     <div>
       <ApprenticeHeaderComponent />
       <div className={`${styles.body}`}>
         <div className={`${styles.content}`}>
           <div className="embedBody position-relative">
-            <Image src={IMAGES.Images} alt="" />
+            <Image
+              src={eventDetail.eventImage || IMAGES.Images}
+              alt="Event Image"
+              width={800}
+              height={300}
+            />
             <div className={`${styles.eventTitle}`}>
               <div>
                 <h6>{eventDetail.name}</h6>
@@ -225,13 +249,13 @@ function EmbedBody() {
                         : "pb-4 courseContent"
                     }
                   >
-                    {
+                    {eventDetail && eventDetail.description ? (
                       <div
                         dangerouslySetInnerHTML={{
                           __html: eventDetail.description,
                         }}
                       />
-                    }
+                    ) : null}
                   </p>
 
                   <span
@@ -264,13 +288,6 @@ function EmbedBody() {
         isModalOpen={isModalOpen}
         handleCancel={handleCancel}
       />
-      {/* <RegistrationModal
-        registerModalOpen={registerModalOpen}
-        registerModal={registerModal}
-        handleCancel={handleCancel}
-        handleOk={handleOk}
-      /> */}
-      {/* Event calendar modal end */}
     </div>
   );
 }

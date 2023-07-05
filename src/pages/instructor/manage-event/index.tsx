@@ -22,11 +22,16 @@ import OpenCard from "@/pages/apprentice/components/latest-card/OpenCard";
 import ScheduleCard from "@/pages/apprentice/components/latest-card/ScheduleCard";
 
 function ManageEvent() {
+  const dispatch = useAppDispatch();
   // router
   const router = useRouter();
 
   const userDetail = useAppSelector(currentUser);
   const eventData = useAppSelector(availableEventData);
+
+  useEffect(() => {
+    dispatch(getEventData());
+  }, []);
 
   return (
     <div>
