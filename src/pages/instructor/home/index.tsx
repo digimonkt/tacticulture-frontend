@@ -41,7 +41,6 @@ function Home() {
   }, []);
 
   useEffect(()=>{
-    console.log(eventData.results)
     // console.log(moment("2023-07-05").isAfter(moment().format("YYYY-MM-DD")))
       const filter= eventData.results.filter(item=> item.eventScheduledDateTime && item.eventScheduledDateTime?.length>0 && item.eventScheduledDateTime?.some(value=> moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD")) ) )
       console.log(filter)

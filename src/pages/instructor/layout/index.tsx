@@ -12,7 +12,6 @@ interface IChildren {
 function InstructorLayout({ children }: IChildren) {
   const [activeLink, setActiveLink] = useState("");
   const router= useRouter()
-console.log(router.pathname)
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
   };
