@@ -93,7 +93,7 @@ const InstructorDropDownList = [
   {
     id: 3,
     title: "Instructor Profile",
-    url: "",
+    url: "/instructor-profile",
     icon: (
       <>
         <SVG.Apprenticeprofile />

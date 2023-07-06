@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import InstructorLayout from "../layout";
 import CommunityInfoComponent from "@/pages/apprentice/components/community-info";
 import CardComponent from "@/component/card/card";
@@ -6,7 +6,7 @@ import { FilledButton } from "@/component/buttons";
 import { SVG } from "@/assets/svg";
 import styles from "./home.module.css";
 import { Checkbox, Col, Row } from "antd";
-// import EventCardComponent from "@/component/card/event-card";
+import EventCardComponent from "@/component/card/event-card";
 // import NotificationComponent from "@/pages/apprentice/components/notification";
 import PrivateRoute from "@/HOC/privatePages";
 import { useRouter } from "next/router";
@@ -14,10 +14,21 @@ import { Data } from "@/utils/constant";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { currentUser, getUserDefaultAvailability } from "@/redux/reducers/user";
 import { availableEventData, getEventData } from "@/redux/reducers/event";
+import moment from "moment";
+import { CreateEventType } from "@/types/event";
+
+interface IUpcomingCard{ 
+  id?: number;
+  eventStartDate: string;
+  eventStartTime: string;
+  eventEndDate: string;
+  eventEndTime: string;
+}
 
 function Home() {
   const dispatch = useAppDispatch();
   // route
+  const [upcomingEvent, setUpcomingEvent]= useState<any[]>([])
   const router = useRouter();
 
   // redux
@@ -28,6 +39,29 @@ function Home() {
     dispatch(getUserDefaultAvailability());
     dispatch(getEventData());
   }, []);
+
+  useEffect(()=>{
+    console.log(eventData.results)
+    // console.log(moment("2023-07-05").isAfter(moment().format("YYYY-MM-DD")))
+      const filter= eventData.results.filter(item=> item.eventScheduledDateTime && item.eventScheduledDateTime?.length>0 && item.eventScheduledDateTime?.some(value=> moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD")) ) )
+      console.log(filter)
+      const sort = filter.sort((_event1, _event2)=>{
+        const start1= _event1.eventScheduledDateTime && _event1.eventScheduledDateTime[0]
+        const start2 =_event2.eventScheduledDateTime && _event2.eventScheduledDateTime[0]
+      const startDate1 = new Date(start1?.eventStartDate||"")
+      const startDate2 = new Date(start2?.eventStartDate ||"" )
+      if (startDate1 > startDate2) {
+        return -1;
+      }
+      if (startDate1 < startDate2) {
+        return 1;
+      }
+      return 0;
+    })
+    setUpcomingEvent(sort)
+    // console.log({sort})
+  
+  },[eventData])
 
   return (
     <PrivateRoute>
@@ -71,7 +105,23 @@ function Home() {
                 >
                   <SVG.Plus width="15px" /> Create New Event
                 </FilledButton>
-                <div style={{ marginTop: "72px", marginBottom: "72px" }}>
+               {upcomingEvent.length>0? <div>
+                {
+                  upcomingEvent.slice(0,3).map(item=>{
+                    return item.eventScheduledDateTime.map((value:IUpcomingCard)=>{
+                      return moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD")) && <EventCardComponent
+                      date={value.eventStartDate}
+                      time={value.eventStartTime}
+                      Share="Share"
+                      CopyLink="Copy Link"
+                      CourseText="View Course Page"
+                      description={item.name}
+                      address={item.location}
+                    />
+                    })
+                  })
+                }
+                </div>: <div style={{ marginTop: "72px", marginBottom: "72px" }}>
                   <span className={styles.instructorHomeEmptyEventStyle}>
                     You don’t have any events yet,{" "}
                     <span
@@ -82,19 +132,7 @@ function Home() {
                     </span>
                   </span>
                 </div>
-
-                <div>
-                  {/* <EventCardComponent
-                    date=" January 7, 2023 -"
-                    time="8:00 AM"
-                    Share="Share"
-                    CopyLink="Copy Link"
-                    CourseText="View Course Page"
-                    description="Title ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lorem pharetra, varius quam.
-         (85 max)"
-                    address="12345 Address Ave, Georgetown, TX 78628"
-                  /> */}
-                </div>
+               }
               </CardComponent>
               <CardComponent title="Recent Event Activity">
                 <div className={`${styles.RecentActivity}`}>
