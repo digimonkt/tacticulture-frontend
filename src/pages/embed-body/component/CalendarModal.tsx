@@ -32,42 +32,28 @@ const CalendarModal = ({
   };
 
   // useEffect(() => {
-  //   const date = eventDetail.eventScheduledDateTime.map(
-  //     (el: any) => new Date(el.eventStartDate)
-  //   );
+  //   if (eventDetail && eventDetail.eventScheduledDateTime) {
+  //     const newData: any = [];
 
-  //   const currentDate: Date[] = moment().toDate();
-  //   const customDate = eventDetail.eventCustomAvailability.map(
-  //     (el: any) =>
-  //       new Date(currentDate.clone().startOf("isoWeek").isoWeekday(el.weekdays))
-  //   );
+  //     eventDetail.eventScheduledDateTime.forEach((item: any) => {
+  //       const startDate = new Date(item.eventStartDate);
+  //       const endDate = new Date(item.eventEndDate);
+  //       const currentDate = new Date(startDate);
 
-  //   setDefaultDate([...date, ...customDate]);
-  // }, [schedule, eventDetail.id]);
-
-  useEffect(() => {
-    if (eventDetail && eventDetail.eventScheduledDateTime) {
-      const newData: any = [];
-
-      eventDetail.eventScheduledDateTime.forEach((item: any) => {
-        const startDate = new Date(item.eventStartDate);
-        const endDate = new Date(item.eventEndDate);
-        const currentDate = new Date(startDate);
-
-        // eslint-disable-next-line no-unmodified-loop-condition
-        while (currentDate <= endDate) {
-          newData.push({
-            eventStartDate: currentDate.toISOString().split("T")[0],
-            eventEndDate: currentDate.toISOString().split("T")[0],
-            eventStartTime: item.eventStartTime,
-            eventEndTime: item.eventEndTime,
-          });
-          currentDate.setDate(currentDate.getDate() + 1);
-        }
-      });
-      setTestingData(newData);
-    }
-  }, [eventDetail?.eventScheduledDateTime]);
+  //       // eslint-disable-next-line no-unmodified-loop-condition
+  //       while (currentDate <= endDate) {
+  //         newData.push({
+  //           eventStartDate: currentDate.toISOString().split("T")[0],
+  //           eventEndDate: currentDate.toISOString().split("T")[0],
+  //           eventStartTime: item.eventStartTime,
+  //           eventEndTime: item.eventEndTime,
+  //         });
+  //         currentDate.setDate(currentDate.getDate() + 1);
+  //       }
+  //     });
+  //     setTestingData(newData);
+  //   }
+  // }, [eventDetail?.eventScheduledDateTime]);
 
   return (
     <Modal
@@ -140,16 +126,11 @@ const CalendarModal = ({
               </OutlinedButton>
             </div>
             {schedule === "all" || schedule === "scheduled"
-              ? testingData.map(
-                  // ? eventDetail.eventScheduledDateTime.map(
+              ? eventDetail?.eventScheduledDateTime.map(
                   (schedule: any, index: any) => {
                     return (
                       <ScheduledCardComponent
                         eventId={eventDetail.id}
-                        scheduleEventPeriod={eventDetail.scheduleEventPeriod}
-                        // scheduleEventPeriodUnit={
-                        //   eventDetail.scheduleEventPeriodUnit
-                        // }
                         key={index}
                         schedule={schedule}
                         index={index}

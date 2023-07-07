@@ -15,8 +15,9 @@ const initialState = {
   guestOtpStatus: "",
   guestProfileStatus: "",
   registrationData: { email: "", verification_code: "" },
-  bookingData: { eventId: 0, date: "", type: "", item: { label: "" } },
+  bookingData: { eventId: 0, date: "", type: "", time: "" },
   bookingConfirm: "",
+  informationRequirement: {},
 };
 
 export const guestRegistration = createAsyncThunk<{
@@ -28,6 +29,7 @@ export const guestRegistration = createAsyncThunk<{
   async (email, { getState, rejectWithValue }) => {
     // @ts-ignore
     const res = await guestRegistrationAPI(email);
+    console.log(res, "res hai ye");
     if (res.remote === "success") {
       // @ts-ignore
       return { email: email, verification_code: res.data.verification_code };
@@ -87,17 +89,23 @@ export const bookingSlice = createSlice({
   name: "booking",
   initialState,
   reducers: {
-    resetBookingData: (state, action) => {
+    resetBookingData: (state) => {
       state.registrationData = { email: "", verification_code: "" };
       state.bookingData = {
         eventId: 0,
         date: "",
         type: "",
-        item: { label: "" },
+        time: "",
       };
     },
     setBookingData: (state, action) => {
       state.bookingData = action.payload;
+    },
+    setInformationAndRequirement: (state, action) => {
+      state.informationRequirement = {
+        ...state.informationRequirement,
+        ...action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -132,5 +140,9 @@ export const bookingSlice = createSlice({
     // });
   },
 });
-export const { setBookingData, resetBookingData } = bookingSlice.actions;
+export const {
+  setBookingData,
+  resetBookingData,
+  setInformationAndRequirement,
+} = bookingSlice.actions;
 export default bookingSlice.reducer;

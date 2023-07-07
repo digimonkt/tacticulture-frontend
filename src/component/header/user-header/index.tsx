@@ -9,12 +9,13 @@ import { IMAGES } from "@/assets/images";
 import { SVG } from "@/assets/svg";
 import { LabeledInput } from "@/component/input";
 import { handleLogout } from "@/api/auth";
-import { useAppSelector } from "@/redux/hooks/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks/hooks";
 import { currentUser } from "@/redux/reducers/user";
 import { USER_ROLES } from "@/utils/enum";
 import { OutlinedButton } from "@/component/buttons";
 import AvatarComponent from "@/component/AvatarComponent";
 import { useRouter } from "next/router";
+import { resetEventData } from "@/redux/reducers/event";
 
 const ApprenticeDropDownList = [
   {
@@ -23,7 +24,7 @@ const ApprenticeDropDownList = [
     url: "",
     icon: (
       <>
-        <SVG.Home />
+        <SVG.Home style={{ color: "#FFF" }} />
       </>
     ),
   },
@@ -76,7 +77,7 @@ const InstructorDropDownList = [
     url: "/instructor/home",
     icon: (
       <>
-        <SVG.Home />
+        <SVG.Home style={{ color: "#FFF" }} />
       </>
     ),
   },
@@ -93,7 +94,7 @@ const InstructorDropDownList = [
   {
     id: 3,
     title: "Instructor Profile",
-    url: "",
+    url: "/instructor-profile",
     icon: (
       <>
         <SVG.Apprenticeprofile />
@@ -124,6 +125,7 @@ const InstructorDropDownList = [
 ];
 
 function UserHeaderComponent() {
+  const dispatch = useAppDispatch();
   // redux
   const currentUserDetail = useAppSelector(currentUser);
 
@@ -188,7 +190,10 @@ function UserHeaderComponent() {
 
                 {currentUserDetail.defaultRole === USER_ROLES.instructor && (
                   <OutlinedButton
-                    onClick={() => router.push("/instructor/create-event")}
+                    onClick={() => {
+                      dispatch(resetEventData());
+                      router.push("/instructor/create-event");
+                    }}
                     className={`${styles.outline_eventtbn}`}
                     icon={<SVG.Plus />}
                   >

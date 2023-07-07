@@ -5,6 +5,7 @@ import { Col, Row } from "antd";
 import { FilledButton } from "@/component/buttons";
 import Image from "next/image";
 import { IMAGES } from "@/assets/images";
+import moment from "moment";
 
 interface IEmbedCardComponent {
   icon?: React.ReactNode;
@@ -14,6 +15,12 @@ interface IEmbedCardComponent {
   text?: string;
   label?: string;
   classname?: string;
+  timeDuration?: {
+    eventEndDate: string;
+    eventEndTime: string;
+    eventStartDate: string;
+    eventStartTime: string;
+  };
   onClick?: () => void;
 }
 
@@ -25,6 +32,7 @@ function EmbedCardComponent({
   label,
   classname,
   images,
+  timeDuration,
   ...rest
 }: IEmbedCardComponent) {
   return (
@@ -38,6 +46,14 @@ function EmbedCardComponent({
         <Col md={16}>
           <div>
             {heading && <h6>{heading}</h6>}
+            {timeDuration && (
+              <h6>
+                {`${moment(timeDuration.eventStartDate).format(
+                  "MMMM DD, YYYY"
+                )} -
+                  ${moment(timeDuration.eventEndDate).format("MMMM DD, YYYY")}`}
+              </h6>
+            )}
             {text && <h3>{text}</h3>}
             <span className={classname} style={{ color: " #cb2c2c;" }}>
               {address}

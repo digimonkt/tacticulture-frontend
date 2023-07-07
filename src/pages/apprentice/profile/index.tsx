@@ -50,7 +50,7 @@ function ApprenticeLayout() {
               eventKey=" Apprentice Home"
               title={
                 <span>
-                  <SVG.Home width="20px" />
+                  <SVG.Home width="20px" style={{ color: "#FFF" }} />
                   Apprentice Home
                 </span>
               }

@@ -49,6 +49,7 @@ export type EventResponse = {
   cancellation_policies: string;
   default_waiver_settings: string;
   custom_waiver_settings: string;
+
   custom_questions: {
     id: number;
     fieldType: string;
@@ -56,7 +57,13 @@ export type EventResponse = {
     answerRequired: boolean;
     paidUpgrade: string;
     upgradeCost: number;
-    answerData: { id: number; description: string; upgradeCost: number }[];
+    answerData: {
+      id: number;
+      description: string;
+      upgradeCost: number;
+      value: string;
+      label: string;
+    }[];
     costPerGuest: string;
     maxGuest: number;
   }[];
@@ -105,8 +112,8 @@ export type EventPayload = {
     event_end_date: string;
     event_end_time: string;
   }[];
-  schedule_event_period: number;
-  schedule_event_period_unit: string;
+  // schedule_event_period: number;
+  // schedule_event_period_unit: string;
   open_availability_period_unit: string;
   open_availability_period: number;
   event_custom_availability?: EventCustomeAvailabilityDetails[];

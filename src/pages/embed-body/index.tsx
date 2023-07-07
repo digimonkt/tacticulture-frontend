@@ -36,32 +36,37 @@ function EmbedBody() {
   }, [id]);
 
   useEffect(() => {
-    console.log(eventDetail, "detail");
     if (
       eventDetail.eventScheduledDateTime &&
       eventDetail.eventScheduledDateTime.length > 0
     ) {
-      const startTime = moment(
-        eventDetail.eventScheduledDateTime[0].eventStartTime,
-        "HH:mm:ss"
+      //       const startDate = moment(a.eventStartDate, 'YYYY-MM-DD');
+      // const endDate = moment(a.eventEndDate, 'YYYY-MM-DD');
+      // const diffInDays = endDate.diff(startDate, 'days');
+
+      // console.log(diffInDays); // Output: 16
+      const startDate = moment(
+        eventDetail.eventScheduledDateTime[0].eventStartDate,
+        "YYYY-MM-DD"
       );
-      const endTime = moment(
-        eventDetail.eventScheduledDateTime[0].eventEndTime,
-        "HH:mm:ss"
+      const endDate = moment(
+        eventDetail.eventScheduledDateTime[0].eventEndDate,
+        "YYYY-MM-DD"
       );
 
-      const duration = moment.duration(endTime.diff(startTime)).asHours();
+      const duration = endDate.diff(startDate, "days");
+
       setDuration(duration);
     } else if (eventDetail.eventCustomAvailability) {
       const startTime = moment(
-        eventDetail.eventCustomAvailability[0].eventCustomAvailabilityDetails[0]
-          .fromTime,
+        eventDetail.eventCustomAvailability[0]
+          ?.eventCustomAvailabilityDetails[0].fromTime,
         "HH:mm:ss"
       );
 
       const endTime = moment(
-        eventDetail.eventCustomAvailability[0].eventCustomAvailabilityDetails[0]
-          .toTime,
+        eventDetail.eventCustomAvailability[0]
+          ?.eventCustomAvailabilityDetails[0].toTime,
         "HH:mm:ss"
       );
 
@@ -86,7 +91,7 @@ function EmbedBody() {
     setIsModalOpen(false);
     // setRegisterModal(false);
   };
-  console.log(eventDetail.description);
+  console.log(eventDetail, "detial");
   return (
     <div>
       <ApprenticeHeaderComponent />
@@ -105,13 +110,17 @@ function EmbedBody() {
                 <p>
                   <SVG.Clock
                     width="16px"
-                    style={{ position: "relative", bottom: "3px" }}
+                    style={{
+                      position: "relative",
+                      bottom: "3px",
+                      color: "#FFF",
+                    }}
                   />
                   <span> Next Event:</span>
                   {eventDetail.eventScheduledDateTime.length > 0 &&
                     moment(
                       eventDetail.eventScheduledDateTime[0].eventStartDate
-                    ).format("MMMM MM, YYYY")}{" "}
+                    ).format("MMMM DD, YYYY")}{" "}
                   {eventDetail.eventTypeAndScheduleId} Availability
                 </p>
               </div>
@@ -178,7 +187,8 @@ function EmbedBody() {
                 </div>
                 <EmbedCardComponent
                   icon={<SVG.Timer width="16px" />}
-                  text={duration + " hours"}
+                  text={duration + " days"}
+                  timeDuration={eventDetail.eventScheduledDateTime[0]}
                 />
                 <div style={{ background: "#f3f3f3" }}>
                   <EmbedCardComponent
@@ -200,7 +210,7 @@ function EmbedBody() {
 
                 <EmbedCardComponent
                   icon={<SVG.Fee width="16px" />}
-                  text={eventDetail.perSpotCost + "$"}
+                  text={eventDetail.perSpotCost.toString() + "$"}
                 />
                 <EmbedCardComponent
                   heading="Completion Badge"
@@ -239,7 +249,7 @@ function EmbedBody() {
                     }}
                     onClick={showModal}
                   >
-                    Register Now{" "}
+                    Register Now
                   </FilledButton>
                   <h6>Course Summary</h6>
                   <p

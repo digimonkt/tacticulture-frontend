@@ -1,5 +1,5 @@
 import ApprenticeHeaderComponent from "@/component/header/user-header";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Col, Row } from "antd";
 import { OutlinedButton } from "@/component/buttons";
@@ -11,8 +11,54 @@ import { Dropdown } from "react-bootstrap";
 
 import ForumCardComponent from "../apprentice/components/forum-card";
 import FilledButtonComponent from "@/component/buttons/filledButton";
+import { currentUser } from "@/redux/reducers/user";
+import { availableEventData } from "@/redux/reducers/event";
+import { useAppSelector } from "@/redux/hooks/hooks";
+import moment from "moment";
+
+interface IUpcomingCard {
+  id?: number;
+  eventStartDate: string;
+  eventStartTime: string;
+  eventEndDate: string;
+  eventEndTime: string;
+}
 
 function InstructorProfileLayout() {
+  const user = useAppSelector(currentUser);
+  const eventData = useAppSelector(availableEventData);
+  const [upcomingEvent, setUpcomingEvent] = useState<any[]>([]);
+
+  useEffect(() => {
+    // console.log(moment("2023-07-05").isAfter(moment().format("YYYY-MM-DD")))
+    const filter = eventData.results.filter(
+      (item) =>
+        item.eventScheduledDateTime &&
+        item.eventScheduledDateTime?.length > 0 &&
+        item.eventScheduledDateTime?.some((value) =>
+          moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD"))
+        )
+    );
+    console.log(filter);
+    const sort = filter.sort((_event1, _event2) => {
+      const start1 =
+        _event1.eventScheduledDateTime && _event1.eventScheduledDateTime[0];
+      const start2 =
+        _event2.eventScheduledDateTime && _event2.eventScheduledDateTime[0];
+      const startDate1 = new Date(start1?.eventStartDate || "");
+      const startDate2 = new Date(start2?.eventStartDate || "");
+      if (startDate1 > startDate2) {
+        return -1;
+      }
+      if (startDate1 < startDate2) {
+        return 1;
+      }
+      return 0;
+    });
+    setUpcomingEvent(sort);
+    // console.log({sort})
+  }, [eventData]);
+
   return (
     <div>
       <ApprenticeHeaderComponent />
@@ -50,9 +96,9 @@ function InstructorProfileLayout() {
                 <div className="text-center">
                   <Image src={IMAGES.Ellipse} alt="" />
                   <h3>
-                    <SVG.Guard /> Eddie Gallagher
+                    <SVG.Guard /> {user.firstName} {user.lastName}
                   </h3>
-                  <span>INSTRUCTOR - @EddieGallagher</span>
+                  <span>INSTRUCTOR - @{user.username}</span>
                   {/* <div className="pt-1 pb-1">
                     <Image src={IMAGES.Badge} alt="" />
                     <Image src={IMAGES.Badge} alt="" />
@@ -73,28 +119,7 @@ function InstructorProfileLayout() {
                     </p>
                   </div>
                   <div className={`${styles.embeded}`}>
-                    <p>
-                      <b>Full WYSIWG,</b> consectetur adipiscing elit. Curabitur
-                      pharetra turpis ut augue euismod pulvinar. Quisque a
-                      lacinia est. Nam vehicula scelerisque erat ac finibus.
-                      Nulla viverra, mauris sed lobortis commodo, mauris justo
-                      sollicitudin quam, vel suscipit nisl leo et magna. Nullam
-                      tristique turpis imperdiet mattis pharetra. Donec accumsan
-                      ullamcorper consectetur. Integer feugiat nisi et purus
-                      volutpat tincidunt. Sed porttitor augue sed mi efficitur,
-                      vitae ultricies ex hendrerit. Cras lacinia volutpat odio,
-                      <span style={{ color: "#CB2C2C" }}>
-                        sit amet auctor lorem pharetra nec.
-                      </span>
-                    </p>
-                    <p>
-                      Integer ornare dui ut dolor hendrerit maximus. Cras
-                      imperdiet gravida libero id egestas. Cras vel pellentesque
-                      tellus. Vivamus bibendum diam dui, a lobortis velit
-                      pellentesque et. Duis aliquam erat sem, id viverra leo
-                      tempus ut. Nulla facilisi. Lorem ipsum dolor sit amet,
-                      consectetur adipiscing elit. Fusce vitae mollis nisl.
-                    </p>
+                    <p dangerouslySetInnerHTML={{ __html: user.bio }}></p>
                   </div>
                   <div className="text-start ms-3 ps-1 socilemedia">
                     <OutlinedButton
@@ -149,16 +174,21 @@ function InstructorProfileLayout() {
                   Community Updates
                 </Dropdown.Item>
               </OptionsInput>
-              <ForumCardComponent
-                Heading="Event Title Name Goes Here"
-                Content="[MM.DD.YYYY] - Location City, ST"
-                Description="View Course Page"
-              />
-              <ForumCardComponent
-                Heading="Event Title Name Goes Here"
-                Content="[MM.DD.YYYY] - Location City, ST"
-                Description="View Course Page"
-              />
+              {upcomingEvent.slice(0, 2).map((item) => {
+                return item.eventScheduledDateTime.map(
+                  (value: IUpcomingCard) => {
+                    return (
+                      <ForumCardComponent
+                        key={item.id}
+                        Heading={item.name}
+                        Content={`${value.eventStartDate} - ${item.location}`}
+                        Description="View Course Page"
+                      />
+                    );
+                  }
+                );
+              })}
+
               <FilledButtonComponent
                 className={`${styles.upcomingEvents}`}
                 style={{

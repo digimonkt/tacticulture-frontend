@@ -51,7 +51,6 @@ function CustomizeEventComponent() {
       // @ts-ignore
       alert(Object.values(eventCreatedError.errors));
     } else {
-      // @ts-ignore
       dispatch(resetEventError());
     }
     // @ts-ignore
@@ -117,10 +116,10 @@ function CustomizeEventComponent() {
       // achievement_badge_image: eventData.achievementBadgeImage,
       publish_status: eventData.publishStatus,
       is_event_live: eventData.isEventLive,
-      schedule_event_period:
-        eventData.eventScheduleSpan.scheduleAvailabilityPeriod * 60,
-      schedule_event_period_unit:
-        eventData.eventScheduleSpan.scheduleAvailabilityPeriodUnit,
+      // schedule_event_period:
+      //   eventData.eventOpenSpan.scheduleAvailabilityPeriod * 60,
+      // schedule_event_period_unit:
+      //   eventData.eventScheduleSpan.scheduleAvailabilityPeriodUnit,
       open_availability_period_unit:
         eventData.eventOpenSpan.openAvailabilityPeriodUnit,
       open_availability_period:
@@ -135,7 +134,7 @@ function CustomizeEventComponent() {
   useEffect(() => {
     if (eventCreated === "success") {
       window.confirm("Event is created successfully.");
-    } // @ts-ignore
+    }
     dispatch(resetEventError());
   }, [eventCreated]);
 

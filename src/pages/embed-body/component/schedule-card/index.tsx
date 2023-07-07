@@ -15,7 +15,7 @@ interface IScheduledCardComponent {
     eventEndDate: string;
     eventEndTime: string;
   };
-  scheduleEventPeriod: number;
+  // scheduleEventPeriod: number;
   index?: number;
   eventId: number;
   closeModal: () => void;
@@ -29,10 +29,11 @@ interface ISelectedItem {
 function ScheduledCardComponent({
   schedule,
   index,
-  scheduleEventPeriod,
+  // scheduleEventPeriod,
   eventId,
   closeModal,
 }: IScheduledCardComponent) {
+  console.log("perios");
   const dispatch = useAppDispatch();
   // const { registerModalValue } = useAppSelector(
   //   (state) => state.BookingReducer
@@ -44,42 +45,42 @@ function ScheduledCardComponent({
     dateTime: new Date(),
   });
 
-  useEffect(() => {
-    if (
-      schedule.eventStartDate &&
-      schedule.eventEndDate &&
-      schedule.eventEndTime &&
-      schedule.eventStartTime
-    ) {
-      const startDate = new Date(
-        schedule.eventStartDate + "T" + schedule.eventStartTime
-      );
-      const endDate = new Date(
-        schedule.eventEndDate + "T" + schedule.eventEndTime
-      );
+  // useEffect(() => {
+  //   if (
+  //     schedule.eventStartDate &&
+  //     schedule.eventEndDate &&
+  //     schedule.eventEndTime &&
+  //     schedule.eventStartTime
+  //   ) {
+  //     const startDate = new Date(
+  //       schedule.eventStartDate + "T" + schedule.eventStartTime
+  //     );
+  //     const endDate = new Date(
+  //       schedule.eventEndDate + "T" + schedule.eventEndTime
+  //     );
 
-      const array = [];
+  //     const array = [];
 
-      let currentTime = startDate;
-      let key = 1;
-      while (currentTime < endDate) {
-        const label = currentTime.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        array.push({ label, key });
-        currentTime = new Date(
-          currentTime.getTime() + scheduleEventPeriod * 60000
-        ); // Add duration in milliseconds
-        key++;
-      }
-      setItems(array);
-    }
-  }, []);
+  //     let currentTime = startDate;
+  //     let key = 1;
+  //     while (currentTime < endDate) {
+  //       const label = currentTime.toLocaleTimeString([], {
+  //         hour: "2-digit",
+  //         minute: "2-digit",
+  //       });
+  //       array.push({ label, key });
+  //       currentTime = new Date(
+  //         currentTime.getTime() + scheduleEventPeriod * 60000
+  //       ); // Add duration in milliseconds
+  //       key++;
+  //     }
+  //     setItems(array);
+  //   }
+  // }, []);
 
-  function handleMenuItemClick(item: { label: string }, date: string) {
-    dispatch(setBookingData({ eventId, date, item, type: "schedule" }));
-    const datee = new Date(date + " " + item.label);
+  function handleMenuItemClick(time: string, date: string) {
+    dispatch(setBookingData({ eventId, date, time, type: "schedule" }));
+    const datee = new Date(date + " " + time);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (!isNaN(datee)) {
@@ -96,7 +97,7 @@ function ScheduledCardComponent({
   // const handleCancel = () => {
   //   setRegisterModal(false);
   // };
-  console.log(schedule?.eventStartDate, "start");
+
   return (
     <div key={index} className={`${styles.registerCard}`}>
       <div className="d-block">
@@ -106,7 +107,7 @@ function ScheduledCardComponent({
         </span>
       </div>
 
-      <Dropdown
+      {/* <Dropdown
         overlay={
           <Menu>
             {items?.map((item: any) => (
@@ -130,14 +131,19 @@ function ScheduledCardComponent({
         }
         className="timeDropdown"
         trigger={["click"]}
-      >
-        <a className="menuList">
-          <Space>
-            Register
-            <SVG.DownChevron width="12px" />
-          </Space>
-        </a>
-      </Dropdown>
+      ></Dropdown> */}
+      <a className="menuList">
+        <Space
+          onClick={() =>
+            handleMenuItemClick(
+              schedule?.eventStartTime,
+              schedule?.eventStartDate
+            )
+          }
+        >
+          Register
+        </Space>
+      </a>
 
       <RegistrationModal
         registerModalOpen={() => console.log("sd")}

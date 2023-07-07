@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../course.module.css";
-import { LabeledInput, SelectInput } from "@/component/input";
+import { LabeledInput } from "@/component/input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 // import { FilledButton } from "@/component/buttons";
@@ -17,12 +17,12 @@ interface IScheduleDate {
   };
   // formError: (errors: any) => void;
   spanDefaultValue: {
-    scheduleAvailabilityPeriod: number;
-    scheduleAvailabilityPeriodUnit: string;
+    openAvailabilityPeriodUnit: string;
+    openAvailabilityPeriod: number;
   };
-  scheduleSpan: (scheduleTimeSpan: {
-    scheduleAvailabilityPeriod: number;
-    scheduleAvailabilityPeriodUnit: string;
+  openSpan: (scheduleTimeSpan: {
+    openAvailabilityPeriod: number;
+    openAvailabilityPeriodUnit: string;
   }) => void;
   getChildValue: (arg: { key: string; value: string }) => void;
 }
@@ -33,12 +33,12 @@ function ScheduleDateComponent({
   errorsData,
   getChildValue,
   spanDefaultValue,
-  scheduleSpan,
+  openSpan,
 }: IScheduleDate) {
   const initialValues = { eventStartDate: "" };
-  const [scheduleTimeSpan, setScheduleTimeSpan] = useState({
-    scheduleAvailabilityPeriod: 1,
-    scheduleAvailabilityPeriodUnit: "hours",
+  const [openTimeSpan, setOpenTimeSpan] = useState({
+    openAvailabilityPeriodUnit: "hours",
+    openAvailabilityPeriod: 1,
   });
 
   const formik = useFormik({
@@ -56,12 +56,12 @@ function ScheduleDateComponent({
   });
 
   useEffect(() => {
-    setScheduleTimeSpan(spanDefaultValue);
+    setOpenTimeSpan(spanDefaultValue);
   }, []);
 
   useEffect(() => {
-    scheduleSpan(scheduleTimeSpan);
-  }, [scheduleTimeSpan]);
+    openSpan(openTimeSpan);
+  }, [openTimeSpan]);
 
   return (
     <>

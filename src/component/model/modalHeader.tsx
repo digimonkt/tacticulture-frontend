@@ -11,7 +11,11 @@ function ModalHeader({ title, text, content }: any) {
           <h6> {`${title || "Course or Event Title Goes Here"}`}</h6>
           <div className="d-flex">
             <p className="mb-0">
-              <SVG.Clock width="18px" className={`${styles.clockIcon}`} />
+              <SVG.Clock
+                width="18px"
+                style={{ color: "#FFF" }}
+                className={`${styles.clockIcon}`}
+              />
               &nbsp;
               {text}
             </p>

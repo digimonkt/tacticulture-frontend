@@ -12,10 +12,11 @@ import ForumCardComponent from "@/pages/apprentice/components/forum-card";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks/hooks";
 import { currentUser } from "@/redux/reducers/user";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+
 import event, {
   availableEventData,
   getEventData,
+  resetEventData,
 } from "@/redux/reducers/event";
 import { Card } from "react-bootstrap";
 import OpenCard from "@/pages/apprentice/components/latest-card/OpenCard";
@@ -127,7 +128,10 @@ function ManageEvent() {
                   </OptionsInput>
 
                   <FilledButton
-                    onClick={() => router.push("/instructor/create-event")}
+                    onClick={() => {
+                      dispatch(resetEventData());
+                      router.push("/instructor/create-event");
+                    }}
                     className="btnEvents"
                     icon={<SVG.Plus width="20px" />}
                     style={{

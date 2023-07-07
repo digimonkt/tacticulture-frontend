@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["203.190.153.23"],
+    domains: ["203.190.153.23", "203.190.153.20", "digimonk.live"],
   },
   webpack(config) {
     config.module.rules.push({

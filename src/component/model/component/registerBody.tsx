@@ -22,6 +22,8 @@ function RegisterBodyComponent({
   const { guestRegistrationStatus, registrationData, guestOtpStatus } =
     useAppSelector((state) => state.BookingReducer);
 
+  const { currentUser } = useAppSelector((state) => state.userReducer);
+  console.log(currentUser, "cuuuuu");
   const formik = useFormik({
     initialValues: { guestEmail: "", guestOtp: "" },
     validationSchema: Yup.object({
@@ -32,6 +34,10 @@ function RegisterBodyComponent({
       dispatch(guestRegistration(values.guestEmail));
     },
   });
+
+  useEffect(() => {
+    formik.setFieldValue("guestEmail", currentUser.email);
+  }, []);
 
   useEffect(() => {
     if (guestRegistrationStatus === "success") {
@@ -93,6 +99,7 @@ function RegisterBodyComponent({
             <LabeledInput
               {...formik.getFieldProps("guestEmail")}
               placeholder={"Email Address"}
+              disabled={true}
             />
           ) : (
             <LabeledInput
