@@ -97,20 +97,10 @@ function EventRequirement({ mode }: { mode: string }) {
     },
   });
 
-  useEffect(() => {
-    formik.setFieldValue("requirements", eventData.requirements);
-    formik.setFieldValue(
-      "cancellationPolicies",
-      eventData.cancellationPolicies
-    );
-    formik.setFieldValue(
-      "customWaiverSettings",
-      eventData.customWaiverSettings
-    );
-  }, [eventData]);
-
+  console.log(ownEventDetail, "mode");
   useEffect(() => {
     if (mode === "update") {
+      console.log(ownEventDetail.requirements, "my reiasdf");
       formik.setFieldValue("requirements", ownEventDetail.requirements);
       formik.setFieldValue(
         "cancellationPolicies",
@@ -125,10 +115,19 @@ function EventRequirement({ mode }: { mode: string }) {
           customQuestions: [...ownEventDetail.customQuestions],
         })
       );
+    } else {
+      formik.setFieldValue("requirements", eventData.requirements);
+      formik.setFieldValue(
+        "cancellationPolicies",
+        eventData.cancellationPolicies
+      );
+      formik.setFieldValue(
+        "customWaiverSettings",
+        eventData.customWaiverSettings
+      );
     }
-  }, []);
+  }, [mode]);
 
-  // console.log(eventData, "ef");
   return (
     <div>
       {mode === "update" ? (

@@ -7,7 +7,10 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { SVG } from "@/assets/svg";
-import { resetBookingData } from "@/redux/reducers/booking";
+import {
+  resetBookingData,
+  setInformationAndRequirement,
+} from "@/redux/reducers/booking";
 import moment from "moment";
 import Swal from "sweetalert";
 import { guestBookingAPI } from "@/api/booking";
@@ -16,7 +19,10 @@ interface ICourseRequirement {
   handleStepPrev: () => void;
 }
 
-function CourseRequirementComponent({ handleStepNext }: ICourseRequirement) {
+function CourseRequirementComponent({
+  handleStepNext,
+  handleStepPrev,
+}: ICourseRequirement) {
   const dispatch = useAppDispatch();
   const [waiverChecked, setWaiverChecked] = useState(false);
   const [contactDetails, setContactDetails] = useState([
@@ -44,50 +50,7 @@ function CourseRequirementComponent({ handleStepNext }: ICourseRequirement) {
       ),
     }),
     onSubmit: async (values) => {
-      console.log(values, "values");
-      // dispatch(
-      //   guestBooking({
-      //     email: registrationData.email,
-      //     event_id: bookingData.eventId,
-      //     booking_date: bookingData.date,
-      //     booking_time: moment(bookingData.item.label, "hh:mm A").format(
-      //       "HH:mm"
-      //     ),
-      //     booking_type: bookingData.type,
-      //     custom_questions_answers: {
-      //       answerLongText: values.answerLongText,
-      //       answerShortText: values.answerShortText,
-      //     },
-      //     contact_details: values.contactDetails,
-      //   })
-      // );
-      const payload = {
-        email: registrationData.email,
-        event_id: bookingData.eventId,
-        booking_date: bookingData.date,
-        booking_time: moment(bookingData.item.label, "hh:mm A").format("HH:mm"),
-        booking_type: bookingData.type,
-        custom_questions_answers: {
-          answerLongText: values.answerLongText,
-          answerShortText: values.answerShortText,
-        },
-        contact_details: values.contactDetails,
-      };
-      const resp = await guestBookingAPI(payload);
-
-      if (resp.remote === "success") {
-        Swal({
-          title: "Congratulation",
-
-          icon: "success",
-        }).then((value) => {
-          handleStepNext();
-          const payload = {};
-          dispatch(resetBookingData(payload));
-        });
-      } else {
-        Swal("Oops!", "Something went wrong!", "error");
-      }
+      handleStepNext();
     },
   });
   const handleAddParagraph = () => {
@@ -111,6 +74,9 @@ function CourseRequirementComponent({ handleStepNext }: ICourseRequirement) {
 
   return (
     <div className="guestBody ">
+      <p onClick={handleStepPrev} style={{ color: "red", marginLeft: "10px" }}>
+        Go Back
+      </p>
       <div className="scheduleSteps pb-2">
         <span style={{ color: "#5C5C5C", fontWeight: "500" }}>
           {registrationData.email}
@@ -197,10 +163,10 @@ function CourseRequirementComponent({ handleStepNext }: ICourseRequirement) {
         </div>
         <Row>
           <Col md={24} className="ms-1">
-            {eventDetail.customQuestions.map((el) => {
+            {eventDetail.customQuestions.map((el, idx) => {
               return el.fieldType === "ShortText" ? (
                 <LabeledInput
-                  {...formik.getFieldProps("answerShortText")}
+                  {...formik.getFieldProps(`answerShortText${idx}`)}
                   placeholder="Placeholder possible..."
                   label={`${el.questionPromptLabel}`}
                   className="w-100"
@@ -211,30 +177,49 @@ function CourseRequirementComponent({ handleStepNext }: ICourseRequirement) {
                   text={`${el.questionPromptLabel}`}
                   placeholder="Placeholder possible..."
                 />
+              ) : el.fieldType === "CheckBox" ? (
+                <Col md={24} className="ms-1">
+                  <div className="publicView mt-3 mb-0">
+                    <CheckInput
+                      onClick={(e: any) =>
+                        dispatch(
+                          setInformationAndRequirement({
+                            [el.questionPromptLabel]: e.target.checked
+                              ? parseInt(el.upgradeCost)
+                              : 0,
+                          })
+                        )
+                      }
+                    />
+                    <p className="mb-0">
+                      {el.questionPromptLabel} (+${el.upgradeCost})
+                    </p>
+                  </div>
+                </Col>
+              ) : el.fieldType === "Select/Dropdown" ? (
+                <SelectInputComponent
+                  label={el.questionPromptLabel}
+                  className="w-100"
+                  options={el.answerData.map((ans) => ({
+                    value: `${ans.description}(+$${ans.upgradeCost}`,
+                    label: `${ans.description}(+$${ans.upgradeCost})`,
+                  }))}
+                  onChange={(value) => {
+                    const upgradeCost = value?.split("+$"); // Split the string and retrieve the second portion
+
+                    dispatch(
+                      setInformationAndRequirement({
+                        [upgradeCost[0]]: parseInt(upgradeCost[1]),
+                      })
+                    );
+                  }}
+                />
               ) : null;
             })}
+            {/* value: "Custom Question Selection (+$50)", */}
           </Col>
+
           <Col md={24} className="ms-1">
-            <div className="publicView mt-3 mb-0">
-              <CheckInput />
-              <p className="mb-0">Additional Custom Question Checkbox (+$50)</p>
-            </div>
-          </Col>
-          <Col md={24} className="ms-1">
-            <SelectInputComponent
-              label="Custom Question Dropdown Question*"
-              className="w-100"
-              options={[
-                {
-                  value: "Custom Question Selection (+$50)",
-                  label: "Custom Question Selection (+$50)",
-                },
-                {
-                  value: "Custom Question Selection",
-                  label: "Custom Question Selection",
-                },
-              ]}
-            />
             <div className="publicView mt-3 mb-0">
               <CheckInput
                 onClick={(e: any) => setWaiverChecked(e.target.checked)}
@@ -255,7 +240,7 @@ function CourseRequirementComponent({ handleStepNext }: ICourseRequirement) {
           </span>
           <FilledButton onClick={() => formik.handleSubmit()}>
             {/* Continue to Billing Information{" "} */}
-            Place Order
+            Next
           </FilledButton>
         </div>
       </div>

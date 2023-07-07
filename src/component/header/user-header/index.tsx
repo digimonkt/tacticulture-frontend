@@ -15,6 +15,8 @@ import { USER_ROLES } from "@/utils/enum";
 import { OutlinedButton } from "@/component/buttons";
 import AvatarComponent from "@/component/AvatarComponent";
 import { useRouter } from "next/router";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { resetEventData } from "@/redux/reducers/event";
 
 const ApprenticeDropDownList = [
   {
@@ -23,7 +25,7 @@ const ApprenticeDropDownList = [
     url: "",
     icon: (
       <>
-        <SVG.Home />
+        <SVG.Home style={{ color: "#FFF" }} />
       </>
     ),
   },
@@ -76,7 +78,7 @@ const InstructorDropDownList = [
     url: "/instructor/home",
     icon: (
       <>
-        <SVG.Home />
+        <SVG.Home style={{ color: "#FFF" }} />
       </>
     ),
   },
@@ -124,6 +126,7 @@ const InstructorDropDownList = [
 ];
 
 function UserHeaderComponent() {
+  const dispatch = useAppDispatch();
   // redux
   const currentUserDetail = useAppSelector(currentUser);
 
@@ -188,7 +191,10 @@ function UserHeaderComponent() {
 
                 {currentUserDetail.defaultRole === USER_ROLES.instructor && (
                   <OutlinedButton
-                    onClick={() => router.push("/instructor/create-event")}
+                    onClick={() => {
+                      dispatch(resetEventData());
+                      router.push("/instructor/create-event");
+                    }}
                     className={`${styles.outline_eventtbn}`}
                     icon={<SVG.Plus />}
                   >

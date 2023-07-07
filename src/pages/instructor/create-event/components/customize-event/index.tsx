@@ -51,7 +51,6 @@ function CustomizeEventComponent() {
       // @ts-ignore
       alert(Object.values(eventCreatedError.errors));
     } else {
-      // @ts-ignore
       dispatch(resetEventError());
     }
     // @ts-ignore
@@ -135,7 +134,7 @@ function CustomizeEventComponent() {
   useEffect(() => {
     if (eventCreated === "success") {
       window.confirm("Event is created successfully.");
-    } // @ts-ignore
+    }
     dispatch(resetEventError());
   }, [eventCreated]);
 

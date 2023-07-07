@@ -6,15 +6,16 @@ import styles from "./layout.module.css";
 import Link from "next/link";
 
 interface IChildren {
+  activeLink: string;
+  // handleLinkClick: (link: string) => void;
   children: React.ReactNode;
 }
 
-function InstructorLayout({ children }: IChildren) {
-  const [activeLink, setActiveLink] = useState("");
-
-  const handleLinkClick = (link: string) => {
-    setActiveLink(link);
-  };
+function InstructorLayout({
+  activeLink,
+  children,
+}: // handleLinkClick,
+IChildren) {
   return (
     <div>
       <UserHeaderComponent />
@@ -25,7 +26,8 @@ function InstructorLayout({ children }: IChildren) {
               <Link href="/instructor/home">
                 <li
                   className={activeLink === "/" ? "active" : ""}
-                  onClick={() => handleLinkClick("/")}
+                  // onClick={() => handleLinkClick("/")}
+                  style={activeLink === "/" ? { color: "red" } : {}}
                 >
                   <SVG.Home /> Instructor Home
                 </li>
@@ -38,7 +40,12 @@ function InstructorLayout({ children }: IChildren) {
                   className={
                     activeLink === "/instructor/manage-event" ? "active" : ""
                   }
-                  onClick={() => handleLinkClick("/instructor/manage-event")}
+                  // onClick={() => handleLinkClick("/instructor/manage-event")}
+                  style={
+                    activeLink === "/instructor/manage-event"
+                      ? { color: "red" }
+                      : {}
+                  }
                 >
                   <SVG.Managevent /> Manage Events
                 </li>
@@ -47,7 +54,14 @@ function InstructorLayout({ children }: IChildren) {
                 className="workspaceSidebarLink"
                 href="/instructor/availability"
               >
-                <li onClick={() => handleLinkClick("/instructor/availability")}>
+                <li
+                  // onClick={() => handleLinkClick("/instructor/availability")}
+                  style={
+                    activeLink === "/instructor/availability"
+                      ? { color: "red" }
+                      : {}
+                  }
+                >
                   <SVG.Clock /> Availability
                 </li>
               </Link>

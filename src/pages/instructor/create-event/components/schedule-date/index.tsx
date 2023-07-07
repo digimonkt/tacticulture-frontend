@@ -20,10 +20,10 @@ interface IScheduleDate {
     scheduleAvailabilityPeriod: number;
     scheduleAvailabilityPeriodUnit: string;
   };
-  scheduleSpan: (scheduleTimeSpan: {
-    scheduleAvailabilityPeriod: number;
-    scheduleAvailabilityPeriodUnit: string;
-  }) => void;
+  // scheduleSpan: (scheduleTimeSpan: {
+  //   scheduleAvailabilityPeriod: number;
+  //   scheduleAvailabilityPeriodUnit: string;
+  // }) => void;
   getChildValue: (arg: { key: string; value: string }) => void;
 }
 
@@ -33,8 +33,8 @@ function ScheduleDateComponent({
   errorsData,
   getChildValue,
   spanDefaultValue,
-  scheduleSpan,
-}: IScheduleDate) {
+}: // scheduleSpan,
+IScheduleDate) {
   const initialValues = { eventStartDate: "" };
   const [scheduleTimeSpan, setScheduleTimeSpan] = useState({
     scheduleAvailabilityPeriod: 1,
@@ -59,9 +59,9 @@ function ScheduleDateComponent({
     setScheduleTimeSpan(spanDefaultValue);
   }, []);
 
-  useEffect(() => {
-    scheduleSpan(scheduleTimeSpan);
-  }, [scheduleTimeSpan]);
+  // useEffect(() => {
+  //   scheduleSpan(scheduleTimeSpan);
+  // }, [scheduleTimeSpan]);
 
   return (
     <>

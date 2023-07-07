@@ -69,12 +69,18 @@ function ManualLoginComponent() {
           })
         );
         handleResetAlert();
+      } else if (response.error.status === 400) {
+        formik.setErrors({
+          email: response.error.errors.non_field_errors.toString(),
+        });
+        handleResetAlert();
       } else {
         handleResetAlert();
       }
     }
     dispatch(setPreLoader(false));
   };
+
   return (
     <Layout title="Sign In">
       <>
@@ -85,6 +91,9 @@ function ManualLoginComponent() {
             className="mb-3"
             {...formik.getFieldProps("email")}
           />
+          <p style={{ color: "red" }} className="verificationError">
+            {formik.errors.email}
+          </p>
           <LabeledInput
             disabled={preLoaderData}
             placeholder="Password"
@@ -92,6 +101,9 @@ function ManualLoginComponent() {
             type="password"
             {...formik.getFieldProps("password")}
           />
+          <p style={{ color: "red" }} className="verificationError">
+            {formik.errors.password}
+          </p>
           <div className={`${styles.signupBtn}`}>
             <FilledButton
               disabled={preLoaderData}

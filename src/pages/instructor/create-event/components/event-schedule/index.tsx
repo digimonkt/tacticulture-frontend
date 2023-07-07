@@ -42,7 +42,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const [customeEvent, setCustomEvent] = useState(
     eventData.eventCustomAvailability
   );
-  console.log(customeEvent, "custom event");
+
   useEffect(() => {
     if (mode === "update") {
       setScheduleType(ownEventDetail.eventTypeAndScheduleId);
@@ -56,8 +56,14 @@ function EventScheduleComponent({ mode }: { mode: string }) {
       setScheduleType(eventData.eventTypeAndScheduleId);
       setScheduleData(eventData.eventScheduledDateTime);
       setCustomEvent(eventData.eventCustomAvailability);
+      setScheduleSpan({
+        scheduleAvailabilityPeriod:
+          eventData.eventScheduleSpan.scheduleAvailabilityPeriod,
+        scheduleAvailabilityPeriodUnit:
+          eventData.eventScheduleSpan.scheduleAvailabilityPeriodUnit,
+      });
     }
-  }, []);
+  }, [mode]);
 
   const addScheduleEvent = () => {
     if (scheduleData) {
@@ -243,7 +249,6 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             <LabeledInput
               type="number"
               value={scheduleSpan?.scheduleAvailabilityPeriod}
-              defaultValue={1}
               onChange={(e) =>
                 setScheduleSpan({
                   ...scheduleSpan,
@@ -278,7 +283,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
                     eventData={el}
                     errorsData={errors}
                     spanDefaultValue={scheduleSpan}
-                    scheduleSpan={(value: any) => setScheduleSpan(value)}
+                    // scheduleSpan={(value: any) => setScheduleSpan(value)}
                     getChildValue={(value: any) =>
                       updateScheduleEvent(el.id, value)
                     }

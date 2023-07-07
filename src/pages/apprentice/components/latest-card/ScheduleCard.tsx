@@ -17,11 +17,12 @@ interface IScheduleCard {
 
 const ScheduleCard = ({ data }: IScheduleCard) => {
   const router = useRouter();
+
   return (
     <Col md={24}>
       <Card className="position-relative cards black">
         <Image
-          src={data?.eventImage || IMAGES.Dummypic}
+          src={data.eventImage || IMAGES.Dummypic}
           width={300}
           height={200}
           alt=""

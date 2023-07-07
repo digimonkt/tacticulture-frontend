@@ -158,7 +158,7 @@ function Availability() {
 
   return (
     <div>
-      <InstructorLayout>
+      <InstructorLayout activeLink="/instructor/availability">
         <div>
           <h3
             style={{

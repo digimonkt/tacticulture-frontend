@@ -48,13 +48,11 @@ function RegistrationModal({
         setCurrent(current + 1);
         break;
       case 2:
-        alert(current);
-        setCurrent(0);
-        handleCancel();
+        setCurrent(current + 1);
         break;
       case 3:
-        alert(current);
         setCurrent(0);
+        handleCancel();
         break;
 
       default:
@@ -88,7 +86,12 @@ function RegistrationModal({
     },
     {
       title: "four",
-      content: <BillingInformationComponent />,
+      content: (
+        <BillingInformationComponent
+          handleStepPrev={prev}
+          handleStepNext={next}
+        />
+      ),
       //   content: (
       //     <CourseRequirementComponent
       //       handleStepNext={next}

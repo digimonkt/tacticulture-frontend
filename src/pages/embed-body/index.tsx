@@ -36,7 +36,6 @@ function EmbedBody() {
   }, [id]);
 
   useEffect(() => {
-    console.log(eventDetail, "detail");
     if (
       eventDetail.eventScheduledDateTime &&
       eventDetail.eventScheduledDateTime.length > 0
@@ -54,14 +53,14 @@ function EmbedBody() {
       setDuration(duration);
     } else if (eventDetail.eventCustomAvailability) {
       const startTime = moment(
-        eventDetail.eventCustomAvailability[0].eventCustomAvailabilityDetails[0]
-          .fromTime,
+        eventDetail.eventCustomAvailability[0]
+          ?.eventCustomAvailabilityDetails[0].fromTime,
         "HH:mm:ss"
       );
 
       const endTime = moment(
-        eventDetail.eventCustomAvailability[0].eventCustomAvailabilityDetails[0]
-          .toTime,
+        eventDetail.eventCustomAvailability[0]
+          ?.eventCustomAvailabilityDetails[0].toTime,
         "HH:mm:ss"
       );
 
@@ -86,7 +85,7 @@ function EmbedBody() {
     setIsModalOpen(false);
     // setRegisterModal(false);
   };
-  console.log(eventDetail.description);
+  console.log(eventDetail, "detial");
   return (
     <div>
       <ApprenticeHeaderComponent />
@@ -105,13 +104,17 @@ function EmbedBody() {
                 <p>
                   <SVG.Clock
                     width="16px"
-                    style={{ position: "relative", bottom: "3px" }}
+                    style={{
+                      position: "relative",
+                      bottom: "3px",
+                      color: "#FFF",
+                    }}
                   />
                   <span> Next Event:</span>
                   {eventDetail.eventScheduledDateTime.length > 0 &&
                     moment(
                       eventDetail.eventScheduledDateTime[0].eventStartDate
-                    ).format("MMMM MM, YYYY")}{" "}
+                    ).format("MMMM DD, YYYY")}{" "}
                   {eventDetail.eventTypeAndScheduleId} Availability
                 </p>
               </div>
@@ -200,7 +203,7 @@ function EmbedBody() {
 
                 <EmbedCardComponent
                   icon={<SVG.Fee width="16px" />}
-                  text={eventDetail.perSpotCost + "$"}
+                  text={eventDetail.perSpotCost.toString()}
                 />
                 <EmbedCardComponent
                   heading="Completion Badge"

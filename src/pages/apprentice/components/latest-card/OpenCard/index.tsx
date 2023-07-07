@@ -15,6 +15,7 @@ interface IOpenCard {
 
 function OpenCard({ data }: IOpenCard) {
   const router = useRouter();
+
   return (
     <Row>
       <Col md={24}>
@@ -101,7 +102,7 @@ function OpenCard({ data }: IOpenCard) {
           </OptionsInput>
           <div className="eventTitle">
             <h5>{data?.name}</h5>
-            <p>[MM.DD.YYYY] + Open Availability</p>
+            <p>Open Availability</p>
           </div>
           <Card.Body>
             <div className="bodyLink">

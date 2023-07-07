@@ -13,7 +13,11 @@ import { useRouter } from "next/router";
 import { Data } from "@/utils/constant";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { currentUser, getUserDefaultAvailability } from "@/redux/reducers/user";
-import { availableEventData, getEventData } from "@/redux/reducers/event";
+import {
+  availableEventData,
+  getEventData,
+  resetEventData,
+} from "@/redux/reducers/event";
 
 function Home() {
   const dispatch = useAppDispatch();
@@ -32,7 +36,7 @@ function Home() {
   return (
     <PrivateRoute>
       <>
-        <InstructorLayout>
+        <InstructorLayout activeLink="/">
           <div>
             <h3
               style={{
@@ -66,7 +70,10 @@ function Home() {
               />
               <CardComponent title="Upcoming Events">
                 <FilledButton
-                  onClick={() => router.push("/instructor/create-event")}
+                  onClick={() => {
+                    dispatch(resetEventData());
+                    router.push("/instructor/create-event");
+                  }}
                   className={`${styles.BtnEvent}`}
                 >
                   <SVG.Plus width="15px" /> Create New Event
@@ -75,7 +82,10 @@ function Home() {
                   <span className={styles.instructorHomeEmptyEventStyle}>
                     You don’t have any events yet,{" "}
                     <span
-                      onClick={() => router.push("/instructor/create-event")}
+                      onClick={() => {
+                        dispatch(resetEventData());
+                        router.push("/instructor/create-event");
+                      }}
                       style={{ color: "#FF3030", cursor: "pointer" }}
                     >
                       let’s create one!

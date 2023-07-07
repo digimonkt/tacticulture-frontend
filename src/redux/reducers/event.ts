@@ -42,7 +42,7 @@ export const initialEventDetail: getEventType = {
   courseUrl: "",
   customQuestions: [
     {
-      answerData: [{ description: "", id: 0, upgradeCost: 0 }],
+      answerData: [{ value: "", label: "", id: 0, upgradeCost: 0 }],
       answerRequired: false,
       fieldType: "",
       id: 0,
@@ -93,6 +93,71 @@ export const initialEventDetail: getEventType = {
 };
 
 // Define the initial state using that type
+const initialEventData = {
+  id: "",
+  name: "",
+  courseCategory: [],
+  description: "",
+  location: "",
+  courseUrl: "",
+  isPrivateEvent: false,
+  availableSpots: 1,
+  perSpotCost: 0,
+  isIncludeTransactionFeeInCost: false,
+  isAddSalesTax: false,
+  salesTaxPercent: 0,
+  eventTypeAndScheduleId: "schedule",
+  eventScheduleSpan: {
+    scheduleAvailabilityPeriod: 1,
+    scheduleAvailabilityPeriodUnit: "hours",
+  },
+  eventOpenSpan: {
+    openAvailabilityPeriodUnit: "hours",
+    openAvailabilityPeriod: 1,
+  },
+
+  eventScheduledDateTime: [
+    {
+      id: 1,
+      eventStartDate: "",
+      eventStartTime: "",
+      eventEndDate: "",
+      eventEndTime: "",
+    },
+  ],
+  eventCustomAvailability: [],
+  defaultAvailability: null,
+  requirements: "",
+  cancellationPolicies: "",
+  defaultWaiverSettings: "default",
+  customWaiverSettings: "",
+  customQuestions: [
+    {
+      id: 1,
+      fieldType: "ShortText",
+      questionPromptLabel: "",
+      answerRequired: true,
+      paidUpgrade: "yes",
+      upgradeCost: 0,
+      answerData: [{ id: 1, description: "", upgradeCost: 0 }],
+    },
+  ],
+  eventImage: "",
+  achievementBadgeImage: "",
+  publishStatus: true,
+  isEventLive: false,
+  instructorDetails: {
+    bio: "",
+    email: "",
+    firstName: "",
+    id: 0,
+    lastName: "",
+    phoneNumber: null,
+    profileImage: null,
+    userRoles: "",
+    username: "",
+  },
+};
 
 const initialState: Ievent = {
   eventCreated: "",
@@ -107,71 +172,7 @@ const initialState: Ievent = {
     previous: undefined,
     results: [],
   },
-  eventData: {
-    id: "",
-    name: "",
-    courseCategory: [],
-    description: "",
-    location: "",
-    courseUrl: "",
-    isPrivateEvent: false,
-    availableSpots: 1,
-    perSpotCost: 0,
-    isIncludeTransactionFeeInCost: false,
-    isAddSalesTax: false,
-    salesTaxPercent: 0,
-    eventTypeAndScheduleId: "schedule",
-    eventScheduleSpan: {
-      scheduleAvailabilityPeriod: 1,
-      scheduleAvailabilityPeriodUnit: "hours",
-    },
-    eventOpenSpan: {
-      openAvailabilityPeriodUnit: "hours",
-      openAvailabilityPeriod: 1,
-    },
-
-    eventScheduledDateTime: [
-      {
-        id: 1,
-        eventStartDate: "",
-        eventStartTime: "",
-        eventEndDate: "",
-        eventEndTime: "",
-      },
-    ],
-    eventCustomAvailability: [],
-    defaultAvailability: null,
-    requirements: "",
-    cancellationPolicies: "",
-    defaultWaiverSettings: "default",
-    customWaiverSettings: "",
-    customQuestions: [
-      {
-        id: 1,
-        fieldType: "ShortText",
-        questionPromptLabel: "",
-        answerRequired: true,
-        paidUpgrade: "yes",
-        upgradeCost: 0,
-        answerData: [{ id: 1, description: "", upgradeCost: 0 }],
-      },
-    ],
-    eventImage: "",
-    achievementBadgeImage: "",
-    publishStatus: true,
-    isEventLive: false,
-    instructorDetails: {
-      bio: "",
-      email: "",
-      firstName: "",
-      id: 0,
-      lastName: "",
-      phoneNumber: null,
-      profileImage: null,
-      userRoles: "",
-      username: "",
-    },
-  },
+  eventData: initialEventData,
 };
 
 export const createEventData = createAsyncThunk<
@@ -292,7 +293,10 @@ export const eventSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
-    resetEventError: (state, action) => {
+    resetEventData: (state) => {
+      state.eventData = { ...initialEventData };
+    },
+    resetEventError: (state) => {
       state.eventCreatedError = {};
       state.eventCreated = "";
     },
@@ -338,7 +342,8 @@ export const eventSlice = createSlice({
   },
 });
 
-export const { createEvent, resetEventError } = eventSlice.actions;
+export const { createEvent, resetEventError, resetEventData } =
+  eventSlice.actions;
 
 export const availableEventData = (state: RootState) =>
   state.EventReducer.availableEventData;
