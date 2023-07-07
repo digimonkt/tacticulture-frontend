@@ -7,13 +7,8 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { SVG } from "@/assets/svg";
-import {
-  resetBookingData,
-  setInformationAndRequirement,
-} from "@/redux/reducers/booking";
-import moment from "moment";
-import Swal from "sweetalert";
-import { guestBookingAPI } from "@/api/booking";
+import { setInformationAndRequirement } from "@/redux/reducers/booking";
+
 interface ICourseRequirement {
   handleStepNext: () => void;
   handleStepPrev: () => void;
@@ -185,7 +180,7 @@ function CourseRequirementComponent({
                         dispatch(
                           setInformationAndRequirement({
                             [el.questionPromptLabel]: e.target.checked
-                              ? parseInt(el.upgradeCost)
+                              ? el.upgradeCost
                               : 0,
                           })
                         )

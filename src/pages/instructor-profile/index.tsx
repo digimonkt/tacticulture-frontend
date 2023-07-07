@@ -16,7 +16,7 @@ import { availableEventData } from "@/redux/reducers/event";
 import { useAppSelector } from "@/redux/hooks/hooks";
 import moment from "moment";
 
-interface IUpcomingCard{ 
+interface IUpcomingCard {
   id?: number;
   eventStartDate: string;
   eventStartTime: string;
@@ -25,19 +25,28 @@ interface IUpcomingCard{
 }
 
 function InstructorProfileLayout() {
-  const user= useAppSelector(currentUser)
+  const user = useAppSelector(currentUser);
   const eventData = useAppSelector(availableEventData);
-  const [upcomingEvent, setUpcomingEvent]= useState<any[]>([])
+  const [upcomingEvent, setUpcomingEvent] = useState<any[]>([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     // console.log(moment("2023-07-05").isAfter(moment().format("YYYY-MM-DD")))
-      const filter= eventData.results.filter(item=> item.eventScheduledDateTime && item.eventScheduledDateTime?.length>0 && item.eventScheduledDateTime?.some(value=> moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD")) ) )
-      console.log(filter)
-      const sort = filter.sort((_event1, _event2)=>{
-        const start1= _event1.eventScheduledDateTime && _event1.eventScheduledDateTime[0]
-        const start2 =_event2.eventScheduledDateTime && _event2.eventScheduledDateTime[0]
-      const startDate1 = new Date(start1?.eventStartDate||"")
-      const startDate2 = new Date(start2?.eventStartDate ||"" )
+    const filter = eventData.results.filter(
+      (item) =>
+        item.eventScheduledDateTime &&
+        item.eventScheduledDateTime?.length > 0 &&
+        item.eventScheduledDateTime?.some((value) =>
+          moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD"))
+        )
+    );
+    console.log(filter);
+    const sort = filter.sort((_event1, _event2) => {
+      const start1 =
+        _event1.eventScheduledDateTime && _event1.eventScheduledDateTime[0];
+      const start2 =
+        _event2.eventScheduledDateTime && _event2.eventScheduledDateTime[0];
+      const startDate1 = new Date(start1?.eventStartDate || "");
+      const startDate2 = new Date(start2?.eventStartDate || "");
       if (startDate1 > startDate2) {
         return -1;
       }
@@ -45,11 +54,10 @@ function InstructorProfileLayout() {
         return 1;
       }
       return 0;
-    })
-    setUpcomingEvent(sort)
+    });
+    setUpcomingEvent(sort);
     // console.log({sort})
-  
-  },[eventData])
+  }, [eventData]);
 
   return (
     <div>
@@ -111,10 +119,7 @@ function InstructorProfileLayout() {
                     </p>
                   </div>
                   <div className={`${styles.embeded}`}>
-                    <p dangerouslySetInnerHTML={{__html:user.bio}}>
-                     
-                    </p>
-                 
+                    <p dangerouslySetInnerHTML={{ __html: user.bio }}></p>
                   </div>
                   <div className="text-start ms-3 ps-1 socilemedia">
                     <OutlinedButton
@@ -169,16 +174,21 @@ function InstructorProfileLayout() {
                   Community Updates
                 </Dropdown.Item>
               </OptionsInput>
-             { upcomingEvent.slice(0,2).map(item=>{
-              return item.eventScheduledDateTime.map((value:IUpcomingCard )=>{
-                return <ForumCardComponent
-                Heading={item.name}
-                Content={`${value.eventStartDate} - ${item.location}`}
-                Description="View Course Page"
-              />
-              })
-             }) }
-             
+              {upcomingEvent.slice(0, 2).map((item) => {
+                return item.eventScheduledDateTime.map(
+                  (value: IUpcomingCard) => {
+                    return (
+                      <ForumCardComponent
+                        key={item.id}
+                        Heading={item.name}
+                        Content={`${value.eventStartDate} - ${item.location}`}
+                        Description="View Course Page"
+                      />
+                    );
+                  }
+                );
+              })}
+
               <FilledButtonComponent
                 className={`${styles.upcomingEvents}`}
                 style={{

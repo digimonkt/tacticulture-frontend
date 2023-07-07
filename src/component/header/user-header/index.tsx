@@ -9,13 +9,12 @@ import { IMAGES } from "@/assets/images";
 import { SVG } from "@/assets/svg";
 import { LabeledInput } from "@/component/input";
 import { handleLogout } from "@/api/auth";
-import { useAppSelector } from "@/redux/hooks/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks/hooks";
 import { currentUser } from "@/redux/reducers/user";
 import { USER_ROLES } from "@/utils/enum";
 import { OutlinedButton } from "@/component/buttons";
 import AvatarComponent from "@/component/AvatarComponent";
 import { useRouter } from "next/router";
-import { useAppDispatch } from "@/redux/hooks/hooks";
 import { resetEventData } from "@/redux/reducers/event";
 
 const ApprenticeDropDownList = [

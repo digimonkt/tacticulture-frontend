@@ -77,7 +77,7 @@ function Home() {
   return (
     <PrivateRoute>
       <>
-        <InstructorLayout activeLink="/">
+        <InstructorLayout>
           <div>
             <h3
               style={{

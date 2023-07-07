@@ -25,13 +25,13 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const [openNeedInCustom, setOpenNeedInCustom] = useState("");
   const [openCustomErrors, setOpenCustomErrors] = useState([]);
   const [openSpan, setOpenSpan] = useState({
-    scheduleAvailabilityPeriod: 1,
-    scheduleAvailabilityPeriodUnit: "hours",
+    openAvailabilityPeriodUnit: "hours",
+    openAvailabilityPeriod: 1,
   });
-  const [scheduleSpan, setScheduleSpan] = useState({
-    scheduleAvailabilityPeriod: 1,
-    scheduleAvailabilityPeriodUnit: "hours",
-  });
+  // const [scheduleSpan, setScheduleSpan] = useState({
+  //   scheduleAvailabilityPeriod: 1,
+  //   scheduleAvailabilityPeriodUnit: "hours",
+  // });
   const { eventData } = useAppSelector((state) => state.EventReducer);
   const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
 
@@ -42,25 +42,24 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const [customeEvent, setCustomEvent] = useState(
     eventData.eventCustomAvailability
   );
-
+  console.log(ownEventDetail, "ownEventData");
   useEffect(() => {
     if (mode === "update") {
       setScheduleType(ownEventDetail.eventTypeAndScheduleId);
       setScheduleData(ownEventDetail.eventScheduledDateTime);
       setCustomEvent(ownEventDetail.eventCustomAvailability);
-      setScheduleSpan({
-        scheduleAvailabilityPeriod: ownEventDetail.scheduleEventPeriod / 60,
-        scheduleAvailabilityPeriodUnit: ownEventDetail.scheduleEventPeriodUnit,
+      setOpenSpan({
+        openAvailabilityPeriod: ownEventDetail.openAvailabilityPeriod / 60,
+        openAvailabilityPeriodUnit: ownEventDetail.openAvailabilityPeriodUnit,
       });
     } else {
       setScheduleType(eventData.eventTypeAndScheduleId);
       setScheduleData(eventData.eventScheduledDateTime);
       setCustomEvent(eventData.eventCustomAvailability);
-      setScheduleSpan({
-        scheduleAvailabilityPeriod:
-          eventData.eventScheduleSpan.scheduleAvailabilityPeriod,
-        scheduleAvailabilityPeriodUnit:
-          eventData.eventScheduleSpan.scheduleAvailabilityPeriodUnit,
+      setOpenSpan({
+        openAvailabilityPeriod: eventData.eventOpenSpan.openAvailabilityPeriod,
+        openAvailabilityPeriodUnit:
+          eventData.eventOpenSpan.openAvailabilityPeriodUnit,
       });
     }
   }, [mode]);
@@ -162,7 +161,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
               scheduleData,
               customeEvent,
               openSpan,
-              scheduleSpan,
+              // scheduleSpan,
             },
           };
           const resp = await updateOwnEventTypeScheduleAPI(payload);
@@ -181,7 +180,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
               eventScheduledDateTime: scheduleData,
               eventCustomAvailability: customeEvent,
               eventOpenSpan: openSpan,
-              eventScheduleSpan: scheduleSpan,
+              // eventScheduleSpan: scheduleSpan,
             })
           );
           router.push(`../instructor/create-event?step=${3}`);
@@ -193,7 +192,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const deleteItem = (id: any) => {
     setScheduleData(scheduleData?.filter((el) => el.id !== id));
   };
-
+  console.log(scheduleType, "tpye");
   return (
     <div className="schedule">
       {mode === "update" ? (
@@ -242,36 +241,38 @@ function EventScheduleComponent({ mode }: { mode: string }) {
             />
           </Col>
         </Row>
-        <div className="text-start ms-3">
-          <label className="p-0">Set the event time span</label>
+        {scheduleType === "open" || scheduleType === "combined" ? (
+          <div className="text-start ms-3">
+            <label className="p-0">Set the event time span</label>
 
-          <div className="startDate">
-            <LabeledInput
-              type="number"
-              value={scheduleSpan?.scheduleAvailabilityPeriod}
-              onChange={(e) =>
-                setScheduleSpan({
-                  ...scheduleSpan,
-                  scheduleAvailabilityPeriod: parseInt(e.target.value),
-                })
-              }
-            />
-            <SelectInput
-              defaultValue="hours"
-              onChange={(value) =>
-                setScheduleSpan({
-                  ...scheduleSpan,
-                  scheduleAvailabilityPeriodUnit: value,
-                })
-              }
-              value={scheduleSpan?.scheduleAvailabilityPeriodUnit}
-              options={[
-                { value: "hours", label: "Hours" },
-                { value: "day", label: "Day" },
-              ]}
-            />
+            <div className="startDate">
+              <LabeledInput
+                type="number"
+                value={openSpan?.openAvailabilityPeriod}
+                onChange={(e) =>
+                  setOpenSpan({
+                    ...openSpan,
+                    openAvailabilityPeriod: parseInt(e.target.value),
+                  })
+                }
+              />
+              <SelectInput
+                defaultValue="hours"
+                onChange={(value) =>
+                  setOpenSpan({
+                    ...openSpan,
+                    openAvailabilityPeriodUnit: value,
+                  })
+                }
+                value={openSpan?.openAvailabilityPeriodUnit}
+                options={[
+                  { value: "hours", label: "Hours" },
+                  { value: "day", label: "Day" },
+                ]}
+              />
+            </div>
           </div>
-        </div>
+        ) : null}
         <p style={{ color: "red" }}>{openNeedInCustom}</p>
         {scheduleType === "schedule" || scheduleType === "combined"
           ? scheduleData?.map((el, index) => {
@@ -282,8 +283,8 @@ function EventScheduleComponent({ mode }: { mode: string }) {
                     key={el.id}
                     eventData={el}
                     errorsData={errors}
-                    spanDefaultValue={scheduleSpan}
-                    // scheduleSpan={(value: any) => setScheduleSpan(value)}
+                    spanDefaultValue={openSpan}
+                    openSpan={(value: any) => setOpenSpan(value)}
                     getChildValue={(value: any) =>
                       updateScheduleEvent(el.id, value)
                     }
@@ -321,7 +322,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
         ) : null}
         {scheduleType === "open" || scheduleType === "combined" ? (
           <OpenAvailabilityComponent
-            openSpan={(value: any) => setOpenSpan(value)}
+            // openSpan={(value: any) => setOpenSpan(value)}
             defaultEvent={customeEvent}
             customAvailabilityData={(value: any) => setCustomEvent(value)}
             errors={openCustomErrors}

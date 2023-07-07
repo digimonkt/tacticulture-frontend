@@ -40,16 +40,22 @@ function EmbedBody() {
       eventDetail.eventScheduledDateTime &&
       eventDetail.eventScheduledDateTime.length > 0
     ) {
-      const startTime = moment(
-        eventDetail.eventScheduledDateTime[0].eventStartTime,
-        "HH:mm:ss"
+      //       const startDate = moment(a.eventStartDate, 'YYYY-MM-DD');
+      // const endDate = moment(a.eventEndDate, 'YYYY-MM-DD');
+      // const diffInDays = endDate.diff(startDate, 'days');
+
+      // console.log(diffInDays); // Output: 16
+      const startDate = moment(
+        eventDetail.eventScheduledDateTime[0].eventStartDate,
+        "YYYY-MM-DD"
       );
-      const endTime = moment(
-        eventDetail.eventScheduledDateTime[0].eventEndTime,
-        "HH:mm:ss"
+      const endDate = moment(
+        eventDetail.eventScheduledDateTime[0].eventEndDate,
+        "YYYY-MM-DD"
       );
 
-      const duration = moment.duration(endTime.diff(startTime)).asHours();
+      const duration = endDate.diff(startDate, "days");
+
       setDuration(duration);
     } else if (eventDetail.eventCustomAvailability) {
       const startTime = moment(
@@ -181,7 +187,8 @@ function EmbedBody() {
                 </div>
                 <EmbedCardComponent
                   icon={<SVG.Timer width="16px" />}
-                  text={duration + " hours"}
+                  text={duration + " days"}
+                  timeDuration={eventDetail.eventScheduledDateTime[0]}
                 />
                 <div style={{ background: "#f3f3f3" }}>
                   <EmbedCardComponent
@@ -203,7 +210,7 @@ function EmbedBody() {
 
                 <EmbedCardComponent
                   icon={<SVG.Fee width="16px" />}
-                  text={eventDetail.perSpotCost.toString()}
+                  text={eventDetail.perSpotCost.toString() + "$"}
                 />
                 <EmbedCardComponent
                   heading="Completion Badge"
@@ -242,7 +249,7 @@ function EmbedBody() {
                     }}
                     onClick={showModal}
                   >
-                    Register Now{" "}
+                    Register Now
                   </FilledButton>
                   <h6>Course Summary</h6>
                   <p

@@ -42,7 +42,9 @@ export const initialEventDetail: getEventType = {
   courseUrl: "",
   customQuestions: [
     {
-      answerData: [{ value: "", label: "", id: 0, upgradeCost: 0 }],
+      answerData: [
+        { value: "", label: "", id: 0, upgradeCost: 0, description: "" },
+      ],
       answerRequired: false,
       fieldType: "",
       id: 0,
@@ -107,10 +109,10 @@ const initialEventData = {
   isAddSalesTax: false,
   salesTaxPercent: 0,
   eventTypeAndScheduleId: "schedule",
-  eventScheduleSpan: {
-    scheduleAvailabilityPeriod: 1,
-    scheduleAvailabilityPeriodUnit: "hours",
-  },
+  // eventScheduleSpan: {
+  //   scheduleAvailabilityPeriod: 1,
+  //   scheduleAvailabilityPeriodUnit: "hours",
+  // },
   eventOpenSpan: {
     openAvailabilityPeriodUnit: "hours",
     openAvailabilityPeriod: 1,

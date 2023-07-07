@@ -36,7 +36,7 @@ function ManageEvent() {
 
   return (
     <div>
-      <InstructorLayout activeLink="/instructor/manage-event">
+      <InstructorLayout>
         <div>
           <h3
             style={{

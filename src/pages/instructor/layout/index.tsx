@@ -6,7 +6,7 @@ import styles from "./layout.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 interface IChildren {
-  activeLink: string;
+  // activeLink: string;
   // handleLinkClick: (link: string) => void;
   children: React.ReactNode;
 }

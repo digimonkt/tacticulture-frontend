@@ -69,13 +69,13 @@ export type availabilityType = {
   isChecked: boolean;
   schedules: { startDate: string }[];
   errors: { day: string; error: string }[];
-  openSpan: (period: string, periodUnit: string) => void;
+  // openSpan: (period: string, periodUnit: string) => void;
   openValue: (value: string) => void;
 };
 
 function OpenAvailabilityComponent({
   customAvailabilityData,
-  openSpan,
+  // openSpan,
   value,
   errors,
   defaultEvent,
@@ -123,9 +123,9 @@ function OpenAvailabilityComponent({
     // console.log(JSON.stringify(availability), "avai");
   }, []);
 
-  useEffect(() => {
-    openSpan(openTimeSpan);
-  }, [openTimeSpan]);
+  // useEffect(() => {
+  //   openSpan(openTimeSpan);
+  // }, [openTimeSpan]);
 
   useEffect(() => {
     getAvailabilityId();

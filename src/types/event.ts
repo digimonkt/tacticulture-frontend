@@ -50,10 +50,10 @@ export type CreateEventType = {
     eventCustomAvailabilityDetails: { fromTime: string; toTime: string }[];
     specificHoursDate: string;
   }[];
-  eventScheduleSpan: {
-    scheduleAvailabilityPeriod: number;
-    scheduleAvailabilityPeriodUnit: string;
-  };
+  // eventScheduleSpan: {
+  //   scheduleAvailabilityPeriod: number;
+  //   scheduleAvailabilityPeriodUnit: string;
+  // };
   eventOpenSpan: {
     openAvailabilityPeriodUnit: string;
     openAvailabilityPeriod: number;
@@ -132,7 +132,13 @@ export type getEventType = {
     answerRequired: boolean;
     paidUpgrade: string;
     upgradeCost: number;
-    answerData: { id: number; description: string; upgradeCost: number }[];
+    answerData: {
+      id: number;
+      description: string;
+      upgradeCost: number;
+      value: string;
+      label: string;
+    }[];
     costPerGuest: string;
     maxGuest: number;
   }[];

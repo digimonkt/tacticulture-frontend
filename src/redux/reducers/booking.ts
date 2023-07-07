@@ -15,7 +15,7 @@ const initialState = {
   guestOtpStatus: "",
   guestProfileStatus: "",
   registrationData: { email: "", verification_code: "" },
-  bookingData: { eventId: 0, date: "", type: "", item: { label: "" } },
+  bookingData: { eventId: 0, date: "", type: "", time: "" },
   bookingConfirm: "",
   informationRequirement: {},
 };
@@ -95,7 +95,7 @@ export const bookingSlice = createSlice({
         eventId: 0,
         date: "",
         type: "",
-        item: { label: "" },
+        time: "",
       };
     },
     setBookingData: (state, action) => {

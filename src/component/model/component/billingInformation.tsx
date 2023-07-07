@@ -44,12 +44,14 @@ function BillingInformationComponent({
         email: registrationData.email,
         event_id: bookingData.eventId,
         booking_date: bookingData.date,
-        booking_time: moment(bookingData.item.label, "hh:mm A").format("HH:mm"),
+        booking_time: moment(bookingData.time, "hh:mm A").format("HH:mm"),
         booking_type: bookingData.type,
-        // custom_questions_answers: {
-        //   answerLongText: values.answerLongText,
-        //   answerShortText: values.answerShortText,
-        // },
+        custom_questions_answers: {
+          // answerLongText: values.answerLongText,
+          // answerShortText: values.answerShortText,
+          answerLongText: "",
+          answerShortText: "",
+        },
         contact_details: [],
       };
       const resp = await guestBookingAPI(payload);
@@ -59,8 +61,8 @@ function BillingInformationComponent({
           icon: "success",
         }).then((value) => {
           handleStepNext();
-          const payload = {};
-          dispatch(resetBookingData(payload));
+
+          dispatch(resetBookingData());
         });
       } else {
         Swal("Oops!", "Something went wrong!", "error");
@@ -170,7 +172,7 @@ function BillingInformationComponent({
 
               <p>
                 Event Start:{" "}
-                {moment(bookingData.item?.label, "hh:mm:ss").format("HH:mm a")}{" "}
+                {moment(bookingData.time, "hh:mm:ss").format("HH:mm a")}{" "}
               </p>
               <h5>
                 {" "}
@@ -196,7 +198,11 @@ function BillingInformationComponent({
                 <span>
                   $
                   {eventDetail.perSpotCost +
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     Object.values(informationRequirement).reduce(
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
                       (acc, value) => acc + value,
                       0
                     )}
@@ -216,7 +222,11 @@ function BillingInformationComponent({
               <span>
                 $
                 {eventDetail.perSpotCost +
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
                   Object.values(informationRequirement).reduce(
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     (acc, value) => acc + value,
                     0
                   )}
