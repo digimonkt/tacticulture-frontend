@@ -1,12 +1,12 @@
 import { SVG } from "@/assets/svg";
 import ApprenticeHeaderComponent from "@/component/header/user-header";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./profile.module.css";
 import { Tab, Tabs } from "react-bootstrap";
 import CommunityInfoComponent from "../components/community-info";
 import CardComponent from "@/component/card/card";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
-// import EventCardComponent from "@/component/card/event-card";
+import EventCardComponent from "@/component/card/event-card";
 // import BadgeCardComponent from "@/component/card/badge-card";
 import { Col, Row } from "antd";
 import ForumCardComponent from "../components/forum-card";
@@ -16,10 +16,45 @@ import PrivatePages from "@/HOC/privatePages";
 import { useAppSelector } from "@/redux/hooks/hooks";
 import { currentUser } from "@/redux/reducers/user";
 import EventOrderList from "../components/event-order-list";
+import moment from "moment";
+
+interface IUpcomingCard{ 
+  id?: number;
+  eventStartDate: string;
+  eventStartTime: string;
+  eventEndDate: string;
+  eventEndTime: string;
+}
 
 function ApprenticeLayout() {
   // redux
   const currentUserDetails = useAppSelector(currentUser);
+  const { allEventData } = useAppSelector((state) => state.EventReducer);
+  const [upcomingEvent, setUpcomingEvent]= useState<any[]>([])
+  // useEffect(()=>{
+
+  // },[])
+
+  useEffect(()=>{
+    console.log(allEventData)
+      const filter= allEventData.results.filter(item=> item.eventScheduledDateTime && item.eventScheduledDateTime?.length>0 && item.eventScheduledDateTime?.some(value=> moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD")) ) )
+      const sort = filter.sort((_event1, _event2)=>{
+      const start1= _event1.eventScheduledDateTime && _event1.eventScheduledDateTime[0]
+      const start2 =_event2.eventScheduledDateTime && _event2.eventScheduledDateTime[0]
+      const startDate1 = new Date(start1?.eventStartDate||"")
+      const startDate2 = new Date(start2?.eventStartDate ||"" )
+      if (startDate1 > startDate2) {
+        return -1;
+      }
+      if (startDate1 < startDate2) {
+        return 1;
+      }
+      return 0;
+    })
+    setUpcomingEvent(sort)
+    console.log({sort})
+  
+  },[allEventData])
 
   return (
     <PrivatePages>
@@ -67,43 +102,49 @@ function ApprenticeLayout() {
                   followersCount={0}
                 />
                 <CardComponent title="Upcoming Events">
-                  {/* <EventCardComponent
-                    date=" January 7, 2023 -"
-                    time="8:00 AM"
-                    description="Title ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lorem pharetra, varius quam.
-         (85 max)"
-                    address="12345 Address Ave, Georgetown, TX 78628"
-                  /> */}
-                  <div
+                {upcomingEvent.length>0?  upcomingEvent.slice(0,3).map(item=>{
+                    return item.eventScheduledDateTime.map((value:IUpcomingCard)=>{
+                      return moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD")) && <EventCardComponent
+                      date={value.eventStartDate}
+                      time={value.eventStartTime}
+                      Share="Share"
+                      CopyLink="Copy Link"
+                      CourseText="View Course Page"
+                      description={item.name}
+                      address={item.location}
+                    />
+                    })
+                  }) :
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <span
                     style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
+                      fontSize: "21px",
+                      fontWeight: 800,
+                      color: "#fff",
                     }}
                   >
-                    <span
-                      style={{
-                        fontSize: "21px",
-                        fontWeight: 800,
-                        color: "#fff",
-                      }}
-                    >
-                      No Upcoming Events
-                    </span>
-                    <FilledButton className={`${styles.BtnEvent}`}>
-                      Browes Events
-                    </FilledButton>
-                    <span
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: 700,
-                        color: "#FF3030",
-                        marginTop: "14px",
-                      }}
-                    >
-                      See past events
-                    </span>
-                  </div>
+                    No Upcoming Events
+                  </span>
+                  <FilledButton className={`${styles.BtnEvent}`}>
+                    Browes Events
+                  </FilledButton>
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: 700,
+                      color: "#FF3030",
+                      marginTop: "14px",
+                    }}
+                  >
+                    See past events
+                  </span>
+                </div>}
                 </CardComponent>
                 <CardComponent title="Achievement Badges">
                   {/* <Row>

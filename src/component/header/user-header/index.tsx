@@ -21,7 +21,7 @@ const ApprenticeDropDownList = [
   {
     id: 1,
     title: "Apprentice Home",
-    url: "",
+    url: "/apprentice/profile",
     icon: (
       <>
         <SVG.Home style={{ color: "#FFF" }} />
@@ -41,7 +41,7 @@ const ApprenticeDropDownList = [
   {
     id: 3,
     title: "Apprentice Profile",
-    url: "",
+    url: "/apprentice-profile",
     icon: (
       <>
         <SVG.Apprenticeprofile />
@@ -179,7 +179,7 @@ function UserHeaderComponent() {
               )}
               <Nav className="me-auto justify-content-end w-100">
                 {currentUserDetail.defaultRole === USER_ROLES.apprentice ? (
-                  <Nav.Link href="#" className={`${styles.link}`}>
+                  <Nav.Link href="/apprentice/browse-event" className={`${styles.link}`}>
                     Browse Events
                   </Nav.Link>
                 ) : (
@@ -231,6 +231,7 @@ function UserHeaderComponent() {
                         ? ApprenticeDropDownList.map((item) => (
                             <Dropdown.Item
                               key={item.id}
+                              onClick={() => item.url && router.push(item.url)}
                               href={item.url}
                               className={`${styles.listDropdown}`}
                             >
