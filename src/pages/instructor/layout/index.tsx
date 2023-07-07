@@ -4,18 +4,19 @@ import React, { useState } from "react";
 import UserHeaderComponent from "@/component/header/user-header";
 import styles from "./layout.module.css";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 interface IChildren {
   activeLink: string;
   // handleLinkClick: (link: string) => void;
   children: React.ReactNode;
 }
 
-function InstructorLayout({
-  activeLink,
-  children,
-}: // handleLinkClick,
-IChildren) {
+function InstructorLayout({ children }: IChildren) {
+  const [activeLink, setActiveLink] = useState("");
+  const router = useRouter();
+  const handleLinkClick = (link: string) => {
+    setActiveLink(link);
+  };
   return (
     <div>
       <UserHeaderComponent />
@@ -25,11 +26,20 @@ IChildren) {
             <ul className="p-0">
               <Link href="/instructor/home">
                 <li
-                  className={activeLink === "/" ? "active" : ""}
-                  // onClick={() => handleLinkClick("/")}
-                  style={activeLink === "/" ? { color: "red" } : {}}
+                  className={
+                    router.pathname === "/instructor/home" ? "active" : ""
+                  }
+                  onClick={() => handleLinkClick("/")}
                 >
-                  <SVG.Home /> Instructor Home
+                  <SVG.Home
+                    style={{
+                      color:
+                        router.pathname === "/instructor/home"
+                          ? "#FF3030"
+                          : "#fff",
+                    }}
+                  />{" "}
+                  Instructor Home
                 </li>
               </Link>
               <Link
@@ -38,7 +48,9 @@ IChildren) {
               >
                 <li
                   className={
-                    activeLink === "/instructor/manage-event" ? "active" : ""
+                    router.pathname === "/instructor/manage-event"
+                      ? "active"
+                      : ""
                   }
                   // onClick={() => handleLinkClick("/instructor/manage-event")}
                   style={
@@ -47,7 +59,15 @@ IChildren) {
                       : {}
                   }
                 >
-                  <SVG.Managevent /> Manage Events
+                  <SVG.Managevent
+                    style={{
+                      color:
+                        router.pathname === "/instructor/manage-event"
+                          ? "#FF3030"
+                          : "#fff",
+                    }}
+                  />{" "}
+                  Manage Events
                 </li>
               </Link>
               <Link
@@ -55,14 +75,22 @@ IChildren) {
                 href="/instructor/availability"
               >
                 <li
-                  // onClick={() => handleLinkClick("/instructor/availability")}
-                  style={
-                    activeLink === "/instructor/availability"
-                      ? { color: "red" }
-                      : {}
+                  className={
+                    router.pathname === "/instructor/availability"
+                      ? "active"
+                      : ""
                   }
+                  onClick={() => handleLinkClick("/instructor/availability")}
                 >
-                  <SVG.Clock /> Availability
+                  <SVG.Clock
+                    style={{
+                      color:
+                        router.pathname === "/instructor/availability"
+                          ? "#FF3030"
+                          : "#fff",
+                    }}
+                  />{" "}
+                  Availability
                 </li>
               </Link>
               <li>
