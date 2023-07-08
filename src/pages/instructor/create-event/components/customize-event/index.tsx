@@ -9,12 +9,19 @@ import Image from "next/image";
 // import UploadProfileComponent from "@/component/upload-profile";
 import EventHeaderComponent from "../event-header";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { createEventData, resetEventError } from "@/redux/reducers/event";
+import {
+  createEventData,
+  resetEventData,
+  resetEventError,
+} from "@/redux/reducers/event";
 import { EventPayload } from "@/api/types/event";
 import { Spinner } from "react-bootstrap";
+import swal from "sweetalert";
+import { useRouter } from "next/router";
 
 function CustomizeEventComponent() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [fileSelect, setFileSelect] = React.useState<
     string | ArrayBuffer | null
   >("");
@@ -35,26 +42,24 @@ function CustomizeEventComponent() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  console.log(fileSelect, "images");
-  useEffect(() => {
-    // let errorData: any;
-    // if (eventCreatedError?.status) {
-    //   errorData = Object.keys(eventCreatedError.errors).map(
-    //     (key) => (key = eventCreatedError.errors[key].join(", "))
-    //   );
-    // }
 
+  useEffect(() => {
     // alert(errorData);
     // @ts-ignore
-    const objectLength = Object.keys(eventCreatedError).length;
+    const objectLength = Object.keys(eventCreatedError?.errors).length;
+
+    const objectValue = Object.values(eventCreatedError?.errors).toString();
+
     if (objectLength > 0) {
       // @ts-ignore
-      alert(Object.values(eventCreatedError.errors));
+      swal("Oops!", objectValue, "error").then((value) => {
+        dispatch(resetEventError());
+      });
     } else {
-      dispatch(resetEventError());
+      // dispatch(resetEventError());
     }
     // @ts-ignore
-  }, [Object.keys(eventCreatedError).length]);
+  }, [eventCreatedError]);
 
   // useEffect(() => {
   //   console.log(addImages);
@@ -133,9 +138,17 @@ function CustomizeEventComponent() {
 
   useEffect(() => {
     if (eventCreated === "success") {
-      window.confirm("Event is created successfully.");
+      swal({
+        title: "Event is created successfully",
+        icon: "success",
+      }).then((value) => {
+        dispatch(resetEventData());
+        router.push("/instructor/home");
+        // handleStepNext();
+        // dispatch(resetBookingData());
+      });
     }
-    dispatch(resetEventError());
+    // dispatch(resetEventError());
   }, [eventCreated]);
 
   return (
