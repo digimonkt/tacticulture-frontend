@@ -27,7 +27,7 @@ interface Ievent {
   allEventData: GetListWithPagination<CreateEventType[]>;
   eventDetail: getEventType;
   eventCreated: string;
-  eventCreatedError?: object;
+  eventCreatedError?: { errors: any };
   ownEventDetail: getEventType;
 }
 export const initialEventDetail: getEventType = {
@@ -165,7 +165,7 @@ const initialState: Ievent = {
   eventCreated: "",
   eventId: "0",
   ownEventDetail: initialEventDetail,
-  eventCreatedError: {},
+  eventCreatedError: { errors: {} },
   eventDetail: initialEventDetail,
   allEventData: { count: 0, next: undefined, previous: undefined, results: [] },
   availableEventData: {
@@ -297,9 +297,10 @@ export const eventSlice = createSlice({
   reducers: {
     resetEventData: (state) => {
       state.eventData = { ...initialEventData };
+      state.eventCreated = "";
     },
     resetEventError: (state) => {
-      state.eventCreatedError = {};
+      state.eventCreatedError = { errors: {} };
       state.eventCreated = "";
     },
     createEvent: (state, action) => {

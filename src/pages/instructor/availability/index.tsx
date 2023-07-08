@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InstructorLayout from "../layout";
 import { SVG } from "@/assets/svg";
 import { Button, Checkbox } from "antd";
@@ -8,7 +8,7 @@ import ScheduleEventComponent, {
   ISpecificData,
 } from "@/component/schedule-event";
 import { OutlinedButton } from "@/component/buttons";
-import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { updateUserAvailability } from "@/redux/reducers/user";
 import { AvailabilityPayloadType } from "@/api/types/user";
 import { WEEKDAYS } from "@/utils/enum";
@@ -83,6 +83,32 @@ function Availability() {
   const [timezoneData, setTimezoneData] = useState(
     Intl.DateTimeFormat().resolvedOptions().timeZone
   );
+  const { defaultAvailability } = useAppSelector((state) => state.userReducer);
+
+  // console.log(defaultAvailability, "deff");
+  useEffect(() => {
+    // setAvailability(defaultEvent);
+    const updatedAvailability = availability.map((avail) => {
+      const matchingEvent = defaultAvailability.userCustomAvailability.find(
+        (event: any) => event.day === avail.value
+      );
+
+      if (matchingEvent) {
+        return {
+          ...avail,
+          schedules: matchingEvent.timeArray.map((detail: any) => ({
+            startTime: detail.fromTime,
+            endTime: detail.toTime,
+          })),
+          isChecked: true,
+        };
+      }
+
+      return avail;
+    });
+
+    setAvailability(updatedAvailability);
+  }, []);
 
   //   handleRemoveSchedule,
 

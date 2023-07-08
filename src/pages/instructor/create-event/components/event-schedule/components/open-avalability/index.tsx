@@ -8,7 +8,6 @@ import ScheduleEventComponent, {
 import { createEvent } from "@/redux/reducers/event";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { WEEKDAYS } from "@/utils/enum";
-import { LabeledInput, SelectInput } from "@/component/input";
 
 const scheduleEvents: IScheduleEvent[] = [
   {
@@ -84,9 +83,10 @@ function OpenAvailabilityComponent({
   const dispatch = useAppDispatch();
   const [openTimeSpan, setOpenTimeSpan] = useState({});
   const [isComponent, setIsComponent] = useState("default");
-  const [availability, setAvailability] = useState(scheduleEvents);
+  const [availability, setAvailability] = useState([]);
   const [availabilityId, setAvailabilityId] = useState(0);
 
+  const { defaultAvailability } = useAppSelector((state) => state.userReducer);
   // useEffect(() => {
   //   setAvailability(defaultEvent);
   // }, []);
@@ -96,36 +96,53 @@ function OpenAvailabilityComponent({
   }, [availability]);
 
   useEffect(() => {
-    // setAvailability(defaultEvent);
-    const updatedAvailability = availability.map((avail) => {
-      const matchingEvent = defaultEvent.find(
-        (event: any) => event.weekdays === avail.day
-      );
+    let updatedAvailability: any;
+    if (isComponent === "custom") {
+      const avai = scheduleEvents;
+      updatedAvailability = avai.map((avail) => {
+        const matchingEvent = defaultEvent.find(
+          (event: any) => event.weekdays === avail.day
+        );
 
-      if (matchingEvent) {
-        return {
-          ...avail,
-          schedules: matchingEvent.eventCustomAvailabilityDetails.map(
-            (detail: any) => ({
+        if (matchingEvent) {
+          return {
+            ...avail,
+            schedules: matchingEvent.eventCustomAvailabilityDetails.map(
+              (detail: any) => ({
+                startTime: detail.fromTime,
+                endTime: detail.toTime,
+              })
+            ),
+            isChecked: true,
+          };
+        }
+
+        return avail;
+      });
+    } else {
+      const avai = scheduleEvents;
+      updatedAvailability = avai.map((avail) => {
+        const matchingEvent = defaultAvailability.userCustomAvailability.find(
+          (event: any) => event.day === avail.value
+        );
+
+        if (matchingEvent) {
+          return {
+            ...avail,
+            schedules: matchingEvent.timeArray.map((detail: any) => ({
               startTime: detail.fromTime,
               endTime: detail.toTime,
-            })
-          ),
-          isChecked: true,
-        };
-      }
+            })),
+            isChecked: true,
+          };
+        }
 
-      return avail;
-    });
+        return avail;
+      });
+    }
 
     setAvailability(updatedAvailability);
-    // console.log(JSON.stringify(defaultEvent), "default");
-    // console.log(JSON.stringify(availability), "avai");
-  }, []);
-
-  // useEffect(() => {
-  //   openSpan(openTimeSpan);
-  // }, [openTimeSpan]);
+  }, [isComponent]);
 
   useEffect(() => {
     getAvailabilityId();
@@ -151,14 +168,14 @@ function OpenAvailabilityComponent({
   };
 
   const handleRemoveSchedule = (idx: number) => (scheduleIndex: number) => {
-    const newAvailability = [...availability];
+    const newAvailability: any = [...availability];
     const at = { ...newAvailability[idx] };
     at.schedules.splice(scheduleIndex, 1);
     setAvailability(newAvailability);
   };
   const handleUpdateStart =
     (idx: number) => (scheduleIndex: number, value: string) => {
-      const newAvailability = [...availability];
+      const newAvailability: any = [...availability];
       const at = { ...newAvailability[idx] };
       const scheduleAt = at.schedules[scheduleIndex];
       if (scheduleAt) {
@@ -169,7 +186,7 @@ function OpenAvailabilityComponent({
     };
   const handleUpdateEnd =
     (idx: number) => async (scheduleIndex: number, value: string) => {
-      const newAvailability = [...availability];
+      const newAvailability: any = [...availability];
       const at = { ...newAvailability[idx] };
       const scheduleAt = at.schedules[scheduleIndex];
       if (scheduleAt) {
@@ -180,7 +197,7 @@ function OpenAvailabilityComponent({
     };
 
   const handleAddSchedule = (idx: number) => () => {
-    const newAvailability = [...availability];
+    const newAvailability: any = [...availability];
     const at = { ...newAvailability[idx] };
     if (!at.schedules) {
       at.schedules = [];
@@ -198,7 +215,7 @@ function OpenAvailabilityComponent({
   };
 
   const handleChangeChecked = (idx: number) => (value: boolean) => {
-    const newAvailability = [...availability];
+    const newAvailability: any = [...availability];
     const at = { ...newAvailability[idx] };
     let newSchedules = at.schedules ? [...at.schedules] : [];
     if (value === true) {
@@ -249,13 +266,14 @@ function OpenAvailabilityComponent({
         <hr />
 
         <div className="scheduleSection">
-          {isComponent === "custom" && (
+          {
             <div>
-              {" "}
               {availability.map((available, idx) => {
                 return (
                   <ScheduleEventComponent
                     key={idx}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     {...available}
                     handleAddSchedule={handleAddSchedule(idx)}
                     handleChangeChecked={handleChangeChecked(idx)}
@@ -267,7 +285,7 @@ function OpenAvailabilityComponent({
                 );
               })}
             </div>
-          )}
+          }
           {/* <h1
             onClick={() =>
               dispatch(createEvent({ eventCustomAvailability: availability }))

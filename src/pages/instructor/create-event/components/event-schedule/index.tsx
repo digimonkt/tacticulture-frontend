@@ -42,7 +42,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
   const [customeEvent, setCustomEvent] = useState(
     eventData.eventCustomAvailability
   );
-  console.log(ownEventDetail, "ownEventData");
+
   useEffect(() => {
     if (mode === "update") {
       setScheduleType(ownEventDetail.eventTypeAndScheduleId);
@@ -218,7 +218,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
               content="A user can schedule an event based on your availability."
               onClick={() => {
                 setScheduleType("open");
-                dispatch(getUserDefaultAvailability());
+                // dispatch(getUserDefaultAvailability());
                 setScheduleData([
                   {
                     id: 1,
