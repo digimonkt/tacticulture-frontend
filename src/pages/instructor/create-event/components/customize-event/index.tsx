@@ -12,8 +12,35 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { createEventData, resetEventError } from "@/redux/reducers/event";
 import { EventPayload } from "@/api/types/event";
 import { Spinner } from "react-bootstrap";
+import { handleImageCropperToggle } from "@/redux/reducers/modalsToggle";
 
-function CustomizeEventComponent() {
+import { IMAGE_VARIENTS } from "@/utils/enum";
+import { ImageCropper } from "@/component/lightBoxes";
+
+interface PropsI {
+  handleSetProfileImage: (arg: string | null) => void;
+}
+
+function CustomizeEventComponent(props: PropsI) {
+  // state management
+  const [croppedImage, setCroppedImage] = useState<string | null>(null);
+  const [selectedFileType, setSelectedFileType] = useState<string>("");
+
+  // handle file upload
+  const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileExtension = e.target?.files && e.target?.files[0]?.type;
+    if (
+      fileExtension === "image/jpeg" ||
+      fileExtension === "image/jpg" ||
+      fileExtension === "image/png"
+    ) {
+      e.target?.files &&
+        setCroppedImage(URL.createObjectURL(e.target?.files[0]));
+      setSelectedFileType(fileExtension);
+      dispatch(handleImageCropperToggle(true));
+    }
+  };
+
   const dispatch = useAppDispatch();
   const [fileSelect, setFileSelect] = React.useState<
     string | ArrayBuffer | null
@@ -24,17 +51,17 @@ function CustomizeEventComponent() {
     (state) => state.EventReducer
   );
 
-  const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const reader = new FileReader();
-      setAddImages(e.target.files[0]);
+  // const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     const reader = new FileReader();
+  //     setAddImages(e.target.files[0]);
 
-      reader.onloadend = function () {
-        setFileSelect(reader.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
+  //     reader.onloadend = function () {
+  //       setFileSelect(reader.result);
+  //     };
+  //     reader.readAsDataURL(e.target.files[0]);
+  //   }
+  // };
 
   useEffect(() => {
     // let errorData: any;
@@ -165,10 +192,10 @@ function CustomizeEventComponent() {
           Event Image <span style={{ fontStyle: "italic" }}>(optional)</span>
         </h6>
         <div className={`${styles.eventImg}`}>
-          {fileSelect ? (
+          {croppedImage ? (
             <>
               <div
-                style={{ backgroundImage: `url(${fileSelect})` }}
+                style={{ backgroundImage: `url(${croppedImage})` }}
                 className={`${styles.preview}`}
               ></div>
             </>
@@ -181,10 +208,23 @@ function CustomizeEventComponent() {
               <p>recommended image size 1200x628px</p>
             </>
           )}
-          <OutlinedButton>or Choose a File</OutlinedButton>
+
+          {croppedImage ? (
+            <OutlinedButton>or Choose a File</OutlinedButton>
+          ) : (
+            <OutlinedButton>or Choose a File</OutlinedButton>
+          )}
 
           <input type="file" onChange={fileUpload} />
         </div>
+        <ImageCropper
+          fileExtension={selectedFileType}
+          fileToCrop={croppedImage || ""}
+          setCroppedImage={(file) => {
+            setCroppedImage(file && file);
+          }}
+          imageType={IMAGE_VARIENTS.profile}
+        />
         <h6
           style={{
             fontSize: "16px",
