@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import ApprenticeHeaderComponent from "@/component/header/user-header";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import EventCardComponent from "@/component/card/event-card";
 import { getAllEventData } from "@/redux/reducers/event";
-interface IUpcomingCard{ 
+interface IUpcomingCard {
     id?: number;
     eventStartDate: string;
     eventStartTime: string;
@@ -17,8 +17,8 @@ function BrowseEvent() {
     useEffect(() => {
         dispatch(getAllEventData());
       }, [dispatch]);
-      
-    return <div  style={{
+
+    return <div style={{
         background: "#212121",
         height: "100%",
         minHeight: "100vh",
@@ -45,9 +45,10 @@ function BrowseEvent() {
                         address={item.location}
                       /> */}
                {
-                allEventData.results?.map(item=>{
-                    return item.eventScheduledDateTime?.map((value:IUpcomingCard)=>{
+                allEventData.results?.map(item => {
+                    return item.eventScheduledDateTime?.map((value:IUpcomingCard) => {
                         return <EventCardComponent
+                        key={item.id}
                         date={value.eventStartDate}
                         time={value.eventStartTime}
                         Share="Share"
@@ -55,13 +56,13 @@ function BrowseEvent() {
                         CourseText="View Course Page"
                         description={item.name}
                         address={item.location}
-                      />
-                      })
+                      />;
+                      });
                 })
                }
             </div>
         </div>
-    </div>
+    </div>;
 }
 
-export default BrowseEvent
+export default BrowseEvent;
