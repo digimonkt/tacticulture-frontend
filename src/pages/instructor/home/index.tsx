@@ -41,6 +41,7 @@ function Home() {
   useEffect(() => {
     dispatch(getUserDefaultAvailability());
     dispatch(getEventData());
+    dispatch(getUserDefaultAvailability());
   }, [dispatch]);
 
   useEffect(() => {
