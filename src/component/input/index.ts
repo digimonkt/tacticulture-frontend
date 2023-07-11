@@ -7,9 +7,10 @@ import SelectInputComponent from "./selectInput";
 import TimePickerComponent from "./timepicker";
 import CheckBoxComponent from "./checkbox";
 import RadioButtonComponent from "./radioInput";
+import Datepicker from "./datepicker";
 
 export type IInput = InputProps;
-
+export const DateInput = Datepicker;
 export const RadioButtonInput = RadioButtonComponent;
 export const TimepickerInput = TimePickerComponent;
 export const LabeledInput = LabeledInputComponent;

@@ -142,7 +142,7 @@ function EventRequirement({ mode }: { mode: string }) {
           onPress={() => formik.handleSubmit()}
         />
       )}
-      <div className="requirements">
+      <div className="requirements sections">
         <div className="eventRequirement">
           <h5>Requirements</h5>
           <p className="mb-0">
@@ -248,7 +248,7 @@ function EventRequirement({ mode }: { mode: string }) {
         <div className={`${styles.waiverTextarea}`}>
           <TextareaComponent
             title="Set Your Custom Waiver Contents"
-            className="mb-3"
+            className="mb-3 newText"
             // onChange={(e) => dispatch(createEvent({ customWaiverSettings: e }))}
             onChange={(e) => {
               formik.setFieldValue("customWaiverSettings", e);

@@ -88,7 +88,10 @@ function ResetPasswordComponent() {
             {...formik.getFieldProps("userEmail")}
           />
           {formik.touched.userEmail && formik.errors.userEmail ? (
-            <ErrorMessage>{formik.errors.userEmail}</ErrorMessage>
+            <div className="emailError">
+              {" "}
+              <ErrorMessage>{formik.errors.userEmail}</ErrorMessage>
+            </div>
           ) : null}
           {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
           <div className={`${styles.signupBtn}`}>

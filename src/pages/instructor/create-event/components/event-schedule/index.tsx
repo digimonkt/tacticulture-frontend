@@ -267,7 +267,7 @@ function EventScheduleComponent({ mode }: { mode: string }) {
                 value={openSpan?.openAvailabilityPeriodUnit}
                 options={[
                   { value: "hours", label: "Hours" },
-                  { value: "day", label: "Day" },
+                  { value: "days", label: "Days" },
                 ]}
               />
             </div>

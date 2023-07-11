@@ -3,6 +3,7 @@ import styles from "../../course.module.css";
 import { LabeledInput } from "@/component/input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { SVG } from "@/assets/svg";
 // import { FilledButton } from "@/component/buttons";
 
 interface IScheduleDate {
@@ -73,15 +74,21 @@ function ScheduleDateComponent({
         <div className={`${styles.startTime}`}>
           <label>Event Start Date / Time*</label>
           <div className="d-flex align-items-center">
-            <LabeledInput
-              type="date"
-              className="me-3"
-              value={eventData?.eventStartDate}
-              onChange={(e) => {
-                formik.setFieldValue("eventStartDate", e.target.value);
-                getChildValue({ key: "eventStartDate", value: e.target.value });
-              }}
-            />
+            <div className="position-relative dateSvg">
+              <LabeledInput
+                type="date"
+                className="me-3"
+                value={eventData?.eventStartDate}
+                onChange={(e) => {
+                  formik.setFieldValue("eventStartDate", e.target.value);
+                  getChildValue({
+                    key: "eventStartDate",
+                    value: e.target.value,
+                  });
+                }}
+              />
+              <SVG.Date width="20px" />
+            </div>
             {/* {errorsData &&
               errorsData[index] &&
               errorsData[index].eventStartDate && (
@@ -89,21 +96,26 @@ function ScheduleDateComponent({
                   {errorsData[index].eventStartDate}
                 </p>
               )} */}
-
-            <LabeledInput
-              type="time"
-              value={eventData?.eventStartTime}
-              onChange={(e) => {
-                formik.setFieldValue("eventStartTime", e.target.value);
-                getChildValue({ key: "eventStartTime", value: e.target.value });
-              }}
-            />
+            <div className="position-relative timeSvg">
+              <LabeledInput
+                type="time"
+                value={eventData?.eventStartTime}
+                onChange={(e) => {
+                  formik.setFieldValue("eventStartTime", e.target.value);
+                  getChildValue({
+                    key: "eventStartTime",
+                    value: e.target.value,
+                  });
+                }}
+              />
+              <SVG.DownChevron width="18px" />
+            </div>
           </div>
           <div className="alerts">
             <p style={{ color: "red" }}>
               {errorsData?.[index]?.eventStartDate || ""}
             </p>
-            <p style={{ color: "red" }}>
+            <p style={{ color: "red" }} className="alertTime">
               {errorsData?.[index]?.eventStartTime || ""}
             </p>
           </div>
@@ -111,7 +123,19 @@ function ScheduleDateComponent({
         <div className={`${styles.startTime}`}>
           <label>Event End Date / Time*</label>
           <div className="d-flex align-items-center">
-            <LabeledInput
+            <div className="position-relative dateSvg">
+              <LabeledInput
+                type="date"
+                className="me-3"
+                value={eventData?.eventEndDate}
+                onChange={(e) => {
+                  formik.setFieldValue("eventEndDate", e.target.value);
+                  getChildValue({ key: "eventEndDate", value: e.target.value });
+                }}
+              />
+              <SVG.Date width="20px" />
+            </div>
+            {/* <LabeledInput
               type="date"
               className="me-3"
               value={eventData?.eventEndDate}
@@ -119,22 +143,24 @@ function ScheduleDateComponent({
                 formik.setFieldValue("eventEndDate", e.target.value);
                 getChildValue({ key: "eventEndDate", value: e.target.value });
               }}
-            />
-
-            <LabeledInput
-              type="time"
-              value={eventData?.eventEndTime}
-              onChange={(e) => {
-                formik.setFieldValue("eventEndTime", e.target.value);
-                getChildValue({ key: "eventEndTime", value: e.target.value });
-              }}
-            />
+            /> */}
+            <div className="position-relative timeSvg">
+              <LabeledInput
+                type="time"
+                value={eventData?.eventEndTime}
+                onChange={(e) => {
+                  formik.setFieldValue("eventEndTime", e.target.value);
+                  getChildValue({ key: "eventEndTime", value: e.target.value });
+                }}
+              />
+              <SVG.DownChevron width="18px" />
+            </div>
           </div>
           <div className="alerts">
             <p style={{ color: "red" }}>
               {errorsData?.[index]?.eventEndDate || ""}
             </p>
-            <p style={{ color: "red" }}>
+            <p style={{ color: "red" }} className="alertTime">
               {errorsData?.[index]?.eventEndTime || ""}
             </p>
           </div>

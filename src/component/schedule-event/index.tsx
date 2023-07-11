@@ -70,31 +70,42 @@ function ScheduleEventComponent({
               schedules?.map((schedule, idx) => {
                 return (
                   <>
-                    <LabeledInput
-                      type="time"
-                      value={schedule.startTime}
-                      onChange={(e) => handleUpdateStart(idx, e.target.value)}
-                    />
-                    <span>-</span>
-                    <LabeledInput
-                      type="time"
-                      value={schedule.endTime}
-                      onChange={(e) => handleUpdateEnd(idx, e.target.value)}
-                    />
-                    <span
-                      className="ps-2"
-                      onClick={() => handleRemoveSchedule(idx)}
-                    >
-                      <SVG.Trash width="24px" color="white" />
-                    </span>
-                    <p
-                      className="m-0"
-                      style={{ color: "red", textTransform: "capitalize" }}
-                    >
-                      {errors.map((el) =>
-                        el.day === day ? "start & end time are required" : ""
-                      )}
-                    </p>
+                    <div className="d-flex">
+                      <div className="labelSvg">
+                        <LabeledInput
+                          type="time"
+                          value={schedule.startTime}
+                          onChange={(e) =>
+                            handleUpdateStart(idx, e.target.value)
+                          }
+                        />
+                        <SVG.DownChevron width="16px" />
+                      </div>
+                      <span>-</span>
+                      <div className="labelSvg">
+                        <LabeledInput
+                          type="time"
+                          value={schedule.endTime}
+                          onChange={(e) => handleUpdateEnd(idx, e.target.value)}
+                        />
+                        <SVG.DownChevron width="16px" />
+                      </div>
+
+                      <span
+                        className="ps-2"
+                        onClick={() => handleRemoveSchedule(idx)}
+                      >
+                        <SVG.Trash width="24px" color="white" />
+                      </span>
+                      <p
+                        className="m-0"
+                        style={{ color: "red", textTransform: "capitalize" }}
+                      >
+                        {errors.map((el) =>
+                          el.day === day ? "start & end time are required" : ""
+                        )}
+                      </p>
+                    </div>
                   </>
                 );
               })

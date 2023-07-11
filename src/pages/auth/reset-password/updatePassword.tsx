@@ -135,19 +135,21 @@ function UpdatePasswordComponent() {
             {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password ? (
-            <ErrorMessage>
+            <div
+              className="updateError"
+              style={{ position: "relative", bottom: "17px" }}
+            >
               {" "}
-              <div style={{ marginTop: -14, marginBottom: -14 }}>
-                {formik.errors.password}
-              </div>
-            </ErrorMessage>
+              <ErrorMessage>
+                {" "}
+                <div>{formik.errors.password}</div>
+              </ErrorMessage>
+            </div>
           ) : null}
           {passwordError && (
             <ErrorMessage>
               {" "}
-              <div style={{ marginTop: -14, marginBottom: -14 }}>
-                {passwordError}
-              </div>
+              <p> {passwordError}</p>
             </ErrorMessage>
           )}
           <LabeledInput
@@ -156,17 +158,20 @@ function UpdatePasswordComponent() {
             {...formik.getFieldProps("passwordConfirm")}
           />
           {formik.touched.passwordConfirm && formik.errors.passwordConfirm ? (
-            <ErrorMessage>
+            <div className="updateError">
               {" "}
-              <div style={{ marginTop: -4, marginBottom: -0 }}>
-                {formik.errors.passwordConfirm}
-              </div>
-            </ErrorMessage>
+              <ErrorMessage>
+                {" "}
+                <div style={{ marginTop: -4, marginBottom: -0 }}>
+                  {formik.errors.passwordConfirm}
+                </div>
+              </ErrorMessage>{" "}
+            </div>
           ) : null}
           {confirmPasswordError && (
             <ErrorMessage>
               {" "}
-              <div style={{ marginTop: -4, marginBottom: -0 }}>
+              <div style={{ marginTop: 0, marginBottom: -0 }}>
                 {confirmPasswordError}
               </div>
             </ErrorMessage>

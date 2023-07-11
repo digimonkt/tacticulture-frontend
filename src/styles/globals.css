@@ -2,6 +2,165 @@
 .questionBox .ant-select-selection-item {
   padding-top: 13px !important;
 }
+.ant-tooltip-content {
+  display: none !important;
+}
+.waiverSetting .newText {
+  position: relative;
+  right: 6px;
+}
+.waiverSetting h4 {
+  position: relative !important;
+  left: -7px !important;
+}
+span.anticon.anticon-eye {
+  display: none !important;
+}
+.ant-upload-list-item.ant-upload-list-item-error {
+  border: 0 !important;
+}
+.tabs {
+  position: relative;
+}
+/* .tabs .nav-link.active:before {
+  content: "";
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='9' viewBox='0 0 15 9' fill='none'%3E %3Cpath d='M1.45312 0.969727C0.609375 0.969727 0.1875 2.00098 0.796875 2.61035L6.79688 8.61035C7.17188 8.98535 7.78125 8.98535 8.15625 8.61035L14.1562 2.61035C14.7656 2.00098 14.3438 0.969727 13.5 0.969727H1.45312Z' fill='%23CB2C2C'/%3E %3C/svg%3E");
+  position: absolute;
+  top: 65px;
+  z-index: 99;
+  width: 14px;
+  height: 12px;
+  background-repeat: no-repeat;
+  left: 22px;
+} */
+.embedBody img {
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  filter: opacity(0.6);
+}
+.tabs .nav-link.active svg path {
+  fill: #ff3030 !important;
+}
+.tabs .nav-link svg {
+  margin-right: 10px;
+  width: 18px;
+  height: 19px;
+  position: relative;
+  top: 1px;
+}
+
+.labelSvg svg {
+  position: absolute;
+  right: 4%;
+  top: 42%;
+  z-index: 0;
+}
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
+  color: #fff !important;
+}
+
+.ant-upload-list-item-container {
+  width: 100% !important;
+  height: 153px !important;
+}
+.uploadFile .ant-upload {
+  display: block !important;
+  width: 100% !important;
+  position: absolute;
+  top: 6px;
+  border: 0 !important;
+  color: #fff;
+}
+button.ql-link {
+  display: none !important;
+}
+.ql-editorp {
+  color: #000 !important;
+}
+.ql-editor h1 {
+  color: #000 !important;
+}
+.ql-editor ul li {
+  color: #000 !important;
+}
+.ql-editor ol li {
+  color: #000 !important;
+}
+.ql-snow .ql-editor h3 {
+  color: #000 !important;
+}
+.ql-snow .ql-editor h2 {
+  color: #000 !important;
+}
+.ql-container.ql-snow {
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 40vh !important;
+}
+.input-container input {
+  border: none;
+  box-sizing: border-box;
+  outline: 0;
+  padding: 0.75rem;
+  position: relative;
+  width: 100%;
+}
+.dateSvg {
+  padding-left: 0 !important;
+  padding-bottom: 0 !important;
+}
+.dateSvg svg {
+  position: absolute;
+  right: 10%;
+  top: 27%;
+}
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: 99;
+  top: 0;
+  width: auto;
+}
+.timeSvg {
+  padding-left: 0 !important;
+  padding-bottom: 0 !important;
+}
+.multiField .marginLabel {
+  margin-left: 12px !important;
+}
+.requiredText {
+  padding: 0;
+  margin: 0 7px;
+}
+.timeSvg svg {
+  position: absolute;
+  right: 5%;
+  top: 41%;
+  z-index: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  z-index: 999;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
 .courseContent {
   height: 290px;
   overflow: hidden;
@@ -154,7 +313,7 @@
 }
 .alerts p:nth-child(2) {
   position: relative;
-  right: 7px;
+  right: 0px;
 }
 
 .alerts p {
@@ -162,6 +321,7 @@
 }
 .boxed-user div:nth-child(1) {
   height: 190px !important;
+  justify-content: flex-start;
 }
 .whiteTrash {
   position: absolute;
@@ -586,6 +746,40 @@ table.rdp-table {
   margin-bottom: 0;
   padding-left: 12px;
 }
+.manualError p {
+  width: 97% !important;
+}
+.updateError p {
+  font-size: 16px !important;
+  margin-top: 5px !important;
+  margin-bottom: 0 !important;
+}
+.emailError p {
+  font-size: 16px !important;
+  font-family: "Inter" !important;
+  margin-bottom: 0 !important;
+
+  margin-top: 4px !important;
+}
+.alertLogin p {
+  font-size: 16px !important;
+  font-family: "Inter" !important;
+  margin-bottom: 0 !important;
+  margin-top: 5px !important;
+}
+.labelSvg {
+  position: relative;
+}
+.childTag a {
+  color: #fff !important;
+}
+.liveIcon path {
+  stroke: #fff;
+}
+.liveIcon {
+  position: relative;
+  bottom: 2px;
+}
 .eventTitle p {
   font-size: 13px;
   margin-bottom: 0;
@@ -595,6 +789,8 @@ table.rdp-table {
 .cards.card img {
   height: 170px;
   object-fit: cover;
+
+  filter: brightness(0.7);
 }
 .guestBody {
   background: #f3f3f3;
@@ -1070,7 +1266,7 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   right: 10px;
   margin-top: 16px !important;
   margin-bottom: 16px;
-  height: 204px !important;
+  /* height: 204px !important; */
 }
 .eventRequirement {
   border-bottom: 1px solid #555555;
@@ -1086,6 +1282,8 @@ nav.navbar.navbar-expand-lg.navbar-light br {
   width: 540px;
   padding-left: 17px;
   font-weight: 400;
+  position: relative;
+  bottom: 11px;
 }
 .quill {
   background: #fff !important;
@@ -1634,6 +1832,9 @@ button.ant-btn.css-dev-only-do-not-override-1km3mtt.ant-btn-default.btn.btn-grey
 .embedcontent {
   background: #fff;
   padding: 16px;
+
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 .profileright .ant-card-cover img {
   height: 160px !important;
@@ -1976,19 +2177,7 @@ span.ant-input-data-count {
   height: 20px;
   border-width: thin;
 } */
-input[type="time"]::-webkit-calendar-picker-indicator {
-  color: rgba(0, 0, 0, 0);
-  opacity: 1;
-  display: block;
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='9' viewBox='0 0 15 9' fill='none'%3E %3Cpath d='M1.45312 0.969727C0.609375 0.969727 0.1875 2.00098 0.796875 2.61035L6.79688 8.61035C7.17188 8.98535 7.78125 8.98535 8.15625 8.61035L14.1562 2.61035C14.7656 2.00098 14.3438 0.969727 13.5 0.969727H1.45312Z' fill='%23CB2C2C'/%3E %3C/svg%3E")
-    no-repeat !important;
-  /* background: url(../assets/images/down.svg) no-repeat !important; */
-  width: 20px;
-  position: relative;
-  top: 10px;
-  height: 20px;
-  border-width: thin;
-}
+
 .dropdownlist button#dropdown-basic svg path {
   fill: #fff !important;
 }

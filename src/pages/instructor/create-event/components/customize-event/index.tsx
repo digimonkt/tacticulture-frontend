@@ -4,7 +4,8 @@ import styles from "../../course.module.css";
 import { SVG } from "@/assets/svg";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { IMAGES } from "@/assets/images";
-import { Col, Row } from "antd";
+import ImgCrop from "antd-img-crop";
+import { Col, Row, Upload } from "antd";
 import Image from "next/image";
 // import UploadProfileComponent from "@/component/upload-profile";
 import EventHeaderComponent from "../event-header";
@@ -19,7 +20,42 @@ import { Spinner } from "react-bootstrap";
 import swal from "sweetalert";
 import { useRouter } from "next/router";
 
+const getSrcFromFile = (file: any) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file.originFileObj);
+    reader.onload = () => resolve(reader.result);
+  });
+};
+
 function CustomizeEventComponent() {
+  const [fileList, setFileList] = useState([
+    {
+      uid: "-1",
+      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    },
+  ]);
+
+  console.log({ fileList });
+
+  const onChange = ({ fileList: newFileList }: any) => {
+    setFileList(newFileList);
+  };
+
+  const onPreview = async (file: any) => {
+    const src = file.url || (await getSrcFromFile(file));
+    const imgWindow = window.open(src);
+
+    if (imgWindow) {
+      // @ts-ignore
+      const image = new Image();
+      image.src = src;
+      imgWindow.document.write(image.outerHTML);
+    } else {
+      window.location.href = src;
+    }
+  };
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [fileSelect, setFileSelect] = React.useState<
@@ -31,17 +67,17 @@ function CustomizeEventComponent() {
     (state) => state.EventReducer
   );
 
-  const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const reader = new FileReader();
-      setAddImages(e.target.files[0]);
+  // const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     const reader = new FileReader();
+  //     setAddImages(e.target.files[0]);
 
-      reader.onloadend = function () {
-        setFileSelect(reader.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
+  //     reader.onloadend = function () {
+  //       setFileSelect(reader.result);
+  //     };
+  //     reader.readAsDataURL(e.target.files[0]);
+  //   }
+  // };
 
   useEffect(() => {
     // alert(errorData);
@@ -176,26 +212,42 @@ function CustomizeEventComponent() {
         >
           Event Image <span style={{ fontStyle: "italic" }}>(optional)</span>
         </h6>
-        <div className={`${styles.eventImg}`}>
-          {fileSelect ? (
-            <>
-              <div
-                style={{ backgroundImage: `url(${fileSelect})` }}
-                className={`${styles.preview}`}
-              ></div>
-            </>
-          ) : (
-            <>
-              <h6>
-                <SVG.Faupload width="16px" /> Drag and Drop Your Image Here to
-                Upload
-              </h6>
-              <p>recommended image size 1200x628px</p>
-            </>
-          )}
-          <OutlinedButton>or Choose a File</OutlinedButton>
-
-          <input type="file" onChange={fileUpload} />
+        <div className="uploadFile">
+          <div className={`${styles.eventImg}`}>
+            <ImgCrop
+              showGrid
+              rotationSlider
+              aspectSlider
+              showReset
+              aspect={16 / 9}
+            >
+              <Upload
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-card"
+                // @ts-ignore
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={onPreview}
+              >
+                {fileList.length ? (
+                  ""
+                ) : (
+                  <>
+                    <h6>
+                      <SVG.Faupload width="16px" /> Drag and Drop Your Image
+                      Here to Upload
+                    </h6>
+                    <p>recommended image size 1200x628px</p>{" "}
+                  </>
+                )}
+                {fileList.length < 1 && (
+                  <>
+                    <OutlinedButton>or Choose a File</OutlinedButton>
+                  </>
+                )}
+              </Upload>
+            </ImgCrop>
+          </div>
         </div>
         <h6
           style={{

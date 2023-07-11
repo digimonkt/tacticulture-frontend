@@ -15,6 +15,7 @@ import EventRequirement from "../instructor/create-event/components/event-requir
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { getOwnEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface IEventIdQuery {
   eventId?: string;
@@ -87,8 +88,14 @@ function EventSummaryComponent() {
         <div className="publishSummary">
           <div className={`${styles.eventHeader}`}>
             <h3>Edit Your Event</h3>
-            <div>
-              <span>View Live Page</span>
+            <div className="childTag">
+              <Link href="/" target="_blank">
+                {" "}
+                <span style={{ cursor: "pointer" }}>
+                  <SVG.ShareI width="13px" className="liveIcon" /> View Live
+                  Page
+                </span>
+              </Link>
               <FilledButton> Share This Event</FilledButton>
             </div>
           </div>
