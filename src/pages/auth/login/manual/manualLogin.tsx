@@ -91,9 +91,14 @@ function ManualLoginComponent() {
             className="mb-3"
             {...formik.getFieldProps("email")}
           />
-          <p style={{ color: "red" }} className="verificationError">
-            {formik.errors.email}
-          </p>
+          <div className="manualError">
+            <p
+              style={{ color: "red", position: "relative", bottom: "17px" }}
+              className="verificationError"
+            >
+              {formik.errors.email}
+            </p>
+          </div>
           <LabeledInput
             disabled={preLoaderData}
             placeholder="Password"
@@ -101,9 +106,11 @@ function ManualLoginComponent() {
             type="password"
             {...formik.getFieldProps("password")}
           />
-          <p style={{ color: "red" }} className="verificationError">
-            {formik.errors.password}
-          </p>
+          <div className="manualError">
+            <p style={{ color: "red" }} className="verificationError">
+              {formik.errors.password}
+            </p>
+          </div>
           <div className={`${styles.signupBtn}`}>
             <FilledButton
               disabled={preLoaderData}

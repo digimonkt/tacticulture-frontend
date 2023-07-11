@@ -87,7 +87,7 @@ function EventCardComponent({
             <p
               style={{
                 color: "#CB2C2C",
-                fontFamily: "Proxima Nova",
+
                 fontSize: "14px",
                 fontWeight: "700",
                 letterSpacing: "1px",
