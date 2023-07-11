@@ -19,7 +19,6 @@ import {
   resetEventData,
 } from "@/redux/reducers/event";
 import moment from "moment";
-import { CreateEventType } from "@/types/event";
 
 interface IUpcomingCard {
   id?: number;
@@ -43,7 +42,7 @@ function Home() {
     dispatch(getUserDefaultAvailability());
     dispatch(getEventData());
     dispatch(getUserDefaultAvailability());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     // console.log(moment("2023-07-05").isAfter(moment().format("YYYY-MM-DD")))
