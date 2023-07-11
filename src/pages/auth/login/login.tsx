@@ -111,7 +111,10 @@ function LoginComponent() {
             }}
           />
           {formik.touched.email && formik.errors.email ? (
-            <ErrorMessage>{formik.errors.email}</ErrorMessage>
+            <div className="alertLogin">
+              {" "}
+              <ErrorMessage>{formik.errors.email}</ErrorMessage>
+            </div>
           ) : null}
           <div className={`${styles.signupBtn}`}>
             <FilledButton

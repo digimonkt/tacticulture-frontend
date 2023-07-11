@@ -1916,7 +1916,7 @@ ansi-styles@^4.1.0:
 
 antd-img-crop@^4.12.2:
   version "4.12.2"
-  resolved "https://registry.npmjs.org/antd-img-crop/-/antd-img-crop-4.12.2.tgz"
+  resolved "https://registry.yarnpkg.com/antd-img-crop/-/antd-img-crop-4.12.2.tgz#28d3fe752d0b0b6d6bae1bb8303f3aefe04e0470"
   integrity sha512-xgxR3x2sg+tCBHMfx1gejEfhhvnIL2mpZ4OIPfQDJZTTfm9YpMqaqLF9qWbF9Nf83bXCdaQywYihcVGyw3niDg==
   dependencies:
     compare-versions "6.0.0-rc.1"

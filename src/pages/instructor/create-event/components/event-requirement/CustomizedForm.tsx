@@ -211,7 +211,10 @@ const CustomizedForm = ({
             <div className="questionBox">
               <Row>
                 <Col md={12}>
-                  <div style={{ marginLeft: "22px", marginBottom: "20px" }}>
+                  <div
+                    style={{ marginLeft: "22px", marginBottom: "20px" }}
+                    className="marginLabel"
+                  >
                     <SelectInputComponent
                       label="Field Type"
                       className="antSelectDropdown"
@@ -239,7 +242,7 @@ const CustomizedForm = ({
                 <span
                   style={{
                     fontSize: "13px",
-                    width: "498px",
+                    width: "524px",
                     margin: "0 auto 16px",
                   }}
                 >
@@ -351,7 +354,7 @@ const CustomizedForm = ({
                       checked={data.answerRequired}
                       onChange={() => setAnswerRequired(!data.answerRequired)}
                     />
-                    <p>Is an answer required?</p>
+                    <p className="requiredText">Is an answer required?</p>
                   </div>
                 ) : null}
 

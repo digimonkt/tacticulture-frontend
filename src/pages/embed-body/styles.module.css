@@ -103,6 +103,7 @@
   width: 810px;
   max-width: 810px;
   margin: 0 auto;
+  padding-bottom: 20px;
 }
 .eventTitle {
   position: absolute;

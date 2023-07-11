@@ -8,6 +8,7 @@ import ExclamanationIcon from "./exclamanation.svg";
 import DownChevron from "./downarrow.svg";
 import Redbtn from "./redbtn.svg";
 import Leftarrow from "./leftarrow.svg";
+import Date from "./date.svg";
 import Fillcheck from "./fillcheck.svg";
 import First from "./first.svg";
 import Second from "./second.svg";
@@ -25,6 +26,7 @@ import Bell from "./bell.svg";
 import Location from "./location.svg";
 import Setting from "./setting.svg";
 import UserIcon from "./usericon.svg";
+import ShareI from "./sharei.svg";
 import Clip from "./clip.svg";
 import Guard from "./guard.svg";
 import Like from "./like.svg";
@@ -83,6 +85,7 @@ export const SVG = {
   Cloud,
   Crossed,
   Fee,
+  Date,
   Risk,
   Twitter,
   Timer,
@@ -93,6 +96,7 @@ export const SVG = {
   Dots,
   Faupload,
   Percent,
+  ShareI,
   File,
   Dollar,
   Trash,
