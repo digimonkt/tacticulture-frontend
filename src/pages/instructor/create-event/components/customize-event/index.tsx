@@ -20,7 +20,7 @@ import { Spinner } from "react-bootstrap";
 import swal from "sweetalert";
 import { useRouter } from "next/router";
 
-const getSrcFromFile = (file) => {
+const getSrcFromFile = (file: any) => {
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.readAsDataURL(file.originFileObj);
@@ -38,15 +38,16 @@ function CustomizeEventComponent() {
 
   console.log({ fileList });
 
-  const onChange = ({ fileList: newFileList }) => {
+  const onChange = ({ fileList: newFileList }: any) => {
     setFileList(newFileList);
   };
 
-  const onPreview = async (file) => {
+  const onPreview = async (file: any) => {
     const src = file.url || (await getSrcFromFile(file));
     const imgWindow = window.open(src);
 
     if (imgWindow) {
+      // @ts-ignore
       const image = new Image();
       image.src = src;
       imgWindow.document.write(image.outerHTML);
@@ -223,6 +224,7 @@ function CustomizeEventComponent() {
               <Upload
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 listType="picture-card"
+                // @ts-ignore
                 fileList={fileList}
                 onChange={onChange}
                 onPreview={onPreview}
