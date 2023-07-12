@@ -51,7 +51,7 @@ function Home() {
         item.eventScheduledDateTime &&
         item.eventScheduledDateTime?.length > 0 &&
         item.eventScheduledDateTime?.some((value) =>
-          moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD"))
+          moment(value.eventStartDate).isAfter(moment().format("MM-DD-YYYY"))
         )
     );
     console.log(filter);
@@ -126,7 +126,7 @@ function Home() {
                         (value: IUpcomingCard) => {
                           return (
                             moment(value.eventStartDate).isAfter(
-                              moment().format("YYYY-MM-DD")
+                              moment().format("MM-DD-YYYY")
                             ) && (
                               <EventCardComponent
                                 date={value.eventStartDate}

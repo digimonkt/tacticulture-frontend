@@ -42,6 +42,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
   const dispatch = useAppDispatch();
   const { eventData }: any = useAppSelector((state) => state.EventReducer);
   const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
+  const { currentUser } = useAppSelector((state) => state.userReducer);
 
   useEffect(() => {
     if (mode === "update") {
@@ -159,6 +160,25 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
   //   console.log(resp);
   // };
 
+  useEffect(() => {
+    formik.setValues((prevValues) => ({
+      ...prevValues,
+      courseUrl: `tacticulture.com/${currentUser.username.toLowerCase()}/`,
+    }));
+  }, [currentUser.username]);
+
+  const handleNameChange = (event: any) => {
+    const { value } = event.target;
+    formik.setFieldValue("name", value); // Update the name field value
+    formik.setFieldValue(
+      "courseUrl",
+      `tacticulture.com/${currentUser.username.toLowerCase()}/${value.replace(
+        /\s/g,
+        ""
+      )}`
+    ); // Update the courseUrl field value
+  };
+
   return (
     <div>
       {mode === "update" ? (
@@ -178,6 +198,9 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
           {...formik.getFieldProps("name")}
           row={3}
           text="Event Name*"
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          onChange={handleNameChange}
         />
         <p style={{ color: "red" }} className="formik">
           {formik.errors.name}
@@ -234,16 +257,9 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
       <div className={`${styles.customInput}`}>
         <label>Course Link*</label>
         <p className="mb-0 ps-3 ms-1 guestCount">
-          tacticulture.com/eddiegallagher/
+          {`tacticulture.com/${currentUser.username}/`}
         </p>
-        <LabeledInput
-          disabled={true}
-          className="mb-0"
-          {...formik.getFieldProps("courseUrl")}
-          value={`tacticulture.com/${formik
-            .getFieldProps("name")
-            .value.replace(/\s/g, "")}/`}
-        />
+        <LabeledInput className="mb-0" {...formik.getFieldProps("courseUrl")} />
         <span
           onClick={() =>
             formik.setFieldValue(

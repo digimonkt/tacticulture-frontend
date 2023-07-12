@@ -10,6 +10,7 @@ import { Card } from "react-bootstrap";
 import moment from "moment";
 import { CreateEventType } from "@/types/event";
 import { useRouter } from "next/router";
+import clipboardCopy from "clipboard-copy";
 
 interface IScheduleCard {
   data: CreateEventType;
@@ -17,7 +18,7 @@ interface IScheduleCard {
 
 const ScheduleCard = ({ data }: IScheduleCard) => {
   const router = useRouter();
-
+  console.log(data, "data");
   return (
     <Col md={24}>
       <Card className="position-relative cards black">
@@ -116,7 +117,10 @@ const ScheduleCard = ({ data }: IScheduleCard) => {
               <OutlinedButton className="outlineShare">
                 <SVG.Share width="60px" />
               </OutlinedButton>
-              <OutlinedButton className="copyShare">
+              <OutlinedButton
+                onClick={() => clipboardCopy(data.courseUrl)}
+                className="copyShare"
+              >
                 <SVG.CopyLink width="80px" />
               </OutlinedButton>
             </div>
