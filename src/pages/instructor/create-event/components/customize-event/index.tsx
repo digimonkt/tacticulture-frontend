@@ -29,16 +29,10 @@ const getSrcFromFile = (file: any) => {
 };
 
 function CustomizeEventComponent() {
-  const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
-
-  console.log({ fileList });
+  const [fileList, setFileList] = useState([]);
 
   const onChange = ({ fileList: newFileList }: any) => {
+    console.log(fileList);
     setFileList(newFileList);
   };
 
@@ -101,7 +95,7 @@ function CustomizeEventComponent() {
   //   console.log(addImages);
   // }, [addImages]);
 
-  const submitEvent = () => {
+  const submitEvent = async () => {
     const data = eventData?.eventCustomAvailability?.filter((eve) => {
       return eve.isChecked;
     });
@@ -113,7 +107,8 @@ function CustomizeEventComponent() {
         }),
       };
     });
-    // console.log(eventData, "pyaload");
+    const base64Image = await fileList[0]?.thumbUrl;
+
     const payload: EventPayload = {
       name: eventData.name,
       course_category: eventData.courseCategory,
@@ -153,7 +148,7 @@ function CustomizeEventComponent() {
       default_waiver_settings: eventData.defaultWaiverSettings,
       custom_waiver_settings: eventData.customWaiverSettings,
       custom_questions: eventData.customQuestions,
-      event_image: fileSelect?.toString() || null,
+      event_image: base64Image || null,
       // achievement_badge_image: eventData.achievementBadgeImage,
       publish_status: eventData.publishStatus,
       is_event_live: eventData.isEventLive,
@@ -168,7 +163,7 @@ function CustomizeEventComponent() {
     };
     // console.log({ payload });
     // console.log(JSON.stringify(payload));
-
+    JSON.stringify(payload);
     dispatch(createEventData(payload));
   };
 
@@ -186,7 +181,7 @@ function CustomizeEventComponent() {
     }
     // dispatch(resetEventError());
   }, [eventCreated]);
-
+  // console.log(fileList[0].thumbUrl, "file");
   return (
     <>
       <div className="position-relative">
@@ -216,7 +211,7 @@ function CustomizeEventComponent() {
           <div className={`${styles.eventImg}`}>
             <ImgCrop
               showGrid
-              rotationSlider
+              // rotationSlider
               aspectSlider
               showReset
               aspect={16 / 9}

@@ -5,6 +5,7 @@ import { SVG } from "@/assets/svg";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { OptionsInput } from "@/component/input";
 import { useAppSelector } from "@/redux/hooks/hooks";
+import moment from "moment";
 
 interface IEventCardComponent {
   date: string;
@@ -36,7 +37,7 @@ function EventCardComponent({
         <Col md={16}>
           <div className={`${styles.upcomingCard}`}>
             <h5>
-              {date}
+              {moment(date).format("MM-DD-YYYY")}
               <span style={{ color: "#CB2C2C" }}> {time}</span>
             </h5>
             <p>{description}</p>

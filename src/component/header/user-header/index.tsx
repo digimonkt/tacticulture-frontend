@@ -179,7 +179,10 @@ function UserHeaderComponent() {
               )}
               <Nav className="me-auto justify-content-end w-100">
                 {currentUserDetail.defaultRole === USER_ROLES.apprentice ? (
-                  <Nav.Link href="/apprentice/browse-event" className={`${styles.link}`}>
+                  <Nav.Link
+                    href="/apprentice/browse-event"
+                    className={`${styles.link}`}
+                  >
                     Browse Events
                   </Nav.Link>
                 ) : (

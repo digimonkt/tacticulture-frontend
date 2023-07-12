@@ -37,10 +37,19 @@ function ApprenticeLayout() {
 
   useEffect(() => {
     console.log(allEventData);
-    const filter = allEventData.results.filter(item => item.eventScheduledDateTime && item.eventScheduledDateTime?.length > 0 && item.eventScheduledDateTime?.some(value => moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD"))));
+    const filter = allEventData.results.filter(
+      (item) =>
+        item.eventScheduledDateTime &&
+        item.eventScheduledDateTime?.length > 0 &&
+        item.eventScheduledDateTime?.some((value) =>
+          moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD"))
+        )
+    );
     const sort = filter.sort((_event1, _event2) => {
-      const start1 = _event1.eventScheduledDateTime && _event1.eventScheduledDateTime[0];
-      const start2 = _event2.eventScheduledDateTime && _event2.eventScheduledDateTime[0];
+      const start1 =
+        _event1.eventScheduledDateTime && _event1.eventScheduledDateTime[0];
+      const start2 =
+        _event2.eventScheduledDateTime && _event2.eventScheduledDateTime[0];
       const startDate1 = new Date(start1?.eventStartDate || "");
       const startDate2 = new Date(start2?.eventStartDate || "");
       if (startDate1 > startDate2) {
@@ -101,20 +110,30 @@ function ApprenticeLayout() {
                   followersCount={0}
                 />
                 <CardComponent title="Upcoming Events">
-                  {upcomingEvent.length > 0 ? upcomingEvent.slice(0, 3).map(item => {
-                    return item.eventScheduledDateTime.map((value: IUpcomingCard) => {
-                      return moment(value.eventStartDate).isAfter(moment().format("YYYY-MM-DD")) && <EventCardComponent
-                        date={value.eventStartDate}
-                        time={value.eventStartTime}
-                        Share="Share"
-                        CopyLink="Copy Link"
-                        CourseText="View Course Page"
-                        description={item.name}
-                        address={item.location}
-                      />;
-                    });
-                  })
-                    : <div
+                  {upcomingEvent.length > 0 ? (
+                    upcomingEvent.slice(0, 3).map((item) => {
+                      return item.eventScheduledDateTime.map(
+                        (value: IUpcomingCard) => {
+                          return (
+                            moment(value.eventStartDate).isAfter(
+                              moment().format("YYYY-MM-DD")
+                            ) && (
+                              <EventCardComponent
+                                date={value.eventStartDate}
+                                time={value.eventStartTime}
+                                Share="Share"
+                                CopyLink="Copy Link"
+                                CourseText="View Course Page"
+                                description={item.name}
+                                address={item.location}
+                              />
+                            )
+                          );
+                        }
+                      );
+                    })
+                  ) : (
+                    <div
                       style={{
                         display: "flex",
                         flexDirection: "column",
@@ -143,7 +162,8 @@ function ApprenticeLayout() {
                       >
                         See past events
                       </span>
-                    </div>}
+                    </div>
+                  )}
                 </CardComponent>
                 <CardComponent title="Achievement Badges">
                   {/* <Row>
