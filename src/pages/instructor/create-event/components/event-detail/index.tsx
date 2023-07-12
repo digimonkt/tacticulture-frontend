@@ -198,6 +198,8 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
           {...formik.getFieldProps("name")}
           row={3}
           text="Event Name*"
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           onChange={handleNameChange}
         />
         <p style={{ color: "red" }} className="formik">

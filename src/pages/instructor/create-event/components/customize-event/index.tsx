@@ -107,6 +107,7 @@ function CustomizeEventComponent() {
         }),
       };
     });
+    // @ts-ignore
     const base64Image = await fileList[0]?.thumbUrl;
 
     const payload: EventPayload = {
