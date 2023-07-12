@@ -121,10 +121,18 @@ const initialEventData = {
   eventScheduledDateTime: [
     {
       id: 1,
-      eventStartDate: "",
-      eventStartTime: "",
-      eventEndDate: "",
-      eventEndTime: "",
+      eventStartDate: new Date().toISOString().split("T")[0],
+      eventStartTime: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }),
+      eventEndDate: new Date().toISOString().split("T")[0],
+      eventEndTime: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }),
     },
   ],
   eventCustomAvailability: [],

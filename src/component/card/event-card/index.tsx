@@ -4,6 +4,7 @@ import { Col, Row } from "antd";
 import { SVG } from "@/assets/svg";
 import { FilledButton, OutlinedButton } from "@/component/buttons";
 import { OptionsInput } from "@/component/input";
+import { useAppSelector } from "@/redux/hooks/hooks";
 
 interface IEventCardComponent {
   date: string;
@@ -24,6 +25,8 @@ function EventCardComponent({
   CopyLink,
   CourseText,
 }: IEventCardComponent) {
+  const { currentUser } = useAppSelector((state) => state.userReducer);
+
   return (
     <div
       style={{ background: "#fff", borderRadius: "8px" }}
@@ -44,16 +47,18 @@ function EventCardComponent({
         </Col>
         <Col md={8}>
           <div className="d-flex mt-3 justify-content-center">
-            <OptionsInput title={<SVG.Setting />}>
-              <div className={`${styles.dropdownBox}`}>
-                <SVG.UserIcon />
-                <span>Message Instructor</span>
-              </div>
-              <div className={`${styles.dropdownBox}`}>
-                <SVG.Clip />
-                <span>Request Cancellation</span>
-              </div>
-            </OptionsInput>
+            {currentUser.defaultRole === "apprentice" && (
+              <OptionsInput title={<SVG.Setting />}>
+                <div className={`${styles.dropdownBox}`}>
+                  <SVG.UserIcon />
+                  <span>Message Instructor</span>
+                </div>
+                <div className={`${styles.dropdownBox}`}>
+                  <SVG.Clip />
+                  <span>Request Cancellation</span>
+                </div>
+              </OptionsInput>
+            )}
             <FilledButton
               style={{
                 background: "#CB2C2C",

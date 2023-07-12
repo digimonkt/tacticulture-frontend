@@ -45,17 +45,19 @@ function CreateEvent() {
       <InstructorLayout>
         <div className="headerMain">
           <div className={`${styles.accountSetup}`}>
-            <span
-              onClick={() =>
-                Number(step) > 1 &&
-                router.push(
-                  `../instructor/create-event?step=${Number(step) - 1}`
-                )
-              }
-            >
-              <SVG.Leftarrow className="me-2" width="20px" />
-              GO BACK
-            </span>
+            {Number(step) > 1 && (
+              <span
+                onClick={() =>
+                  Number(step) > 1 &&
+                  router.push(
+                    `../instructor/create-event?step=${Number(step) - 1}`
+                  )
+                }
+              >
+                <SVG.Leftarrow className="me-2" width="20px" />
+                GO BACK
+              </span>
+            )}
             <h1 className="mt-2">Configure Your Event</h1>
           </div>
           <div className="profileSections">

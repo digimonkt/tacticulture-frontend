@@ -36,7 +36,11 @@ function ScheduleDateComponent({
   spanDefaultValue,
   openSpan,
 }: IScheduleDate) {
-  const initialValues = { eventStartDate: "" };
+  const initialValues = {
+    eventStartDate: "",
+    eventStartTime: "",
+    eventEndTime: "",
+  };
   const [openTimeSpan, setOpenTimeSpan] = useState({
     openAvailabilityPeriodUnit: "hours",
     openAvailabilityPeriod: 1,
@@ -78,6 +82,7 @@ function ScheduleDateComponent({
               <LabeledInput
                 type="date"
                 className="me-3"
+                // defaultValue={eventData}
                 value={eventData?.eventStartDate}
                 onChange={(e) => {
                   formik.setFieldValue("eventStartDate", e.target.value);
