@@ -152,7 +152,7 @@ function CustomizeEventComponent() {
       event_image: base64Image || null,
       // achievement_badge_image: eventData.achievementBadgeImage,
       publish_status: eventData.publishStatus,
-      is_event_live: eventData.isEventLive,
+      // is_event_live: true,
       // schedule_event_period:
       //   eventData.eventOpenSpan.scheduleAvailabilityPeriod * 60,
       // schedule_event_period_unit:
