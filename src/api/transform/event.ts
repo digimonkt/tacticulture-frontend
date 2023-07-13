@@ -130,21 +130,25 @@ export const transformGetEventAPIResponse = (
     publishStatus: data.publish_status,
     isEventLive: data.is_event_live,
     instructorDetails: data.instructor_details,
+    longitude: data.longitude,
+    latitude: data.latitude,
   };
 };
 
-export const transformGetBookedEventApiResponse = (data:BookedEventResponse):bookedEventType => {
- return {
-  eventId: data.event_id,
-  bookingDate: data.booking_date,
-  bookingTime: data.booking_time,
-  bookingType: data.booking_type,
-  contactDetails: data.contact_details,
-  customQuestionsAnswers: {
-    answerLongText: data.custom_questions_answers.answerLongText,
-    answerShortText: data.custom_questions_answers.answerShortText
-  },
-  isRequirementAndWavierAccepted: data.is_requirement_and_wavier_accepted,
-  event: transformGetEventAPIResponse(data.event)
- };
+export const transformGetBookedEventApiResponse = (
+  data: BookedEventResponse
+): bookedEventType => {
+  return {
+    eventId: data.event_id,
+    bookingDate: data.booking_date,
+    bookingTime: data.booking_time,
+    bookingType: data.booking_type,
+    contactDetails: data.contact_details,
+    customQuestionsAnswers: {
+      answerLongText: data.custom_questions_answers.answerLongText,
+      answerShortText: data.custom_questions_answers.answerShortText,
+    },
+    isRequirementAndWavierAccepted: data.is_requirement_and_wavier_accepted,
+    event: transformGetEventAPIResponse(data.event),
+  };
 };

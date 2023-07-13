@@ -778,6 +778,10 @@ input.ant-input.css-dev-only-do-not-override-14wwjjs:focus {
 .locationList ul li:hover {
   background: #ddd;
 }
+.maps {
+  height: 250px !important;
+  position: relative !important;
+}
 .locationList {
   height: 131px;
   border-top-left-radius: 3px;

@@ -190,16 +190,18 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
     formik.setFieldValue("courseCategory", data.courseCategory);
   }, [data]);
 
-  const findLocation = debounce(async (e) => {
-    if (e.target.value === "") {
-      setLocationData([]);
-    }
-    const resp = await getGoogleLocation(e.target.value);
+  const handleInputChange = (e: any) => findLocation(e.target.value);
 
-    if (resp?.results.length > 0) {
-      setLocationData(resp.results);
+  const findLocation = debounce(async (value) => {
+    if (value === "") {
+      setLocationData([]);
+      return;
     }
-  }, 1000);
+
+    const { results } = await getGoogleLocation(value);
+    console.log(results, "api response");
+    setLocationData(results || []);
+  }, 3000);
 
   useEffect(() => {
     formik.setValues((prevValues) => ({
@@ -295,7 +297,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
           onChange={(e) => {
             setLocationValue(false);
             formik.setFieldValue("location", e.target.value);
-            findLocation(e);
+            handleInputChange(e);
           }}
           value={formik.values.location}
         />

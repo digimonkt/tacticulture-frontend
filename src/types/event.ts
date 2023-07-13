@@ -120,6 +120,8 @@ export type getEventType = {
   cancellationPolicies: string;
   courseCategory: { event_categories: string; slug_name: string }[];
   courseUrl: string;
+  latitude: number;
+  longitude: number;
   isPrivateEvent: boolean;
   openAvailabilityPeriod: number | null;
   openAvailabilityPeriodUnit: string | null;
@@ -218,16 +220,16 @@ export type EventDataType = {
   isEventLive: boolean;
 };
 
-export type bookedEventType={
-  eventId:number,
-  bookingDate:string,
-  bookingTime:string,
-  bookingType:string,
-  contactDetails:any,
-  customQuestionsAnswers:{
-    answerLongText:string,
-    answerShortText:string
-  },
-  isRequirementAndWavierAccepted:boolean,
-  event:getEventType
-}
+export type bookedEventType = {
+  eventId: number;
+  bookingDate: string;
+  bookingTime: string;
+  bookingType: string;
+  contactDetails: any;
+  customQuestionsAnswers: {
+    answerLongText: string;
+    answerShortText: string;
+  };
+  isRequirementAndWavierAccepted: boolean;
+  event: getEventType;
+};
