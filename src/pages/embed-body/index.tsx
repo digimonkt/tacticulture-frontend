@@ -8,9 +8,10 @@ import { FilledButton } from "@/component/buttons";
 import { Col, Row } from "antd";
 import EmbedCardComponent from "./component/embed-card";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { getEventDetail } from "@/redux/reducers/event";
+import event, { getEventDetail } from "@/redux/reducers/event";
 import { useRouter } from "next/router";
 import CalendarModal from "./component/CalendarModal";
+import MapContainer from "./MapContainer";
 // import RegistrationModal from "./component/RegistrationModal";
 import moment, { Duration } from "moment";
 
@@ -22,19 +23,24 @@ function EmbedBody() {
   const router = useRouter();
   const { id } = router.query as unknown as IRouter;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [defaultProps, setDefaultProps] = useState();
   const [showcontent, setShowcontent] = useState(false);
+  const [mapUrl, setMapUrl] = useState("");
   const [showmap, setShowmap] = useState(false);
   const [duration, setDuration] = useState<undefined | number>(undefined);
   const [requirement, setRequirement] = useState(false);
   const [registerModal, setRegisterModal] = useState<boolean>(false);
-
+  const Marker = ({ text }: any) => <div>{text}</div>;
   const dispatch = useAppDispatch();
 
   const { eventDetail } = useAppSelector((state) => state.EventReducer);
   useEffect(() => {
     dispatch(getEventDetail({ id }));
+    // setMapUrl(
+    //   `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14311.222880382164!2d${eventDetail.longitude}!3d${eventDetail.latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1688014954545!5m2!1sen!2sin`
+    // );
   }, [id]);
-  console.log(eventDetail, "detal");
+
   useEffect(() => {
     if (
       eventDetail.eventScheduledDateTime &&
@@ -91,6 +97,14 @@ function EmbedBody() {
     setIsModalOpen(false);
     // setRegisterModal(false);
   };
+
+  const AnyReactComponent = () => (
+    <div style={{ width: "30px", height: "30px" }}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <SVG.GoogleLocation cx="12" cy="12" r="10" />
+      </svg>
+    </div>
+  );
   console.log(eventDetail, "detial");
   return (
     <div>
@@ -166,7 +180,7 @@ function EmbedBody() {
                     </FilledButton>
                   </div>
                 </div>
-                <div style={{ background: "#f3f3f3" }}>
+                <div style={{ background: "#f3f3f3" }} className="embedMap">
                   <EmbedCardComponent
                     icon={<SVG.Location width="16px" />}
                     heading={eventDetail.location}
@@ -174,14 +188,20 @@ function EmbedBody() {
                     label="View Map"
                     onClick={() => setShowmap(!showmap)}
                   />
+
                   {showmap && (
-                    <div style={{ position: "relative", bottom: "13px" }}>
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14311.222880382164!2d78.14503004999999!3d26.267968099999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1688014954545!5m2!1sen!2sin"
-                        width="100%"
-                        height="300"
-                        loading="lazy"
-                      ></iframe>
+                    <div
+                      className="map"
+                      style={{ height: "auto", width: "100%" }}
+                    >
+                      <div style={{ height: "auto", width: "100%" }}>
+                        <MapContainer
+                          eventDetail={{
+                            latitude: eventDetail.latitude,
+                            longitude: eventDetail.longitude,
+                          }}
+                        />
+                      </div>
                     </div>
                   )}
                 </div>

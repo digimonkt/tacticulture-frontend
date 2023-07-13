@@ -26,7 +26,7 @@ interface Ievent {
   eventCreated: string;
   eventCreatedError?: { errors: any };
   ownEventDetail: getEventType;
-  bookedEventData:GetListWithPagination<bookedEventType[]>
+  bookedEventData: GetListWithPagination<bookedEventType[]>;
 }
 export const initialEventDetail: getEventType = {
   achievementBadgeImage: null,
@@ -35,6 +35,8 @@ export const initialEventDetail: getEventType = {
   openAvailabilityPeriod: null,
   openAvailabilityPeriodUnit: null,
   scheduleEventPeriod: null,
+  latitude: 0,
+  longitude: 0,
   scheduleEventPeriodUnit: null,
   courseCategory: [{ event_categories: "", slug_name: "" }],
   courseUrl: "",
@@ -175,10 +177,10 @@ const initialBookedEventData = {
   contactDetails: "",
   customQuestionsAnswers: {
     answerLongText: "",
-    answerShortText: ""
+    answerShortText: "",
   },
   isRequirementAndWavierAccepted: false,
-  event: initialEventData
+  event: initialEventData,
 };
 
 const initialState: Ievent = {
@@ -195,7 +197,12 @@ const initialState: Ievent = {
     results: [],
   },
   eventData: initialEventData,
-  bookedEventData: { count: 0, next: undefined, previous: undefined, results: [] }
+  bookedEventData: {
+    count: 0,
+    next: undefined,
+    previous: undefined,
+    results: [],
+  },
 };
 
 export const createEventData = createAsyncThunk<

@@ -1,4 +1,5 @@
 import GoogleIcon from "./google.svg";
+import GoogleLocation from "./googlelocation.svg";
 import MagicLink from "./magicicon.svg";
 import WindowIcon from "./window.svg";
 import CheckIcon from "./check.svg";
@@ -148,4 +149,5 @@ export const SVG = {
   TickIcon,
   ExclamanationIcon,
   Second,
+  GoogleLocation,
 };

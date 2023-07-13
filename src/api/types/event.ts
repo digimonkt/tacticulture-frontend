@@ -21,6 +21,8 @@ export type EventResponse = {
   course_category: { event_categories: string; slug_name: string }[];
   description: string;
   location: string;
+  longitude: number;
+  latitude: number;
   course_url: string;
   is_private_event: boolean;
   available_spots: number;
@@ -85,19 +87,19 @@ export type EventResponse = {
   };
 };
 
-export type BookedEventResponse={
-  event_id: number,
-  booking_date:string,
-  booking_time: string,
-  booking_type: string,
-  contact_details: any,
+export type BookedEventResponse = {
+  event_id: number;
+  booking_date: string;
+  booking_time: string;
+  booking_type: string;
+  contact_details: any;
   custom_questions_answers: {
-      answerLongText: string,
-      answerShortText: string
-  },
-  is_requirement_and_wavier_accepted: boolean,
-  event: EventResponse
-}
+    answerLongText: string;
+    answerShortText: string;
+  };
+  is_requirement_and_wavier_accepted: boolean;
+  event: EventResponse;
+};
 
 export type EventCustomeAvailabilityDetails = {
   weekDays?: string;
@@ -239,4 +241,6 @@ export type updateEventDetailPayloadBackend = {
 };
 
 export type GetEventResponse = GetListWithPagination<EventResponse[]>;
-export type GetBookedEventResponse = GetListWithPagination<BookedEventResponse[]>;
+export type GetBookedEventResponse = GetListWithPagination<
+  BookedEventResponse[]
+>;
