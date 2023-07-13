@@ -124,6 +124,29 @@ export const getAllEventAPI = async (): Promise<
 
   return res;
 };
+export const getBookedEventAPI = async (): Promise<
+  SuccessResult<GetListWithPagination<getEventType[]>> | ErrorResult
+> => {
+  const res = await axiosInstance.request<GetEventResponse>({
+    url: "/events/booked-event-list/",
+    method: "GET",
+  });
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: {
+        count: res.data.count,
+        next: res.data.next,
+        previous: res.data.previous,
+        results: res.data.results.map((result) =>
+          transformGetEventAPIResponse(result)
+        ),
+      },
+    };
+  }
+
+  return res;
+};
 
 export const getEventDetailAPI = async (
   id: detailPayloadId

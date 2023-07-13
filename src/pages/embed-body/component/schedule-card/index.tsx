@@ -18,6 +18,7 @@ interface IScheduledCardComponent {
   // scheduleEventPeriod: number;
   index?: number;
   eventId: number;
+  title: string;
   closeModal: () => void;
 }
 interface ISelectedItem {
@@ -29,6 +30,7 @@ interface ISelectedItem {
 function ScheduledCardComponent({
   schedule,
   index,
+  title,
   // scheduleEventPeriod,
   eventId,
   closeModal,
@@ -38,7 +40,7 @@ function ScheduledCardComponent({
   // const { registerModalValue } = useAppSelector(
   //   (state) => state.BookingReducer
   // );
-  const [items, setItems] = useState<MenuProps["items"]>([]);
+  // const [items, setItems] = useState<MenuProps["items"]>([]);
   const [registerModal, setRegisterModal] = useState(false);
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState<ISelectedItem>({
@@ -79,7 +81,7 @@ function ScheduledCardComponent({
   // }, []);
 
   function handleMenuItemClick(time: string, date: string) {
-    dispatch(setBookingData({ eventId, date, time, type: "schedule" }));
+    dispatch(setBookingData({ eventId, date, time, type: "schedule", title }));
     const datee = new Date(date + " " + time);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -132,18 +134,22 @@ function ScheduledCardComponent({
         className="timeDropdown"
         trigger={["click"]}
       ></Dropdown> */}
-      <a className="menuList">
-        <Space
-          onClick={() =>
-            handleMenuItemClick(
-              schedule?.eventStartTime,
-              schedule?.eventStartDate
-            )
-          }
-        >
-          Register
-        </Space>
-      </a>
+      <span className="timeDropdown">
+        <a className="menuList">
+          <Space
+            onClick={() =>
+              handleMenuItemClick(
+                schedule?.eventStartTime,
+                schedule?.eventStartDate
+              )
+            }
+            style={{ color: "#fff", fontSize: 14 }}
+          >
+            Register
+            <SVG.DownChevron width="12px" />
+          </Space>
+        </a>
+      </span>
 
       <RegistrationModal
         registerModalOpen={() => console.log("sd")}

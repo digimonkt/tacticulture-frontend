@@ -4,6 +4,7 @@ import ApprenticeHeaderComponent from "@/component/header/user-header";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import EventCardComponent from "@/component/card/event-card";
 import { getAllEventData } from "@/redux/reducers/event";
+import { useRouter } from "next/router";
 interface IUpcomingCard {
   id?: number;
   eventStartDate: string;
@@ -13,6 +14,7 @@ interface IUpcomingCard {
 }
 function BrowseEvent() {
   const { allEventData } = useAppSelector((state) => state.EventReducer);
+  const router = useRouter();
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getAllEventData());
@@ -52,6 +54,10 @@ function BrowseEvent() {
               return (
                 <EventCardComponent
                   key={item.id}
+                  onClick={() => router.push({
+                    pathname: "/embed-body",
+                    query: { id: item.id },
+                  })}
                   date={value.eventStartDate}
                   time={value.eventStartTime}
                   Share="Share"

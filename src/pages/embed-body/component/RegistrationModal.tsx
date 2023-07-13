@@ -5,6 +5,8 @@ import RegisterBodyComponent from "@/component/model/component/registerBody";
 import RegisterGuestComponent from "@/component/model/component/registerGuest";
 import CourseRequirementComponent from "@/component/model/component/courseRequirement";
 import BillingInformationComponent from "@/component/model/component/billingInformation";
+import { useAppSelector } from "@/redux/hooks/hooks";
+import moment from "moment";
 // import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 // import { guestRegistration } from "@/redux/reducers/booking";
 
@@ -24,9 +26,9 @@ function RegistrationModal({
   //   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
   // const dispatch = useAppDispatch();
-  // const { guestRegistrationStatus } = useAppSelector(
-  //   (state) => state.BookingReducer
-  // );
+  const { bookingData } = useAppSelector(
+    (state) => state.BookingReducer
+  );
 
   const prev = () => {
     setCurrent(current - 1);
@@ -114,7 +116,7 @@ function RegistrationModal({
         onCancel={handleCancel}
         handleOk={handleOk}
       >
-        <ModalHeader text="January 07, 2023 - 8:00am" content="View Details" />
+        <ModalHeader title={bookingData.title} text={`${moment(bookingData.date).format("MMMM DD,YYYY")} - ${bookingData.time}`} content="View Details" />
         <div className="registerModal">
           <div>{steps[current].content}</div>
           {/* <div style={{ marginTop: 24 }}>

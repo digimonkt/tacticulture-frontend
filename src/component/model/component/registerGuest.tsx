@@ -24,6 +24,10 @@ function RegisterGuestComponent({
     (state) => state.BookingReducer
   );
 
+  // const { currentUser } = useAppSelector(state => state.userReducer)
+
+  // console.log({ currentUser })
+
   const formik = useFormik({
     initialValues: { guestFirstName: "", guestLastName: "", guestPhone: "" },
     validationSchema: Yup.object({

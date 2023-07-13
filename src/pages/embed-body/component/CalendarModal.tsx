@@ -25,7 +25,7 @@ const CalendarModal = ({
   );
   const [testingData, setTestingData] = useState([]);
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleDateClick = (dates: Date[]) => {};
+  const handleDateClick = (dates: Date[]) => { };
 
   const selectSchedule = (value: string) => {
     setSchedule(value);
@@ -87,7 +87,7 @@ const CalendarModal = ({
               </div>
               <DatePicker
                 onDayClick={handleDateClick}
-                // defaultDate={defaultDate}
+              // defaultDate={defaultDate}
               />
               <div className="timezoneData">
                 <TimeZoneComponent
@@ -102,60 +102,59 @@ const CalendarModal = ({
             <div className="d-flex align-items-center ms-3 ps-1">
               <FilledButtonComponent
                 onClick={() => selectSchedule("all")}
-                className={`${
-                  schedule === "all" ? styles.btnAll : styles.btnSchedule
-                }`}
+                className={`${schedule === "all" ? styles.btnAll : styles.btnSchedule
+                  }`}
               >
                 All
               </FilledButtonComponent>
               <OutlinedButton
                 onClick={() => selectSchedule("scheduled")}
-                className={`${
-                  schedule === "scheduled" ? styles.btnAll : styles.btnSchedule
-                }`}
+                className={`${schedule === "scheduled" ? styles.btnAll : styles.btnSchedule
+                  }`}
               >
                 Scheduled
               </OutlinedButton>
               <OutlinedButton
                 onClick={() => selectSchedule("open")}
-                className={`${
-                  schedule === "open" ? styles.btnAll : styles.btnSchedule
-                }`}
+                className={`${schedule === "open" ? styles.btnAll : styles.btnSchedule
+                  }`}
               >
                 Open
               </OutlinedButton>
             </div>
             {schedule === "all" || schedule === "scheduled"
               ? eventDetail?.eventScheduledDateTime.map(
-                  (schedule: any, index: any) => {
-                    return (
-                      <ScheduledCardComponent
-                        eventId={eventDetail.id}
-                        key={index}
-                        schedule={schedule}
-                        index={index}
-                        closeModal={handleCancel}
-                      />
-                    );
-                  }
-                )
+                (schedule: any, index: any) => {
+                  return (
+                    <ScheduledCardComponent
+                      eventId={eventDetail.id}
+                      key={index}
+                      schedule={schedule}
+                      index={index}
+                      title={eventDetail.name}
+                      closeModal={handleCancel}
+                    />
+                  );
+                }
+              )
               : null}
 
             {schedule === "all" || schedule === "open"
               ? eventDetail?.eventCustomAvailability?.map(
-                  (schedule: any, index: any) => {
-                    return (
-                      <OpenCardComponent
-                        eventId={eventDetail.id}
-                        key={index}
-                        schedule={schedule}
-                        scheduleEventPeriod={eventDetail.scheduleEventPeriod}
-                        index={index}
-                        closeModal={handleCancel}
-                      />
-                    );
-                  }
-                )
+                (schedule: any, index: any) => {
+                  return (
+                    <OpenCardComponent
+                      eventId={eventDetail.id}
+                      key={index}
+                      schedule={schedule}
+                      scheduleEventPeriod={eventDetail.scheduleEventPeriod || 1}
+                      index={index}
+                      title={eventDetail.name}
+                      closeModal={handleCancel}
+                    />
+                  );
+                }
+              )
               : null}
           </Col>
         </Row>

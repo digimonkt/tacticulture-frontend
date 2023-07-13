@@ -24,6 +24,7 @@ interface IOpenCardComponent {
   scheduleEventPeriod: number;
   closeModal: () => void;
   eventId: number;
+  title: string
 }
 interface ISelectedItem {
   dateTime: any;
@@ -37,6 +38,7 @@ function OpenCardComponent({
   scheduleEventPeriod,
   closeModal,
   eventId,
+  title
 }: IOpenCardComponent) {
   const dispatch = useAppDispatch();
   // Get the current date
@@ -47,6 +49,7 @@ function OpenCardComponent({
     dateTime: new Date(),
   });
 
+  console.log(scheduleEventPeriod);
   // Find the first occurrence of "MON" in the current week
 
   const targetDate = currentDate
@@ -89,7 +92,7 @@ function OpenCardComponent({
   }, []);
 
   function handleMenuItemClick(item: { label: string }, date: string) {
-    dispatch(setBookingData({ eventId, date, item, type: "schedule" }));
+    dispatch(setBookingData({ eventId, date, item, type: "schedule", title }));
     const datee = new Date(date + " " + item.label);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -119,7 +122,7 @@ function OpenCardComponent({
                 style={{
                   backgroundColor:
                     item.key === selectedTime?.key &&
-                    item.label === selectedTime?.lable
+                      item.label === selectedTime?.lable
                       ? "red"
                       : "#FFF",
                 }}

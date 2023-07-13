@@ -15,6 +15,7 @@ interface IEventCardComponent {
   Share?: string;
   CopyLink?: string;
   CourseText?: string;
+  onClick?: any
 }
 
 function EventCardComponent({
@@ -25,11 +26,13 @@ function EventCardComponent({
   Share,
   CopyLink,
   CourseText,
+  onClick
 }: IEventCardComponent) {
   const { currentUser } = useAppSelector((state) => state.userReducer);
 
   return (
     <div
+      onClick={onClick}
       style={{ background: "#fff", borderRadius: "8px" }}
       className="mb-3 ms-2 me-2"
     >
