@@ -163,8 +163,8 @@ function CustomizeEventComponent() {
         eventData.eventOpenSpan.openAvailabilityPeriod * 60,
     };
     // console.log({ payload });
-    // console.log(JSON.stringify(payload));
-    JSON.stringify(payload);
+    console.log(JSON.stringify(payload));
+
     dispatch(createEventData(payload));
   };
 
