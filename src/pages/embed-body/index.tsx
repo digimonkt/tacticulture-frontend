@@ -34,7 +34,7 @@ function EmbedBody() {
   useEffect(() => {
     dispatch(getEventDetail({ id }));
   }, [id]);
-
+  console.log(eventDetail, "detal");
   useEffect(() => {
     if (
       eventDetail.eventScheduledDateTime &&
@@ -198,7 +198,7 @@ function EmbedBody() {
                     onClick={() => setRequirement(!requirement)}
                   />
                   {requirement && (
-                    <div >
+                    <div>
                       <p
                         dangerouslySetInnerHTML={{
                           __html: eventDetail.requirements,
