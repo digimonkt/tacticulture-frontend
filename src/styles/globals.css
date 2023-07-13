@@ -914,7 +914,7 @@ table.rdp-table {
 }
 .billingInformation button {
   width: 342px !important;
-  background: #aeaeae !important;
+  background: #aeaeae;
 }
 .billingInformation {
   display: flex;

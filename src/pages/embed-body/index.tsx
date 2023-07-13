@@ -56,7 +56,7 @@ function EmbedBody() {
 
       const duration = endDate.diff(startDate, "days");
 
-      setDuration(duration);
+      setDuration(duration + 1);
     } else if (eventDetail.eventCustomAvailability) {
       const startTime = moment(
         eventDetail.eventCustomAvailability[0]
@@ -198,7 +198,7 @@ function EmbedBody() {
                     onClick={() => setRequirement(!requirement)}
                   />
                   {requirement && (
-                    <div className="text-center">
+                    <div >
                       <p
                         dangerouslySetInnerHTML={{
                           __html: eventDetail.requirements,
@@ -210,7 +210,7 @@ function EmbedBody() {
 
                 <EmbedCardComponent
                   icon={<SVG.Fee width="16px" />}
-                  text={eventDetail.perSpotCost.toString() + "$"}
+                  text={`$${eventDetail.perSpotCost.toString()}`}
                 />
                 <EmbedCardComponent
                   heading="Completion Badge"

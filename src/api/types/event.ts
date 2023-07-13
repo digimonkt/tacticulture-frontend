@@ -85,6 +85,20 @@ export type EventResponse = {
   };
 };
 
+export type BookedEventResponse={
+  event_id: number,
+  booking_date:string,
+  booking_time: string,
+  booking_type: string,
+  contact_details: any,
+  custom_questions_answers: {
+      answerLongText: string,
+      answerShortText: string
+  },
+  is_requirement_and_wavier_accepted: boolean,
+  event: EventResponse
+}
+
 export type EventCustomeAvailabilityDetails = {
   weekDays?: string;
   event_custom_availability_details?: {
@@ -225,3 +239,4 @@ export type updateEventDetailPayloadBackend = {
 };
 
 export type GetEventResponse = GetListWithPagination<EventResponse[]>;
+export type GetBookedEventResponse = GetListWithPagination<BookedEventResponse[]>;
