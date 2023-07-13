@@ -109,16 +109,13 @@ function CustomizeEventComponent() {
     });
     // @ts-ignore
     const base64Image = await fileList[0]?.thumbUrl;
-
+    // console.log(eventData, "eventData");
     const payload: EventPayload = {
       name: eventData.name,
       course_category: eventData.courseCategory,
       description: eventData.description,
       location: eventData.location,
-      course_url: `https://tacticulture.com/${eventData.name.replace(
-        /\s/g,
-        ""
-      )}/}/`,
+      course_url: `${eventData.courseUrl.toLowerCase()}`,
       is_private_event: eventData.isPrivateEvent,
       available_spots: eventData.availableSpots,
       cost_per_spot: eventData.perSpotCost,

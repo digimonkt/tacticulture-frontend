@@ -4,6 +4,7 @@ import TextareaComponent from "@/component/textarea";
 import { Checkbox } from "antd";
 import React, { useEffect, useState } from "react";
 import styles from "../../course.module.css";
+import _, { debounce } from "lodash";
 
 import EventHeaderComponent from "../event-header";
 import { useFormik } from "formik";
@@ -15,7 +16,11 @@ import { createEvent, getEventData } from "@/redux/reducers/event";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import EventInterest, { IEventCategories } from "@/component/eventInterest";
-import { getGoogleLocation, updateOwnEventDetailAPI } from "@/api/event";
+import {
+  checkUrlExistAPI,
+  getGoogleLocation,
+  updateOwnEventDetailAPI,
+} from "@/api/event";
 import { FilledButton } from "@/component/buttons";
 import Swal from "sweetalert";
 import { updateEventDetailPayload } from "@/api/types/event";
@@ -25,6 +30,16 @@ import { updateEventDetailPayload } from "@/api/types/event";
 // }
 
 const EventDetailComponent = ({ mode }: { mode: string }) => {
+  const [showDiv, setShowDiv] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [locationData, setLocationData] = useState([]);
+  const [locationValue, setLocationValue] = useState(false);
+
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setInputValue(e.target.value);
+  //   setShowDiv(true);
+  // };
+
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -40,6 +55,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
 
   const router = useRouter();
   const dispatch = useAppDispatch();
+
   const { eventData }: any = useAppSelector((state) => state.EventReducer);
   const { ownEventDetail }: any = useAppSelector((state) => state.EventReducer);
   const { currentUser } = useAppSelector((state) => state.userReducer);
@@ -76,7 +92,16 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
     validationSchema: Yup.object({
       name: Yup.string().required("Event name is required!"),
       description: Yup.string().required("Please Enter Event Description"),
-      location: Yup.string().required("Please Enter Event Location"),
+      location: Yup.string()
+        .required("Please Enter Event Location")
+        .test(
+          "location-condition",
+          "Please enter Selected Location",
+          function () {
+            // const { availableSpots, state } = this.parent;
+            return locationValue;
+          }
+        ),
       availableSpots: Yup.number().required("Please Enter Available Spots No."),
       courseCategory: Yup.array()
         .min(1)
@@ -101,8 +126,18 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
           dispatch(getEventData());
         }
       } else {
-        dispatch(createEvent(values));
-        router.push(`../instructor/create-event?step=${2}`);
+        // console.log(values, "values");
+        const resp = await checkUrlExistAPI(values.courseUrl.toLowerCase());
+
+        if (resp?.remote) {
+          dispatch(createEvent(values));
+          router.push(`../instructor/create-event?step=${2}`);
+        } else {
+          Swal({
+            title: `this event url is already exist\n${values.courseUrl}`,
+            icon: "error",
+          });
+        }
       }
     },
   });
@@ -155,15 +190,21 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
     formik.setFieldValue("courseCategory", data.courseCategory);
   }, [data]);
 
-  // const findLocation = async (e: any) => {
-  //   const resp = await getGoogleLocation(e.target.value);
-  //   console.log(resp);
-  // };
+  const findLocation = debounce(async (e) => {
+    if (e.target.value === "") {
+      setLocationData([]);
+    }
+    const resp = await getGoogleLocation(e.target.value);
+
+    if (resp?.results.length > 0) {
+      setLocationData(resp.results);
+    }
+  }, 1000);
 
   useEffect(() => {
     formik.setValues((prevValues) => ({
       ...prevValues,
-      courseUrl: `tacticulture.com/${currentUser.username.toLowerCase()}/`,
+      courseUrl: `https://tacticulture.com/${currentUser.username.toLowerCase()}/`,
     }));
   }, [currentUser.username]);
 
@@ -172,13 +213,13 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
     formik.setFieldValue("name", value); // Update the name field value
     formik.setFieldValue(
       "courseUrl",
-      `tacticulture.com/${currentUser.username.toLowerCase()}/${value.replace(
+      `https://tacticulture.com/${currentUser.username.toLowerCase()}/${value.replace(
         /\s/g,
         ""
       )}`
     ); // Update the courseUrl field value
   };
-
+  console.log(formik.values.location, "lo");
   return (
     <div>
       {mode === "update" ? (
@@ -249,7 +290,30 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
         </p>
       </div>
       <div className={`${styles.customInput}`}>
-        <LabeledInput label="Location*" {...formik.getFieldProps("location")} />
+        <LabeledInput
+          label="Location*"
+          onChange={(e) => {
+            setLocationValue(false);
+            formik.setFieldValue("location", e.target.value);
+            findLocation(e);
+          }}
+          value={formik.values.location}
+        />
+        {locationData.length > 0 && (
+          <div className="locationList">
+            {locationData.map((el: any, index) => (
+              <ul
+                onClick={() => {
+                  setLocationValue(true);
+                  formik.setFieldValue("location", el?.name);
+                }}
+                key={index}
+              >
+                <li>{el?.name}</li>
+              </ul>
+            ))}
+          </div>
+        )}
         <p style={{ color: "red", marginLeft: "18px" }} className="dataError">
           {formik.errors.location}
         </p>
@@ -257,7 +321,7 @@ const EventDetailComponent = ({ mode }: { mode: string }) => {
       <div className={`${styles.customInput}`}>
         <label>Course Link*</label>
         <p className="mb-0 ps-3 ms-1 guestCount">
-          {`tacticulture.com/${currentUser.username}/`}
+          {`https://tacticulture.com/${currentUser.username.toLowerCase()}/`}
         </p>
         <LabeledInput className="mb-0" {...formik.getFieldProps("courseUrl")} />
         <span

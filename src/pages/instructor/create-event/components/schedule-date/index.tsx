@@ -91,6 +91,7 @@ function ScheduleDateComponent({
                     value: e.target.value,
                   });
                 }}
+                min={new Date().toISOString().split("T")[0]}
               />
               <SVG.Date width="20px" />
             </div>
@@ -137,6 +138,7 @@ function ScheduleDateComponent({
                   formik.setFieldValue("eventEndDate", e.target.value);
                   getChildValue({ key: "eventEndDate", value: e.target.value });
                 }}
+                min={new Date().toISOString().split("T")[0]}
               />
               <SVG.Date width="20px" />
             </div>

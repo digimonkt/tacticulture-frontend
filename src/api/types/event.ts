@@ -137,7 +137,7 @@ export type EventPayload = {
   event_image: string | null;
   achievement_badge_image?: string;
   publish_status: boolean;
-  is_event_live: boolean;
+  // is_event_live: boolean;
 };
 
 export type detailPayloadId = {

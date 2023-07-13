@@ -761,6 +761,36 @@ table.rdp-table {
 
   margin-top: 4px !important;
 }
+.locationList ul {
+  padding: 0;
+}
+.locationList ul li {
+  padding-left: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  cursor: pointer;
+  list-style: none;
+}
+input.ant-input.css-dev-only-do-not-override-14wwjjs:focus {
+  border-color: #fff !important;
+}
+
+.locationList ul li:hover {
+  background: #ddd;
+}
+.locationList {
+  height: 131px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background: #fff;
+  color: #000;
+  margin-left: 18px;
+  width: 100%;
+  position: relative;
+  bottom: 7px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 .alertLogin p {
   font-size: 16px !important;
   font-family: "Inter" !important;
