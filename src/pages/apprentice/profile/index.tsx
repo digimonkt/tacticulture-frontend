@@ -17,6 +17,7 @@ import { useAppSelector } from "@/redux/hooks/hooks";
 import { currentUser } from "@/redux/reducers/user";
 import EventOrderList from "../components/event-order-list";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 interface IUpcomingCard {
   id?: number;
@@ -27,6 +28,7 @@ interface IUpcomingCard {
 }
 
 function ApprenticeLayout() {
+  const router = useRouter();
   // redux
   const currentUserDetails = useAppSelector(currentUser);
   const { allEventData } = useAppSelector((state) => state.EventReducer);
@@ -119,6 +121,10 @@ function ApprenticeLayout() {
                               moment().format("YYYY-MM-DD")
                             ) && (
                               <EventCardComponent
+                                onClick={() => router.push({
+                                  pathname: "/embed-body",
+                                  query: { id: item.id },
+                                })}
                                 date={value.eventStartDate}
                                 time={value.eventStartTime}
                                 Share="Share"

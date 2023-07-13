@@ -5,6 +5,7 @@ import {
   EventCategory,
   EventPayload,
   EventResponse,
+  GetBookedEventResponse,
   GetEventCategoryResponse,
   GetEventResponse,
   updateEventDetailPayload,
@@ -12,13 +13,15 @@ import {
   updateOwnEventQuestionAndRequirementType,
 } from "./types/event";
 import {
+  transformGetBookedEventApiResponse,
   transformGetEventAPIResponse,
   transformGetEventCategoriesAPIResponse,
   transformUpdateEventDetailPayload,
   transformUpdateEventQuestionAndRequirementPayload,
   transformUpdateEventTypeSchedulePayload,
 } from "./transform/event";
-import { getEventType } from "@/types/event";
+import { getEventType, bookedEventType } from "@/types/event";
+// import { getBookingType } from "@/types/booking";
 
 // fetch event categories  List
 export const eventCategoriesList = async (): Promise<
@@ -135,6 +138,29 @@ export const getAllEventAPI = async (): Promise<
         previous: res.data.previous,
         results: res.data.results.map((result) =>
           transformGetEventAPIResponse(result)
+        ),
+      },
+    };
+  }
+
+  return res;
+};
+export const getBookedEventAPI = async (): Promise<
+  SuccessResult<GetListWithPagination<bookedEventType[]>> | ErrorResult
+> => {
+  const res = await axiosInstance.request<GetBookedEventResponse>({
+    url: "/events/booked-event-list",
+    method: "GET",
+  });
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      data: {
+        count: res.data.count,
+        next: res.data.next,
+        previous: res.data.previous,
+        results: res.data.results.map((result) =>
+          transformGetBookedEventApiResponse(result)
         ),
       },
     };

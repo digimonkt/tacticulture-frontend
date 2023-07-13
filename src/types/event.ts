@@ -217,3 +217,17 @@ export type EventDataType = {
   publishStatus: boolean;
   isEventLive: boolean;
 };
+
+export type bookedEventType={
+  eventId:number,
+  bookingDate:string,
+  bookingTime:string,
+  bookingType:string,
+  contactDetails:any,
+  customQuestionsAnswers:{
+    answerLongText:string,
+    answerShortText:string
+  },
+  isRequirementAndWavierAccepted:boolean,
+  event:getEventType
+}

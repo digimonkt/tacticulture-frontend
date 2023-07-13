@@ -944,7 +944,7 @@ input.ant-input.css-dev-only-do-not-override-14wwjjs:focus {
 }
 .billingInformation button {
   width: 342px !important;
-  background: #aeaeae !important;
+  background: #aeaeae;
 }
 .billingInformation {
   display: flex;
