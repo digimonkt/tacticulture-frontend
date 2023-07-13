@@ -155,7 +155,7 @@ const initialEventData = {
   eventImage: "",
   achievementBadgeImage: "",
   publishStatus: true,
-  isEventLive: false,
+  isEventgitLive: true,
   instructorDetails: {
     bio: "",
     email: "",
