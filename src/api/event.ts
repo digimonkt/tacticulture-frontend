@@ -90,7 +90,7 @@ export const getEventDataAPI = async (): Promise<
 };
 
 export const getGoogleLocation = async (query: any) => {
-  const res = await axiosInstance.request({
+  const res: any = await axiosInstance.request({
     url: `/events/location?location=${query}/`,
     method: "GET",
   });
@@ -98,10 +98,28 @@ export const getGoogleLocation = async (query: any) => {
   if (res.remote === "success") {
     return {
       remote: "success",
+      results: res?.data?.results,
+    };
+  } else {
+    return {
+      remote: "error",
+      results: [],
     };
   }
+};
 
-  return res;
+export const checkUrlExistAPI = async (query: any) => {
+  const res = await axiosInstance.request({
+    url: `/events/check-unique-event-url?url=${query}`,
+    method: "GET",
+  });
+
+  if (res.remote === "success") {
+    return {
+      remote: "success",
+      res,
+    };
+  }
 };
 
 export const getAllEventAPI = async (): Promise<

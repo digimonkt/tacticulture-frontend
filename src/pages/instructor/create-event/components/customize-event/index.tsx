@@ -109,36 +109,36 @@ function CustomizeEventComponent() {
     });
     // @ts-ignore
     const base64Image = await fileList[0]?.thumbUrl;
-
+    // console.log(eventData, "eventData");
     const payload: EventPayload = {
       name: eventData.name,
       course_category: eventData.courseCategory,
       description: eventData.description,
       location: eventData.location,
-      course_url: `https://tacticulture.com/${eventData.name.replace(
-        /\s/g,
-        ""
-      )}/}/`,
+      course_url: `${eventData.courseUrl.toLowerCase()}`,
       is_private_event: eventData.isPrivateEvent,
       available_spots: eventData.availableSpots,
       cost_per_spot: eventData.perSpotCost,
-      is_include_transaction_fee_in_cost: eventData.isIncludeTransactionFeeInCost,
+      is_include_transaction_fee_in_cost:
+        eventData.isIncludeTransactionFeeInCost,
       is_add_sales_tax: eventData.isAddSalesTax,
       event_type_and_schedule_id: eventData.eventTypeAndScheduleId,
-      event_scheduled_datetime: eventData.eventTypeAndScheduleId !== "open"
-        ? eventData?.eventScheduledDateTime?.map((el) => ({
-          event_start_date: el.eventStartDate,
-          event_start_time: el.eventStartTime,
-          event_end_date: el.eventEndDate,
-          event_end_time: el.eventEndTime,
-        }))
-        : [],
+      event_scheduled_datetime:
+        eventData.eventTypeAndScheduleId !== "open"
+          ? eventData?.eventScheduledDateTime?.map((el) => ({
+              event_start_date: el.eventStartDate,
+              event_start_time: el.eventStartTime,
+              event_end_date: el.eventEndDate,
+              event_end_time: el.eventEndTime,
+            }))
+          : [],
       event_custom_availability: !eventData.defaultAvailability
         ? newData?.map((el) => ({
-          weekdays: el.weekdays,
-          event_custom_availability_details: el.event_custom_availability_details,
-          // specific_hours_date: undefined,
-        }))
+            weekdays: el.weekdays,
+            event_custom_availability_details:
+              el.event_custom_availability_details,
+            // specific_hours_date: undefined,
+          }))
         : [],
       default_availability: eventData.defaultAvailability,
       requirements: eventData.requirements,
@@ -154,9 +154,10 @@ function CustomizeEventComponent() {
       //   eventData.eventOpenSpan.scheduleAvailabilityPeriod * 60,
       // schedule_event_period_unit:
       //   eventData.eventScheduleSpan.scheduleAvailabilityPeriodUnit,
-      open_availability_period_unit: eventData.eventOpenSpan.openAvailabilityPeriodUnit,
-      open_availability_period: eventData.eventOpenSpan.openAvailabilityPeriod * 60,
-      is_event_live: false
+      open_availability_period_unit:
+        eventData.eventOpenSpan.openAvailabilityPeriodUnit,
+      open_availability_period:
+        eventData.eventOpenSpan.openAvailabilityPeriod * 60,
     };
     // console.log({ payload });
     console.log(JSON.stringify(payload));

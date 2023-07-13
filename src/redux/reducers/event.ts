@@ -9,16 +9,12 @@ import {
   getEventDataAPI,
   getEventDetailAPI,
   getOwnEventDetailAPI,
-  updateOwnEventDetailAPI,
-  updateOwnEventRequirementAPI,
   updateOwnEventTypeScheduleAPI,
 } from "@/api/event";
 import {
   detailPayloadId,
   EventPayload,
-  updateEventDetailPayload,
   updateEventTypeScheduleType,
-  updateOwnEventQuestionAndRequirementType,
 } from "@/api/types/event";
 
 interface Ievent {
