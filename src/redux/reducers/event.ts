@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store";
 import { GetListWithPagination, ServerError } from "@/api/types";
-import { CreateEventType, getEventType } from "@/types/event";
+import { CreateEventType, bookedEventType, getEventType } from "@/types/event";
 import {
   createEventApi,
   getAllEventAPI,
+  getBookedEventAPI,
   getEventDataAPI,
   getEventDetailAPI,
   getOwnEventDetailAPI,
@@ -29,6 +30,7 @@ interface Ievent {
   eventCreated: string;
   eventCreatedError?: { errors: any };
   ownEventDetail: getEventType;
+  bookedEventData:GetListWithPagination<bookedEventType[]>
 }
 export const initialEventDetail: getEventType = {
   achievementBadgeImage: null,
@@ -169,6 +171,20 @@ const initialEventData = {
   },
 };
 
+const initialBookedEventData = {
+  eventId: "",
+  bookingDate: "",
+  bookingTime: "",
+  bookingType: "",
+  contactDetails: "",
+  customQuestionsAnswers: {
+    answerLongText: "",
+    answerShortText: ""
+  },
+  isRequirementAndWavierAccepted: false,
+  event: initialEventData
+};
+
 const initialState: Ievent = {
   eventCreated: "",
   eventId: "0",
@@ -183,6 +199,7 @@ const initialState: Ievent = {
     results: [],
   },
   eventData: initialEventData,
+  bookedEventData: { count: 0, next: undefined, previous: undefined, results: [] }
 };
 
 export const createEventData = createAsyncThunk<
@@ -219,6 +236,18 @@ export const getAllEventData = createAsyncThunk<
   { state: RootState; rejectValue: ServerError }
 >("getAllEventData", async (_, { rejectWithValue }) => {
   const res = await getAllEventAPI();
+  if (res.remote === "success") {
+    return res.data;
+  } else {
+    return rejectWithValue(res.error);
+  }
+});
+export const getBookedEventData = createAsyncThunk<
+  GetListWithPagination<bookedEventType[]>,
+  void,
+  { state: RootState; rejectValue: ServerError }
+>("getBookedEventData", async (_, { rejectWithValue }) => {
+  const res = await getBookedEventAPI();
   if (res.remote === "success") {
     return res.data;
   } else {
@@ -327,6 +356,11 @@ export const eventSlice = createSlice({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       state.allEventData = action.payload;
+    });
+    builder.addCase(getBookedEventData.fulfilled, (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      state.bookedEventData = action.payload;
     });
 
     builder.addCase(getEventDetail.fulfilled, (state, action) => {

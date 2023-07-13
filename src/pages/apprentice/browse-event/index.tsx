@@ -53,6 +53,7 @@ function BrowseEvent() {
             return item.eventScheduledDateTime?.map((value: IUpcomingCard) => {
               return (
                 <EventCardComponent
+
                   key={item.id}
                   onClick={() => router.push({
                     pathname: "/embed-body",

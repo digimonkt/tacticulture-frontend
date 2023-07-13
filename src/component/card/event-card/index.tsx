@@ -33,7 +33,7 @@ function EventCardComponent({
   return (
     <div
       onClick={onClick}
-      style={{ background: "#fff", borderRadius: "8px" }}
+      style={{ background: "#fff", borderRadius: "8px", cursor: "pointer" }}
       className="mb-3 ms-2 me-2"
     >
       <Row>

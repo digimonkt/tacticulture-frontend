@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
-import { getEventType } from "@/types/event";
+import { bookedEventType, getEventType } from "@/types/event";
 import {
   EventCategoryResponse,
   EventCategory,
   EventResponse,
+  BookedEventResponse,
 } from "../types/event";
 
 export const transformGetEventCategoriesAPIResponse = (
@@ -130,4 +131,20 @@ export const transformGetEventAPIResponse = (
     isEventLive: data.is_event_live,
     instructorDetails: data.instructor_details,
   };
+};
+
+export const transformGetBookedEventApiResponse = (data:BookedEventResponse):bookedEventType => {
+ return {
+  eventId: data.event_id,
+  bookingDate: data.booking_date,
+  bookingTime: data.booking_time,
+  bookingType: data.booking_type,
+  contactDetails: data.contact_details,
+  customQuestionsAnswers: {
+    answerLongText: data.custom_questions_answers.answerLongText,
+    answerShortText: data.custom_questions_answers.answerShortText
+  },
+  isRequirementAndWavierAccepted: data.is_requirement_and_wavier_accepted,
+  event: transformGetEventAPIResponse(data.event)
+ };
 };

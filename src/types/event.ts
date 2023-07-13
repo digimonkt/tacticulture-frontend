@@ -226,7 +226,7 @@ export type bookedEventType={
   contactDetails:any,
   customQuestionsAnswers:{
     answerLongText:string,
-    answerShortText:false
+    answerShortText:string
   },
   isRequirementAndWavierAccepted:boolean,
   event:getEventType
